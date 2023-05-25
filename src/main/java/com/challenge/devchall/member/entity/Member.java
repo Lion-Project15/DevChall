@@ -15,6 +15,4 @@ import lombok.experimental.SuperBuilder;
 public class Member extends BaseEntity {
 
 
-
-
 }
