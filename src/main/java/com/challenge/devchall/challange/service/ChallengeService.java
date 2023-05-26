@@ -25,8 +25,8 @@ public class ChallengeService {
                 .challengeName(title)
                 .challengeContents(contents)
                 .challengeStatus(formattingResult.formattingStatus)
-//                .challengeImg(null)
-//                .challengeTag(null)
+                .challengeImg(null)
+                .challengeTag(null)
                 .challengeFrequency(formattingResult.formattingFrequency)
                 .startDate(formattingResult.formattingStartDate)
                 .endDate(formattingResult.formattingEndDate)
@@ -103,4 +103,12 @@ public class ChallengeService {
 
         return dateTime;
     }
+
+    public Challenge getChallengeById(long id) {
+
+        Challenge challenge = this.challengeRepository.findById(id).orElse(null);
+
+        return challenge;
+    }
+
 }
