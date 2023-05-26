@@ -14,6 +14,14 @@ import lombok.experimental.SuperBuilder;
 @Getter
 public class ChallengePost extends BaseEntity {
 
+    private String postTitle;
+    private String postContents;
+    private boolean postIsPublic;
 
+    //FIXME 일단 보류
+//    private String postImg;
+//    private boolean postModify;
+//    private int postStarPoint;
+//    private int challengeId;
 
 }
