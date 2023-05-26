@@ -21,3 +21,8 @@
 
 <p>챌린지 종료일</p>
 <div th:text="${challenge.endDate}"></div>
+
+
+<a th:href="@{|/usr/challenge/write/${challenge.id}|}">
+    <button>챌린지 인증하기</button>
+</a>

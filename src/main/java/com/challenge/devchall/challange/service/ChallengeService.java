@@ -49,20 +49,19 @@ public class ChallengeService {
         }
     }
 
-
     public FormattingResult formatting(String status, String frequency, String start_date, String end_date){
 
         boolean formattingStatus = formattingStatus(status);
         int formattingFrequency = formattingFrequency(frequency);
-        LocalDate formattingStartDate = formattingStartDate(start_date);
-        LocalDate formattingEndDate = formattingStartDate(end_date);
+        LocalDate formattingStartDate = formattingDate(start_date);
+        LocalDate formattingEndDate = formattingDate(end_date);
 
         FormattingResult formattingResult = new FormattingResult(formattingStatus, formattingFrequency, formattingStartDate, formattingEndDate);
 
         return formattingResult;
     }
 
-    public static boolean formattingStatus(String status){
+    public boolean formattingStatus(String status){
 
         boolean challengeStatus;
 
@@ -76,7 +75,7 @@ public class ChallengeService {
         return challengeStatus;
     }
 
-    public static int formattingFrequency(String frequency){
+    public int formattingFrequency(String frequency){
 
         int challengeFrequency = 0;
 
@@ -88,18 +87,10 @@ public class ChallengeService {
 
     }
 
-    public static LocalDate formattingStartDate(String start_date){
+    public LocalDate formattingDate(String date){
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dateTime = LocalDate.parse(start_date, formatter);
-
-        return dateTime;
-    }
-
-    public static LocalDate formattingEndDate(String end_date){
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dateTime = LocalDate.parse(end_date, formatter);
+        LocalDate dateTime = LocalDate.parse(date, formatter);
 
         return dateTime;
     }
