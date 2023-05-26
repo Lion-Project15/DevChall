@@ -6,6 +6,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @SuperBuilder
@@ -20,6 +21,6 @@ public class Challenge extends BaseEntity {
     private String challengeImg;
     private String challengeTag;
     private int challengeFrequency;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 }

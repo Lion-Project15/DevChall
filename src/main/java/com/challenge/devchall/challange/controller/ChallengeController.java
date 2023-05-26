@@ -1,6 +1,7 @@
 package com.challenge.devchall.challange.controller;
 
 
+import com.challenge.devchall.challange.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,8 @@ import java.time.LocalDateTime;
 @RequestMapping("/usr/challenge")
 public class ChallengeController {
 
+    private final ChallengeService challengeService;
+
     @GetMapping("/create")
     public String createChallenge(){
 
@@ -30,16 +33,11 @@ public class ChallengeController {
             @RequestParam String contents,
             @RequestParam String status,
             @RequestParam String frequency,
-            @RequestParam String start_date,
-            @RequestParam String end_date
+            @RequestParam String startDate,
+            @RequestParam String endDate
     ){
 
-        System.out.println("title = " + title);
-        System.out.println("contents = " + contents);
-        System.out.println("status = " + status);
-        System.out.println("frequency = " + frequency);
-        System.out.println("start_date = " + start_date);
-        System.out.println("end_date = " + end_date);
+        challengeService.createChallenge(title, contents, status, frequency, startDate, endDate);
 
         return "redirect:/";
     }
