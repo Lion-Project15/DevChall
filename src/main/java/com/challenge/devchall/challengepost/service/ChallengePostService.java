@@ -2,6 +2,7 @@ package com.challenge.devchall.challengepost.service;
 
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
+import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.repository.ChallengePostRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,15 +13,19 @@ import org.springframework.stereotype.Service;
 public class ChallengePostService {
 
     private final ChallengePostRepository challengePostRepository;
+    private final ChallengeService challengeService;
 
-    public void write(String title, String contents, String status) {
+    public void write(String title, String contents, String status, long id) {
 
         boolean formattingStatus = formattingStatus(status);
+
+        Challenge challengeById = challengeService.getChallengeById(id);
 
         ChallengePost challengePost = ChallengePost.builder()
                 .postTitle(title)
                 .postContents(contents)
                 .postIsPublic(formattingStatus)
+                .linkedChallenge(challengeById)
                 .build();
 
         challengePostRepository.save(challengePost);

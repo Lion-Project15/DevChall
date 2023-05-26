@@ -22,7 +22,7 @@
 <p>챌린지 종료일</p>
 <div th:text="${challenge.endDate}"></div>
 
-<a href="/usr/challenge/write">
+<a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">
     <button>챌린지 인증하기</button>
 </a>
 

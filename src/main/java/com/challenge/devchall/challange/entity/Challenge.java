@@ -1,13 +1,17 @@
 package com.challenge.devchall.challange.entity;
 
 import com.challenge.devchall.base.BaseEntity;
+import com.challenge.devchall.challengepost.entity.ChallengePost;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -23,4 +27,8 @@ public class Challenge extends BaseEntity {
     private int challengeFrequency;
     private LocalDate startDate;
     private LocalDate endDate;
+
+    @OneToMany(mappedBy = "linkedChallenge")
+    private List<ChallengePost> challengePostList = new ArrayList<>();
+
 }
