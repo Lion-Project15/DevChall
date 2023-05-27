@@ -1,71 +1,69 @@
-<!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>회원가입 페이지</title>
+    <style>
+        @font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html > body {
+            font-family: "GmarketSansMedium";
+            text-underline-position: under;
+        }
+    </style>
+
 </head>
+
 <body>
-<div class="container">
 
-    <!-- Heading -->
-    <h1>회원가입</h1>
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Form -->
-    <form action="" method="post">
-
-        <!-- id input -->
-        <div class="input__block">
-            <label for="loginID"> 사용하실 아이디를 입력해주세요 </label><br>
-            <input type="text" placeholder="loginID" class="input" id="loginID" />
-        </div>
-
-        <!-- Nickname input -->
-        <br><div class="input__block">
-        <label for="nickname"> 사용하실 닉네임을 입력해주세요 </label><br>
-        <input type="text" placeholder="nickname" class="input" id="nickname" />
+<form th:action method="POST" class="p-10 flex flex-col gap-4">
+    <div>
+        사용하실 아이디를 입력해주세요
+        <input type="text" name="loginID" placeholder="ID" class="input input-bordered">
     </div>
-
-        <!-- email input -->
-        <br><div class="input__block">
-        <label for="email"> 사용하실 이메일 주소를 입력해주세요 </label><br>
-        <input type="text" placeholder="email" class="input" id="email" /><br>
+    <div>
+        사용하실 닉네임을 입력해주세요
+        <input type="text" name="nickname" placeholder="Nickname" class="input input-bordered">
     </div>
-
-        <!-- password input -->
-        <br><div class="input__block">
-        <label for="password"> 사용하실 비밀번호를 입력해주세요. </label><br>
-        <input type="text" placeholder="password" class="input" id="password" />
+    <div>
+        사용하실 이메일 주소를 입력해주세요
+        <input type="email" name="email" placeholder="email" class="input input-bordered">
     </div>
-
-        <!-- repeat password input -->
-        <br><div class="input__block">
-        <label for="repeatPassword"> 사용하실 비밀번호를 한 번 더 입력해주세요. </label><br>
-        <input type="text" placeholder="repeatPassword" class="input" id="repeatPassword" />
+    <div>
+        사용하실 비밀번호를 입력해주세요.
+        <input type="password" name="password" placeholder="Password" class="input input-bordered">
     </div>
+    <div>
+        사용하실 비밀번호를 한 번 더 입력해주세요.
+        <input type="password" name="repeatPassword" placeholder="Password" class="input input-bordered">
+    </div>
+    <div>
+        <input type="submit" value="회원가입" class="btn btn-primary">
+    </div>
+</form>
 
-        <!-- sign in button -->
-        <br><button type="submit">
-        회원가입하기
-    </button>
-    </form>
-
-    <!— separator —>
+    <!-- separator -->
     <div class="separator">
         <p>OR</p>
     </div>
 
-    <!— naver button —>
+    <!-- naver button -->
     <button class="naver__btn">
         <i class="fa fa-naver"></i>
         네이버로 가입하기
     </button>
 
-    <!— kakao button —>
+    <!-- kakao button -->
     <button class="kakao__btn">
         <i class="fa fa-kakao"></i>
         카카오톡으로 가입하기
     </button>
-
 </div>
 </body>
 </html>
