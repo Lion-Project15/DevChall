@@ -1,5 +1,10 @@
 package com.challenge.devchall.member.controller;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +16,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 @RequestMapping("/usr/member")
 public class MemberController {
+    //회원가입
+    @GetMapping ("/join")
+    public String showJoin(){
+        return "/usr/member/join";
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class JoinForm {
+        @NotBlank
+        @Size(min = 4, max = 30)
+        private final String loginID;
+
+        @NotBlank
+        @Size(min = 4, max = 30)
+        private final String password;
+    }
+
 
     @GetMapping("/login")
     public String showLogin () {
@@ -28,26 +51,11 @@ public class MemberController {
         return "redirect:/";
     }
 
-    //회원가입
-    @GetMapping("/join")
-    public String showJoin() {
-        return "/usr/member/join";
-    }
 
-    @PostMapping("/join")
-    public String showJoin(
-            @RequestParam String loginID,
-            @RequestParam String nickname,
-            @RequestParam String email,
-            @RequestParam String password,
-            @RequestParam("repeatPassword") String repeatPassword
-    ) {
-        System.out.println("ID = " + loginID);
-        System.out.println("Nickname = " + nickname);
-        System.out.println("Email = " + email);
-        System.out.println("Password = " + password);
-        System.out.println("repeatPassword = " + repeatPassword);
+    @PostMapping ("/join")
+    public String showJoin(@Valid JoinForm joinForm) {
         return "redirect:/";
     }
+
 }
 

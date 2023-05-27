@@ -83,4 +83,6 @@ public class MemberControllerTests {
                 .andExpect(handler().methodName("showJoin"))
                 .andExpect(status().is3xxRedirection());
     }
+
+
 }

@@ -1,69 +1,108 @@
-<html>
+<html layout:decorate="~{usr/member/layout.html}">
 
 <head>
-    <style>
-        @font-face {
-            font-family: 'GmarketSansMedium';
-            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        html > body {
-            font-family: "GmarketSansMedium";
-            text-underline-position: under;
-        }
-    </style>
-
+    <title>회원가입</title>
 </head>
 
 <body>
 
-<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
-<script src="https://cdn.tailwindcss.com"></script>
+<main layout:fragment="main">
+    <script>
+        function JoinForm__submit(form) {
+            // loginID 이(가) 올바른지 체크
 
-<form th:action method="POST" class="p-10 flex flex-col gap-4">
-    <div>
-        사용하실 아이디를 입력해주세요
-        <input type="text" name="loginID" placeholder="ID" class="input input-bordered">
-    </div>
-    <div>
-        사용하실 닉네임을 입력해주세요
-        <input type="text" name="nickname" placeholder="Nickname" class="input input-bordered">
-    </div>
-    <div>
-        사용하실 이메일 주소를 입력해주세요
-        <input type="email" name="email" placeholder="email" class="input input-bordered">
-    </div>
-    <div>
-        사용하실 비밀번호를 입력해주세요.
-        <input type="password" name="password" placeholder="Password" class="input input-bordered">
-    </div>
-    <div>
-        사용하실 비밀번호를 한 번 더 입력해주세요.
-        <input type="password" name="repeatPassword" placeholder="Password" class="input input-bordered">
-    </div>
-    <div>
-        <input type="submit" value="회원가입" class="btn btn-primary">
-    </div>
-</form>
+            form.loginID.value = form.loginID.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
 
-    <!-- separator -->
+            if (form.loginID.value.length === 0) {
+                toastWarning('아이디를 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
+
+            if (form.loginID.value.length < 4) {
+                toastWarning('아이디를 4자 이상 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
+
+            // password 이(가) 올바른지 체크
+
+            form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
+
+            if (form.password.value.length == 0) {
+                form.password.focus();
+                toastWarning('비밀번호를 입력해주세요.');
+                return;
+            }
+
+            if (form.password.value.length < 4) {
+                toastWarning('비밀번호를 4자 이상 입력해주세요.');
+                form.password.focus();
+                return;
+            }
+
+            form.submit(); // 폼 발송
+        }
+    </script>
+
+    <form th:action method="POST" class="p-10 flex flex-col gap-4" onsubmit="JoinForm__submit(this); return false;">
+
+        <!-- id input -->
+        <div class="input__block">
+            <label for="loginID"> 사용하실 아이디를 입력해주세요 </label>
+            <input type="text" name="loginID" maxlength="30" placeholder="loginID" class="input" id="loginID" />
+        </div>
+
+        <!-- Nickname input -->
+        <div class="input__block">
+        <label for="nickname"> 사용하실 닉네임을 입력해주세요 </label>
+        <input type="text" name="nickname" maxlength="30" placeholder="nickname" class="input" id="nickname" />
+    </div>
+
+        <!-- email input -->
+        <div class="input__block">
+        <label for="email"> 사용하실 이메일 주소를 입력해주세요 </label>
+        <input type="text" name="email" maxlength="30" placeholder="email" class="input" id="email" /><br>
+    </div>
+
+        <!-- password input -->
+        <div class="input__block">
+        <label for="password"> 사용하실 비밀번호를 입력해주세요. </label>
+        <input type="text" name="password" maxlength="30" placeholder="password" class="input" id="password" />
+    </div>
+
+        <!-- repeat password input -->
+        <br><div class="input__block">
+        <label for="repeatPassword"> 사용하실 비밀번호를 한 번 더 입력해주세요. </label>
+        <input type="text" name="repeatPassword" maxlength="30" placeholder="repeatPassword" class="input" id="repeatPassword" />
+    </div>
+
+        <!-- sign in button -->
+        <br><button type="submit">
+        회원가입하기
+    </button>
+    </form>
+
+    <!— separator —>
     <div class="separator">
         <p>OR</p>
     </div>
 
-    <!-- naver button -->
+    <!— naver button —>
     <button class="naver__btn">
         <i class="fa fa-naver"></i>
         네이버로 가입하기
     </button>
 
-    <!-- kakao button -->
+    <!— kakao button —>
     <button class="kakao__btn">
         <i class="fa fa-kakao"></i>
         카카오톡으로 가입하기
     </button>
-</div>
+
+    </form>
+</main>
+
 </body>
+
 </html>
