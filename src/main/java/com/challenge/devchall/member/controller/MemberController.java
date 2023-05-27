@@ -27,4 +27,27 @@ public class MemberController {
 
         return "redirect:/";
     }
+
+    //회원가입
+    @GetMapping("/join")
+    public String showJoin() {
+        return "/usr/member/join";
+    }
+
+    @PostMapping("/join")
+    public String showJoin(
+            @RequestParam String loginID,
+            @RequestParam String nickname,
+            @RequestParam String email,
+            @RequestParam String password,
+            @RequestParam("repeatPassword") String repeatPassword
+    ) {
+        System.out.println("ID = " + loginID);
+        System.out.println("Nickname = " + nickname);
+        System.out.println("Email = " + email);
+        System.out.println("Password = " + password);
+        System.out.println("repeatPassword = " + repeatPassword);
+        return "redirect:/";
+    }
 }
+

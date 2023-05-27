@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입 페이지</title>
+</head>
+<body>
+<div class="container">
+
+    <!-- Heading -->
+    <h1>회원가입</h1>
+
+    <!-- Form -->
+    <form action="" method="post">
+
+        <!-- id input -->
+        <div class="input__block">
+            <label for="loginID"> 사용하실 아이디를 입력해주세요 </label><br>
+            <input type="text" placeholder="loginID" class="input" id="loginID" />
+        </div>
+
+        <!-- Nickname input -->
+        <br><div class="input__block">
+        <label for="nickname"> 사용하실 닉네임을 입력해주세요 </label><br>
+        <input type="text" placeholder="nickname" class="input" id="nickname" />
+    </div>
+
+        <!-- email input -->
+        <br><div class="input__block">
+        <label for="email"> 사용하실 이메일 주소를 입력해주세요 </label><br>
+        <input type="text" placeholder="email" class="input" id="email" /><br>
+    </div>
+
+        <!-- password input -->
+        <br><div class="input__block">
+        <label for="password"> 사용하실 비밀번호를 입력해주세요. </label><br>
+        <input type="text" placeholder="password" class="input" id="password" />
+    </div>
+
+        <!-- repeat password input -->
+        <br><div class="input__block">
+        <label for="repeatPassword"> 사용하실 비밀번호를 한 번 더 입력해주세요. </label><br>
+        <input type="text" placeholder="repeatPassword" class="input" id="repeatPassword" />
+    </div>
+
+        <!-- sign in button -->
+        <br><button type="submit">
+        회원가입하기
+    </button>
+    </form>
+
+    <!— separator —>
+    <div class="separator">
+        <p>OR</p>
+    </div>
+
+    <!— naver button —>
+    <button class="naver__btn">
+        <i class="fa fa-naver"></i>
+        네이버로 가입하기
+    </button>
+
+    <!— kakao button —>
+    <button class="kakao__btn">
+        <i class="fa fa-kakao"></i>
+        카카오톡으로 가입하기
+    </button>
+
+</div>
+</body>
+</html>
