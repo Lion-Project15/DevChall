@@ -1,0 +1,31 @@
+<p>챌린지 이름</p>
+<h1 th:text="${challenge.challengeName}"></h1>
+
+<p>챌린지 내용</p>
+<div th:text="${challenge.challengeContents}"></div>
+
+<p>챌린지 공개 여부</p>
+<div th:text="${challenge.challengeStatus}"></div>
+
+<p>챌린지 이미지 소스</p>
+<div th:text="${challenge.challengeImg}"></div>
+
+<p>챌린지 태그</p>
+<div th:text="${challenge.challengeTag}"></div>
+
+<p>챌린지 주간 인증 빈도</p>
+<div th:text="${challenge.challengeFrequency}"></div>
+
+<p>챌린지 시작일</p>
+<div th:text="${challenge.startDate}"></div>
+
+<p>챌린지 종료일</p>
+<div th:text="${challenge.endDate}"></div>
+
+<a href="/usr/challenge/write">
+    <button>챌린지 인증하기</button>
+</a>
+
+<!--<a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">-->
+<!--    <button>챌린지 인증하기</button>-->
+<!--</a>-->
