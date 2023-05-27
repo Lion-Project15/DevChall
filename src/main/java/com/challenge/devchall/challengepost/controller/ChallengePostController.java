@@ -38,8 +38,7 @@ public class ChallengePostController {
 
         challengePostService.write(title, contents, status, id);
 
-        //FIXME 하드코딩 되어있음. 작성한 챌린지로 넘어가야함
-        return "redirect:/usr/challenge/detail/1";
+        return "redirect:/usr/challenge/detail/{id}";
     }
 
 
