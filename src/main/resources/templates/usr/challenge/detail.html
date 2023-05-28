@@ -22,10 +22,26 @@
 <p>챌린지 종료일</p>
 <div th:text="${challenge.endDate}"></div>
 
-<a href="/usr/challenge/write">
+<a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">
     <button>챌린지 인증하기</button>
 </a>
 
-<!--<a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">-->
-<!--    <button>챌린지 인증하기</button>-->
-<!--</a>-->
+<th:block th:unless="${hasPost}">
+    <div>
+        인증글이 존재하지 않습니다.
+    </div>
+</th:block>
+
+<th:block th:if="${hasPost}">
+    <!-- 인증글 내용 -->
+    <tr th:each="post : ${challengePostList}">
+        <div>
+            <td th:text="${post.postTitle}"></td>
+            <td th:text="${post.postContents}"></td>
+        </div>
+    </tr>
+</th:block>
+
+
+
+<!--<div th:text="${hasPost}"></div>-->

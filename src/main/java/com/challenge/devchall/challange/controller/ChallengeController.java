@@ -4,14 +4,13 @@ package com.challenge.devchall.challange.controller;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
 import com.challenge.devchall.challange.service.ChallengeService;
+import com.challenge.devchall.challengepost.entity.ChallengePost;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
-
 
 @Controller
 @RequiredArgsConstructor
@@ -58,7 +57,16 @@ public class ChallengeController {
     public String showDetail(Model model, @PathVariable("id") long id){
 
         Challenge challenge = this.challengeService.getChallengeById(id);
+        boolean hasPost = challengeService.hasPost(challenge);
+        
+        if(hasPost){
+            List<ChallengePost> challengePostList = challenge.getChallengePostList();
+
+            model.addAttribute("challengePostList", challengePostList);
+        }
+
         model.addAttribute("challenge", challenge);
+        model.addAttribute("hasPost", hasPost);
 
         return "/usr/challenge/detail";
     }

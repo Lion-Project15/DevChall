@@ -2,12 +2,14 @@ package com.challenge.devchall.challange.service;
 
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
+import com.challenge.devchall.challengepost.entity.ChallengePost;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -100,6 +102,18 @@ public class ChallengeService {
         Challenge challenge = this.challengeRepository.findById(id).orElse(null);
 
         return challenge;
+    }
+
+    public boolean hasPost(Challenge challenge){
+
+        List<ChallengePost> challengePostList = challenge.getChallengePostList();
+
+        if(challengePostList.isEmpty()){
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
 }

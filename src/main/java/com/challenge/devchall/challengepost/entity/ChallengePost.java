@@ -1,7 +1,9 @@
 package com.challenge.devchall.challengepost.entity;
 
 import com.challenge.devchall.base.BaseEntity;
+import com.challenge.devchall.challange.entity.Challenge;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -22,6 +24,8 @@ public class ChallengePost extends BaseEntity {
 //    private String postImg;
 //    private boolean postModify;
 //    private int postStarPoint;
-//    private int challengeId;
+
+    @ManyToOne
+    private Challenge linkedChallenge;
 
 }
