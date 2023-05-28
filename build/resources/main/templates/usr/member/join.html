@@ -1,46 +1,80 @@
-<!DOCTYPE html>
-<html>
+<html layout:decorate="~{usr/member/layout.html}">
+
 <head>
-    <meta charset="UTF-8">
-    <title>회원가입 페이지</title>
+    <title>회원가입</title>
 </head>
+
 <body>
-<div class="container">
 
-    <!-- Heading -->
-    <h1>회원가입</h1>
+<main layout:fragment="main">
+    <script>
+        function JoinForm__submit(form) {
+            // loginID 이(가) 올바른지 체크
 
-    <!-- Form -->
-    <form action="" method="post">
+            form.loginID.value = form.loginID.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
+
+            if (form.loginID.value.length === 0) {
+                toastWarning('아이디를 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
+
+            if (form.loginID.value.length < 4) {
+                toastWarning('아이디를 4자 이상 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
+
+            // password 이(가) 올바른지 체크
+
+            form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
+
+            if (form.password.value.length == 0) {
+                form.password.focus();
+                toastWarning('비밀번호를 입력해주세요.');
+                return;
+            }
+
+            if (form.password.value.length < 4) {
+                toastWarning('비밀번호를 4자 이상 입력해주세요.');
+                form.password.focus();
+                return;
+            }
+
+            form.submit(); // 폼 발송
+        }
+    </script>
+
+    <form th:action method="POST" class="p-10 flex flex-col gap-4" onsubmit="JoinForm__submit(this); return false;">
 
         <!-- id input -->
         <div class="input__block">
-            <label for="loginID"> 사용하실 아이디를 입력해주세요 </label><br>
-            <input type="text" placeholder="loginID" class="input" id="loginID" />
+            <label for="loginID"> 사용하실 아이디를 입력해주세요 </label>
+            <input type="text" name="loginID" maxlength="30" placeholder="loginID" class="input" id="loginID" />
         </div>
 
         <!-- Nickname input -->
-        <br><div class="input__block">
-        <label for="nickname"> 사용하실 닉네임을 입력해주세요 </label><br>
-        <input type="text" placeholder="nickname" class="input" id="nickname" />
+        <div class="input__block">
+        <label for="nickname"> 사용하실 닉네임을 입력해주세요 </label>
+        <input type="text" name="nickname" maxlength="30" placeholder="nickname" class="input" id="nickname" />
     </div>
 
         <!-- email input -->
-        <br><div class="input__block">
-        <label for="email"> 사용하실 이메일 주소를 입력해주세요 </label><br>
-        <input type="text" placeholder="email" class="input" id="email" /><br>
+        <div class="input__block">
+        <label for="email"> 사용하실 이메일 주소를 입력해주세요 </label>
+        <input type="text" name="email" maxlength="30" placeholder="email" class="input" id="email" /><br>
     </div>
 
         <!-- password input -->
-        <br><div class="input__block">
-        <label for="password"> 사용하실 비밀번호를 입력해주세요. </label><br>
-        <input type="text" placeholder="password" class="input" id="password" />
+        <div class="input__block">
+        <label for="password"> 사용하실 비밀번호를 입력해주세요. </label>
+        <input type="text" name="password" maxlength="30" placeholder="password" class="input" id="password" />
     </div>
 
         <!-- repeat password input -->
         <br><div class="input__block">
-        <label for="repeatPassword"> 사용하실 비밀번호를 한 번 더 입력해주세요. </label><br>
-        <input type="text" placeholder="repeatPassword" class="input" id="repeatPassword" />
+        <label for="repeatPassword"> 사용하실 비밀번호를 한 번 더 입력해주세요. </label>
+        <input type="text" name="repeatPassword" maxlength="30" placeholder="repeatPassword" class="input" id="repeatPassword" />
     </div>
 
         <!-- sign in button -->
@@ -66,6 +100,9 @@
         카카오톡으로 가입하기
     </button>
 
-</div>
+    </form>
+</main>
+
 </body>
+
 </html>

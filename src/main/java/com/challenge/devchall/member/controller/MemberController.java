@@ -40,17 +40,6 @@ public class MemberController {
         return "/usr/member/login";
     }
 
-    @PostMapping("/login")
-    public String showLogin(
-            @RequestParam String loginID,
-            @RequestParam String password
-    ) {
-        System.out.println("loginID = " + loginID);
-        System.out.println("password = " + password);
-
-        return "redirect:/";
-    }
-
 
     @PostMapping ("/join")
     public String showJoin(@Valid JoinForm joinForm) {

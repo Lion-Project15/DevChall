@@ -7,6 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.util.*;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -14,9 +18,8 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Getter
 public class Member extends BaseEntity {
-
     @Column(unique = true)
-    private Long loginID; //회원 로그인 id
+    private String loginID; //회원 로그인 id
     private String username; //본명
     private String password;
 
@@ -30,5 +33,18 @@ public class Member extends BaseEntity {
     private boolean isValid; // 인증 여부
 
     //role은 spring security 이후에 작성
+    public List<? extends GrantedAuthority> getGrantedAuthorities() {
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+
+        grantedAuthorities.add(new SimpleGrantedAuthority("member"));
+
+        if ("admin".equals(loginID)) {
+            grantedAuthorities.add(new SimpleGrantedAuthority("admin"));
+        }
+
+        return grantedAuthorities;
+    }
+
+
 
 }

@@ -8,9 +8,9 @@ spring:
     include: secret
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://127.0.0.1:3306/devchall__dev?allowPublicKeyRetrieval=true&useSSL=false?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul?
+    url: jdbc:mariadb://127.0.0.1:3306/devchall__dev?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
     username: root
-    password: 1234
+    password:
   jpa:
     hibernate:
       ddl-auto: create
@@ -22,6 +22,6 @@ spring:
 logging:
   level:
     root: INFO
-    com.ll.gramgram: DEBUG
+    com.challenge.devchall: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
     org.hibernate.orm.jdbc.extract: TRACE

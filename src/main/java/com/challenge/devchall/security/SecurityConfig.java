@@ -15,6 +15,7 @@ public class SecurityConfig {
                 .formLogin(
                         formLogin -> formLogin
                                 .loginPage("/usr/member/login")
+                                .usernameParameter("loginID")
                 )
                 .logout(
                         logout -> logout
