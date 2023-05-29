@@ -7,8 +7,7 @@
 <div>
 
     <h2>챌린지 생성 페이지</h2>
-    <form method="post">
-
+    <form method="post" th:action="@{/usr/challenge/create}">
         <div>
             <label for="title"> 챌린지 제목 </label>
             <input type="text" name="title" id="title" class="form-control">
