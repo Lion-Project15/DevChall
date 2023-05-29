@@ -23,6 +23,5 @@ logging:
   level:
     root: INFO
     com.challenge.devchall: DEBUG
-    org.springframework.security: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
     org.hibernate.orm.jdbc.extract: TRACE
