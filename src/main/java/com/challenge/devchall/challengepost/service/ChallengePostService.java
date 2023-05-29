@@ -61,4 +61,15 @@ public class ChallengePostService {
 
         challengePostRepository.delete(challengePostById);
     }
+
+    @Transactional
+    public void modifyPost(long id, String title, String contents, String status){
+
+        ChallengePost challengePostById = getChallengePostById(id);
+
+        boolean formattingStatus= formattingStatus(status);
+
+        challengePostById.modifyPost(title, contents, formattingStatus);
+
+    }
 }

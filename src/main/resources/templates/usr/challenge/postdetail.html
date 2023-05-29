@@ -28,9 +28,10 @@
     </div>
 
     <div>
-        <button th:href="@{|/usr/challenge/modifypost/${post.id}|}">
+
+        <a th:href="@{|/usr/challenge/modifypost/${post.id}|}">
             수정하기
-        </button>
+        </a>
 
         <button th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
 
