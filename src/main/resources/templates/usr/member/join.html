@@ -13,6 +13,7 @@
 
             form.loginID.value = form.loginID.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
 
+            //loginID == 아이디
             if (form.loginID.value.length === 0) {
                 toastWarning('아이디를 입력해주세요.');
                 form.loginID.focus();
@@ -24,9 +25,52 @@
                 form.loginID.focus();
                 return;
             }
+            // nickname = 닉네임
+            form.nickname.value = form.nickname.value.trim();
+            if (form.nickname.value.length === 0) {
+                toastWarning('닉네임을 입력해주세요.');
+                form.nickname.focus();
+                return;
+            }
+
+            if (form.nickname.value.length < 1) {
+                toastWarning('닉네임을 입력해주세요.');
+                form.nickname.focus();
+                return;
+            }
 
             // password 이(가) 올바른지 체크
 
+
+            // email == 이메일
+            form.email.value = form.email.value.trim();
+            if (form.email.value.length === 0) {
+                toastWarning('이메일을 입력해주세요.');
+                form.email.focus();
+                return;
+            }
+
+            if (form.email.value.length < 1) {
+                toastWarning('이메일을 입력해주세요.');
+                form.email.focus();
+                return;
+            }
+
+            // username == 본명
+            form.username.value = form.username.value.trim();
+            if (form.username.value.length === 0) {
+                toastWarning('이름을 입력해주세요.');
+                form.username.focus();
+                return;
+            }
+
+            if (form.username.value.length < 1) {
+                toastWarning('이름을 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
+
+            // password = 비밀번호
             form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
 
             if (form.password.value.length == 0) {
@@ -50,13 +94,18 @@
         <!-- id input -->
         <div class="input__block">
             <label for="loginID"> 사용하실 아이디를 입력해주세요 </label>
-            <input type="text" name="loginID" minlength="4" nmaxlength="30" placeholder="loginID" class="input" id="loginID" />
+            <input type="text" name="loginID" maxlength="15" placeholder="loginID" class="input" id="loginID" />
+        </div>
+        <!-- Nickname input -->
+        <div class="input__block">
+            <label for="username"> 사용하실 이름을 입력해주세요 </label>
+            <input type="text" name="username" maxlength="15" placeholder="nickname" class="input" id="username" />
         </div>
 
         <!-- Nickname input -->
         <div class="input__block">
         <label for="nickname"> 사용하실 닉네임을 입력해주세요 </label>
-        <input type="text" name="nickname" maxlength="10" placeholder="nickname" class="input" id="nickname" />
+        <input type="text" name="nickname" maxlength="15" placeholder="nickname" class="input" id="nickname" />
     </div>
 
         <!-- email input -->
@@ -68,13 +117,13 @@
         <!-- password input -->
         <div class="input__block">
         <label for="password"> 사용하실 비밀번호를 입력해주세요. </label>
-        <input type="text" name="password" minlength="4" maxlength="30" placeholder="password" class="input" id="password" />
+        <input type="text" name="password" maxlength="30" placeholder="password" class="input" id="password" />
     </div>
 
         <!-- repeat password input -->
         <br><div class="input__block">
         <label for="repeatPassword"> 사용하실 비밀번호를 한 번 더 입력해주세요. </label>
-        <input type="text" name="repeatPassword" minlength="4" maxlength="30" placeholder="repeatPassword" class="input" id="repeatPassword" />
+        <input type="text" name="repeatPassword" maxlength="30" placeholder="repeatPassword" class="input" id="repeatPassword" />
     </div>
 
         <!-- sign in button -->

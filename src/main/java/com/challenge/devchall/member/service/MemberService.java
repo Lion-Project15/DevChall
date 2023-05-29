@@ -21,10 +21,13 @@ public class MemberService {
     }
 
     @Transactional
-    public Member join(String loginID, String password) {
+    public Member join(String loginID, String password, String email, String nickname, String username) {
         Member member = Member
                 .builder()
                 .loginID(loginID)
+                .email(email)
+                .nickname(nickname)
+                .username(username)
                 .password(passwordEncoder.encode(password))
                 .build();
 

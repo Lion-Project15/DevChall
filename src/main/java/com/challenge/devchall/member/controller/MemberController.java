@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 @RequestMapping("/usr/member")
 public class MemberController {
-    private MemberService memberService;
+    private final MemberService memberService;
 
     //회원가입
     @GetMapping ("/join")
@@ -29,16 +29,35 @@ public class MemberController {
     @Getter
     public static class JoinForm {
         @NotBlank
-        @Size(min = 4, max = 30)
+        @Size(min = 4, max = 15)
         private final String loginID;
 
         @NotBlank
-        @Size(min = 4, max = 30)
+        @Size(min = 4, max = 15)
         private final String password;
+
+        @NotBlank
+        @Size(min = 1, max = 30)
+        private final String username;
+
+        @NotBlank
+        @Size(min = 4, max = 30)
+        private final String email;
+
+        @NotBlank
+        @Size(min = 1, max = 30)
+        private final String nickname;
+
+
+
     }
     @PostMapping ("/join")
     public String join(@Valid JoinForm joinForm) {
-        memberService.join(joinForm.getLoginID(),joinForm.getPassword());
+        memberService.join(joinForm.getLoginID(),
+                            joinForm.getPassword(),
+                            joinForm.getEmail(),
+                            joinForm.getNickname(),
+                            joinForm.getUsername());
         return "redirect:/";
     }
 

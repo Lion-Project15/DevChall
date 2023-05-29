@@ -5,6 +5,7 @@ import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
 import com.challenge.devchall.challange.service.ChallengeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +13,15 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/usr/challenge")
+@PreAuthorize("isAuthenticated()")
 public class ChallengeController {
 
     private final ChallengeService challengeService;
     private final ChallengeRepository challengeRepository;
+
 
     @GetMapping("/create")
     public String createChallenge(){
@@ -43,7 +45,6 @@ public class ChallengeController {
 
         return "redirect:/";
     }
-
     @GetMapping("/list")
     public String list(Model model){
 
