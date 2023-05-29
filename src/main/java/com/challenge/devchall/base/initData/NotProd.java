@@ -14,6 +14,7 @@ public class NotProd {
             MemberService memberService
     ) {
         return args -> {
+            memberService.join("admin","1234"); //admin 계정
             memberService.join("user1", "1234");
             memberService.join("user2", "1234");
             memberService.join("user3", "1234");

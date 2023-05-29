@@ -50,13 +50,13 @@
         <!-- id input -->
         <div class="input__block">
             <label for="loginID"> 사용하실 아이디를 입력해주세요 </label>
-            <input type="text" name="loginID" maxlength="30" placeholder="loginID" class="input" id="loginID" />
+            <input type="text" name="loginID" minlength="4" nmaxlength="30" placeholder="loginID" class="input" id="loginID" />
         </div>
 
         <!-- Nickname input -->
         <div class="input__block">
         <label for="nickname"> 사용하실 닉네임을 입력해주세요 </label>
-        <input type="text" name="nickname" maxlength="30" placeholder="nickname" class="input" id="nickname" />
+        <input type="text" name="nickname" maxlength="10" placeholder="nickname" class="input" id="nickname" />
     </div>
 
         <!-- email input -->
@@ -68,13 +68,13 @@
         <!-- password input -->
         <div class="input__block">
         <label for="password"> 사용하실 비밀번호를 입력해주세요. </label>
-        <input type="text" name="password" maxlength="30" placeholder="password" class="input" id="password" />
+        <input type="text" name="password" minlength="4" maxlength="30" placeholder="password" class="input" id="password" />
     </div>
 
         <!-- repeat password input -->
         <br><div class="input__block">
         <label for="repeatPassword"> 사용하실 비밀번호를 한 번 더 입력해주세요. </label>
-        <input type="text" name="repeatPassword" maxlength="30" placeholder="repeatPassword" class="input" id="repeatPassword" />
+        <input type="text" name="repeatPassword" minlength="4" maxlength="30" placeholder="repeatPassword" class="input" id="repeatPassword" />
     </div>
 
         <!-- sign in button -->
