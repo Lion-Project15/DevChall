@@ -1,0 +1,41 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>인증글 상세보기</title>
+</head>
+
+<br/>
+
+<body>
+
+<script>
+
+    function wantDelete(postId) {
+        if(confirm('정말로 삭제하시겠습니까?')){
+
+            alert(postId + "번 인증글을 삭제합니다.");
+            location.href="/usr/challenge/delete/" + postId;
+        }else{
+            alert("삭제가 취소되었습니다.");
+        }
+    }
+</script>
+
+    <div>
+      <h2 th:text="${post.postTitle}"></h2>
+        <br/>
+      <h4 th:text="${post.postContents}"></h4>
+    </div>
+
+    <div>
+        <button th:href="@{|/usr/challenge/modifypost/${post.id}|}">
+            수정하기
+        </button>
+
+        <button th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
+
+    </div>
+
+</body>
+
+</html>

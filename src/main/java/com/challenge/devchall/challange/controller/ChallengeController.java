@@ -71,6 +71,4 @@ public class ChallengeController {
         return "/usr/challenge/detail";
     }
 
-
-
 }
