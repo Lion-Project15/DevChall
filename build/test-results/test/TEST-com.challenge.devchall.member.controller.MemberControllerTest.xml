@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.challenge.devchall.member.controller.MemberControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-05-28T10:07:28" hostname="DESKTOP-QK8B2R7" time="3.467">
+  <properties/>
+  <testcase name="로그인 폼 테스트" classname="com.challenge.devchall.member.controller.MemberControllerTest" time="3.467"/>
+  <system-out><![CDATA[19:07:14.798 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.challenge.devchall.member.controller.MemberControllerTest]: MemberControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:07:15.040 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.challenge.devchall.DevchallApplication for test class com.challenge.devchall.member.controller.MemberControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.0)
+
+2023-05-28T19:07:17.770+09:00  INFO 12872 --- [    Test worker] c.c.d.m.controller.MemberControllerTest  : Starting MemberControllerTest using Java 17.0.7 with PID 12872 (started by Y39 in D:\Projects\Java_Projects\devchall)
+2023-05-28T19:07:17.774+09:00 DEBUG 12872 --- [    Test worker] c.c.d.m.controller.MemberControllerTest  : Running with Spring Boot v3.1.0, Spring v6.0.9
+2023-05-28T19:07:17.797+09:00  INFO 12872 --- [    Test worker] c.c.d.m.controller.MemberControllerTest  : The following 2 profiles are active: "secret", "dev"
+2023-05-28T19:07:19.700+09:00  INFO 12872 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-28T19:07:19.830+09:00  INFO 12872 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 118 ms. Found 6 JPA repository interfaces.
+2023-05-28T19:07:20.697+09:00  INFO 12872 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-28T19:07:20.820+09:00  INFO 12872 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.2.Final
+2023-05-28T19:07:20.825+09:00  INFO 12872 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-05-28T19:07:21.076+09:00  INFO 12872 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-05-28T19:07:21.417+09:00  INFO 12872 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-05-28T19:07:21.452+09:00  INFO 12872 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-28T19:07:21.643+09:00  INFO 12872 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@cf984d9
+2023-05-28T19:07:21.646+09:00  INFO 12872 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-28T19:07:21.707+09:00  WARN 12872 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000511: The 8.0.33 version for [org.hibernate.dialect.MariaDBDialect] is no longer supported, hence certain features may not work properly. The minimum supported version is 10.3.0. Check the community dialects project for available legacy versions.
+2023-05-28T19:07:21.727+09:00  INFO 12872 --- [    Test worker] org.hibernate.orm.dialect                : HHH035001: Using dialect: org.hibernate.dialect.MariaDBDialect, version: 8.0.33
+2023-05-28T19:07:22.334+09:00  INFO 12872 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-05-28T19:07:23.851+09:00  INFO 12872 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+Hibernate: 
+    drop table if exists challenge
+Hibernate: 
+    drop table if exists challenge_member
+Hibernate: 
+    drop table if exists challenge_post
+Hibernate: 
+    drop table if exists member
+Hibernate: 
+    drop table if exists point
+Hibernate: 
+    drop table if exists tag
+Hibernate: 
+    create table challenge (
+        challenge_frequency integer not null,
+        challenge_status bit not null,
+        end_date date,
+        start_date date,
+        create_date datetime(6),
+        id bigint not null auto_increment,
+        modify_date datetime(6),
+        challenge_contents varchar(255),
+        challenge_img varchar(255),
+        challenge_name varchar(255),
+        challenge_tag varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table challenge_member (
+        create_date datetime(6),
+        id bigint not null auto_increment,
+        modify_date datetime(6),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table challenge_post (
+        post_is_public bit not null,
+        create_date datetime(6),
+        id bigint not null auto_increment,
+        modify_date datetime(6),
+        post_contents varchar(255),
+        post_title varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table member (
+        is_valid bit not null,
+        create_date datetime(6),
+        id bigint not null auto_increment,
+        modify_date datetime(6),
+        email varchar(255),
+        email_token varchar(255),
+        loginid varchar(255),
+        nickname varchar(255),
+        password varchar(255),
+        username varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table point (
+        create_date datetime(6),
+        id bigint not null auto_increment,
+        modify_date datetime(6),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    create table tag (
+        create_date datetime(6),
+        id bigint not null auto_increment,
+        modify_date datetime(6),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    alter table member 
+       add constraint UK_mbmcqelty0fbrvxp1q58dn57t unique (email)
+Hibernate: 
+    alter table member 
+       add constraint UK_9xv6fa5v9d62m7sq5eevsjbgo unique (loginid)
+Hibernate: 
+    alter table member 
+       add constraint UK_hh9kg6jti4n1eoiertn2k6qsc unique (nickname)
+2023-05-28T19:07:25.279+09:00  INFO 12872 --- [    Test worker] o.h.t.s.i.e.GenerationTargetToDatabase   : HHH000476: Executing script '[injected ScriptSourceInputNonExistentImpl script]'
+2023-05-28T19:07:25.281+09:00  INFO 12872 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-28T19:07:26.377+09:00  WARN 12872 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-28T19:07:26.586+09:00  INFO 12872 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6b7ebac1, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@39dee5fd, org.springframework.security.web.context.SecurityContextHolderFilter@6c75c5e8, org.springframework.security.web.header.HeaderWriterFilter@788fa91f, org.springframework.security.web.csrf.CsrfFilter@7bf997e0, org.springframework.security.web.authentication.logout.LogoutFilter@e5d9fa7, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4010f232, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@39c93af6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58e0d1ac, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1b897ffb, org.springframework.security.web.access.ExceptionTranslationFilter@c6653e]
+2023-05-28T19:07:27.020+09:00  INFO 12872 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2023-05-28T19:07:27.697+09:00  INFO 12872 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2023-05-28T19:07:27.697+09:00  INFO 12872 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2023-05-28T19:07:27.701+09:00  INFO 12872 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+2023-05-28T19:07:27.765+09:00  INFO 12872 --- [    Test worker] c.c.d.m.controller.MemberControllerTest  : Started MemberControllerTest in 11.565 seconds (process running for 14.469)
+Hibernate: 
+    /* insert for
+        com.challenge.devchall.member.entity.Member */insert 
+    into
+        member (create_date,email,email_token,is_valid,loginid,modify_date,nickname,password,username) 
+    values
+        (?,?,?,?,?,?,?,?,?)
+2023-05-28T19:07:28.067+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [1] as [TIMESTAMP] - [null]
+2023-05-28T19:07:28.069+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [2] as [VARCHAR] - [null]
+2023-05-28T19:07:28.070+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [3] as [VARCHAR] - [null]
+2023-05-28T19:07:28.070+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [4] as [BOOLEAN] - [false]
+2023-05-28T19:07:28.071+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [5] as [VARCHAR] - [user1]
+2023-05-28T19:07:28.072+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [6] as [TIMESTAMP] - [null]
+2023-05-28T19:07:28.073+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [7] as [VARCHAR] - [null]
+2023-05-28T19:07:28.075+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [8] as [VARCHAR] - [$2a$10$VQ7qnn6Zym38pdGH1LrmO.A5oEBqGO9GXjxpcBeB1mcVNtOirGgkS]
+2023-05-28T19:07:28.075+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [9] as [VARCHAR] - [null]
+2023-05-28T19:07:28.083+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.extract           : extracted value ([1] : [BIGINT]) - [1]
+Hibernate: 
+    /* insert for
+        com.challenge.devchall.member.entity.Member */insert 
+    into
+        member (create_date,email,email_token,is_valid,loginid,modify_date,nickname,password,username) 
+    values
+        (?,?,?,?,?,?,?,?,?)
+2023-05-28T19:07:28.182+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [1] as [TIMESTAMP] - [null]
+2023-05-28T19:07:28.184+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [2] as [VARCHAR] - [null]
+2023-05-28T19:07:28.184+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [3] as [VARCHAR] - [null]
+2023-05-28T19:07:28.184+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [4] as [BOOLEAN] - [false]
+2023-05-28T19:07:28.184+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [5] as [VARCHAR] - [user2]
+2023-05-28T19:07:28.184+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [6] as [TIMESTAMP] - [null]
+2023-05-28T19:07:28.185+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [7] as [VARCHAR] - [null]
+2023-05-28T19:07:28.185+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [8] as [VARCHAR] - [$2a$10$vNhlWu7YJ/2E1k/D4lDOhuSW.daYKiUzzc.UyCipFSG/jTs0bwpzm]
+2023-05-28T19:07:28.185+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [9] as [VARCHAR] - [null]
+2023-05-28T19:07:28.186+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.extract           : extracted value ([1] : [BIGINT]) - [2]
+Hibernate: 
+    /* insert for
+        com.challenge.devchall.member.entity.Member */insert 
+    into
+        member (create_date,email,email_token,is_valid,loginid,modify_date,nickname,password,username) 
+    values
+        (?,?,?,?,?,?,?,?,?)
+2023-05-28T19:07:28.266+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [1] as [TIMESTAMP] - [null]
+2023-05-28T19:07:28.268+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [2] as [VARCHAR] - [null]
+2023-05-28T19:07:28.269+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [3] as [VARCHAR] - [null]
+2023-05-28T19:07:28.271+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [4] as [BOOLEAN] - [false]
+2023-05-28T19:07:28.273+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [5] as [VARCHAR] - [user3]
+2023-05-28T19:07:28.278+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [6] as [TIMESTAMP] - [null]
+2023-05-28T19:07:28.279+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [7] as [VARCHAR] - [null]
+2023-05-28T19:07:28.280+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [8] as [VARCHAR] - [$2a$10$sMyyR.ss77/75OtvUhmVpedosh9z.Au9jYeV6sDr9KIjLeS8yeVou]
+2023-05-28T19:07:28.282+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [9] as [VARCHAR] - [null]
+2023-05-28T19:07:28.285+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.extract           : extracted value ([1] : [BIGINT]) - [3]
+Hibernate: 
+    /* insert for
+        com.challenge.devchall.member.entity.Member */insert 
+    into
+        member (create_date,email,email_token,is_valid,loginid,modify_date,nickname,password,username) 
+    values
+        (?,?,?,?,?,?,?,?,?)
+2023-05-28T19:07:28.372+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [1] as [TIMESTAMP] - [null]
+2023-05-28T19:07:28.373+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [2] as [VARCHAR] - [null]
+2023-05-28T19:07:28.374+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [3] as [VARCHAR] - [null]
+2023-05-28T19:07:28.374+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [4] as [BOOLEAN] - [false]
+2023-05-28T19:07:28.375+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [5] as [VARCHAR] - [user4]
+2023-05-28T19:07:28.376+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [6] as [TIMESTAMP] - [null]
+2023-05-28T19:07:28.376+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [7] as [VARCHAR] - [null]
+2023-05-28T19:07:28.376+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [8] as [VARCHAR] - [$2a$10$Ysbtx0uT5RD.jfc179XRJuc1VVQ5UcARIlkUFsQfSsC.SfVXFpPo.]
+2023-05-28T19:07:28.377+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.bind              : binding parameter [9] as [VARCHAR] - [null]
+2023-05-28T19:07:28.378+09:00 TRACE 12872 --- [    Test worker] org.hibernate.orm.jdbc.extract           : extracted value ([1] : [BIGINT]) - [4]
+2023-05-28T19:07:29.661+09:00 DEBUG 12872 --- [    Test worker] o.s.security.web.FilterChainProxy        : Securing GET /usr/member/login
+2023-05-28T19:07:29.683+09:00 DEBUG 12872 --- [    Test worker] o.s.security.web.FilterChainProxy        : Secured GET /usr/member/login
+2023-05-28T19:07:31.804+09:00 DEBUG 12872 --- [    Test worker] o.s.s.w.a.AnonymousAuthenticationFilter  : Set SecurityContextHolder to anonymous SecurityContext
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /usr/member/login
+       Parameters = {}
+          Headers = []
+             Body = null
+    Session Attrs = {org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository.CSRF_TOKEN=org.springframework.security.web.csrf.DefaultCsrfToken@5a131edc}
+
+Handler:
+             Type = com.challenge.devchall.member.controller.MemberController
+           Method = com.challenge.devchall.member.controller.MemberController#showLogin()
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = /usr/member/login
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Language:"en", Content-Type:"text/html;charset=UTF-8", X-Content-Type-Options:"nosniff", X-XSS-Protection:"0", Cache-Control:"no-cache, no-store, max-age=0, must-revalidate", Pragma:"no-cache", Expires:"0", X-Frame-Options:"DENY"]
+     Content type = text/html;charset=UTF-8
+             Body = <html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://jhs512.github.io/toastr/toastr.css">
+
+    <script>
+        toastr.options = {
+            closeButton: true,
+            debug: false,
+            newestOnTop: true,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            preventDuplicates: false,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut"
+        };
+
+        function toastNotice(msg) {
+            toastr["success"](msg, "알림");
+        }
+
+        function toastWarning(msg) {
+            toastr["warning"](msg, "알림");
+        }
+    </script>
+
+    <style>
+        @font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html > body {
+            font-family: "GmarketSansMedium";
+            text-underline-position: under;
+        }
+    </style>
+    
+    <title>로그인</title>
+
+</head>
+
+<body>
+
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<main>
+    <script>
+        function LoginForm__submit(form) {
+            // loginID 이(가) 올바른지 체크
+
+            form.loginID.value = form.loginID.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
+
+            if (form.loginID.value.length == 0) {
+                toastWarning('아이디를 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
+
+            if (form.loginID.value.length < 4) {
+                toastWarning('아이디를 4자 이상 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
+
+            // password 이(가) 올바른지 체크
+
+            form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
+
+            if (form.password.value.length == 0) {
+                form.password.focus();
+                toastWarning('비밀번호를 입력해주세요.');
+                return;
+            }
+
+            if (form.password.value.length < 4) {
+                toastWarning('비밀번호를 4자 이상 입력해주세요.');
+                form.password.focus();
+                return;
+            }
+
+            form.submit(); // 폼 발송
+        }
+    </script>
+
+    <form action="" method="POST" class="p-10 flex flex-col gap-4" onsubmit="LoginForm__submit(this); return false;"><input type="hidden" name="_csrf" value="NlqTPa7Bmpn__8m8j-1dHTq7uronP6BbF9WXbu2FS0e4kPjxUz-jDcr5oqzSya2O7MBpew7Zl4MTXpB2JrCkXY_jc3CBp82V"/>
+        <div>
+            <input type="text" name="loginID" maxlength="30" placeholder="아이디" class="input input-bordered">
+        </div>
+        <div>
+            <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered">
+        </div>
+        <div>
+            <input type="submit" value="로그인" class="btn btn-primary">
+        </div>
+    </form>
+</main>
+
+</body>
+
+</html>
+
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
