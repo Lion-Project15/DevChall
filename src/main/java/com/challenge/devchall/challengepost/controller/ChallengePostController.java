@@ -41,5 +41,13 @@ public class ChallengePostController {
         return "redirect:/usr/challenge/detail/{id}";
     }
 
+    @GetMapping("/delete/{id}")
+    public String deletePost(@PathVariable("id") long id){
+
+        challengePostService.deletePost(id);
+
+        return "redirect:/usr/challenge/detail/{id}";
+    }
+
 
 }

@@ -1,3 +1,25 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>챌린지 디테일 페이지</title>
+</head>
+
+<body>
+
+<script>
+
+    function wantDelete(postId) {
+        if(confirm('정말로 삭제하시겠습니까?')){
+
+            alert(postId + "번 인증글을 삭제합니다.");
+            location.href="/usr/challenge/delete/" + postId;
+        }else{
+            alert("삭제가 취소되었습니다.");
+        }
+    }
+</script>
+
+
 <p>챌린지 이름</p>
 <h1 th:text="${challenge.challengeName}"></h1>
 
@@ -34,14 +56,22 @@
 
 <th:block th:if="${hasPost}">
     <!-- 인증글 내용 -->
-    <tr th:each="post : ${challengePostList}">
+    <div th:each="post : ${challengePostList}">
         <div>
             <td th:text="${post.postTitle}"></td>
             <td th:text="${post.postContents}"></td>
         </div>
-    </tr>
+
+        <div>
+            <a th:href="@{|/usr/challenge/modify/${post.id}|}">
+                수정하기
+            </a>
+
+            <button th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
+
+        </div>
+
+    </div>
 </th:block>
 
-
-
-<!--<div th:text="${hasPost}"></div>-->
+</body>

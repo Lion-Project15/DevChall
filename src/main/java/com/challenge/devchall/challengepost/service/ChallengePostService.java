@@ -7,6 +7,7 @@ import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.repository.ChallengePostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -44,5 +45,20 @@ public class ChallengePostService {
         }
 
         return challengeStatus;
+    }
+
+    public ChallengePost getChallengePostById(long id){
+
+        ChallengePost challengePostById= challengePostRepository.findById(id).orElse(null);
+
+        return challengePostById;
+    }
+
+    @Transactional
+    public void deletePost(long id){
+
+        ChallengePost challengePostById = this.getChallengePostById(id);
+
+        challengePostRepository.delete(challengePostById);
     }
 }
