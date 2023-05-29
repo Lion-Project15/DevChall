@@ -28,4 +28,23 @@ public class ChallengePost extends BaseEntity {
     @ManyToOne
     private Challenge linkedChallenge;
 
+    public void modifyPost(String postTitle, String postContents, boolean postIsPublic){
+
+        this.postTitle = postTitle;
+        this.postContents = postContents;
+        this.postIsPublic = postIsPublic;
+
+    }
+
+    public boolean isPublic(){
+
+        if(this.postIsPublic){
+            return true;
+        }
+        else {
+            return false;
+        }
+
+    }
+
 }
