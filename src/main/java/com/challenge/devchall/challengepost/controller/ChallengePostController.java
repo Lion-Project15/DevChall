@@ -34,10 +34,15 @@ public class ChallengePostController {
     public String createChallenge(@PathVariable("id") long id,
                                   @RequestParam String title,
                                   @RequestParam String contents,
-                                  @RequestParam String status
+                                  @RequestParam String status,
+                                  Model model
     ) {
 
-        challengePostService.write(title, contents, status, id);
+
+        ChallengePost post = challengePostService.write(title, contents, status, id);
+
+        model.addAttribute("post", post);
+
 
         return "redirect:/usr/challenge/detail/{id}";
     }
