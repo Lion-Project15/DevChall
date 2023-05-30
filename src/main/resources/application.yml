@@ -1,3 +1,5 @@
+server:
+  port: 8083
 spring:
   mvc:
     hiddenmethod:
@@ -25,3 +27,4 @@ logging:
     com.challenge.devchall: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
     org.hibernate.orm.jdbc.extract: TRACE
+    org.springframework.security: DEBUG
