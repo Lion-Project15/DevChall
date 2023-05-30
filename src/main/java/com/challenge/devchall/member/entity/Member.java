@@ -3,10 +3,12 @@ package com.challenge.devchall.member.entity;
 import com.challenge.devchall.base.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -17,6 +19,7 @@ import java.util.*;
 @ToString(callSuper = true)
 @Entity
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class Member extends BaseEntity {
     @Column(unique = true)
     private String loginID; //회원 로그인 id
