@@ -9,9 +9,9 @@
   <h2>챌린지 인증 페이지</h2>
 
   <p>챌린지 이름</p>
-  <!-- FIXME -->
-<!--  <h1 th:text="${challenge.challengeName}"></h1>-->
-  <form method="post" th:action="@{/usr/challenge/write_form/${post.id}}">
+
+  <form method="post" th:action="@{|/usr/challenge/write_form/${challenge.id}|}">
+
 
     <div>
       <label for="title"> 인증 제목 </label>
@@ -31,7 +31,6 @@
     </div>
 
     <input type="submit" value="작성완료" class="ui-button">
-
   </form>
 
 </div>

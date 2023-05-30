@@ -12,8 +12,8 @@
 
   <p>챌린지 이름</p>
   <h1 th:text="${linkedChallenge.challengeName}"></h1>
-  <form method="post" th:action="@{/usr/challenge/modifypost/${post.id}}">
 
+  <form method="post" th:action="@{|/usr/challenge/modifypost/${post.id}|}">
     <div>
       <label for="title"> 인증 제목 </label>
       <input type="text" name="title" id="title" class="form-control" th:value="${post.postTitle}">
