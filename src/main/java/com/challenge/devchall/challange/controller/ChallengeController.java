@@ -16,13 +16,13 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/usr/challenge")
-@PreAuthorize("isAuthenticated()")
 public class ChallengeController {
 
     private final ChallengeService challengeService;
     private final ChallengeRepository challengeRepository;
 
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
     public String createChallenge(){
 
@@ -30,7 +30,7 @@ public class ChallengeController {
 
         return "/usr/challenge/create_form";
     }
-
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String createChallenge(
             @RequestParam String title,

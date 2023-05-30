@@ -1,3 +1,11 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>챌린지 디테일 페이지</title>
+</head>
+
+<body>
+
 <p>챌린지 이름</p>
 <h1 th:text="${challenge.challengeName}"></h1>
 
@@ -22,10 +30,29 @@
 <p>챌린지 종료일</p>
 <div th:text="${challenge.endDate}"></div>
 
-<a href="/usr/challenge/write">
+<a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">
     <button>챌린지 인증하기</button>
 </a>
 
-<!--<a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">-->
-<!--    <button>챌린지 인증하기</button>-->
-<!--</a>-->
+<th:block th:unless="${hasPost}">
+    <div>
+        인증글이 존재하지 않습니다.
+    </div>
+</th:block>
+
+<th:block th:if="${hasPost}">
+    <!-- 인증글 내용 -->
+    <div th:each="post : ${challengePostList}">
+        <div>
+
+            <td>
+                <a th:href="@{|/usr/challenge/postdetail/${post.id}|}" th:text="${post.postTitle}"></a>
+            </td>
+
+            <td th:text="${post.postContents}"></td>
+        </div>
+
+    </div>
+</th:block>
+
+</body>
