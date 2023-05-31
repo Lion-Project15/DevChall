@@ -33,4 +33,9 @@ public class MemberService {
 
         return memberRepository.save(member);
     }
+
+    public Member getByLoginId(String loginId){
+
+        return memberRepository.findByLoginID(loginId).orElse(null);
+    }
 }

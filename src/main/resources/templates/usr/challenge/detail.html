@@ -42,17 +42,17 @@
 <p>챌린지 종료일</p>
 <div th:text="${challenge.endDate}"></div>
 
-<!--<th:block th:unless="${isJoin}">-->
+<th:block th:unless="${isJoin}">
     <div>
         <button th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'">참여하기</button>
     </div>
-<!--</th:block>-->
+</th:block>
 
-<!--<th:block th:if="${isJoin}">-->
+<th:block th:if="${isJoin}">
     <a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">
         <button>챌린지 인증하기</button>
     </a>
-<!--</th:block>-->
+</th:block>
 
 
 <th:block th:unless="${hasPost}">
