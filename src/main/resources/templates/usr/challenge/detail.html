@@ -5,6 +5,18 @@
 </head>
 
 <body>
+<script>
+
+    function wantJoin(challengeId) {
+        if (confirm('해당 챌린지에 참여하시겠습니까?')) {
+            alert("환영합니다! 챌린지에 열심히 참여해보세요!");
+            location.href = "/usr/challenge/join/" + challengeId;
+        } else {
+            alert("참여가 취소되었습니다.");
+        }
+    }
+
+</script>
 
 <p>챌린지 이름</p>
 <h1 th:text="${challenge.challengeName}"></h1>
@@ -30,9 +42,18 @@
 <p>챌린지 종료일</p>
 <div th:text="${challenge.endDate}"></div>
 
-<a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">
-    <button>챌린지 인증하기</button>
-</a>
+<!--<th:block th:unless="${isJoin}">-->
+    <div>
+        <button th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'">참여하기</button>
+    </div>
+<!--</th:block>-->
+
+<!--<th:block th:if="${isJoin}">-->
+    <a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">
+        <button>챌린지 인증하기</button>
+    </a>
+<!--</th:block>-->
+
 
 <th:block th:unless="${hasPost}">
     <div>
