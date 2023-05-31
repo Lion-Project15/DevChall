@@ -8,6 +8,8 @@ import com.challenge.devchall.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ChallengeMemberService {
@@ -27,6 +29,11 @@ public class ChallengeMemberService {
         challengeMemberRepository.save(challengeMember);
 
         return challengeMember;
+    }
+
+    public Optional<ChallengeMember> getByChallengeAndMember(Challenge challenge, Member member){
+
+        return challengeMemberRepository.findByLinkedChallengeAndChallenger(challenge, member);
     }
 
 }
