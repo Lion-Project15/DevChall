@@ -10,7 +10,6 @@
 
   <p>챌린지 이름</p>
   <!-- FIXME -->
-<!--  <h1 th:text="${challenge.challengeName}"></h1>-->
   <form method="post" th:action="@{|/usr/challenge/write_form/${challenge.id}|}">
 
     <div>
@@ -31,7 +30,6 @@
     </div>
 
     <input type="submit" value="작성완료" class="ui-button">
-
   </form>
 
 </div>

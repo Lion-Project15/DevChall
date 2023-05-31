@@ -16,7 +16,7 @@ public class ChallengePostService {
     private final ChallengePostRepository challengePostRepository;
     private final ChallengeService challengeService;
 
-    public void write(String title, String contents, String status, long id) {
+    public ChallengePost write(String title, String contents, String status, long id) {
 
         boolean formattingStatus = formattingStatus(status);
 
@@ -30,6 +30,8 @@ public class ChallengePostService {
                 .build();
 
         challengePostRepository.save(challengePost);
+
+        return challengePost;
     }
 
     //FIXME js로 변환해서 받아오는 방법 고려

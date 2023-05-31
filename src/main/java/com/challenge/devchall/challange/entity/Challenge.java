@@ -2,16 +2,12 @@ package com.challenge.devchall.challange.entity;
 
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +16,7 @@ import java.util.List;
 @ToString(callSuper = true)
 @Entity
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 public class Challenge extends BaseEntity {
     private String challengeName;
     private String challengeContents;
