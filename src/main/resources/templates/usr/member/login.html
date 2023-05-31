@@ -6,7 +6,7 @@
 
 <body>
 
-<main layout:fragment="main" class="flex-grow flex items-center justify-center">
+<main layout:fragment="main" class="flex flex-col w-full">
     <script>
         function LoginForm__submit(form) {
             // loginID 이(가) 올바른지 체크
@@ -44,24 +44,35 @@
             form.submit(); // 폼 발송
         }
     </script>
-
-    <form th:action method="POST" class="p-10 flex flex-col gap-6" onsubmit="LoginForm__submit(this); return false;">
-        <div>
-            로그인
-        </div>
-        <div>
-            <label class="label"></label>
-            <span class="label-text">ID</span>
-            <input type="text" name="loginID" maxlength="30" placeholder="아이디" class="input input-bordered">
-            </label>
-        </div>
-        <div>
-            <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered">
-        </div>
-        <div>
-            <input type="submit" value="로그인" class="btn btn-primary btn-wide">
-        </div>
-    </form>
+    <div>
+        <img src="/images/logo.png" class="w-[250px] h-[250px]">
+    </div>
+    <div class="flex flex-1">
+        <form th:action method="POST" class="flex flex-col justify-center items-center w-full" onsubmit="LoginForm__submit(this); return false;">
+            <div class="w-full p-20 md:w-[35rem]">
+                <p class="text-[25px]">로그인</p>
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">아이디를 입력해주세요</span>
+                                </label>
+                                <input type="text" name="loginID" maxlength="15" placeholder="아이디" class="input input-bordered w-full text-black" id="loginID" autofocus />
+                            </div>
+                        </div>
+                        <div class="w-full">
+                            <label class="label">
+                                <span class="text-gray-400">비밀번호를 입력해주세요</span>
+                            </label>
+                            <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
+                        </div>
+                <div class="flex flex-col justify-center mt-[20px]">
+                    <button id="btn-join-1" class="btn btn-md btn-accent gap-3">
+                        <span class="text-white" style="font-size: 17px;">로그인</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 </main>
 </body>
 
