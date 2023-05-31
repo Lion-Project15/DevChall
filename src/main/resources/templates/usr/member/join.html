@@ -1,12 +1,13 @@
-<html layout:decorate="~{usr/member/layout.html}">
+<html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <title>회원가입</title>
+    <link rel="stylesheet" href="join.css">
 </head>
 
 <body>
 
-<main layout:fragment="main">
+<main layout:fragment="main" class="flex flex-col w-full">
     <script>
         function JoinForm__submit(form) {
             // loginID 이(가) 올바른지 체크
@@ -88,68 +89,83 @@
             form.submit(); // 폼 발송
         }
     </script>
-
-    <form th:action method="POST" class="p-10 flex flex-col gap-4" onsubmit="JoinForm__submit(this); return false;">
-
-        <!-- id input -->
-        <div class="input__block">
-            <label for="loginID"> 사용하실 아이디를 입력해주세요 </label>
-            <input type="text" name="loginID" maxlength="15" placeholder="loginID" class="input" id="loginID" />
-        </div>
-        <!-- Nickname input -->
-        <div class="input__block">
-            <label for="username"> 사용하실 이름을 입력해주세요 </label>
-            <input type="text" name="username" maxlength="15" placeholder="nickname" class="input" id="username" />
-        </div>
-
-        <!-- Nickname input -->
-        <div class="input__block">
-        <label for="nickname"> 사용하실 닉네임을 입력해주세요 </label>
-        <input type="text" name="nickname" maxlength="15" placeholder="nickname" class="input" id="nickname" />
+    <div>
+        <img src="/images/logo.png" class="w-[250px] h-[250px]">
     </div>
+    <div class="flex flex-1">
+        <form th:action method="POST" class="flex flex-col justify-center items-center w-full" onsubmit="JoinForm__submit(this); return false;">
+            <div class="w-full p-10 lg:w-[65rem]">
+                <p class="text-[25px]">회원가입</p>
+                <div class="flex flex-col gap-4 justify-center lg:flex-row">
+                    <div class="flex flex-col space-y-4  flex-1">
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">아이디를 입력해주세요</span>
+                                </label>
+                                <input type="text" name="loginID" maxlength="15" placeholder="아이디" class="input input-bordered w-full" id="loginID" autofocus />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">성명을 입력해 주세요</span>
+                                </label>
+                                <input type="text" name="username" maxlength="15" placeholder="성명" class="input input-bordered w-full" id="username" />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">닉네임을 입력해주세요(1~15자)</span>
+                                </label>
+                                <input type="text" name="nickname" maxlength="15" placeholder="별명 (1~15자)" class="input input-bordered w-full" id="nickname" />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">이메일 주소를 입력해주세요</span>
+                                </label>
+                                <input type="text" name="email" maxlength="30" placeholder="이메일" class="input input-bordered w-full" id="email" /><br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col space-y-4 flex-1">
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">비밀번호를 입력해주세요</span>
+                                </label>
+                                <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered w-full" id="password" />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">비밀번호를 한 번 더 입력해주세요</span>
+                                </label>
+                                <input type="password" name="repeatPassword" maxlength="30" placeholder="비밀번호 확인" class="input input-bordered w-full" id="repeatPassword" />
+                            </div>
+                        </div>
+                    </div>
 
-        <!-- email input -->
-        <div class="input__block">
-        <label for="email"> 사용하실 이메일 주소를 입력해주세요 </label>
-        <input type="text" name="email" maxlength="30" placeholder="email" class="input" id="email" /><br>
+                </div>
+
+                <div class="flex flex-col justify-center mt-[20px]">
+                    <button id="btn-join-1" class="btn btn-md btn-primary btn-success gap-3">
+                        <span>회원가입</span>
+                    </button>
+                </div>
+
+                <div class="mt-[20px] flex justify-center space-x-6">
+                    <img src="/images/naver-icon.png" class="w-[50px] h-[50px]">
+                    <img src="/images/naver-icon.png" class="w-[50px] h-[50px]">
+                    <img src="/images/naver-icon.png" class="w-[50px] h-[50px]">
+                </div>
+            </div>
+        </form>
     </div>
-
-        <!-- password input -->
-        <div class="input__block">
-        <label for="password"> 사용하실 비밀번호를 입력해주세요. </label>
-        <input type="text" name="password" maxlength="30" placeholder="password" class="input" id="password" />
-    </div>
-
-        <!-- repeat password input -->
-        <br><div class="input__block">
-        <label for="repeatPassword"> 사용하실 비밀번호를 한 번 더 입력해주세요. </label>
-        <input type="text" name="repeatPassword" maxlength="30" placeholder="repeatPassword" class="input" id="repeatPassword" />
-    </div>
-
-        <!-- sign in button -->
-        <br><button type="submit">
-        회원가입하기
-    </button>
-    </form>
-
-    <!— separator —>
-    <div class="separator">
-        <p>OR</p>
-    </div>
-
-    <!— naver button —>
-    <button class="naver__btn">
-        <i class="fa fa-naver"></i>
-        네이버로 가입하기
-    </button>
-
-    <!— kakao button —>
-    <button class="kakao__btn">
-        <i class="fa fa-kakao"></i>
-        카카오톡으로 가입하기
-    </button>
-
-    </form>
 </main>
 
 </body>

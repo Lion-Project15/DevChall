@@ -6,7 +6,7 @@
 
 <body>
 
-<main layout:fragment="main">
+<main layout:fragment="main" class="flex-grow flex items-center justify-center">
     <script>
         function LoginForm__submit(form) {
             // loginID 이(가) 올바른지 체크
@@ -45,15 +45,21 @@
         }
     </script>
 
-    <form th:action method="POST" class="p-10 flex flex-col gap-4" onsubmit="LoginForm__submit(this); return false;">
+    <form th:action method="POST" class="p-10 flex flex-col gap-6" onsubmit="LoginForm__submit(this); return false;">
         <div>
+            로그인
+        </div>
+        <div>
+            <label class="label"></label>
+            <span class="label-text">ID</span>
             <input type="text" name="loginID" maxlength="30" placeholder="아이디" class="input input-bordered">
+            </label>
         </div>
         <div>
             <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered">
         </div>
         <div>
-            <input type="submit" value="로그인" class="btn btn-primary">
+            <input type="submit" value="로그인" class="btn btn-primary btn-wide">
         </div>
     </form>
 </main>
