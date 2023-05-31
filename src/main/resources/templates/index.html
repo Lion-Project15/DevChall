@@ -1,26 +1,112 @@
 <html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>DevChallenge</title>
+    <title>DevChall</title>
 </head>
 <body>
 <main layout:fragment="main" class="flex flex-col w-full">
-    <div>
-        <a href="usr/member/login">
-            <button>로그인</button>
-        </a>
-        <a href="usr/member/join">
-            <button>회원가입</button>
-        </a>
-    </div>
-    <h3>인덱스 페이지 입니다</h3>
-    <a href="usr/challenge/create">
-        <button>챌린지 생성하기</button>
-    </a>
+    <nav>
+        <div class="navbar text-accent bg-[#121212]">
+            <div class="navbar-start">
+                <a class="btn btn-ghost normal-case" href="/">
+                    <h3>DevChall</h3>
+                </a>
 
-    <a href="usr/challenge/list">
-        <button>챌린리 리스트</button>
-    </a>
+                <div class="form-control">
+                    <div class="input-group">
+                        <input type="text" placeholder="검색" class="input input-bordered text-black" style="height:32px"/>
+                        <button class="btn btn-sm btn-square">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="navbar-center hidden lg:flex ">
+
+            </div>
+            <div class="navbar-end" >
+                <a href="usr/member/join" class="btn btn-sm btn-outline btn-accent mx-2">회원가입</a>
+                <a href="usr/member/login" class="btn btn-sm bg-accent mx-2">로그인</a>
+            </div>
+        </div>
+    </nav>
+    <header class="flex w-full">
+        <section class="flex">
+            <img src="/images/logoXL.png" alt="DevChall" class="w-[200px] h-[200px] flex-shrink-0 p-5">
+        </section>
+        <section class="flex w-full">
+            <article class="flex justify-center w-full">
+                <div class="flex items-center flex-wrap justify-around w-[80%]">
+                    <a href="#" class="flex flex-col items-center">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="shadow rounded-full h-20 w-20">
+                        <div class="text-xs">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
+                        <div class="text-xs">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
+                        <div class="text-xs">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
+                        <div class="text-xs">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
+                        <div class="text-xs">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
+                        <div class="text-xs">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
+                        <div class="text-xs">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
+                        <div class="text-xs">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
+                        <div class="text-xs">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
+                        <div class="text-xs">UI/UX</div>
+                    </a>
+                </div>
+            </article>
+        </section>
+    </header>
+    <section>
+        <div>
+
+            <div class="card w-96 bg-base-100 shadow-xl text-gray-400">
+                <figure class="px-10 pt-10">
+                    <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl" />
+                </figure>
+                <div class="card-body items-center text-center">
+                    <h2 class="card-title">Shoes!</h2>
+                    <p>If a dog chews shoes whose shoes does he choose?</p>
+                    <div class="card-actions">
+                        <button class="btn btn-primary">Buy Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>인덱스 페이지 입니다</h3>
+        <a href="usr/challenge/create">
+            <button>챌린지 생성하기</button>
+        </a>
+
+        <a href="usr/challenge/list">
+            <button>챌린리 리스트</button>
+        </a>
+    </section>
+
 </main>
 
 
