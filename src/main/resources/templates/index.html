@@ -4,7 +4,8 @@
     <title>DevChall</title>
 </head>
 <body>
-<main layout:fragment="main" class="flex flex-col w-full">
+<main layout:fragment="main" class="flex flex-col w-full min-h-screen">
+    <!--  네브바 시작  -->
     <nav>
         <div class="navbar text-accent bg-[#121212]">
             <div class="navbar-start">
@@ -25,86 +26,661 @@
 
             </div>
             <div class="navbar-end" >
+                <a href="usr/challenge/create" class="btn btn-sm btn-primary mx-2">챌린지 생성</a>
                 <a href="usr/member/join" class="btn btn-sm btn-outline btn-accent mx-2">회원가입</a>
                 <a href="usr/member/login" class="btn btn-sm bg-accent mx-2">로그인</a>
             </div>
         </div>
     </nav>
-    <header class="flex w-full">
+    <!--  네브바 끝  -->
+
+    <!--  헤더 시작  -->
+    <header class="flex w-full justify-between">
         <section class="flex">
-            <img src="/images/logoXL.png" alt="DevChall" class="w-[200px] h-[200px] flex-shrink-0 p-5">
+            <img src="/images/logoXL.png" alt="DevChall" class="w-[200px] h-[200px] flex-shrink-0 mx-10 p-2">
         </section>
-        <section class="flex w-full">
+        <!--   카테고리 타임리프 작업 필요    -->
+        <section class="flex w-[90%]">
             <article class="flex justify-center w-full">
-                <div class="flex items-center flex-wrap justify-around w-[80%]">
-                    <a href="#" class="flex flex-col items-center">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="shadow rounded-full h-20 w-20">
-                        <div class="text-xs">UI/UX</div>
+                <div class="flex items-center flex-wrap justify-around w-[90%]">
+                    <a href="#" class="flex flex-col items-center group px-1">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
-                        <div class="text-xs">UI/UX</div>
+                    <a href="#" class="flex flex-col items-center group px-1">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
-                        <div class="text-xs">UI/UX</div>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
-                        <div class="text-xs">UI/UX</div>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
-                        <div class="text-xs">UI/UX</div>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
-                        <div class="text-xs">UI/UX</div>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
-                        <div class="text-xs">UI/UX</div>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
-                        <div class="text-xs">UI/UX</div>
-                    </a>
-                    <a href="#" class="flex flex-col items-center">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
-                        <div class="text-xs">UI/UX</div>
-                    </a>
-                    <a href="#" class="flex flex-col items-center">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20">
-                        <div class="text-xs">UI/UX</div>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
                     </a>
                 </div>
             </article>
         </section>
     </header>
-    <section>
-        <div>
+    <!--  헤더 끝  -->
 
-            <div class="card w-96 bg-base-100 shadow-xl text-gray-400">
-                <figure class="px-10 pt-10">
-                    <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl" />
-                </figure>
-                <div class="card-body items-center text-center">
-                    <h2 class="card-title">Shoes!</h2>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div class="card-actions">
-                        <button class="btn btn-primary">Buy Now</button>
+    <section class="bg-[#F2F4F4] " style="border-top-left-radius: 4rem;">
+        <!--    나의 챌린지 타임리프 작업 필요   -->
+        <article class="p-5 mx-5">
+            <div class="p-2">
+                <h1 class="text-black text-2xl font-bold">>나의 챌린지</h1>
+            </div>
+
+            <div class="flex flex-wrap mx-10">
+                <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                    <figure class="pt-5">
+                        <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                    </figure>
+                    <div class="card-body items-center text-center" style="padding: 10px">
+                        <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                        <div class="flex flex-wrap">
+                            <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                            <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                        </div>
+                        <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                        <div class="card-actions flex justify-around">
+                            <div style="font-size: x-small">
+                                <a href="">
+                                    <span>댓글</span> <span>5</span>
+                                </a>
+                            </div>
+                            <div style="font-size: x-small">
+                                <a href="">
+                                    <span>클립</span><span>3</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                    <figure class="pt-5">
+                        <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                    </figure>
+                    <div class="card-body items-center text-center" style="padding: 10px">
+                        <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                        <div class="flex flex-wrap">
+                            <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                            <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                        </div>
+                        <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                        <div class="card-actions flex justify-around">
+                            <div style="font-size: x-small">
+                                <a href="">
+                                    <span>댓글</span> <span>5</span>
+                                </a>
+                            </div>
+                            <div style="font-size: x-small">
+                                <a href="">
+                                    <span>클립</span><span>3</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                    <figure class="pt-5">
+                        <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                    </figure>
+                    <div class="card-body items-center text-center" style="padding: 10px">
+                        <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                        <div class="flex flex-wrap">
+                            <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                            <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                        </div>
+                        <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                        <div class="card-actions flex justify-around">
+                            <div style="font-size: x-small">
+                                <a href="">
+                                    <span>댓글</span> <span>5</span>
+                                </a>
+                            </div>
+                            <div style="font-size: x-small">
+                                <a href="">
+                                    <span>클립</span><span>3</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <h3>인덱스 페이지 입니다</h3>
-        <a href="usr/challenge/create">
-            <button>챌린지 생성하기</button>
-        </a>
+        </article>
+        <!--    나의 챌린지 끝!   -->
 
-        <a href="usr/challenge/list">
-            <button>챌린리 리스트</button>
-        </a>
+        <!--    챌린지 리스트 시작   -->
+        <article class="p-5 mx-5">
+            <div class="p-2">
+                <h1 class="text-black text-2xl font-bold">>모집 중인 챌린지</h1>
+            </div>
+
+            <div class="flex flex-wrap mx-10">
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div><div>
+                <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                    <figure class="pt-5">
+                        <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                    </figure>
+                    <div class="card-body items-center text-center" style="padding: 10px">
+                        <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                        <div class="flex flex-wrap">
+                            <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                            <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                        </div>
+                        <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                        <div class="card-actions flex justify-around">
+                            <div style="font-size: x-small">
+                                <a href="">
+                                    <span>댓글</span> <span>5</span>
+                                </a>
+                            </div>
+                            <div style="font-size: x-small">
+                                <a href="">
+                                    <span>클립</span> <span>3</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+            </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+                <div>
+                    <div class="card flex-shrink-0 w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                        <div class="card-body items-center text-center" style="padding: 10px">
+                            <h4 class="text-black font-bold text-sm">프로그래머스 코테 준비</h4>
+                            <div class="flex flex-wrap">
+                                <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                            </div>
+                            <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                            <div class="card-actions flex justify-around">
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>댓글</span> <span>5</span>
+                                    </a>
+                                </div>
+                                <div style="font-size: x-small">
+                                    <a href="">
+                                        <span>클립</span> <span>3</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-sm btn-primary mx-5 mb-8" style="width: 200px">참여하기</button>
+                </div>
+            </div>
+        </article>
+        <!--    챌린지 리스트 끝-->
     </section>
 
 </main>
