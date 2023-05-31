@@ -1,8 +1,12 @@
 package com.challenge.devchall.challange.service;
 
+import com.challenge.devchall.base.roles.ChallengeMember.Role;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
+import com.challenge.devchall.challengeMember.entity.ChallengeMember;
+import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,9 +20,10 @@ import java.util.List;
 public class ChallengeService {
 
     private final ChallengeRepository challengeRepository;
+    private final ChallengeMemberService challengeMemberService;
 
     @Transactional
-    public void createChallenge(String title, String contents, String status, String frequency, String startDate, String endDate) {
+    public void createChallenge(String title, String contents, String status, String frequency, String startDate, String endDate, Member member) {
 
         FormattingResult formattingResult = formatting(status, frequency, startDate, endDate);
 
@@ -35,6 +40,7 @@ public class ChallengeService {
                 .build();
 
         challengeRepository.save(challenge);
+        challengeMemberService.addMember(challenge, member, Role.LEADER);
     }
 
     public class FormattingResult {

@@ -54,10 +54,10 @@ public class MemberController {
     @PostMapping ("/join")
     public String join(@Valid JoinForm joinForm) {
         memberService.join(joinForm.getLoginID(),
-                            joinForm.getPassword(),
-                            joinForm.getEmail(),
-                            joinForm.getNickname(),
-                            joinForm.getUsername());
+                joinForm.getPassword(),
+                joinForm.getEmail(),
+                joinForm.getNickname(),
+                joinForm.getUsername());
         return "redirect:/";
     }
 
