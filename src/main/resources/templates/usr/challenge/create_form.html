@@ -9,7 +9,7 @@
 
 <main layout:fragment="main" class="flex flex-col w-full">
 
-    <!-- FIXME 챌린지별 사진으로 변경-->
+    <!-- FIXME 챌린지별 사진으로 변경?-->
     <div>
         <img src="/images/logo.png" class="w-[250px] h-[250px]">
     </div>
@@ -24,7 +24,15 @@
                                 <label for="title" class="label">
                                     <span class="text-gray-400">챌린지 제목</span>
                                 </label>
-                                <input type="text" name="title" maxlength="15" placeholder="챌린지명" class="input input-bordered w-full form-control" id="title" autofocus />
+                                <input type="text" name="title" maxlength="15" placeholder="챌린지명" class="input input-bordered w-full form-control text-black" id="title" autofocus />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="w-full">
+                                <label for="contents" class="label">
+                                    <span class="text-gray-400">챌린지 내용</span>
+                                </label>
+                                <textarea name="contents" placeholder="챌린지내용" class="textarea textarea-accent w-full form-control text-black" id="contents"></textarea>
                             </div>
                         </div>
                         <div>
@@ -33,12 +41,12 @@
                                     <!-- 공개여부 UI 재설정 필요-->
                                     <span class="">공개 여부</span>
                                 </label>
-                                <input type="radio" name="status" id="public" value="공개" checked>공개
-                                <input type="radio" name="status" id="private" value="비공개">비공개
+                                <input type="radio" name="status" id="public" value="공개" class="radio radio-accent" checked>공개
+                                <input type="radio" name="status" id="private" value="비공개" class="radio radio-accent">비공개
                             </div>
                         </div>
 
-                        <h3>챌린지 이미지는 일단 보류</h3>
+                        <h1>!!!챌린지 이미지는 일단 보류!!!</h1>
 
                         <div>
                             <div class="w-full">
@@ -46,17 +54,9 @@
                                     <!-- 인증 주기 UI 재설정 필요-->
                                     <span class="text-gray-400">챌린지 주기를 선택해 주세요</span>
                                 </label>
-                                <input type="radio" name="frequency" value="day1" checked>주 1회
-                                <input type="radio" name="frequency" value="day3">주 3회
-                                <input type="radio" name="frequency" value="day7">매일(주 7회)
-                            </div>
-                        </div>
-                        <div>
-                            <div class="w-full">
-                                <label class="label">
-                                    <span class="text-gray-400">챌린지 시작일 선택</span>
-                                </label>
-                                <input type="date" name="startDate"/>챌린지 시작일 선택
+                                <input type="radio" name="frequency" value="day1" class="radio radio-accent" checked>주 1회
+                                <input type="radio" name="frequency" value="day3" class="radio radio-accent">주 3회
+                                <input type="radio" name="frequency" value="day7" class="radio radio-accent">매일(주 7회)
                             </div>
                         </div>
                     </div>
@@ -64,16 +64,25 @@
                         <div>
                             <div class="w-full">
                                 <label class="label">
+                                    <span class="text-gray-400">챌린지 시작일 선택</span>
+                                </label>
+                                <input type="date" name="startDate" class="text-black select"/>챌린지 시작일 선택
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
                                     <span class="text-gray-400">챌린지 종료일 선택</span>
                                 </label>
-                                <input type="date" name="endDate"/>챌린지 종료일 선택
+                                <input type="date" name="endDate" class="text-black select"/>챌린지 종료일 선택
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="flex flex-col justify-center mt-[20px]">
-                    <input type="submit" value="생성완료" class="btn btn-md btn-primary btn-success gap-3">
+                    <input type="submit" value="생성완료" class="btn btn-md btn-accent btn-success gap-3">
                     <!--          <button id="btn-join-1" class="btn btn-md btn-primary btn-success gap-3">-->
                     <!--            <span>회원가입</span>-->
                     <!--          </button>-->
