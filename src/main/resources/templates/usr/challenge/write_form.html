@@ -1,36 +1,79 @@
-<html>
+<html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <title>챌린지 인증 페이지</title>
 </head>
 
+<body>
+<main layout:fragment="main" class="flex flex-col w-full">
+
+  <div class="flex flex-1">
+    <form method="post" th:action="@{|/usr/challenge/write_form/${challenge.id}|}" class="flex flex-col justify-center items-center w-full">
+      <div class="card bg-white">
+        <div class="w-full p-10 lg:w-[65rem]">
+
+          <h3 class="text-lg">
+            인증하기
+            <span class="badge badge-md" th:text="${challenge.challengeName}"></span>
+          </h3>
+
+          <div class="flex flex-col gap-4 justify-center lg:flex-row">
+            <div class="flex flex-col space-y-4  flex-1">
+
+              <div>
+                <div class="w-full">
+                  <label for="title" class="label">
+                    <span class="text-gray-400">인증 내용</span>
+                  </label>
+                  <input type="text" name="title" maxlength="30" placeholder="인증 제목" id="title" class="w-300% input input-bordered form-control text-black" autofocus/>
+                </div>
+              </div>
+
+              <div>
+                <div class="w-full">
+                  <label for="contents" class="label">
+                    <span class="text-gray-400">인증 내용</span>
+                  </label>
+                  <textarea rows="7" name="contents" placeholder="인증 내용" class="textarea textarea-accent w-96 form-control text-black" id="contents"></textarea>
+                </div>
+              </div>
+
+              <div>
+                <div class="w-full justify-center items-center">
+                  <label class="label">
+                    <span class="text-gray-400">공개 여부</span>
+                  </label>
+                  <input type="radio" name="status" id="public" value="공개" class="radio radio-accent" checked />공개
+                  <input type="radio" name="status" id="private" value="비공개" class="radio radio-accent" />비공개
+                </div>
+              </div>
+
+              <div>
+                <div class="w-full">
+                  <label for="img" class="label">
+                    <span class="text-gray-400">인증 이미지</span>
+                  </label>
+                  <input id="img" name="img" type="file" class="file-input file-input-bordered file-input-accent w-full max-w-xs" />
+                </div>
+              </div>
+
+              <input type="submit" value="작성완료" class="mx-20 btn btn-md btn-accent btn-success gap-3">
+    </form>
+
+
+
+      </div>
+
+
+
+
+  </div>
+
+
+</body>
+
 <div>
 
-  <h2>챌린지 인증 페이지</h2>
-
-  <p>챌린지 이름</p>
-  <!-- FIXME -->
-  <form method="post" th:action="@{|/usr/challenge/write_form/${challenge.id}|}">
-
-    <div>
-      <label for="title"> 인증 제목 </label>
-      <input type="text" name="title" id="title" class="form-control">
-    </div>
-
-    <div>
-      <label for="contents"> 인증 내용 작성하기 </label>
-      <textarea name="contents" id="contents" class="form-control"></textarea>
-    </div>
-
-    <div>
-      <label>
-        <input type="radio" name="status" id="public" value="공개" checked>공개
-        <input type="radio" name="status" id="private" value="비공개">비공개
-      </label>
-    </div>
-
-    <input type="submit" value="작성완료" class="ui-button">
-  </form>
 
 </div>
 </html>
