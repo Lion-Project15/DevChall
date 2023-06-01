@@ -2,93 +2,92 @@
 
 <head>
     <title>회원가입</title>
-    <link rel="stylesheet" href="join.css">
 </head>
 
 <body>
 
-<main layout:fragment="main" body class="bg-[#121212] text-white flex flex-col w-full">
-<!--    <script>-->
-<!--        function JoinForm__submit(form) {-->
-<!--            // loginID 이(가) 올바른지 체크-->
+<main layout:fragment="main" class="bg-[#121212] text-white flex flex-col w-full">
+    <!--<script>
+        function JoinForm__submit(form) {
+            // loginID 이(가) 올바른지 체크
 
-<!--            form.loginID.value = form.loginID.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거-->
+            form.loginID.value = form.loginID.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
 
-<!--            //loginID == 아이디-->
-<!--            if (form.loginID.value.length === 0) {-->
-<!--                toastWarning('아이디를 입력해주세요.');-->
-<!--                form.loginID.focus();-->
-<!--                return;-->
-<!--            }-->
+            //loginID == 아이디
+            if (form.loginID.value.length === 0) {
+                toastWarning('아이디를 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
 
-<!--            if (form.loginID.value.length < 4) {-->
-<!--                toastWarning('아이디를 4자 이상 입력해주세요.');-->
-<!--                form.loginID.focus();-->
-<!--                return;-->
-<!--            }-->
-<!--            // nickname = 닉네임-->
-<!--            form.nickname.value = form.nickname.value.trim();-->
-<!--            if (form.nickname.value.length === 0) {-->
-<!--                toastWarning('닉네임을 입력해주세요.');-->
-<!--                form.nickname.focus();-->
-<!--                return;-->
-<!--            }-->
+            if (form.loginID.value.length < 4) {
+                toastWarning('아이디를 4자 이상 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
+            // nickname = 닉네임
+            form.nickname.value = form.nickname.value.trim();
+            if (form.nickname.value.length === 0) {
+                toastWarning('닉네임을 입력해주세요.');
+                form.nickname.focus();
+                return;
+            }
 
-<!--            if (form.nickname.value.length < 1) {-->
-<!--                toastWarning('닉네임을 입력해주세요.');-->
-<!--                form.nickname.focus();-->
-<!--                return;-->
-<!--            }-->
+            if (form.nickname.value.length < 1) {
+                toastWarning('닉네임을 입력해주세요.');
+                form.nickname.focus();
+                return;
+            }
 
-<!--            // password 이(가) 올바른지 체크-->
+            // password 이(가) 올바른지 체크
 
 
-<!--            // email == 이메일-->
-<!--            form.email.value = form.email.value.trim();-->
-<!--            if (form.email.value.length === 0) {-->
-<!--                toastWarning('이메일을 입력해주세요.');-->
-<!--                form.email.focus();-->
-<!--                return;-->
-<!--            }-->
+            // email == 이메일
+            form.email.value = form.email.value.trim();
+            if (form.email.value.length === 0) {
+                toastWarning('이메일을 입력해주세요.');
+                form.email.focus();
+                return;
+            }
 
-<!--            if (form.email.value.length < 1) {-->
-<!--                toastWarning('이메일을 입력해주세요.');-->
-<!--                form.email.focus();-->
-<!--                return;-->
-<!--            }-->
+            if (form.email.value.length < 1) {
+                toastWarning('이메일을 입력해주세요.');
+                form.email.focus();
+                return;
+            }
 
-<!--            // username == 본명-->
-<!--            form.username.value = form.username.value.trim();-->
-<!--            if (form.username.value.length === 0) {-->
-<!--                toastWarning('이름을 입력해주세요.');-->
-<!--                form.username.focus();-->
-<!--                return;-->
-<!--            }-->
+            // username == 본명
+            form.username.value = form.username.value.trim();
+            if (form.username.value.length === 0) {
+                toastWarning('이름을 입력해주세요.');
+                form.username.focus();
+                return;
+            }
 
-<!--            if (form.username.value.length < 1) {-->
-<!--                toastWarning('이름을 입력해주세요.');-->
-<!--                form.loginID.focus();-->
-<!--                return;-->
-<!--            }-->
+            if (form.username.value.length < 1) {
+                toastWarning('이름을 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
 
-<!--            // password = 비밀번호-->
-<!--            form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거-->
+            // password = 비밀번호
+            form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
 
-<!--            if (form.password.value.length == 0) {-->
-<!--                form.password.focus();-->
-<!--                toastWarning('비밀번호를 입력해주세요.');-->
-<!--                return;-->
-<!--            }-->
+            if (form.password.value.length == 0) {
+                form.password.focus();
+                toastWarning('비밀번호를 입력해주세요.');
+                return;
+            }
 
-<!--            if (form.password.value.length < 4) {-->
-<!--                toastWarning('비밀번호를 4자 이상 입력해주세요.');-->
-<!--                form.password.focus();-->
-<!--                return;-->
-<!--            }-->
+            if (form.password.value.length < 4) {
+                toastWarning('비밀번호를 4자 이상 입력해주세요.');
+                form.password.focus();
+                return;
+            }
 
-<!--            form.submit(); // 폼 발송-->
-<!--        }-->
-<!--    </script>-->
+            form.submit(); // 폼 발송
+        }
+    </script>-->
     <div>
         <img src="/images/logo.png" class="w-[250px] h-[250px]">
     </div>
@@ -103,7 +102,8 @@
                                 <label class="label">
                                     <span class="text-gray-400">아이디를 입력해주세요</span>
                                 </label>
-                                <input type="text" name="loginID" maxlength="15" placeholder="아이디" class="input input-bordered w-full text-black" id="loginID" autofocus />
+                                <input type="text" name="loginID" maxlength="16" placeholder="아이디" class="input input-bordered w-full text-black" id="loginID" autofocus />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_loginID}"></span>
                             </div>
                         </div>
                         <div>
@@ -111,15 +111,17 @@
                                 <label class="label">
                                     <span class="text-gray-400">성명을 입력해 주세요</span>
                                 </label>
-                                <input type="text" name="username" maxlength="15" placeholder="성명" class="input input-bordered w-full text-black" id="username" />
+                                <input type="text" name="username" placeholder="성명" class="input input-bordered w-full text-black" id="username" />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_username}"></span>
                             </div>
                         </div>
                         <div>
                             <div class="w-full">
                                 <label class="label">
-                                    <span class="text-gray-400">닉네임을 입력해주세요(1~15자)</span>
+                                    <span class="text-gray-400">닉네임을 입력해주세요(2~8자)</span>
                                 </label>
-                                <input type="text" name="nickname" maxlength="15" placeholder="별명 (1~15자)" class="input input-bordered w-full text-black" id="nickname" />
+                                <input type="text" name="nickname" maxlength="8" placeholder="별명 (2~8자)" class="input input-bordered w-full text-black" id="nickname" />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_nickname}"></span>
                             </div>
                         </div>
                         <div>
@@ -127,7 +129,8 @@
                                 <label class="label">
                                     <span class="text-gray-400">이메일 주소를 입력해주세요</span>
                                 </label>
-                                <input type="text" name="email" maxlength="30" placeholder="이메일" class="input input-bordered w-full text-black" id="email" /><br>
+                                <input type="text" name="email" placeholder="이메일" class="input input-bordered w-full text-black" id="email" /><br>
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_email}"></span>
                             </div>
                         </div>
                     </div>
@@ -137,7 +140,8 @@
                                 <label class="label">
                                     <span class="text-gray-400">비밀번호를 입력해주세요</span>
                                 </label>
-                                <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
+                                <input type="password" name="password" maxlength="16" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_password}"></span>
                             </div>
                         </div>
                         <div>
@@ -145,7 +149,7 @@
                                 <label class="label">
                                     <span class="text-gray-400">비밀번호를 한 번 더 입력해주세요</span>
                                 </label>
-                                <input type="password" name="repeatPassword" maxlength="30" placeholder="비밀번호 확인" class="input input-bordered w-full text-black" id="repeatPassword" />
+                                <input type="password" name="repeatPassword" maxlength="15" placeholder="비밀번호 확인" class="input input-bordered w-full text-black" id="repeatPassword" />
                             </div>
                         </div>
                     </div>

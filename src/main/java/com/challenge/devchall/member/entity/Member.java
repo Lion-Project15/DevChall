@@ -33,7 +33,7 @@ public class Member extends BaseEntity {
     private String nickname;
 
     @Column(unique = true)
-    private String  email;
+    private String email;
 
     private String emailToken; //이메일 토큰
     private boolean isValid; // 인증 여부
