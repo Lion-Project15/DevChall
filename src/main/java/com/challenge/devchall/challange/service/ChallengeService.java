@@ -8,6 +8,9 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +44,12 @@ public class ChallengeService {
 
         challengeRepository.save(challenge);
         challengeMemberService.addMember(challenge, member, Role.LEADER);
+    }
+
+    public List<Challenge> getChallengList() {
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(0,30,sort);
+        return challengeRepository.findAll(pageable).getContent();
     }
 
     public class FormattingResult {
