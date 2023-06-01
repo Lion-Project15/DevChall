@@ -58,7 +58,7 @@ public class MemberController {
                 joinForm.getEmail(),
                 joinForm.getNickname(),
                 joinForm.getUsername());
-        return "redirect:/";
+        return "redirect:/usr/member/login";
     }
     @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
