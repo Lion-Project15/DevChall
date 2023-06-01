@@ -7,7 +7,9 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,10 +49,8 @@ public class MemberController {
         @NotBlank
         @Size(min = 1, max = 30)
         private final String nickname;
-
-
-
     }
+
     @PostMapping ("/join")
     public String join(@Valid JoinForm joinForm) {
         memberService.join(joinForm.getLoginID(),
@@ -60,10 +60,16 @@ public class MemberController {
                 joinForm.getUsername());
         return "redirect:/";
     }
-
+    @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
     public String showLogin () {
         return "/usr/member/login";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/me")
+    public String showMe(Model model){
+        return "/usr/member/me";
     }
 
 

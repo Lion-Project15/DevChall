@@ -1,3 +1,5 @@
+<html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -18,41 +20,88 @@
 
 </script>
 
-<p>챌린지 이름</p>
-<h1 th:text="${challenge.challengeName}"></h1>
+<main layout:fragment="main" class="flex flex-col justify-center">
 
-<p>챌린지 내용</p>
-<div th:text="${challenge.challengeContents}"></div>
+    <div class="card w-90 shadow-xl">
+        <figure class="px-10 pt-10">
+            <img src="/images/logo.png" class="w-[250px] h-[250px] rounded-xl" alt="logo_image"/>
+        </figure>
+        <div class="card-body text-white">
+            <h2 class="card-title">챌린지 이름</h2>
+            <p th:text="${challenge.challengeName}"></p>
 
-<p>챌린지 공개 여부</p>
-<div th:text="${challenge.challengeStatus}"></div>
+            <h2 class="card-title">챌린지 내용</h2>
+            <p th:text="${challenge.challengeContents}"></p>
 
-<p>챌린지 이미지 소스</p>
-<div th:text="${challenge.challengeImg}"></div>
+            <h2 class="card-title">챌린지 공개 여부</h2>
+            <p th:text="${challenge.challengeStatus}"></p>
 
-<p>챌린지 태그</p>
-<div th:text="${challenge.challengeTag}"></div>
+            <h2 class="card-title">챌린지 이미지 소스</h2>
+            <p th:text="${challenge.challengeImg}"></p>
 
-<p>챌린지 주간 인증 빈도</p>
-<div th:text="${challenge.challengeFrequency}"></div>
+            <h2 class="card-title">챌린지 태그</h2>
+            <p th:text="${challenge.challengeTag}"></p>
 
-<p>챌린지 시작일</p>
-<div th:text="${challenge.startDate}"></div>
+            <h2 class="card-title">챌린지 주간 인증 빈도</h2>
+            <p th:text="${challenge.challengeFrequency}"></p>
 
-<p>챌린지 종료일</p>
-<div th:text="${challenge.endDate}"></div>
+            <h2 class="card-title">챌린지 시작일</h2>
+            <p th:text="${challenge.startDate}"></p>
 
-<th:block th:unless="${isJoin}">
-    <div>
-        <button th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'">참여하기</button>
+            <h2 class="card-title">챌린지 종료일</h2>
+            <p th:text="${challenge.endDate}"></p>
+
+            <div class="card-actions justify-end">
+                <th:block th:unless="${isJoin}">
+                    <div>
+                        <button th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'" class="btn btn-accent flex justify-center">참여하기</button>
+                    </div>
+                </th:block>
+
+                <th:block th:if="${isJoin}">
+                    <a th:href="@{|/usr/challenge/write_form/${challenge.id}|}" class="btn btn-accent flex justify-center">
+                        <button>챌린지 인증하기</button>
+                    </a>
+                </th:block>
+            </div>
+        </div>
     </div>
-</th:block>
 
-<th:block th:if="${isJoin}">
-    <a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">
-        <button>챌린지 인증하기</button>
-    </a>
-</th:block>
+<!--<h2>챌린지 이름</h2>-->
+<!--<p th:text="${challenge.challengeName}"></p>-->
+
+<!--<h2>챌린지 내용</h2>-->
+<!--<p th:text="${challenge.challengeContents}"></p>-->
+
+<!--<h2>챌린지 공개 여부</h2>-->
+<!--<p th:text="${challenge.challengeStatus}"></p>-->
+
+<!--<h2>챌린지 이미지 소스</h2>-->
+<!--<p th:text="${challenge.challengeImg}"></p>-->
+
+<!--<h2>챌린지 태그</h2>-->
+<!--<p th:text="${challenge.challengeTag}"></p>-->
+
+<!--<h2>챌린지 주간 인증 빈도</h2>-->
+<!--<p th:text="${challenge.challengeFrequency}"></p>-->
+
+<!--<h2>챌린지 시작일</h2>-->
+<!--<p th:text="${challenge.startDate}"></p>-->
+
+<!--<h2>챌린지 종료일</h2>-->
+<!--<p th:text="${challenge.endDate}"></p>-->
+
+<!--<th:block th:unless="${isJoin}">-->
+<!--    <div>-->
+<!--        <button th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'">참여하기</button>-->
+<!--    </div>-->
+<!--</th:block>-->
+
+<!--<th:block th:if="${isJoin}">-->
+<!--    <a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">-->
+<!--        <button>챌린지 인증하기</button>-->
+<!--    </a>-->
+<!--</th:block>-->
 
 
 <th:block th:unless="${hasPost}">
@@ -76,4 +125,5 @@
     </div>
 </th:block>
 
+</main>
 </body>

@@ -6,7 +6,7 @@
 
 <body>
 
-<main layout:fragment="main" class="flex flex-col w-full">
+<main layout:fragment="main" body class="bg-[#121212] text-white flex flex-col w-full">
     <script>
         function JoinForm__submit(form) {
             // loginID 이(가) 올바른지 체크
@@ -102,7 +102,7 @@
                                 <label class="label">
                                     <span class="text-gray-400">아이디를 입력해주세요</span>
                                 </label>
-                                <input type="text" name="loginID" maxlength="15" placeholder="아이디" class="input input-bordered w-full" id="loginID" autofocus />
+                                <input type="text" name="loginID" maxlength="15" placeholder="아이디" class="input input-bordered w-full text-black" id="loginID" autofocus />
                             </div>
                         </div>
                         <div>
@@ -110,7 +110,7 @@
                                 <label class="label">
                                     <span class="text-gray-400">성명을 입력해 주세요</span>
                                 </label>
-                                <input type="text" name="username" maxlength="15" placeholder="성명" class="input input-bordered w-full" id="username" />
+                                <input type="text" name="username" maxlength="15" placeholder="성명" class="input input-bordered w-full text-black" id="username" />
                             </div>
                         </div>
                         <div>
@@ -118,7 +118,7 @@
                                 <label class="label">
                                     <span class="text-gray-400">닉네임을 입력해주세요(1~15자)</span>
                                 </label>
-                                <input type="text" name="nickname" maxlength="15" placeholder="별명 (1~15자)" class="input input-bordered w-full" id="nickname" />
+                                <input type="text" name="nickname" maxlength="15" placeholder="별명 (1~15자)" class="input input-bordered w-full text-black" id="nickname" />
                             </div>
                         </div>
                         <div>
@@ -126,7 +126,7 @@
                                 <label class="label">
                                     <span class="text-gray-400">이메일 주소를 입력해주세요</span>
                                 </label>
-                                <input type="text" name="email" maxlength="30" placeholder="이메일" class="input input-bordered w-full" id="email" /><br>
+                                <input type="text" name="email" maxlength="30" placeholder="이메일" class="input input-bordered w-full text-black" id="email" /><br>
                             </div>
                         </div>
                     </div>
@@ -136,7 +136,7 @@
                                 <label class="label">
                                     <span class="text-gray-400">비밀번호를 입력해주세요</span>
                                 </label>
-                                <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered w-full" id="password" />
+                                <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
                             </div>
                         </div>
                         <div>
@@ -144,23 +144,25 @@
                                 <label class="label">
                                     <span class="text-gray-400">비밀번호를 한 번 더 입력해주세요</span>
                                 </label>
-                                <input type="password" name="repeatPassword" maxlength="30" placeholder="비밀번호 확인" class="input input-bordered w-full" id="repeatPassword" />
+                                <input type="password" name="repeatPassword" maxlength="30" placeholder="비밀번호 확인" class="input input-bordered w-full text-black" id="repeatPassword" />
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="flex flex-col justify-center mt-[20px]">
-                    <button id="btn-join-1" class="btn btn-md btn-primary btn-success gap-3">
-                        <span>회원가입</span>
+                    <button id="btn-join-1" class="btn btn-md btn-accent gap-3">
+                        <span class="text-white" style="font-size: 17px;">회원가입</span>
                     </button>
                 </div>
-
+                <div class="flex justify-center mt-[20px]">
+                    <label class="label">
+                        <span class="text-gray-400">SNS로 회원가입 하기</span>
+                    </label>
+                </div>
                 <div class="mt-[20px] flex justify-center space-x-6">
                     <img src="/images/naver-icon.png" class="w-[50px] h-[50px]">
-                    <img src="/images/naver-icon.png" class="w-[50px] h-[50px]">
-                    <img src="/images/naver-icon.png" class="w-[50px] h-[50px]">
+                    <img src="/images/kakao-icon.png" class="w-[50px] h-[50px]">
                 </div>
             </div>
         </form>
