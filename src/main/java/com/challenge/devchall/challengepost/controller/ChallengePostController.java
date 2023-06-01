@@ -38,11 +38,11 @@ public class ChallengePostController {
                                   Model model
     ) {
 
-
         ChallengePost post = challengePostService.write(title, contents, status, id);
+        Challenge linkedChallenge = post.getLinkedChallenge();
 
+        model.addAttribute("linkedChallenge", linkedChallenge);
         model.addAttribute("post", post);
-
 
         return "redirect:/usr/challenge/detail/{id}";
     }
