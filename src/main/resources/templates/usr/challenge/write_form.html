@@ -41,13 +41,28 @@
                             </div>
 
                             <div>
+                                <div class="w-full">
+                                    <label for="contents" class="label">
+                                        <span class="text-gray-400">자기 평가</span>
+                                    </label>
+                                    <div class="rating rating-lg">
+                                        <input type="radio" name="postScore" value=1 class="mask mask-star-2 bg-orange-400" />
+                                        <input type="radio" name="postScore" value=2 class="mask mask-star-2 bg-orange-400" checked />
+                                        <input type="radio" name="postScore" value=3 class="mask mask-star-2 bg-orange-400" />
+                                        <input type="radio" name="postScore" value=4 class="mask mask-star-2 bg-orange-400" />
+                                        <input type="radio" name="postScore" value=5 class="mask mask-star-2 bg-orange-400" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
                                 <div class="w-full justify-center items-center">
                                     <label class="label">
                                         <span class="text-gray-400">공개 여부</span>
                                     </label>
-                                    <input type="radio" name="status" id="public" value="공개" class="radio radio-accent"
+                                    <input type="radio" name="status" id="public" value=true class="radio radio-accent"
                                            checked/>공개
-                                    <input type="radio" name="status" id="private" value="비공개"
+                                    <input type="radio" name="status" id="private" value=false
                                            class="radio radio-accent"/>비공개
                                 </div>
                             </div>

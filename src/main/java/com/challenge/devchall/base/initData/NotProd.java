@@ -32,12 +32,12 @@ public class NotProd {
             challengeService.createChallenge("3번 챌린지", "3번 챌린지 내용입니다", "public", "day7",
                     "2023-06-01", "2023-06-30", "Python", "시험 대비", "Github", user2);
 
-            challengePostService.write("1-1인증", "1-1인증 내용입니다.", "public", 1);
-            challengePostService.write("1-2인증", "1-2인증 내용입니다.", "public", 1);
-            challengePostService.write("2-1인증", "2-1인증 내용입니다.", "public", 2);
-            challengePostService.write("2-2인증", "2-2인증 내용입니다.", "public", 2);
-            challengePostService.write("3-1인증", "3-1인증 내용입니다.", "public", 3);
-            challengePostService.write("3-2인증", "3-2인증 내용입니다.", "public", 3);
+            challengePostService.write("1-1인증", "1-1인증 내용입니다.", true, 3, 1);
+            challengePostService.write("1-2인증", "1-2인증 내용입니다.", false, 4, 1);
+            challengePostService.write("2-1인증", "2-1인증 내용입니다.", true, 5, 2);
+            challengePostService.write("2-2인증", "2-2인증 내용입니다.", false, 1, 2);
+            challengePostService.write("3-1인증", "3-1인증 내용입니다.", true, 2, 3);
+            challengePostService.write("3-2인증", "3-2인증 내용입니다.", true, 4, 3);
 
         };
     }
