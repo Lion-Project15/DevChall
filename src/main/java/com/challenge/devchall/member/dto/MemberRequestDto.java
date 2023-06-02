@@ -22,6 +22,10 @@ public class MemberRequestDto {
     @Pattern(regexp = "^[a-z0-9]{4,16}$", message = "비밀번호는 4~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
     private String password;
 
+    @NotBlank(message = "비밀번호는 필수 입력 값입니다.")
+    @Pattern(regexp = "^[a-z0-9]{4,16}$", message = "비밀번호는 4~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.")
+    private String repeatPassword;
+
     @NotBlank(message = "성함은 필수 입력 값입니다.")
     private String username; //본명
 

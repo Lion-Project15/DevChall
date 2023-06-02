@@ -28,6 +28,7 @@ public class Member extends BaseEntity {
     private String loginID; //회원 로그인 id
     private String username; //본명
     private String password;
+    private String repeatPassword;
 
     @Column(unique = true)
     private String nickname;

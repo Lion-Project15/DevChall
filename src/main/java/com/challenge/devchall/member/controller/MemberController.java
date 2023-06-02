@@ -1,5 +1,6 @@
 package com.challenge.devchall.member.controller;
 
+import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.member.dto.MemberRequestDto;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
@@ -25,8 +26,9 @@ public class MemberController {
     private final MemberService memberService;
 
     //회원가입
-    @GetMapping ("/join")
-    public String showJoin(){
+    @GetMapping("/join")
+    public String showJoin (MemberRequestDto memberDto, Model model) {
+        model.addAttribute("memberDto", memberDto);
         return "/usr/member/join";
     }
 
@@ -54,18 +56,28 @@ public class MemberController {
 //        private final String nickname;
 //    }
 
-    @PostMapping ("/join")
-    public String join(@Valid MemberRequestDto memberDto, BindingResult bindingResult, Model model) {
-        /* 검증 */
-        if (bindingResult.hasErrors()) {
-            /* 회원가입 실패 시 입력 데이터 값 유지 */
+    @PostMapping("/join")
+    public String join (@Valid MemberRequestDto memberDto, BindingResult bindingResult, Model model) {
+        RsData<Member> validateRsData = memberService.validateMember(memberDto.getLoginID(), memberDto.getEmail(), memberDto.getNickname());
+
+        if (bindingResult.hasErrors() || validateRsData.isFail() ) {
+            if (validateRsData.isFail()){
+                switch (validateRsData.getResultCode()){
+                    case "F-1" -> model.addAttribute("valid_loginID",validateRsData.getMsg());
+                    case "F-2" -> model.addAttribute("valid_nickname",validateRsData.getMsg());
+                    case "F-3" -> model.addAttribute("valid_email",validateRsData.getMsg());
+                }
+
+            }
             Map<String, String> validatorResult = memberService.validateHandling(bindingResult);
             for (String key : validatorResult.keySet()) {
                 model.addAttribute(key, validatorResult.get(key));
             }
-            return "/usr/member/join";
+            model.addAttribute("memberDto",memberDto);
+            return "usr/member/join";
         }
-        memberService.join(memberDto.getLoginID(), memberDto.getPassword(), memberDto.getEmail(), memberDto.getNickname(), memberDto.getUsername());
+        RsData<Member> rsData = memberService.join(memberDto.getLoginID(), memberDto.getPassword(), memberDto.getEmail(), memberDto.getNickname(), memberDto.getUsername());
+
         return "redirect:/usr/member/login";
     }
 

@@ -27,9 +27,8 @@ public class MemberService {
 
     @Transactional
     public RsData<Member> join(String loginID, String password, String email, String nickname, String username) {
-        if (findByLoginID(loginID).isPresent()) {
-            return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginID));
-        }
+        RsData<Member> rsData = validateMember(loginID, email, nickname);
+        if (rsData != null) return rsData;
         Member member = Member
                 .builder()
                 .loginID(loginID)
@@ -41,6 +40,20 @@ public class MemberService {
         memberRepository.save(member);
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
     }
+
+    public RsData<Member> validateMember (String loginID, String email, String nickname) {
+        if (findByLoginID(loginID).isPresent()) {
+            return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginID));
+        }
+        if (memberRepository.existsByNickname(nickname)){
+            return RsData.of("F-2", "해당 닉네임은(%s)는 이미 사용중입니다. 다른 닉네임을 사용해주세요.".formatted(nickname));
+        }
+        if (memberRepository.existsByEmail(email)){
+            return RsData.of("F-3", "해당 이메일은 이미 사용중입니다.");
+        }
+        return RsData.of("S-1", "유효성 검사 완료");
+    }
+
 
     public Map<String, String> validateHandling(Errors errors) {
         Map<String, String> validatorResult = new HashMap<>();
