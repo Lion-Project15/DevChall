@@ -22,10 +22,12 @@ public class Challenge extends BaseEntity {
     private String challengeContents;
     private boolean challengeStatus;
     private String challengeImg;
-    private String challengeTag;
     private int challengeFrequency;
     private LocalDate startDate;
     private LocalDate endDate;
+    private String challengeLanguage;
+    private String challengeSubject;
+    private String challengePostType;
 
     @OneToMany(mappedBy = "linkedChallenge")
     private List<ChallengePost> challengePostList = new ArrayList<>();
