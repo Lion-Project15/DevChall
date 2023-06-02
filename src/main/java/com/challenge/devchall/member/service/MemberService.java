@@ -28,7 +28,7 @@ public class MemberService {
     @Transactional
     public RsData<Member> join(String loginID, String password, String email, String nickname, String username) {
         RsData<Member> rsData = validateMember(loginID, email, nickname);
-        if (rsData != null) return rsData;
+        if (rsData.isFail()) return rsData;
         Member member = Member
                 .builder()
                 .loginID(loginID)
