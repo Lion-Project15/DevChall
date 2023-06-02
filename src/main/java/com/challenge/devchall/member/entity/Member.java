@@ -28,12 +28,13 @@ public class Member extends BaseEntity {
     private String loginID; //회원 로그인 id
     private String username; //본명
     private String password;
+    private String repeatPassword;
 
     @Column(unique = true)
     private String nickname;
 
     @Column(unique = true)
-    private String  email;
+    private String email;
 
     private String emailToken; //이메일 토큰
     private boolean isValid; // 인증 여부
