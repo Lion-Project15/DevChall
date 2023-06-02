@@ -1,5 +1,7 @@
 package com.challenge.devchall.member.controller;
 
+import com.challenge.devchall.base.rq.Rq;
+import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.member.dto.MemberRequestDto;
 import com.challenge.devchall.member.entity.Member;
@@ -24,6 +26,8 @@ import java.util.Map;
 @RequestMapping("/usr/member")
 public class MemberController {
     private final MemberService memberService;
+    final private ChallengeMemberService challengeMemberService;
+    private final Rq rq;
 
     //회원가입
     @GetMapping("/join")
@@ -90,6 +94,10 @@ public class MemberController {
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/me")
     public String showMe(Model model){
+        if(rq.isLogin()){
+            model.addAttribute("challengeMembers"
+                    , challengeMemberService.getByMember(rq.getMember()));
+        }
         return "/usr/member/me";
     }
 }
