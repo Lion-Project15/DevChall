@@ -24,6 +24,9 @@ public class SecurityConfig {
                 .logout(
                         logout -> logout
                                 .logoutUrl("/usr/member/logout")
+                                .logoutSuccessUrl("/")
+                                .invalidateHttpSession(true)
+                                .deleteCookies("JSESSIONID")
                 );
 
         return http.build();

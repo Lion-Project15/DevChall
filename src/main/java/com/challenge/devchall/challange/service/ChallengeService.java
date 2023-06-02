@@ -8,6 +8,9 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +26,8 @@ public class ChallengeService {
     private final ChallengeMemberService challengeMemberService;
 
     @Transactional
-    public void createChallenge(String title, String contents, String status, String frequency, String startDate, String endDate, Member member) {
+    public void createChallenge(String title, String contents, String status, String frequency, String startDate, String endDate,
+                                String language, String subject, String posttype, Member member) {
 
         FormattingResult formattingResult = formatting(status, frequency, startDate, endDate);
 
@@ -33,14 +37,22 @@ public class ChallengeService {
                 .challengeContents(contents)
                 .challengeStatus(formattingResult.formattingStatus)
                 .challengeImg(null)
-                .challengeTag(null)
                 .challengeFrequency(formattingResult.formattingFrequency)
                 .startDate(formattingResult.formattingStartDate)
                 .endDate(formattingResult.formattingEndDate)
+                .challengeLanguage(language)
+                .challengeSubject(subject)
+                .challengePostType(posttype)
                 .build();
 
         challengeRepository.save(challenge);
         challengeMemberService.addMember(challenge, member, Role.LEADER);
+    }
+
+    public List<Challenge> getChallengList() {
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(0,30,sort);
+        return challengeRepository.findAll(pageable).getContent();
     }
 
     public class FormattingResult {

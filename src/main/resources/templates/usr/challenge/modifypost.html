@@ -1,53 +1,81 @@
-<html>
+<html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
 <head>
-  <meta charset="UTF-8">
-  <title>인증글 수정하기</title>
+    <meta charset="UTF-8">
+    <title>인증글 수정하기</title>
 </head>
 
 <body>
+<main layout:fragment="main" class="flex flex-col w-full">
 
-<div>
+    <div class="flex flex-1">
+        <form method="post" th:action="@{|/usr/challenge/modifypost/${post.id}|}"
+              class="flex flex-col justify-center items-center w-full">
+            <div class="card bg-white">
+                <div class="w-full p-10 lg:w-[65rem]">
+                    <h3 class="text-lg">
+                        수정하기
+                        <span class="badge badge-md" th:text="${linkedChallenge.challengeName}"></span>
+                    </h3>
+                    <div class="flex flex-col gap-4 justify-center lg:flex-row">
+                        <div class="flex flex-col space-y-4  flex-1">
+                            <div>
+                                <div class="w-full">
+                                    <label for="title" class="label">
+                                        <span class="text-gray-400">인증 제목</span>
+                                    </label>
+                                    <input type="text" name="title" id="title" maxlength="30"
+                                           class="w-300% input input-bordered form-control text-black"
+                                           th:value="${post.postTitle}">
+                                </div>
+                            </div>
 
-  <h2>인증 수정 페이지</h2>
+                            <div>
+                                <div class="w-full">
+                                    <label for="contents" class="label">
+                                        <span class="text-gray-400">인증 내용</span>
+                                    </label>
+                                    <textarea rows="7" name="contents" placeholder="인증 내용"
+                                              class="textarea textarea-accent w-96 form-control text-black"
+                                              id="contents" th:text="${post.postContents}"></textarea>
+                                </div>
+                            </div>
 
-  <p>챌린지 이름</p>
-  <h1 th:text="${linkedChallenge.challengeName}"></h1>
-  <form method="post" th:action="@{|/usr/challenge/modifypost/${post.id}|}">
-    <div>
-      <label for="title"> 인증 제목 </label>
-      <input type="text" name="title" id="title" class="form-control" th:value="${post.postTitle}">
+                            <!-- FIXME 중복 코드 처리 방안 모색 필요-->
+                            <th:block th:if="${post.isPublic()}">
+                                <div>
+                                    <div class="w-full justify-center items-center">
+                                        <label class="label">
+                                            <span class="text-gray-400">공개 여부</span>
+                                        </label>
+                                        <input type="radio" name="status" value=true class="radio radio-accent"
+                                               checked/>공개
+                                        <input type="radio" name="status" value=false
+                                               class="radio radio-accent"/>비공개
+                                    </div>
+                                </div>
+                            </th:block>
+
+                            <th:block th:unless="${post.isPublic()}">
+                                <div>
+                                    <div class="w-full justify-center items-center">
+                                        <label class="label">
+                                            <span class="text-gray-400">공개 여부</span>
+                                        </label>
+                                        <input type="radio" name="status" value=true class="radio radio-accent"/>공개
+                                        <input type="radio" name="status" value=false class="radio radio-accent"
+                                               checked/>비공개
+                                    </div>
+                                </div>
+                            </th:block>
+
+                            <input type="submit" value="수정완료" class="mx-20 btn btn-md btn-accent btn-success gap-3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-
-    <div>
-      <label for="contents"> 인증 내용 작성하기 </label>
-      <textarea name="contents" id="contents" class="form-control"
-                th:text="${post.postContents}"></textarea>
-    </div>
-
-    <!-- FIXME 중복 코드 처리 방안 모색 필요-->
-    <th:block th:if="${post.isPublic()}">
-      <div>
-        <label>
-          <input type="radio" name="status" value="공개" checked>공개
-          <input type="radio" name="status" value="비공개">비공개
-        </label>
-      </div>
-    </th:block>
-
-    <th:block th:unless="${post.isPublic()}">
-      <div>
-        <label>
-          <input type="radio" name="status" value="공개">공개
-          <input type="radio" name="status" value="비공개" checked>비공개
-        </label>
-      </div>
-    </th:block>
-
-    <input type="submit" value="수정완료" class="ui-button">
-  </form>
-
-</div>
-
+</main>
 </body>
 
 </html>

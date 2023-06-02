@@ -34,15 +34,16 @@ public class ChallengePostController {
     public String createChallenge(@PathVariable("id") long id,
                                   @RequestParam String title,
                                   @RequestParam String contents,
-                                  @RequestParam String status,
+                                  @RequestParam boolean status,
+                                  @RequestParam long postScore,
                                   Model model
     ) {
 
+        ChallengePost post = challengePostService.write(title, contents, status, postScore, id);
+        Challenge linkedChallenge = post.getLinkedChallenge();
 
-        ChallengePost post = challengePostService.write(title, contents, status, id);
-
+        model.addAttribute("linkedChallenge", linkedChallenge);
         model.addAttribute("post", post);
-
 
         return "redirect:/usr/challenge/detail/{id}";
     }
@@ -91,7 +92,7 @@ public class ChallengePostController {
     public String modifyPost(@PathVariable long id,
                              @RequestParam String title,
                              @RequestParam String contents,
-                             @RequestParam String status) {
+                             @RequestParam boolean status) {
 
         challengePostService.modifyPost(id, title, contents, status);
 
