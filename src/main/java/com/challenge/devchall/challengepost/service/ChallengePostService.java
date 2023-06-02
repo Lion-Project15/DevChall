@@ -16,37 +16,20 @@ public class ChallengePostService {
     private final ChallengePostRepository challengePostRepository;
     private final ChallengeService challengeService;
 
-    public ChallengePost write(String title, String contents, String status, long id) {
-
-        boolean formattingStatus = formattingStatus(status);
+    public ChallengePost write(String title, String contents, boolean status, long id) {
 
         Challenge challengeById = challengeService.getChallengeById(id);
 
         ChallengePost challengePost = ChallengePost.builder()
                 .postTitle(title)
                 .postContents(contents)
-                .postIsPublic(formattingStatus)
+                .postIsPublic(status)
                 .linkedChallenge(challengeById)
                 .build();
 
         challengePostRepository.save(challengePost);
 
         return challengePost;
-    }
-
-    //FIXME js로 변환해서 받아오는 방법 고려
-    public boolean formattingStatus(String status){
-
-        boolean challengeStatus;
-
-        if(status.equals("비공개")) {
-            challengeStatus = false;
-        }
-        else{
-            challengeStatus = true;
-        }
-
-        return challengeStatus;
     }
 
     public ChallengePost getChallengePostById(long id){
@@ -65,13 +48,11 @@ public class ChallengePostService {
     }
 
     @Transactional
-    public void modifyPost(long id, String title, String contents, String status){
+    public void modifyPost(long id, String title, String contents, boolean status){
 
         ChallengePost challengePostById = getChallengePostById(id);
 
-        boolean formattingStatus= formattingStatus(status);
-
-        challengePostById.modifyPost(title, contents, formattingStatus);
+        challengePostById.modifyPost(title, contents, status);
 
     }
 }

@@ -34,7 +34,8 @@ public class ChallengePostController {
     public String createChallenge(@PathVariable("id") long id,
                                   @RequestParam String title,
                                   @RequestParam String contents,
-                                  @RequestParam String status,
+                                  @RequestParam boolean status,
+                                  @RequestParam long postScore,
                                   Model model
     ) {
 
@@ -91,7 +92,7 @@ public class ChallengePostController {
     public String modifyPost(@PathVariable long id,
                              @RequestParam String title,
                              @RequestParam String contents,
-                             @RequestParam String status) {
+                             @RequestParam boolean status) {
 
         challengePostService.modifyPost(id, title, contents, status);
 
