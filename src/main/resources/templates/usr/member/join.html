@@ -6,8 +6,8 @@
 
 <body>
 
-<main layout:fragment="main" body class="bg-[#121212] text-white flex flex-col w-full">
-    <script>
+<main layout:fragment="main" class="bg-[#121212] text-white flex flex-col w-full">
+    <!--<script>
         function JoinForm__submit(form) {
             // loginID 이(가) 올바른지 체크
 
@@ -87,7 +87,7 @@
 
             form.submit(); // 폼 발송
         }
-    </script>
+    </script>-->
     <div>
         <img src="/images/logo.png" class="w-[250px] h-[250px]">
     </div>
@@ -95,14 +95,15 @@
         <form th:action method="POST" class="flex flex-col justify-center items-center w-full" onsubmit="JoinForm__submit(this); return false;">
             <div class="w-full p-10 lg:w-[65rem]">
                 <p class="text-[25px]">회원가입</p>
-                <div class="flex flex-col gap-4 justify-center lg:flex-row">
+                <div class="flex flex-col gap-4 justify-center lg:flex-row" th:object="${memberDto}">
                     <div class="flex flex-col space-y-4  flex-1">
                         <div>
                             <div class="w-full">
                                 <label class="label">
                                     <span class="text-gray-400">아이디를 입력해주세요</span>
                                 </label>
-                                <input type="text" name="loginID" maxlength="15" placeholder="아이디" class="input input-bordered w-full text-black" id="loginID" autofocus />
+                                <input type="text" th:field="*{loginID}"  maxlength="16" placeholder="아이디" class="input input-bordered w-full text-black" id="loginID" autofocus />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_loginID}"></span>
                             </div>
                         </div>
                         <div>
@@ -110,15 +111,17 @@
                                 <label class="label">
                                     <span class="text-gray-400">성명을 입력해 주세요</span>
                                 </label>
-                                <input type="text" name="username" maxlength="15" placeholder="성명" class="input input-bordered w-full text-black" id="username" />
+                                <input type="text" th:field="*{username}" placeholder="성명" class="input input-bordered w-full text-black" id="username" />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_username}"></span>
                             </div>
                         </div>
                         <div>
                             <div class="w-full">
                                 <label class="label">
-                                    <span class="text-gray-400">닉네임을 입력해주세요(1~15자)</span>
+                                    <span class="text-gray-400">닉네임을 입력해주세요(2~8자)</span>
                                 </label>
-                                <input type="text" name="nickname" maxlength="15" placeholder="별명 (1~15자)" class="input input-bordered w-full text-black" id="nickname" />
+                                <input type="text" th:field="*{nickname}" maxlength="8" placeholder="별명 (2~8자)" class="input input-bordered w-full text-black" id="nickname" />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_nickname}"></span>
                             </div>
                         </div>
                         <div>
@@ -126,7 +129,8 @@
                                 <label class="label">
                                     <span class="text-gray-400">이메일 주소를 입력해주세요</span>
                                 </label>
-                                <input type="text" name="email" maxlength="30" placeholder="이메일" class="input input-bordered w-full text-black" id="email" /><br>
+                                <input type="text" th:field="*{email}" placeholder="이메일" class="input input-bordered w-full text-black" id="email" /><br>
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_email}"></span>
                             </div>
                         </div>
                     </div>
@@ -136,7 +140,8 @@
                                 <label class="label">
                                     <span class="text-gray-400">비밀번호를 입력해주세요</span>
                                 </label>
-                                <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
+                                <input type="password" th:field="*{password}" maxlength="16" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_password}"></span>
                             </div>
                         </div>
                         <div>
@@ -144,7 +149,7 @@
                                 <label class="label">
                                     <span class="text-gray-400">비밀번호를 한 번 더 입력해주세요</span>
                                 </label>
-                                <input type="password" name="repeatPassword" maxlength="30" placeholder="비밀번호 확인" class="input input-bordered w-full text-black" id="repeatPassword" />
+                                <input type="password" th:field="*{repeatPassword}" maxlength="15" placeholder="비밀번호 확인" class="input input-bordered w-full text-black" id="repeatPassword" />
                             </div>
                         </div>
                     </div>

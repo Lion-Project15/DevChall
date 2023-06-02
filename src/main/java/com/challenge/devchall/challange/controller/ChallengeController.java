@@ -43,18 +43,17 @@ public class ChallengeController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String createChallenge(
-            @RequestParam String title,
-            @RequestParam String contents,
-            @RequestParam String status,
-            @RequestParam String frequency,
-            @RequestParam String startDate,
-            @RequestParam String endDate,
-            Principal principal
+            @RequestParam String title, @RequestParam String contents,
+            @RequestParam String status, @RequestParam String frequency,
+            @RequestParam String startDate, @RequestParam String endDate,
+            @RequestParam String language, @RequestParam String subject,
+            @RequestParam String posttype, Principal principal
     ){
 
         Member loginMember = memberService.getByLoginId(principal.getName());
 
-        challengeService.createChallenge(title, contents, status, frequency, startDate, endDate, loginMember);
+        challengeService.createChallenge(title, contents, status, frequency, startDate, endDate,
+                language, subject, posttype, loginMember);
 
         return "redirect:/";
     }

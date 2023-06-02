@@ -26,7 +26,8 @@ public class ChallengeService {
     private final ChallengeMemberService challengeMemberService;
 
     @Transactional
-    public void createChallenge(String title, String contents, String status, String frequency, String startDate, String endDate, Member member) {
+    public void createChallenge(String title, String contents, String status, String frequency, String startDate, String endDate,
+                                String language, String subject, String posttype, Member member) {
 
         FormattingResult formattingResult = formatting(status, frequency, startDate, endDate);
 
@@ -36,10 +37,12 @@ public class ChallengeService {
                 .challengeContents(contents)
                 .challengeStatus(formattingResult.formattingStatus)
                 .challengeImg(null)
-                .challengeTag(null)
                 .challengeFrequency(formattingResult.formattingFrequency)
                 .startDate(formattingResult.formattingStartDate)
                 .endDate(formattingResult.formattingEndDate)
+                .challengeLanguage(language)
+                .challengeSubject(subject)
+                .challengePostType(posttype)
                 .build();
 
         challengeRepository.save(challenge);
