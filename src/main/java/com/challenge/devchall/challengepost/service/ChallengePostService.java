@@ -16,7 +16,7 @@ public class ChallengePostService {
     private final ChallengePostRepository challengePostRepository;
     private final ChallengeService challengeService;
 
-    public ChallengePost write(String title, String contents, boolean status, long id) {
+    public ChallengePost write(String title, String contents, boolean status, long postScore, long id) {
 
         Challenge challengeById = challengeService.getChallengeById(id);
 
@@ -24,6 +24,7 @@ public class ChallengePostService {
                 .postTitle(title)
                 .postContents(contents)
                 .postIsPublic(status)
+                .postScore(postScore)
                 .linkedChallenge(challengeById)
                 .build();
 
