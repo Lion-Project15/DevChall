@@ -30,11 +30,11 @@ public class NotProd {
                 Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4", "user4").getData();
 
                 challengeService.createChallenge("1번 챌린지", "1번 챌린지 내용입니다", "public", "day1",
-                        "2023-06-01", "2023-06-30", admin);
+                        "2023-06-01", "2023-06-30", "C", "개념 공부", "인증샷", admin);
                 challengeService.createChallenge("2번 챌린지", "2번 챌린지 내용입니다", "private", "day3",
-                        "2023-06-01", "2023-06-30", user1);
+                        "2023-06-01", "2023-06-30", "Java", "프로젝트", "IDE 캡처", user1);
                 challengeService.createChallenge("3번 챌린지", "3번 챌린지 내용입니다", "public", "day7",
-                        "2023-06-01", "2023-06-30", user2);
+                        "2023-06-01", "2023-06-30", "Python", "시험 대비", "Github", user2);
 
                 challengePostService.write("1-1인증", "1-1인증 내용입니다.", "public", 1);
                 challengePostService.write("1-2인증", "1-2인증 내용입니다.", "public", 1);
