@@ -1,10 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
+<html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>내 정보</title>
 </head>
-<body>
 
+<body>
+<main layout:fragment="main" class="flex flex-col w-full min-h-screen">
+    <div class="card lg:card-side bg-base-100 shadow-xl" style="margin: 20px; padding-left: 40px; padding-right: 40px">
+        <div class="card-body">
+            <h2 class="card-title font-bold w-[80%]">마이 페이지</h2>
+            <section class="flex justify-between">
+                <article class="bg-gray-100 rounded-lg w-[30%] flex justify-center p-7">
+                    <div class="flex flex-col items-center justify-center gap-[20px]">
+                        <div class="w-30 h-30">
+                            <div class="avatar indicator" style="width: 120px; height: 120px">
+<!--                                <a href=""><span class="indicator-item indicator-bottom badge badge-secondary">변경</span></a>-->
+                                <img class="rounded-full" src="/images/naver-icon.png" />
+                            </div>
+                        </div>
+                        <h3 class="text-3xl" th:text="${@rq.member.loginID}"></h3>
+                        <div class="flex justify-around">
+                            <h3 class="text-2xl" th:text="${@rq.member.nickname}"></h3>
+                            <a class="btn btn-sm mx-2" >변경</a>
+                        </div>
+                        <div class="flex justify-around">
+                            <h4 class="text-xl" th:text="${@rq.member.email}"></h4>
+                            <a class="btn btn-sm mx-2" >변경</a>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="font-bold">포인트</span>
+                            <span class="font-bold">100</span>
+                        </div>
+                    </div>
+                </article>
+                <article class="w-[50%] flex flex-col justify-between">
+                    <div class="bg-gray-100 rounded-xl h-[250px] p-[20px] mb-[10px]">
+                        <h3 class="text-xl font-bold">마이 챌린지></h3>
+                        <div class="text-black p-2" th:if="${challengeMembers==null or #lists.isEmpty(challengeMembers)}">
+                            <i class="fa-regular fa-face-laugh"></i> 참가 중인 챌린지가 없어요. 다양한 챌린지를 경험해보세요!
+                        </div>
+
+                        <div th:unless="${challengeMembers==null or #lists.isEmpty(challengeMembers)}"
+                             class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[10px]">
+                            <div th:each="challengeMember:${challengeMembers}"
+                                 class="card w-auto h-[150px] bg-base-100 shadow-xl text-gray-400 my-2 ">
+                                <a th:href="|/usr/challenge/detail/${challengeMember.linkedChallenge.id}|">
+                                    <figure class="pt-5">
+                                        <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                                    </figure>
+                                </a>
+                                <div class="card-body items-center text-center" style="padding: 10px">
+                                    <a th:href="|/usr/challenge/detail/${challengeMember.linkedChallenge.id}|">
+                                        <h4 class="text-black font-bold" style="font-size: small"
+                                            th:text="${challengeMember.linkedChallenge.challengeName}">
+                                            프로그래머스 코테 준비
+                                        </h4>
+                                    </a>
+<!--                                    <div class="flex flex-wrap">-->
+<!--                                        <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>-->
+<!--                                        <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>-->
+<!--                                    </div>-->
+                                    <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                                    <div class="card-actions flex justify-around">
+                                        <div style="font-size: x-small">
+                                            <a href="">
+                                                <span>댓글</span> <span>5</span>
+                                            </a>
+                                        </div>
+                                        <div style="font-size: x-small">
+                                            <a href="">
+                                                <span>클립</span><span>3</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-100 h-[200px] p-[20px] rounded-xl">
+                        <div>
+                            <h3 class="text-xl font-bold">나의 인벤토리</h3>
+                                <div>
+                                    <span class="text-lg">기본 색상</span>
+                                    <div class="bg-black h-12 w-20 pb-7"></div>
+                                </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </div>
+</main>
 </body>
-</html>
