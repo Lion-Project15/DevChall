@@ -60,11 +60,11 @@
     <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">DevChall</title>
 </head>
 
-<body class="bg-[#F2F4F4] text-black min-h-screen flex">
+<body class="bg-[#F2F4F4] text-black min-h-screen flex flex-col">
 
 <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
 <script src="https://cdn.tailwindcss.com"></script>
-<!--nav 시작-->
+<!--네브바 시작-->
 <nav>
     <div class="navbar text-accent bg-[#121212]">
         <div class="navbar-start">
@@ -85,20 +85,18 @@
 
         </div>
         <div class="navbar-end" >
-            <div>
-                <div th:if="${@rq.login}" class="badge badge-primary" th:text="${@rq.member.nickname}"></div>
-            </div>
-            <a href="usr/challenge/create" class="btn btn-sm btn-primary mx-2">챌린지 생성</a>
-            <a href="usr/member/join" class="btn btn-sm btn-outline btn-accent mx-2">회원가입</a>
-            <a href="usr/member/login" class="btn btn-sm bg-accent mx-2">로그인</a>
+
+            <a th:if="${@rq.login}" href="usr/challenge/create" class="btn btn-sm btn-primary mx-2">챌린지 생성</a>
+            <a th:if="${@rq.logout}" href="usr/member/join" class="btn btn-sm btn-outline btn-accent mx-2">회원가입</a>
+            <a th:if="${@rq.logout}" href="usr/member/login" class="btn btn-sm bg-accent mx-2">로그인</a>
+            <a th:if="${@rq.login}" href="usr/member/me" class="badge badge-accent font-bold" th:text="${@rq.member.nickname}"></a>
             <form th:action="|/usr/member/logout|" method="post" class="m-0">
-                <button type="submit" class="btn btn-sm bg-accent mx-2"> 로그아웃</button>
+                <button th:if="${@rq.login}" type="submit" class="btn btn-sm btn-ghost"> 로그아웃</button>
             </form>
         </div>
     </div>
 </nav>
-
-<!--nav 끝-->
+<!--네브바 끝-->
 <main layout:fragment="main" class="flex-1"></main>
 
 </body>

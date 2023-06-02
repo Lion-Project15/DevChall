@@ -23,8 +23,8 @@ public class ChallengeMember extends BaseEntity {
 
     private boolean isValid;
 
-    //@ManyToOne(cascade = CascadeType.ALL)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+//    @ManyToOne
     private Challenge linkedChallenge;
 
     @ManyToOne
