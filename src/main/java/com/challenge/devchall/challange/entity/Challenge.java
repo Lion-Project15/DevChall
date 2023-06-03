@@ -30,4 +30,8 @@ public class Challenge extends BaseEntity {
     @OneToMany(mappedBy = "linkedChallenge")
     private List<ChallengePost> challengePostList = new ArrayList<>();
 
+
+    public int getRequiredPosts() {
+        return 0;
+    }
 }

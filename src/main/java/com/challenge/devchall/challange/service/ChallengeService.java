@@ -131,4 +131,41 @@ public class ChallengeService {
         }
     }
 
+    // 챌린지 달성률 체크
+    public boolean checkChallengeAchievement(Challenge challenge, int requiredPosts, int unitPeriod) {
+        List<ChallengePost> challengePostList = challenge.getChallengePostList();
+        int postCount = challengePostList.size();
+
+        // 달성률 계산
+        double achievementRate = (double) postCount / requiredPosts;
+
+        // 단위 기간 내에 필요한 인증글 수를 충족하는지 확인
+        if (postCount >= requiredPosts) {
+
+            // 단위 기간 동안 달성률을 계산하여 달성 여부 확인
+            LocalDate currentDate = LocalDate.now();
+            LocalDate startDate = challenge.getStartDate();
+            LocalDate endDate = challenge.getEndDate();
+
+            // 현재 날짜보다 시작 날짜가 이전이거나 같은 경우, 단위 기간 수를 증가시키고 시작 날짜에 단위 기간을 더하기
+            int unitPeriodCount = 0;
+            while (startDate.isBefore(endDate) || startDate.isEqual(endDate)) {
+                if (startDate.isBefore(currentDate) || startDate.isEqual(currentDate)) {
+                    unitPeriodCount++;
+                    startDate = startDate.plusDays(unitPeriod);
+                } else {
+                    break;
+                }
+            }
+
+            double unitPeriodAchievementRate = (double) requiredPosts / unitPeriodCount;
+
+            if (achievementRate >= unitPeriodAchievementRate) {
+                return true; // 챌린지 달성 성공
+            }
+        }
+
+        return false; // 챌린지 달성 실패
+    }
 }
+
