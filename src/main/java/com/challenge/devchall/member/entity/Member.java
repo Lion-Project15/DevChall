@@ -45,6 +45,9 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "challenger")
     private List<ChallengePost> myPostList = new ArrayList<>();
 
+    //스케줄러 -> 매달 1일에 0으로 초기화 되어야함.
+    private int challengeLimit;
+
     //role은 spring security 이후에 작성
     public List<? extends GrantedAuthority> getGrantedAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
@@ -58,16 +61,10 @@ public class Member extends BaseEntity {
         return grantedAuthorities;
     }
 
-    //Member(내가) 어떤 챌린지에 들어가 있는지 확인하기 위해 작성했다.
-    //Challenge(내가 참여한 챌린지 리스트)
-    //n:n 방식이라면 -> 중간 테이블 필요 -> ChallengeMember
-    //Challenge랑 연결하기 위해 -> 중간 테이블 challengeMember와 연결
-    //ChallengeMember는 Challenge를 갖고 있기 때문에 조회가능
+    //FIXME 세터 말고 다른 방법?
+    public void setChallengeLimit(int challengeLimit){
 
-    //우리의 목적은 Challenge다.
-    //Challenge 를 그대로 가지고 있으면 이걸 출력만 하면 되는데
-    //아래의 방식도 가능하기는 하지만 ChallengeMember(일단 내가 있는지부터 확인) -> Challenge
-
-
+        this.challengeLimit = challengeLimit;
+    }
 
 }

@@ -1,12 +1,14 @@
 package com.challenge.devchall.challange.service;
 
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
+import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,10 +26,21 @@ public class ChallengeService {
 
     private final ChallengeRepository challengeRepository;
     private final ChallengeMemberService challengeMemberService;
+    private final MemberService memberService;
 
     @Transactional
     public void createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
                                 String language, String subject, String posttype, Member member) {
+
+        RsData<Member> memberRsData = memberService.updateChallengeLimit(member);
+
+        //FIXME 이미 2개를 생성한 상태라면 뒤의 작업이 이루어지지 않아야 함.
+        if(memberRsData.isFail()){
+            System.out.println(memberRsData.getMsg());
+            System.out.println(memberRsData.getMsg());
+            System.out.println(memberRsData.getMsg());
+            return;
+        }
 
         FormattingResult formattingResult = formatting(frequency, startDate, period);
 
@@ -47,6 +60,7 @@ public class ChallengeService {
 
         challengeRepository.save(challenge);
         challengeMemberService.addMember(challenge, member, Role.LEADER);
+
     }
 
     public List<Challenge> getChallengList() {
