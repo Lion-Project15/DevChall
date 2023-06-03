@@ -24,7 +24,7 @@ public class Challenge extends BaseEntity {
     private String challengeImg;
     private int challengeFrequency;
     private LocalDate startDate;
-    private LocalDate endDate;
+    private int challengePeriod;
     private String challengeLanguage;
     private String challengeSubject;
     private String challengePostType;

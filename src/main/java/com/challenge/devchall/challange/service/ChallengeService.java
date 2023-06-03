@@ -26,20 +26,20 @@ public class ChallengeService {
     private final ChallengeMemberService challengeMemberService;
 
     @Transactional
-    public void createChallenge(String title, String contents, String status, String frequency, String startDate, String endDate,
+    public void createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
                                 String language, String subject, String posttype, Member member) {
 
-        FormattingResult formattingResult = formatting(status, frequency, startDate, endDate);
+        FormattingResult formattingResult = formatting(frequency, startDate, period);
 
         Challenge challenge = Challenge
                 .builder()
                 .challengeName(title)
                 .challengeContents(contents)
-                .challengeStatus(formattingResult.formattingStatus)
+                .challengeStatus(status)
                 .challengeImg(null)
                 .challengeFrequency(formattingResult.formattingFrequency)
                 .startDate(formattingResult.formattingStartDate)
-                .endDate(formattingResult.formattingEndDate)
+                .challengePeriod(formattingResult.formattingPeriod)
                 .challengeLanguage(language)
                 .challengeSubject(subject)
                 .challengePostType(posttype)
@@ -56,54 +56,33 @@ public class ChallengeService {
     }
 
     public class FormattingResult {
-        private boolean formattingStatus;
         private int formattingFrequency;
         private LocalDate formattingStartDate;
-        private LocalDate formattingEndDate;
+        private int formattingPeriod;
 
-        public FormattingResult(boolean formattingStatus, int formattingFrequency, LocalDate formattingStartDate, LocalDate formattingEndDate) {
-            this.formattingStatus = formattingStatus;
+        public FormattingResult(int formattingFrequency, LocalDate formattingStartDate, int formattingPeriod) {
             this.formattingFrequency = formattingFrequency;
             this.formattingStartDate = formattingStartDate;
-            this.formattingEndDate = formattingEndDate;
+            this.formattingPeriod = formattingPeriod;
         }
     }
 
-    public FormattingResult formatting(String status, String frequency, String start_date, String end_date){
+    public FormattingResult formatting(String frequency, String start_date, String period){
 
-        boolean formattingStatus = formattingStatus(status);
         int formattingFrequency = formattingFrequency(frequency);
         LocalDate formattingStartDate = formattingDate(start_date);
-        LocalDate formattingEndDate = formattingDate(end_date);
+        int formattingPeriod = formattingPeriod(period);
 
-        FormattingResult formattingResult = new FormattingResult(formattingStatus, formattingFrequency, formattingStartDate, formattingEndDate);
+        FormattingResult formattingResult = new FormattingResult( formattingFrequency, formattingStartDate, formattingPeriod);
 
         return formattingResult;
     }
 
-    public boolean formattingStatus(String status){
-
-        boolean challengeStatus;
-
-        if(status.equals("비공개")) {
-            challengeStatus = false;
-        }
-        else{
-            challengeStatus = true;
-        }
-
-        return challengeStatus;
-    }
-
     public int formattingFrequency(String frequency){
-
-        int challengeFrequency = 0;
 
         String[] frequencyData = frequency.split("day");
 
-        challengeFrequency = Integer.parseInt(frequencyData[1]);
-
-        return challengeFrequency;
+        return Integer.parseInt(frequencyData[1]);
 
     }
 
@@ -113,6 +92,15 @@ public class ChallengeService {
         LocalDate dateTime = LocalDate.parse(date, formatter);
 
         return dateTime;
+    }
+
+    public int formattingPeriod(String period){
+
+        String[] periodDate = period.split("주");
+
+
+
+        return Integer.parseInt(periodDate[0]);
     }
 
     public Challenge getChallengeById(long id) {
