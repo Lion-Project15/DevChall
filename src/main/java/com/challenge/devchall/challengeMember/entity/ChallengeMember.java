@@ -24,8 +24,8 @@ public class ChallengeMember extends BaseEntity {
 
     private boolean isValid;
 
-    //@ManyToOne(cascade = CascadeType.ALL)
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
+//    @ManyToOne
     private Challenge linkedChallenge;
 
     @ManyToOne
@@ -36,7 +36,7 @@ public class ChallengeMember extends BaseEntity {
 
     //스케줄러 -> 매일 초기화
     private int postLimit;
-
+    private Long challengeTotalPoint;
 //    private List<Role> challengerRole2;
 
     public void turnValid(){

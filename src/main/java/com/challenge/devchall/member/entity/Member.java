@@ -3,10 +3,8 @@ package com.challenge.devchall.member.entity;
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.OneToMany;
+import com.challenge.devchall.point.entity.Point;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -38,6 +36,10 @@ public class Member extends BaseEntity {
 
     private String emailToken; //이메일 토큰
     private boolean isValid; // 인증 여부
+
+    @OneToOne(cascade = CascadeType.ALL) //영속화 작업
+    @JoinColumn(referencedColumnName = "id") //데이터베이스의 point id와 join
+    private Point point;
 
     @OneToMany(mappedBy = "challenger")
     private List<ChallengeMember> challengeMemberList = new ArrayList<>();
