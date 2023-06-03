@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 public class Challenge extends BaseEntity {
+
     private String challengeName;
     private String challengeContents;
     private boolean challengeStatus;
