@@ -41,9 +41,16 @@
                             <div>
                                 <div class="w-full">
                                     <label class="label">
-                                        <span class="text-gray-400">챌린지 종료일 선택</span>
+                                        <span class="text-gray-400">챌린지 기간 선택</span>
                                     </label>
-                                    <input type="date" name="endDate" class="text-black select select-accent"/>
+                                    <select name="period" class="select select-accent w-70 max-w-xs">
+                                        <option>2주</option>
+                                        <option>3주</option>
+                                        <option>4주</option>
+                                        <option>6주</option>
+                                        <option>8주</option>
+                                        <option>12주</option>
+                                    </select>
                                 </div>
                             </div>
 
@@ -53,8 +60,8 @@
                                         <!-- 공개여부 UI 재설정 필요-->
                                         <span class="">공개 여부</span>
                                     </label>
-                                    <input type="radio" name="status" id="public" value="공개" class="radio radio-accent" checked>공개
-                                    <input type="radio" name="status" id="private" value="비공개" class="radio radio-accent">비공개
+                                    <input type="radio" name="status" id="public" value=true class="radio radio-accent" checked>공개
+                                    <input type="radio" name="status" id="private" value=false class="radio radio-accent">비공개
                                 </div>
                             </div>
 

@@ -36,6 +36,7 @@ public class MemberService {
                 .nickname(nickname)
                 .username(username)
                 .password(passwordEncoder.encode(password))
+                .challengeLimit(0)
                 .build();
         memberRepository.save(member);
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
@@ -68,5 +69,19 @@ public class MemberService {
     public Member getByLoginId(String loginId){
 
         return memberRepository.findByLoginID(loginId).orElse(null);
+    }
+
+    public RsData<Member> updateChallengeLimit(Member member){
+
+        int challengeLimit = member.getChallengeLimit();
+
+        if(challengeLimit < 2){
+            member.setChallengeLimit(challengeLimit + 1);
+
+            return RsData.of("S-1", "챌린지 개설이 가능합니다.");
+        }else{
+            return RsData.of("F-1", "이미 이번달에 2개의 챌린지를 생성하셨습니다.");
+        }
+
     }
 }
