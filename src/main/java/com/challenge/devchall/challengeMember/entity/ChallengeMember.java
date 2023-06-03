@@ -33,6 +33,8 @@ public class ChallengeMember extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role challengerRole;
 
+    private Long challengeTotalPoint;
+
 //    private List<Role> challengerRole2;
 
     public void turnValid(){

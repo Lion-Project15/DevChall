@@ -82,6 +82,7 @@ public class MemberController {
         }
         RsData<Member> rsData = memberService.join(memberDto.getLoginID(), memberDto.getPassword(), memberDto.getEmail(), memberDto.getNickname(), memberDto.getUsername());
 
+
         return "redirect:/usr/member/login";
     }
 
