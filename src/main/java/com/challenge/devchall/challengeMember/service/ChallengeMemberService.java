@@ -25,6 +25,7 @@ public class ChallengeMemberService {
                 .challenger(member)
                 .isValid(true)
                 .challengerRole(role)
+                .postLimit(0)
                 .build();
 
         challengeMemberRepository.save(challengeMember);
@@ -40,4 +41,5 @@ public class ChallengeMemberService {
     public List<ChallengeMember> getByMember(Member member){
         return challengeMemberRepository.findByChallenger(member);
     }
+
 }

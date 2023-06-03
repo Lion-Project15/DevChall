@@ -28,6 +28,8 @@ public class NotProd {
                 Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2", "user2").getData();
                 Member user3 = memberService.join("user3", "1234", "user3@devchall.com", "user3", "user3").getData();
                 Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4", "user4").getData();
+                Member user5= memberService.join("user5", "1234", "user5@devchall.com", "user5", "user5").getData();
+
 
             challengeService.createChallenge("1번 챌린지", "1번 챌린지 내용입니다", true, "day1",
                     "2023-06-01", "2주", "C", "개념 공부", "인증샷", admin);
@@ -36,12 +38,12 @@ public class NotProd {
             challengeService.createChallenge("3번 챌린지", "3번 챌린지 내용입니다", true, "day7",
                     "2023-06-01", "8주", "Python", "시험 대비", "Github", user2);
 
-            challengePostService.write("1-1인증", "1-1인증 내용입니다.", true, 3, 1);
-            challengePostService.write("1-2인증", "1-2인증 내용입니다.", false, 4, 1);
-            challengePostService.write("2-1인증", "2-1인증 내용입니다.", true, 5, 2);
-            challengePostService.write("2-2인증", "2-2인증 내용입니다.", false, 1, 2);
-            challengePostService.write("3-1인증", "3-1인증 내용입니다.", true, 2, 3);
-            challengePostService.write("3-2인증", "3-2인증 내용입니다.", true, 4, 3);
+            challengePostService.write("1-1인증", "1-1인증 내용입니다.", true, 3, 1, user1);
+            challengePostService.write("1-2인증", "1-2인증 내용입니다.", false, 4, 1, user2);
+            challengePostService.write("2-1인증", "2-1인증 내용입니다.", true, 5, 2, admin);
+            challengePostService.write("2-2인증", "2-2인증 내용입니다.", false, 1, 2, user3);
+            challengePostService.write("3-1인증", "3-1인증 내용입니다.", true, 2, 3, user4);
+            challengePostService.write("3-2인증", "3-2인증 내용입니다.", true, 4, 3, user5);
 
             }
         };

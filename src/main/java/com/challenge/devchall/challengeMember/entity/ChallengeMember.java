@@ -2,6 +2,7 @@ package com.challenge.devchall.challengeMember.entity;
 
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
+import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
@@ -33,6 +34,9 @@ public class ChallengeMember extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role challengerRole;
 
+    //스케줄러 -> 매일 초기화
+    private int postLimit;
+
 //    private List<Role> challengerRole2;
 
     public void turnValid(){
@@ -42,4 +46,11 @@ public class ChallengeMember extends BaseEntity {
     public void challengerRole(Role challengerRole){
         this.challengerRole = challengerRole;
     }
+
+    public void updatePostLimit(int postLimit){
+
+        this.postLimit = postLimit;
+    }
+
+
 }
