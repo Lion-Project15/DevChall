@@ -49,7 +49,6 @@ public class NotProd {
                 challengeMemberService.addMember(challengeService.getChallengeById(4l), user1, Role.CREW);
 
 
-
                 challengePostService.write("1-1인증", "1-1인증 내용입니다.", true, 3, 1, user1);
                 challengePostService.write("1-2인증", "1-2인증 내용입니다.", false, 4, 1, user2);
                 challengePostService.write("2-1인증", "2-1인증 내용입니다.", true, 5, 2, admin);
@@ -61,6 +60,7 @@ public class NotProd {
                 challengePostService.write("3-2인증", "3-2인증 내용입니다.", true, 4, 3, user5);
                 challengePostService.write("re2-1인증", "re2-1인증 내용입니다.", true, 4, 4, user1);
                 challengePostService.write("re2-2인증", "re2-2인증 내용입니다.", true, 4, 4, user5);
+
             }
         };
     }
