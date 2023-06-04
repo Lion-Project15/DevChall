@@ -30,7 +30,7 @@ public class MainController {
     @GetMapping("/test")
     public String test(){
 
-        return "";
+        return challengeService.getSettleChallengeDto().toString();
     }
 
 }

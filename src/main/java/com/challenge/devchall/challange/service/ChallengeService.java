@@ -2,6 +2,7 @@ package com.challenge.devchall.challange.service;
 
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
 import com.challenge.devchall.base.rsData.RsData;
+import com.challenge.devchall.challange.dto.SettleChallengeDto;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
@@ -61,9 +62,12 @@ public class ChallengeService {
 
         challengeRepository.save(challenge);
         challengeMemberService.addMember(challenge, member, Role.LEADER);
+    }
+    public List<SettleChallengeDto> getSettleChallengeDto(){
+//        return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.now());
+        return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.of(2023, 6, 15));
 
     }
-
     public List<Challenge> getChallengList() {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0,30,sort);

@@ -1,5 +1,6 @@
 package com.challenge.devchall.challange.repository;
 
+import com.challenge.devchall.challange.dto.SettleChallengeDto;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
@@ -13,20 +14,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
-    //    @Query("SELECT c.id, cm, COUNT(p.id) " +
-//            "FROM ChallengeMember cm " +
-//            "JOIN cm.linkedChallenge c " +
-//            "JOIN ChallengePost p ON cm.challenger = p.challenger " +
-//            "WHERE c.endDate = :today " +
-//            "GROUP BY c.id, cm.challenger")
-//    List<Object[]> findChallengeMemberCountByEndDate(@Param("today") LocalDate today);
-//
-//}
-    @Query("SELECT c.id, cm, COUNT(p.id) " +
+        @Query("SELECT c.id, cm, COUNT(p.id) " +
             "FROM ChallengeMember cm " +
             "JOIN cm.linkedChallenge c " +
-            "JOIN c.ChallengePost p " +
+            "JOIN ChallengePost p ON cm.challenger = p.challenger " +
             "WHERE c.endDate = :today " +
-            "GROUP BY c.id, cm")
-    List<Object[]> findChallengeMemberCountByEndDate(@Param("today") LocalDate today);
+            "GROUP BY c.id, cm.challenger")
+    List<SettleChallengeDto> findChallengeMemberCountByEndDate(@Param("today") LocalDate today);
+
 }
