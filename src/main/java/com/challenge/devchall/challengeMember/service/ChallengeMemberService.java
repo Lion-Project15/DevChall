@@ -1,10 +1,12 @@
 package com.challenge.devchall.challengeMember.service;
 
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
+import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.point.entity.Point;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +43,22 @@ public class ChallengeMemberService {
     public List<ChallengeMember> getByMember(Member member){
         return challengeMemberRepository.findByChallenger(member);
     }
+
+    public RsData<ChallengeMember> canJoin(Member member, int joinCost){
+
+        Point memberPoint = member.getPoint();
+        Long currentPoint = memberPoint.getCurrentPoint();
+
+        if(currentPoint >= joinCost){
+
+            memberPoint.updateCurrentPoint((joinCost * -1));
+
+            return RsData.of("S-1", "참가 비용을 지불할 수 있습니다");
+        }else{
+            return RsData.of("F-3", "참가 비용이 부족합니다.");
+        }
+    }
+
+
 
 }
