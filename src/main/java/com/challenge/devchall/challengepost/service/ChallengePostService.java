@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ChallengePostService {
@@ -79,5 +81,9 @@ public class ChallengePostService {
 
         challengePostById.modifyPost(title, contents, status);
 
+    }
+
+    public List<ChallengePost> getChallengePostByChallenge(Challenge challenge) {
+        return challengePostRepository.findByLinkedChallenge(challenge);
     }
 }

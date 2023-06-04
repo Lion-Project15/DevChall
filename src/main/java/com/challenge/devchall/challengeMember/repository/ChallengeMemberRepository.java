@@ -12,7 +12,7 @@ public interface ChallengeMemberRepository extends JpaRepository<ChallengeMember
 
     List<ChallengeMember> findByChallenger(Member member);
 
-    Optional<ChallengeMember> findByLinkedChallenge(Challenge challenge);
+    List<ChallengeMember> findByLinkedChallenge(Challenge challenge);
 
     Optional<ChallengeMember> findByLinkedChallengeAndChallenger(Challenge challenge, Member member);
 

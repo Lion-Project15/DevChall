@@ -52,6 +52,7 @@ public class ChallengeService {
                 .challengeImg(null)
                 .challengeFrequency(formattingResult.formattingFrequency)
                 .startDate(formattingResult.formattingStartDate)
+                .endDate(formattingResult.formattingStartDate.plusWeeks(formattingResult.formattingPeriod))
                 .challengePeriod(formattingResult.formattingPeriod)
                 .challengeLanguage(language)
                 .challengeSubject(subject)
