@@ -10,6 +10,7 @@ import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -63,10 +64,17 @@ public class ChallengeService {
 
     }
 
+//    public List<Challenge> getChallengList() {
+//        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+//        Pageable pageable = PageRequest.of(0,30,sort);
+//        return challengeRepository.findAll(pageable).getContent();
+//    }
+
     public List<Challenge> getChallengList() {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
-        Pageable pageable = PageRequest.of(0,30,sort);
-        return challengeRepository.findAll(pageable).getContent();
+        Pageable pageable = PageRequest.of(0, 30, sort);
+        List<Challenge> challenges = challengeRepository.findByChallengeStatus(true, pageable);
+        return challenges;
     }
 
     public class FormattingResult {
