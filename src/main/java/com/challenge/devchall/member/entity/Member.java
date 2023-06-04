@@ -50,6 +50,9 @@ public class Member extends BaseEntity {
     //스케줄러 -> 매달 1일에 0으로 초기화 되어야함.
     private int challengeLimit;
 
+
+    //FIXME 최대 참여 갯수도 추가해야함
+
     //role은 spring security 이후에 작성
     public List<? extends GrantedAuthority> getGrantedAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();

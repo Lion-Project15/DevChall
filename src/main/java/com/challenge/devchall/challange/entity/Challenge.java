@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 public class Challenge extends BaseEntity {
+
     private String challengeName;
     private String challengeContents;
     private boolean challengeStatus;
@@ -28,8 +29,8 @@ public class Challenge extends BaseEntity {
     private String challengeLanguage;
     private String challengeSubject;
     private String challengePostType;
-
     private String creatorId;
+
 
     @OneToMany(mappedBy = "linkedChallenge")
     private List<ChallengePost> challengePostList = new ArrayList<>();

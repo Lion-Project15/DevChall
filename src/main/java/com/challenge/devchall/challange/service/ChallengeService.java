@@ -35,6 +35,7 @@ public class ChallengeService {
     public void createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
                                 String language, String subject, String posttype, Member member) {
 
+
         String loginId = null;
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null) {
@@ -70,39 +71,39 @@ public class ChallengeService {
                 .challengePostType(posttype)
                 .creatorId(loginId)
                 .build();
-//        challengeRepository.save(challenge);
-//        challengeMemberService.addMember(challenge, member, Role.LEADER);
-        if (!status && member.getLoginID().equals(loginId)) {
-            challengeRepository.save(challenge);
-            challengeMemberService.addMember(challenge, member, Role.LEADER);
-        } else {
-            challengeRepository.save(challenge);
-        }
+
+        challengeRepository.save(challenge);
+        challengeMemberService.addMember(challenge, member, Role.LEADER);
+
 
     }
 
-//    public List<Challenge> getChallengList() {
+
+//    public List<Challenge> getChallengList(Member member) {
 //        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
 //        Pageable pageable = PageRequest.of(0,30,sort);
-//        return challengeRepository.findAll(pageable).getContent();
+//
+//        List<Challenge> challenges = challengeRepository.findAll(pageable).getContent();
+//
+//
+//        if (member != null) {
+//            challenges = challenges.stream()
+//                    .filter(challenge -> challenge.getChallengeStatus() || challenge.getCreatorId().equals(member.getLoginID()))
+//                    .collect(Collectors.toList());
+//        } else {
+//            challenges = challenges.stream()
+//                    .filter(challenge -> challenge.getChallengeStatus())
+//                    .collect(Collectors.toList());
+//        }
+//
+//        return challenges;
+//
 //    }
-    public List<Challenge> getChallengList(Member member) {
+
+    public List<Challenge> getChallengList() {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0,30,sort);
-
-        List<Challenge> challenges = challengeRepository.findAll(pageable).getContent();
-
-        if (member != null) {
-            challenges = challenges.stream()
-                    .filter(challenge -> challenge.getChallengeStatus() || challenge.getCreatorId().equals(member.getLoginID()))
-                    .collect(Collectors.toList());
-        } else {
-            challenges = challenges.stream()
-                    .filter(challenge -> challenge.getChallengeStatus())
-                    .collect(Collectors.toList());
-        }
-
-        return challenges;
+        return challengeRepository.findAll(pageable).getContent();
     }
 
     public class FormattingResult {
@@ -162,7 +163,6 @@ public class ChallengeService {
             String loginId = authentication.getName();
 
             if (!challenge.getChallengeStatus() && !challenge.getCreatorId().equals(loginId)) {
-                System.out.println("접근이 허용되지 않은 챌린지입니다.");
                 return null;
             }
         }

@@ -38,6 +38,7 @@ public class ChallengeMemberService {
         return challengeMemberRepository.findByLinkedChallengeAndChallenger(challenge, member);
     }
 
+
     public List<ChallengeMember> getByMember(Member member){
         return challengeMemberRepository.findByChallenger(member);
     }

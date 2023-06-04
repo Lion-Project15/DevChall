@@ -21,7 +21,9 @@ public class MainController {
             model.addAttribute("challengeMembers"
                     , challengeMemberService.getByMember(rq.getMember()));
         }
-        model.addAttribute("challenges",challengeService.getChallengList(rq.getMember()));
+
+//        model.addAttribute("challenges",challengeService.getChallengList(rq.getMember()));
+        model.addAttribute("challenges",challengeService.getChallengList());
         return "index";
     }
 

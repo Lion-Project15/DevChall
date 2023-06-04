@@ -4,16 +4,12 @@ import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
-import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -47,10 +43,14 @@ public class ChallengeMember extends BaseEntity {
         this.challengerRole = challengerRole;
     }
 
-    public void updatePostLimit(int postLimit){
+    public RsData<ChallengeMember> updatePostLimit(){
 
-        this.postLimit = postLimit;
+        if(this.postLimit != 0){
+            return RsData.of("F-1", "오늘은 이미 포스트를 작성했습니다.");
+        }else{
+            this.postLimit++;
+            return RsData.of("S-1", "포스트 작성이 가능합니다.");
+        }
     }
-
 
 }
