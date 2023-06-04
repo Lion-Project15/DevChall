@@ -1,71 +1,179 @@
-<!DOCTYPE html>
-<html>
+<html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
+
 <head>
-    <meta charset="UTF-8">
-    <title>회원가입 페이지</title>
+    <title>회원가입</title>
 </head>
+
 <body>
-<div class="container">
 
-    <!-- Heading -->
-    <h1>회원가입</h1>
+<main layout:fragment="main" class="bg-[#121212] text-white flex flex-col w-full">
+    <!--<script>
+        function JoinForm__submit(form) {
+            // loginID 이(가) 올바른지 체크
 
-    <!-- Form -->
-    <form action="" method="post">
+            form.loginID.value = form.loginID.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
 
-        <!-- id input -->
-        <div class="input__block">
-            <label for="loginID"> 사용하실 아이디를 입력해주세요 </label><br>
-            <input type="text" placeholder="loginID" class="input" id="loginID" />
-        </div>
+            //loginID == 아이디
+            if (form.loginID.value.length === 0) {
+                toastWarning('아이디를 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
 
-        <!-- Nickname input -->
-        <br><div class="input__block">
-        <label for="nickname"> 사용하실 닉네임을 입력해주세요 </label><br>
-        <input type="text" placeholder="nickname" class="input" id="nickname" />
+            if (form.loginID.value.length < 4) {
+                toastWarning('아이디를 4자 이상 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
+            // nickname = 닉네임
+            form.nickname.value = form.nickname.value.trim();
+            if (form.nickname.value.length === 0) {
+                toastWarning('닉네임을 입력해주세요.');
+                form.nickname.focus();
+                return;
+            }
+
+            if (form.nickname.value.length < 1) {
+                toastWarning('닉네임을 입력해주세요.');
+                form.nickname.focus();
+                return;
+            }
+
+            // password 이(가) 올바른지 체크
+
+
+            // email == 이메일
+            form.email.value = form.email.value.trim();
+            if (form.email.value.length === 0) {
+                toastWarning('이메일을 입력해주세요.');
+                form.email.focus();
+                return;
+            }
+
+            if (form.email.value.length < 1) {
+                toastWarning('이메일을 입력해주세요.');
+                form.email.focus();
+                return;
+            }
+
+            // username == 본명
+            form.username.value = form.username.value.trim();
+            if (form.username.value.length === 0) {
+                toastWarning('이름을 입력해주세요.');
+                form.username.focus();
+                return;
+            }
+
+            if (form.username.value.length < 1) {
+                toastWarning('이름을 입력해주세요.');
+                form.loginID.focus();
+                return;
+            }
+
+            // password = 비밀번호
+            form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
+
+            if (form.password.value.length == 0) {
+                form.password.focus();
+                toastWarning('비밀번호를 입력해주세요.');
+                return;
+            }
+
+            if (form.password.value.length < 4) {
+                toastWarning('비밀번호를 4자 이상 입력해주세요.');
+                form.password.focus();
+                return;
+            }
+
+            form.submit(); // 폼 발송
+        }
+    </script>-->
+    <div>
+        <img src="/images/logo.png" class="w-[250px] h-[250px]">
     </div>
+    <div class="flex flex-1">
+        <form th:action method="POST" class="flex flex-col justify-center items-center w-full" onsubmit="JoinForm__submit(this); return false;">
+            <div class="w-full p-10 lg:w-[65rem]">
+                <p class="text-[25px]">회원가입</p>
+                <div class="flex flex-col gap-4 justify-center lg:flex-row" th:object="${memberDto}">
+                    <div class="flex flex-col space-y-4  flex-1">
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">아이디를 입력해주세요</span>
+                                </label>
+                                <input type="text" th:field="*{loginID}"  maxlength="16" placeholder="아이디" class="input input-bordered w-full text-black" id="loginID" autofocus />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_loginID}"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">성명을 입력해 주세요</span>
+                                </label>
+                                <input type="text" th:field="*{username}" placeholder="성명" class="input input-bordered w-full text-black" id="username" />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_username}"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">닉네임을 입력해주세요(2~8자)</span>
+                                </label>
+                                <input type="text" th:field="*{nickname}" maxlength="8" placeholder="별명 (2~8자)" class="input input-bordered w-full text-black" id="nickname" />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_nickname}"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">이메일 주소를 입력해주세요</span>
+                                </label>
+                                <input type="text" th:field="*{email}" placeholder="이메일" class="input input-bordered w-full text-black" id="email" /><br>
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_email}"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col space-y-4 flex-1">
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">비밀번호를 입력해주세요</span>
+                                </label>
+                                <input type="password" th:field="*{password}" maxlength="16" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
+                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_password}"></span>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="w-full">
+                                <label class="label">
+                                    <span class="text-gray-400">비밀번호를 한 번 더 입력해주세요</span>
+                                </label>
+                                <input type="password" th:field="*{repeatPassword}" maxlength="15" placeholder="비밀번호 확인" class="input input-bordered w-full text-black" id="repeatPassword" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-        <!-- email input -->
-        <br><div class="input__block">
-        <label for="email"> 사용하실 이메일 주소를 입력해주세요 </label><br>
-        <input type="text" placeholder="email" class="input" id="email" /><br>
+                <div class="flex flex-col justify-center mt-[20px]">
+                    <button id="btn-join-1" class="btn btn-md btn-accent gap-3">
+                        <span class="text-white" style="font-size: 17px;">회원가입</span>
+                    </button>
+                </div>
+                <div class="flex justify-center mt-[20px]">
+                    <label class="label">
+                        <span class="text-gray-400">SNS로 회원가입 하기</span>
+                    </label>
+                </div>
+                <div class="mt-[20px] flex justify-center space-x-6">
+                    <img src="/images/naver-icon.png" class="w-[50px] h-[50px]">
+                    <img src="/images/kakao-icon.png" class="w-[50px] h-[50px]">
+                </div>
+            </div>
+        </form>
     </div>
+</main>
 
-        <!-- password input -->
-        <br><div class="input__block">
-        <label for="password"> 사용하실 비밀번호를 입력해주세요. </label><br>
-        <input type="text" placeholder="password" class="input" id="password" />
-    </div>
-
-        <!-- repeat password input -->
-        <br><div class="input__block">
-        <label for="repeatPassword"> 사용하실 비밀번호를 한 번 더 입력해주세요. </label><br>
-        <input type="text" placeholder="repeatPassword" class="input" id="repeatPassword" />
-    </div>
-
-        <!-- sign in button -->
-        <br><button type="submit">
-        회원가입하기
-    </button>
-    </form>
-
-    <!— separator —>
-    <div class="separator">
-        <p>OR</p>
-    </div>
-
-    <!— naver button —>
-    <button class="naver__btn">
-        <i class="fa fa-naver"></i>
-        네이버로 가입하기
-    </button>
-
-    <!— kakao button —>
-    <button class="kakao__btn">
-        <i class="fa fa-kakao"></i>
-        카카오톡으로 가입하기
-    </button>
-
-</div>
 </body>
+
 </html>

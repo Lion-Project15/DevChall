@@ -1,19 +1,168 @@
-<!DOCTYPE html>
-<html lang="en">
+<html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>DevChall</title>
 </head>
 <body>
+<main layout:fragment="main" class="flex flex-col w-full min-h-screen bg-[#121212] text-white">
+    <!--  네브바 시작  -->
 
-<h3>인덱스 페이지 입니다</h3>
-<a href="usr/challenge/create">
-  <button>챌린지 생성하기</button>
-</a>
+    <!--  네브바 끝  -->
 
-<a href="usr/challenge/list">
-    <button>챌린리 리스트</button>
-</a>
+    <!--  헤더 시작  -->
+    <header class="flex w-full justify-between">
+        <section class="flex">
+            <img src="/images/logoXL.png" alt="DevChall" class="w-[200px] h-[200px] flex-shrink-0 mx-10 p-2">
+        </section>
+        <!--   카테고리 타임리프 작업 필요    -->
+        <section class="flex w-[90%]">
+            <article class="flex justify-center w-full">
+                <div class="flex items-center flex-wrap justify-around w-[90%]">
+                    <a href="#" class="flex flex-col items-center group px-1">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center group px-1">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
+                    </a>
+                    <a href="#" class="flex flex-col items-center group">
+                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <div class="text-xs font-bold p-2">UI/UX</div>
+                    </a>
+                </div>
+            </article>
+        </section>
+    </header>
+    <!--  헤더 끝  -->
+
+    <section class="bg-[#F2F4F4] " style="border-top-left-radius: 4rem;">
+
+        <!--    나의 챌린지  -->
+        <article th:if="${@rq.login}" class="p-5 mx-5">
+
+            <div class="p-2">
+                <h1 class="text-black text-2xl font-bold">>나의 챌린지</h1>
+            </div>
+            <div class="text-black p-2" th:if="${challengeMembers==null or #lists.isEmpty(challengeMembers)}">
+                <i class="fa-regular fa-face-laugh"></i> 참가 중인 챌린지가 없어요. 다양한 챌린지를 경험해보세요!
+            </div>
+
+            <div th:unless="${challengeMembers==null or #lists.isEmpty(challengeMembers)}"
+                    class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[20px]">
+                <div th:each="challengeMember:${challengeMembers}"
+                        class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                    <a th:href="|/usr/challenge/detail/${challengeMember.linkedChallenge.id}|">
+                        <figure class="pt-5">
+                            <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                        </figure>
+                    </a>
+                    <div class="card-body items-center text-center" style="padding: 10px">
+                        <a th:href="|/usr/challenge/detail/${challengeMember.linkedChallenge.id}|">
+                            <h4 class="text-black font-bold text-sm"
+                                th:text="${challengeMember.linkedChallenge.challengeName}">
+                                프로그래머스 코테 준비
+                            </h4>
+                        </a>
+                        <div class="flex flex-wrap">
+                            <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                            <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                        </div>
+                        <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                        <div class="card-actions flex justify-around">
+                            <div style="font-size: x-small">
+                                <a href="">
+                                    <span>댓글</span> <span>5</span>
+                                </a>
+                            </div>
+                            <div style="font-size: x-small">
+                                <a href="">
+                                    <span>클립</span><span>3</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!--    나의 챌린지 끝!   -->
+
+        <!--    챌린지 리스트 시작   -->
+        <article class="p-5 mx-5">
+            <div class="text-center mt-10 text-black" th:if="${challenges == null or #lists.isEmpty(challenges)}" >
+                <i class="fa-regular fa-face-laugh"></i> 모집중인 챌린지가 없어요. 새로운 챌린지를 생성해보세요!
+            </div>
+            <div th:unless="${challenges == null or #lists.isEmpty(challenges)}">
+                <div class="p-2">
+                    <h1 class="text-black text-2xl font-bold">>모집 중인 챌린지</h1>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[20px]">
+                    <div th:each="challenge:${challenges}">
+                        <div class="text-black">
+                            <div class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
+                                <a th:href="|/usr/challenge/detail/${challenge.id}|">
+                                    <figure class="pt-5">
+                                        <img src="/images/Challenge-img.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                                    </figure>
+                                </a>
+
+
+                                <div class="card-body items-center text-center" style="padding: 10px">
+                                    <a th:href="|/usr/challenge/detail/${challenge.id}|">
+                                        <h4 class="text-black font-bold text-sm" th:text="${challenge.challengeName}">
+                                        프로그래머스 코테 준비
+                                        </h4>
+                                    </a>
+                                    <div class="flex flex-wrap">
+                                        <span class="badge badge-primary mx-1" style="font-size: x-small">매일</span>
+                                        <span class="badge badge-secondary mx-1" style="font-size: x-small">코딩테스트</span>
+                                    </div>
+                                    <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                                    <div class="card-actions flex justify-around">
+                                        <div style="font-size: x-small">
+                                            <a href="">
+                                                <span>댓글</span> <span>5</span>
+                                            </a>
+                                        </div>
+                                        <div style="font-size: x-small">
+                                            <a href="">
+                                                <span>클립</span> <span>3</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <!--    챌린지 리스트 끝-->
+    </section>
+
+</main>
+
 
 </body>
 </html>

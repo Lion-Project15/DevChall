@@ -1,0 +1,84 @@
+<html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>포스트 자세히 보기</title>
+</head>
+
+<body>
+
+<main layout:fragment="main" class="flex flex-col w-full">
+    <script>
+        function wantDelete(postId) {
+            if (confirm('정말로 삭제하시겠습니까?')) {
+
+                alert(postId + "번 인증글을 삭제합니다.");
+                location.href = "/usr/challenge/delete/" + postId;
+            } else {
+                alert("삭제가 취소되었습니다.");
+            }
+        }
+    </script>
+
+    <div class="flex flex-1">
+        <div class="flex flex-col justify-center items-center w-full">
+            <div class="card bg-white">
+                <div class="w-full p-10 lg:w-[65rem]">
+                    <span class="badge badge-md">인증글 제목</span>
+                    <h3 class="text-lg font-bold mx-3" th:text="${post.postTitle}"></h3>
+                </div>
+
+                <div class="w-full p-10 lg:w-[65rem]">
+                    <span class="badge badge-md">인증글 내용</span>
+                    <h3 class="text-lg font-md" th:text="${post.postContents}"></h3>
+                </div>
+
+                <div class="w-full p-10 lg:w-[65rem]">
+                    <span class="badge badge-md">인증 이미지</span>
+                    <img class="mt-10" src="/images/Challenge-img.png" alt="post_image"/>
+                </div>
+
+                <div class="flex flex-row justify-center">
+                    <a class="btn btn-accent" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
+                    <button class="btn btn-accent mx-5" th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
+
+                    <h2 class="mx-5">OR</h2>
+
+                    <button class="btn btn-warning btn-outline">
+                        <i class="fa-solid fa-heart" style="color: #da1010;"></i>
+                    </button>
+                </div>
+
+
+                <div class="divider"></div>
+
+                <div class="my-2">
+                    <span class="badge badge-md my-3 mx-10">댓글</span>
+                    <!-- FIXME 추후 댓글 구현? -->
+
+                    <div class="chat chat-start">
+                        <div class="chat-bubble chat-bubble-accent text-lg font-md mx-3">ex) 우와 참 열심히 하셨네요</div>
+                    </div>
+
+                    <div class="chat chat-end">
+                        <div class="chat-bubble chat-bubble-accent text-lg font-md mx-3">ex) 추천 드립니다 b</div>
+                    </div>
+
+                    <div class="chat chat-start">
+                        <div class="chat-bubble chat-bubble-accent text-lg font-md mx-3">ex) 저도 열심히 해야되는데...</div>
+                    </div>
+
+                    <div class="flex flex-row justify-center">
+                        <input type="text" placeholder="댓글을 달아보세요!" class="my-3 mx-4 input input-bordered input-accent w-full max-w-xs" />
+                        <button type="submit" class="mx-1 btn btn-accent btn-outline disabled">
+                            <i class="fas fa-paper-plane" style="color: #000000"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

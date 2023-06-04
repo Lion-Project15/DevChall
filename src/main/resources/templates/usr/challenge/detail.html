@@ -1,47 +1,122 @@
-<p>챌린지 이름</p>
-<h1 th:text="${challenge.challengeName}"></h1>
+<html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
 
-<p>챌린지 내용</p>
-<div th:text="${challenge.challengeContents}"></div>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>챌린지 디테일 페이지</title>
+</head>
 
-<p>챌린지 공개 여부</p>
-<div th:text="${challenge.challengeStatus}"></div>
+<body>
 
-<p>챌린지 이미지 소스</p>
-<div th:text="${challenge.challengeImg}"></div>
+<main layout:fragment="main" class="flex flex-col w-full justify-center">
+    <script>
 
-<p>챌린지 태그</p>
-<div th:text="${challenge.challengeTag}"></div>
+        function wantJoin(challengeId) {
+            if (confirm('해당 챌린지에 참여하시겠습니까?')) {
+                alert("환영합니다! 챌린지에 열심히 참여해보세요!");
+                location.href = "/usr/challenge/join/" + challengeId;
+            } else {
+                alert("참여가 취소되었습니다.");
+            }
+        }
 
-<p>챌린지 주간 인증 빈도</p>
-<div th:text="${challenge.challengeFrequency}"></div>
+    </script>
 
-<p>챌린지 시작일</p>
-<div th:text="${challenge.startDate}"></div>
-
-<p>챌린지 종료일</p>
-<div th:text="${challenge.endDate}"></div>
-
-<a th:href="@{|/usr/challenge/write_form/${challenge.id}|}">
-    <button>챌린지 인증하기</button>
-</a>
-
-<th:block th:unless="${hasPost}">
-    <div>
-        인증글이 존재하지 않습니다.
+    <div class="flex">
+        <h2>챌린지 대표 이미지 들어갈 자리</h2>
+        <img src="/images/Challenge-img.png" alt="post_image"/>
     </div>
-</th:block>
 
-<th:block th:if="${hasPost}">
-    <!-- 인증글 내용 -->
-    <tr th:each="post : ${challengePostList}">
-        <div>
-            <td th:text="${post.postTitle}"></td>
-            <td th:text="${post.postContents}"></td>
+    <div class="divider"></div>
+
+    <div class="flex flex-col w-full">
+
+        <div class="flex flex-wrap">
+            <div class="w-1/5"></div>
+            <div class="w-3/5">
+                <div class="text-black">
+
+                    <div class="my-10">
+                        <h2 class="text-[30px] bolder-double font-bold" th:text="${challenge.challengeName}"></h2>
+                    </div>
+
+                    <div class="my-7">
+                        <span class="text-gray-400">챌린지 일정</span>
+                        <p class="text-[20px] bolder-double"
+                           th:text="${challenge.startDate} + ' 시작 =>  ' + ${challenge.challengePeriod} + '주 과정'"></p>
+                    </div>
+
+                    <div>
+                        <span class="text-gray-400">챌린지 인원</span>
+                        <div></div>
+                        <div class="badge badge-lg badge-outline gap-3 my-5">
+                            <i class="fa-solid fa-person fa-lg" style="color: #000000;"></i>
+                            <p class="text-black"> -no- 명</p>
+                        </div>
+                    </div>
+
+                    <div class="my-7">
+                        <span class="text-gray-400">주간 인증 횟수</span>
+                        <p class="text-[20px] bolder-double" th:text="'주 ' + ${challenge.challengeFrequency} + '회'"></p>
+                    </div>
+
+                    <div class="my-7">
+                        <div class="badge badge-accent badge-lg gap-3 my-5">
+                            <p class="text-black">챌린지 소개</p>
+                        </div>
+                        <div>
+                            <p class="text-black" th:text="${challenge.challengeContents}"></p>
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <th:block th:unless="${isJoin}">
+                            <button th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'"
+                                    class="btn btn-accent flex justify-center">참여하기
+                            </button>
+                        </th:block>
+
+                        <th:block th:if="${isJoin}">
+                            <a th:href="@{|/usr/challenge/write_form/${challenge.id}|}"
+                               class="btn btn-accent flex justify-center">
+                                <button>챌린지 인증하기</button>
+                            </a>
+                        </th:block>
+                    </div>
+                </div>
+
+                <div class="flex flex-col">
+                    <div class="divider"></div>
+                    <th:block th:unless="${hasPost}">
+                        <h2 class="text-[20px] bolder-double font-bold">아직 아무도 인증하지 않았어요!</h2>
+                    </th:block>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-[75px]">
+                        <th:block th:if="${hasPost}">
+                            <!-- 인증글 내용 -->
+                            <div th:each="post : ${challengePostList}">
+                                <div class="card w-[200px] shadow-xl">
+                                    <figure>
+                                        <img src="/images/Challenge-img.png" alt="post_image"/>
+                                    </figure>
+                                    <div class="card-body">
+                                        <h2 class="card-title" th:text="${post.postTitle}"></h2>
+                                        <p th:text="${post.postContents}"></p>
+                                        <div class="card-actions justify-end">
+                                            <a class="btn btn-accent"
+                                               th:href="@{|/usr/challenge/postdetail/${post.id}|}">보러가기</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+            <div class="w-1/5"></div>
         </div>
-    </tr>
-</th:block>
+    </div>
 
-
-
-<!--<div th:text="${hasPost}"></div>-->
+</main>
+</body>
+</html>

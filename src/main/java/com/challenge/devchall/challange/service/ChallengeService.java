@@ -1,91 +1,138 @@
 package com.challenge.devchall.challange.service;
 
+import com.challenge.devchall.base.roles.ChallengeMember.Role;
+import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
+import com.challenge.devchall.challengeMember.entity.ChallengeMember;
+import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ChallengeService {
 
     private final ChallengeRepository challengeRepository;
+    private final ChallengeMemberService challengeMemberService;
+    private final MemberService memberService;
 
     @Transactional
-    public void createChallenge(String title, String contents, String status, String frequency, String startDate, String endDate) {
+    public void createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
+                                String language, String subject, String posttype, Member member) {
 
-        FormattingResult formattingResult = formatting(status, frequency, startDate, endDate);
+        String loginId = null;
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null) {
+            loginId = authentication.getName();
+        }
+        if (loginId == null) {
+            return;
+        }
+
+        RsData<Member> memberRsData = memberService.updateChallengeLimit(member);
+
+        //FIXME 이미 2개를 생성한 상태라면 뒤의 작업이 이루어지지 않아야 함.
+        if(memberRsData.isFail()){
+            System.out.println(memberRsData.getMsg());
+            System.out.println(memberRsData.getMsg());
+            System.out.println(memberRsData.getMsg());
+            return;
+        }
+
+        FormattingResult formattingResult = formatting(frequency, startDate, period);
 
         Challenge challenge = Challenge
                 .builder()
                 .challengeName(title)
                 .challengeContents(contents)
-                .challengeStatus(formattingResult.formattingStatus)
+                .challengeStatus(status)
                 .challengeImg(null)
-                .challengeTag(null)
                 .challengeFrequency(formattingResult.formattingFrequency)
                 .startDate(formattingResult.formattingStartDate)
-                .endDate(formattingResult.formattingEndDate)
+                .challengePeriod(formattingResult.formattingPeriod)
+                .challengeLanguage(language)
+                .challengeSubject(subject)
+                .challengePostType(posttype)
+                .creatorId(loginId)
                 .build();
+//        challengeRepository.save(challenge);
+//        challengeMemberService.addMember(challenge, member, Role.LEADER);
+        if (!status && member.getLoginID().equals(loginId)) {
+            challengeRepository.save(challenge);
+            challengeMemberService.addMember(challenge, member, Role.LEADER);
+        } else {
+            challengeRepository.save(challenge);
+        }
 
-        challengeRepository.save(challenge);
+    }
+
+//    public List<Challenge> getChallengList() {
+//        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+//        Pageable pageable = PageRequest.of(0,30,sort);
+//        return challengeRepository.findAll(pageable).getContent();
+//    }
+    public List<Challenge> getChallengList(Member member) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(0,30,sort);
+
+        List<Challenge> challenges = challengeRepository.findAll(pageable).getContent();
+
+        if (member != null) {
+            challenges = challenges.stream()
+                    .filter(challenge -> challenge.getChallengeStatus() || challenge.getCreatorId().equals(member.getLoginID()))
+                    .collect(Collectors.toList());
+        } else {
+            challenges = challenges.stream()
+                    .filter(challenge -> challenge.getChallengeStatus())
+                    .collect(Collectors.toList());
+        }
+
+        return challenges;
     }
 
     public class FormattingResult {
-        private boolean formattingStatus;
         private int formattingFrequency;
         private LocalDate formattingStartDate;
-        private LocalDate formattingEndDate;
+        private int formattingPeriod;
 
-        public FormattingResult(boolean formattingStatus, int formattingFrequency, LocalDate formattingStartDate, LocalDate formattingEndDate) {
-            this.formattingStatus = formattingStatus;
+        public FormattingResult(int formattingFrequency, LocalDate formattingStartDate, int formattingPeriod) {
             this.formattingFrequency = formattingFrequency;
             this.formattingStartDate = formattingStartDate;
-            this.formattingEndDate = formattingEndDate;
+            this.formattingPeriod = formattingPeriod;
         }
     }
 
-    public FormattingResult formatting(String status, String frequency, String start_date, String end_date){
+    public FormattingResult formatting(String frequency, String start_date, String period){
 
-        boolean formattingStatus = formattingStatus(status);
         int formattingFrequency = formattingFrequency(frequency);
         LocalDate formattingStartDate = formattingDate(start_date);
-        LocalDate formattingEndDate = formattingDate(end_date);
+        int formattingPeriod = formattingPeriod(period);
 
-        FormattingResult formattingResult = new FormattingResult(formattingStatus, formattingFrequency, formattingStartDate, formattingEndDate);
+        FormattingResult formattingResult = new FormattingResult( formattingFrequency, formattingStartDate, formattingPeriod);
 
         return formattingResult;
     }
 
-    public boolean formattingStatus(String status){
-
-        boolean challengeStatus;
-
-        if(status.equals("비공개")) {
-            challengeStatus = false;
-        }
-        else{
-            challengeStatus = true;
-        }
-
-        return challengeStatus;
-    }
-
     public int formattingFrequency(String frequency){
-
-        int challengeFrequency = 0;
 
         String[] frequencyData = frequency.split("day");
 
-        challengeFrequency = Integer.parseInt(frequencyData[1]);
-
-        return challengeFrequency;
+        return Integer.parseInt(frequencyData[1]);
 
     }
 
@@ -97,9 +144,28 @@ public class ChallengeService {
         return dateTime;
     }
 
+    public int formattingPeriod(String period){
+
+        String[] periodDate = period.split("주");
+
+
+
+        return Integer.parseInt(periodDate[0]);
+    }
+
     public Challenge getChallengeById(long id) {
 
         Challenge challenge = this.challengeRepository.findById(id).orElse(null);
+
+        if (challenge != null) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String loginId = authentication.getName();
+
+            if (!challenge.getChallengeStatus() && !challenge.getCreatorId().equals(loginId)) {
+                System.out.println("접근이 허용되지 않은 챌린지입니다.");
+                return null;
+            }
+        }
 
         return challenge;
     }
