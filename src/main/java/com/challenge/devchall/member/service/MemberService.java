@@ -3,6 +3,8 @@ package com.challenge.devchall.member.service;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
+import com.challenge.devchall.point.entity.Point;
+import com.challenge.devchall.point.service.PointService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,7 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
+    private final PointService pointService;
     public Optional<Member> findByLoginID(String loginID) {
         return memberRepository.findByLoginID(loginID); //findByLoginID??
     }
@@ -37,6 +40,7 @@ public class MemberService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .challengeLimit(0)
+                .point(pointService.create())
                 .build();
         memberRepository.save(member);
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);

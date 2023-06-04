@@ -17,7 +17,16 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 public class Point extends BaseEntity {
-
     private Long currentPoint;
     private Long totalPoint;
+
+    public void addPoint(Long point){
+        this.currentPoint = currentPoint+point;
+        this.totalPoint = totalPoint+point;
+    }
+    public void subtractPoint(Long point){
+        if(currentPoint-point>=0){
+            this.currentPoint = currentPoint-point;
+        }
+    }
 }

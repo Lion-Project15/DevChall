@@ -1,7 +1,7 @@
 package com.challenge.devchall.main.controller;
 
 import com.challenge.devchall.base.rq.Rq;
-import com.challenge.devchall.challange.dto.SettleChallengeDto;
+import com.challenge.devchall.challange.dto.SettleChallengeDTO;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class MainController {
 
     @ResponseBody
     @GetMapping("/test")
-    public List<SettleChallengeDto> test() {
+    public List<SettleChallengeDTO> test() {
 
         return challengeService.getSettleChallengeDto() ;
     }

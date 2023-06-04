@@ -5,6 +5,8 @@ import com.challenge.devchall.challengepost.entity.ChallengePost;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDate;
@@ -30,6 +32,8 @@ public class Challenge extends BaseEntity {
     private String challengeSubject;
     private String challengePostType;
 
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @Builder.Default
     @OneToMany(mappedBy = "linkedChallenge")
     private List<ChallengePost> challengePostList = new ArrayList<>();
 

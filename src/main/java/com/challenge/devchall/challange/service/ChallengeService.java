@@ -2,10 +2,9 @@ package com.challenge.devchall.challange.service;
 
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
 import com.challenge.devchall.base.rsData.RsData;
-import com.challenge.devchall.challange.dto.SettleChallengeDto;
+import com.challenge.devchall.challange.dto.SettleChallengeDTO;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
-import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
@@ -19,9 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +29,7 @@ public class ChallengeService {
     private final MemberService memberService;
 
     @Transactional
-    public void createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
+    public Challenge createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
                                 String language, String subject, String posttype, Member member) {
 
         RsData<Member> memberRsData = memberService.updateChallengeLimit(member);
@@ -42,7 +39,7 @@ public class ChallengeService {
             System.out.println(memberRsData.getMsg());
             System.out.println(memberRsData.getMsg());
             System.out.println(memberRsData.getMsg());
-            return;
+            return null;
         }
 
         FormattingResult formattingResult = formatting(frequency, startDate, period);
@@ -62,10 +59,11 @@ public class ChallengeService {
                 .challengePostType(posttype)
                 .build();
 
-        challengeRepository.save(challenge);
+        Challenge result = challengeRepository.save(challenge);
         challengeMemberService.addMember(challenge, member, Role.LEADER);
+        return result;
     }
-    public List<SettleChallengeDto> getSettleChallengeDto(){
+    public List<SettleChallengeDTO> getSettleChallengeDto(){
 //        return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.now());
         return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.of(2023, 6, 29));
 

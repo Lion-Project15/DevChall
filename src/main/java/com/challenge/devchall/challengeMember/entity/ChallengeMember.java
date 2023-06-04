@@ -12,9 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @SuperBuilder
 @NoArgsConstructor
 @ToString(callSuper = true)
