@@ -14,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ChallengePostService {
@@ -27,11 +30,14 @@ public class ChallengePostService {
 
         Challenge linkedChallenge = challengeService.getChallengeById(id);
 
-        System.out.println("linkedChallenge = " + linkedChallenge);
-        System.out.println("member = " + member);
+        ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member).orElse(null);
 
-        //FIXME 여기서 null인 이유...?
-//        ChallengeMember challengeMember = challengeMemberRepository.findByLinkedChallengeAndChallenger(linkedChallenge, member);
+        RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
+
+        if(postLimitRsData.isFail()){
+            System.out.println(postLimitRsData.getMsg());
+            return null;
+        }
 
 //        System.out.println("challengeMember = " + challengeMember);
 //
