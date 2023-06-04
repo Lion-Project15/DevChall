@@ -19,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -65,7 +67,7 @@ public class ChallengeService {
     }
     public List<SettleChallengeDto> getSettleChallengeDto(){
 //        return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.now());
-        return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.of(2023, 6, 15));
+        return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.of(2023, 6, 29));
 
     }
     public List<Challenge> getChallengList() {

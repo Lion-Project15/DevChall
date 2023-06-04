@@ -10,16 +10,21 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
-        @Query("SELECT c.id, cm, COUNT(p.id) " +
+        @Query("SELECT cm as challmem, c.id as challenge_id, cm.challenger.id as challengemember_id, COUNT(p.id) as count " +
             "FROM ChallengeMember cm " +
             "JOIN cm.linkedChallenge c " +
-            "JOIN ChallengePost p ON cm.challenger = p.challenger " +
+            "JOIN ChallengePost p ON cm.challenger = p.challenger AND p.linkedChallenge.id = c.id " +
             "WHERE c.endDate = :today " +
-            "GROUP BY c.id, cm.challenger")
-    List<SettleChallengeDto> findChallengeMemberCountByEndDate(@Param("today") LocalDate today);
+            "GROUP BY c.id, cm.challenger, cm")
+//    @Query("SELECT cm FROM ChallengeMember cm ")
+    //Object[] findChallengeMemberCountByEndDate(@Param("today") LocalDate today);
+        List<SettleChallengeDto> findChallengeMemberCountByEndDate(@Param("today") LocalDate today);
+
 
 }

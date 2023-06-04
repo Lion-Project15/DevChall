@@ -1,14 +1,17 @@
 package com.challenge.devchall.main.controller;
 
 import com.challenge.devchall.base.rq.Rq;
+import com.challenge.devchall.challange.dto.SettleChallengeDto;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -28,9 +31,9 @@ public class MainController {
 
     @ResponseBody
     @GetMapping("/test")
-    public String test(){
+    public List<SettleChallengeDto> test() {
 
-        return challengeService.getSettleChallengeDto().toString();
+        return challengeService.getSettleChallengeDto() ;
     }
 
 }

@@ -17,7 +17,7 @@ import java.util.*;
 
 @SuperBuilder
 @NoArgsConstructor
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"challengeMemberList", "myPostList"})
 @Entity
 @Getter
 @EntityListeners(AuditingEntityListener.class)
