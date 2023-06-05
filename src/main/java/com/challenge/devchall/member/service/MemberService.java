@@ -3,6 +3,7 @@ package com.challenge.devchall.member.service;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
+import com.challenge.devchall.point.entity.Point;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,8 @@ public class MemberService {
     @Transactional
     public RsData<Member> join(String loginID, String password, String email, String nickname, String username) {
         RsData<Member> rsData = validateMember(loginID, email, nickname);
+        Point point = new Point(1000L, 1000L);
+
         if (rsData.isFail()) return rsData;
         Member member = Member
                 .builder()
@@ -37,6 +40,7 @@ public class MemberService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .challengeLimit(0)
+                .point(point)
                 .build();
         memberRepository.save(member);
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
@@ -82,6 +86,20 @@ public class MemberService {
         }else{
             return RsData.of("F-1", "이미 이번달에 2개의 챌린지를 생성하셨습니다.");
         }
+    }
 
+    public RsData<Member> canJoin(Member member, int joinCost){
+
+        Point memberPoint = member.getPoint();
+        Long currentPoint = memberPoint.getCurrentPoint();
+
+        if(currentPoint >= joinCost){
+
+            memberPoint.updateCurrentPoint((joinCost * -1));
+
+            return RsData.of("S-1", "참가 비용을 지불할 수 있습니다");
+        }else{
+            return RsData.of("F-3", "참가 비용이 부족합니다.");
+        }
     }
 }

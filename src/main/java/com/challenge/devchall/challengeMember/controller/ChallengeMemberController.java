@@ -1,8 +1,10 @@
 package com.challenge.devchall.challengeMember.controller;
 
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
+import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
+import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.member.entity.Member;
@@ -38,12 +40,16 @@ public class ChallengeMemberController {
 
         Member loginMember = memberService.findByLoginID(principal.getName()).orElse(null);
 
-        //1번 챌린지가 있다 -> 챌린지 멤버 (USER1, USER2, USER3, ADMIN )
-        // (USER1, USER2, USER3, ADMIN, + 지금 참여할 사람)
-        // 1번 챌린 -> CM(1, USerID, ROle)
-        //1번 챌린지 -> CM(1, USER1, LEADER) , CM(1, USER2, CREW) ....
+        int joinCost = challengeById.getChallengePeriod() * 50;
 
-        challengeMemberService.addMember(challengeById, loginMember, Role.CREW);
+        RsData<Member> joinRsData = memberService.canJoin(loginMember, joinCost);
+
+        if(joinRsData.isFail()){
+            System.out.println(joinRsData.getMsg());
+            return "redirect:/usr/challenge/detail/{id}";
+        }
+
+        ChallengeMember challengeMember = challengeMemberService.addMember(challengeById, loginMember, Role.CREW);
 
         return "redirect:/usr/challenge/detail/{id}";
     }
