@@ -16,7 +16,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PointService {
     private final PointRepository pointRepository;
-    private final ChallengeService challengeService;
     private final ChallengeMemberService challengeMemberService;
     List<SettleChallengeDTO> settleChallengeDTOs;
 
@@ -32,15 +31,13 @@ public class PointService {
 
     public void settle(){
         //완료된 챌린지를 리스트로 가져옴
-        settleChallengeDTOs = challengeService.getSettleChallengeDto();
+        settleChallengeDTOs = challengeMemberService.getSettleChallengeDto();
         for(SettleChallengeDTO dto:settleChallengeDTOs) {
             ChallengeMember cm = challengeMemberService.getById(dto.getChallengemember_id()).orElse(null);
             Long postPoints = dto.getCount();
             calcPointFromPosts(cm, postPoints);
             //달성률이 90%을 걸러냄
-
         }
-
     }
     public void calcPointFromPosts(ChallengeMember cm, Long postPoints){
         if (cm != null) {

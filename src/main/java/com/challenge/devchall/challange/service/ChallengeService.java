@@ -70,17 +70,8 @@ public class ChallengeService {
         challengeMemberService.addMember(challenge, member, Role.LEADER);
         return challenge;
     }
-    public List<SettleChallengeDTO> getSettleChallengeDto(){
-//        return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.now());
-        return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.of(2023, 6, 29));
 
-    }
-//    public List<Challenge> getChallengList() {
-//        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
-//        Pageable pageable = PageRequest.of(0, 30, sort);
-//        List<Challenge> challenges = challengeRepository.findByChallengeStatus(true, pageable);
-//        return challenges;
-//    }
+
 
     public List<Challenge> getChallengList(Member member) {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");

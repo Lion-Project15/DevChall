@@ -17,8 +17,8 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class MainController {
-    final private ChallengeService challengeService;
     final private ChallengeMemberService challengeMemberService;
+    final private ChallengeService challengeService;
     final private PointService pointService;
     private final Rq rq;
     @GetMapping("/")
@@ -27,7 +27,7 @@ public class MainController {
             model.addAttribute("challengeMembers"
                     , challengeMemberService.getByMember(rq.getMember()));
         }
-        model.addAttribute("challenges",challengeService.getChallengList());
+        model.addAttribute("challenges", challengeService.getChallengList(rq.getMember()));
         return "index";
     }
 
@@ -41,7 +41,7 @@ public class MainController {
     @GetMapping("/test2")
     public List<SettleChallengeDTO> test2() {
 
-        return challengeService.getSettleChallengeDto();
+        return challengeMemberService.getSettleChallengeDto();
     }
 
 }

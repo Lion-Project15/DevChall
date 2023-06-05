@@ -2,6 +2,7 @@ package com.challenge.devchall.challengeMember.service;
 
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
 import com.challenge.devchall.base.rsData.RsData;
+import com.challenge.devchall.challange.dto.SettleChallengeDTO;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
@@ -10,6 +11,7 @@ import com.challenge.devchall.point.entity.Point;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -74,5 +76,15 @@ public class ChallengeMemberService {
         }
 
         return challengeIds;
+    }
+    public List<SettleChallengeDTO> getSettleChallengeDto(){
+//        return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.now());
+        return challengeMemberRepository.findChallengeMemberCountByEndDate(LocalDate.of(2023, 6, 29));
+        //    public List<Challenge> getChallengList() {
+        //        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        //        Pageable pageable = PageRequest.of(0, 30, sort);
+        //        List<Challenge> challenges = challengeRepository.findByChallengeStatus(true, pageable);
+        //        return challenges;
+        //    }
     }
 }
