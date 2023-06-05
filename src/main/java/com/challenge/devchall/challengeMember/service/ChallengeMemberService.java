@@ -8,6 +8,7 @@ import com.challenge.devchall.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class ChallengeMemberService {
 
     private final ChallengeMemberRepository challengeMemberRepository;
+
 
     public ChallengeMember addMember(Challenge challenge, Member member, Role role){
 
@@ -42,4 +44,16 @@ public class ChallengeMemberService {
         return challengeMemberRepository.findByChallenger(member);
     }
 
+
+    public List<Long> getChallengeIdsByMember(Member member) {
+        List<ChallengeMember> challengeMembers = getByMember(member);
+        List<Long> challengeIds = new ArrayList<>();
+
+        for (ChallengeMember challengeMember : challengeMembers) {
+            Challenge challenge = challengeMember.getLinkedChallenge();
+            challengeIds.add(challenge.getId());
+        }
+
+        return challengeIds;
+    }
 }

@@ -14,4 +14,6 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
 
 
     List<Challenge> findByChallengeStatus(boolean challengeStatus, Pageable pageable);
+
+    List<Challenge> findByChallengeStatusAndIdNotIn(boolean challengeStatus, List<Long> challengeIds, Pageable pageable);
 }
