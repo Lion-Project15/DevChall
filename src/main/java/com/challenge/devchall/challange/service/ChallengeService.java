@@ -10,6 +10,7 @@ import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -56,6 +58,7 @@ public class ChallengeService {
                 .challengeLanguage(language)
                 .challengeSubject(subject)
                 .challengePostType(posttype)
+                .challengeCreator(member.getLoginID())
                 .build();
 
         int createCost = challenge.getChallengePeriod() * 50;
@@ -74,9 +77,28 @@ public class ChallengeService {
 
     public List<Challenge> getChallengList() {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
-        Pageable pageable = PageRequest.of(0,30,sort);
-        return challengeRepository.findAll(pageable).getContent();
+        Pageable pageable = PageRequest.of(0, 30, sort);
+        List<Challenge> challenges = challengeRepository.findByChallengeStatus(true, pageable);
+        return challenges;
     }
+
+    public List<Challenge> getChallengList(Member member) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(0, 30, sort);
+
+        // 현재 사용자가 참여 중인 챌린지 ID 목록을 가져옴
+        List<Long> challengeIds = challengeMemberService.getChallengeIdsByMember(member);
+
+        // 현재 사용자가 참여 중인 챌린지를 제외한 모집 중인 챌린지 목록을 가져옴
+        List<Challenge> challenges = challengeRepository.findByChallengeStatusAndIdNotIn(true, challengeIds, pageable);
+
+        return challenges;
+    }
+
+
+
+
+
 
     public class FormattingResult {
         private int formattingFrequency;

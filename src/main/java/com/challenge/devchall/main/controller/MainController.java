@@ -20,8 +20,11 @@ public class MainController {
         if(rq.isLogin()){
             model.addAttribute("challengeMembers"
                     , challengeMemberService.getByMember(rq.getMember()));
+            model.addAttribute("challenges",challengeService.getChallengList(rq.getMember()));
+        } else {
+            model.addAttribute("challenges",challengeService.getChallengList());
         }
-        model.addAttribute("challenges",challengeService.getChallengList());
+
         return "index";
     }
 
