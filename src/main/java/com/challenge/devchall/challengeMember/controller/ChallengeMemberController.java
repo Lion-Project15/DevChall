@@ -37,19 +37,15 @@ public class ChallengeMemberController {
 
         //내가 들어가야할 챌린지
         Challenge challengeById = challengeService.getChallengeById(challengeId);
-
         Member loginMember = memberService.findByLoginID(principal.getName()).orElse(null);
-
-        int joinCost = challengeById.getChallengePeriod() * 50;
-
-        RsData<Member> joinRsData = memberService.canJoin(loginMember, joinCost);
+        RsData joinRsData = challengeMemberService.addMember(challengeById, loginMember, Role.CREW);
 
         if(joinRsData.isFail()){
             System.out.println(joinRsData.getMsg());
             return "redirect:/usr/challenge/detail/{id}";
         }
 
-        ChallengeMember challengeMember = challengeMemberService.addMember(challengeById, loginMember, Role.CREW);
+
 
         return "redirect:/usr/challenge/detail/{id}";
     }

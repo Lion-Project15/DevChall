@@ -23,7 +23,14 @@ public class ChallengeMemberService {
     private final ChallengeMemberRepository challengeMemberRepository;
 
 
-    public ChallengeMember addMember(Challenge challenge, Member member, Role role){
+    public RsData<ChallengeMember> addMember(Challenge challenge, Member member, Role role){
+
+        int joinCost = challenge.getChallengePeriod() * 50;
+        RsData<ChallengeMember> joinRsData = canJoin(member, joinCost);
+
+        if(joinRsData.isFail()){
+            return joinRsData;
+        }
 
         ChallengeMember challengeMember = ChallengeMember
                 .builder()
@@ -35,9 +42,10 @@ public class ChallengeMemberService {
                 .totalPostCount(0)
                 .build();
 
-        challengeMemberRepository.save(challengeMember);
+        joinRsData.setData(challengeMemberRepository.save(challengeMember));
+        member.getPoint().subtract(joinCost);
 
-        return challengeMember;
+        return joinRsData;
     }
 
     public Optional<ChallengeMember> getByChallengeAndMember(Challenge challenge, Member member){
@@ -53,15 +61,11 @@ public class ChallengeMemberService {
         return challengeMemberRepository.findByChallenger(member);
     }
 
-    public RsData<ChallengeMember> canJoin(Member member, int joinCost){
+    private RsData<ChallengeMember> canJoin(Member member, int joinCost){
 
-        Point memberPoint = member.getPoint();
-        Long currentPoint = memberPoint.getCurrentPoint();
+        Long currentPoint = member.getPoint().getCurrentPoint();
 
         if(currentPoint >= joinCost){
-
-            memberPoint.subtract((joinCost));
-
             return RsData.of("S-1", "참가 비용을 지불할 수 있습니다");
         }else{
             return RsData.of("F-3", "참가 비용이 부족합니다.");

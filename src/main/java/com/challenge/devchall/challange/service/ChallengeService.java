@@ -61,13 +61,6 @@ public class ChallengeService {
 
         int createCost = challenge.getChallengePeriod() * 50;
 
-        RsData<Member> joinRsData = memberService.canJoin(member, createCost);
-
-        if(joinRsData.isFail()){
-            System.out.println(joinRsData.getMsg());
-            return null;
-        }
-
         challengeRepository.save(challenge);
         challengeMemberService.addMember(challenge, member, Role.LEADER);
         return challenge;
