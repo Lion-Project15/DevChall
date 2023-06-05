@@ -1,10 +1,10 @@
 package com.challenge.devchall.main.controller;
 
 import com.challenge.devchall.base.rq.Rq;
-import com.challenge.devchall.base.schedule.pointManager.PointManager;
 import com.challenge.devchall.challange.dto.SettleChallengeDTO;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
+import com.challenge.devchall.point.service.PointService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +19,7 @@ import java.util.List;
 public class MainController {
     final private ChallengeService challengeService;
     final private ChallengeMemberService challengeMemberService;
+    final private PointService pointService;
     private final Rq rq;
     @GetMapping("/")
     public String showMain(Model model){
@@ -32,8 +33,7 @@ public class MainController {
 
     @GetMapping("/test")
     public String test() {
-        PointManager pm = new PointManager(challengeService, challengeMemberService);
-        pm.settle();
+        pointService.settle();
         return "redirect:/usr/member/me" ;
     }
 
