@@ -10,7 +10,9 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.repository.ChallengePostRepository;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.point.schedule.Schedule;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +26,7 @@ public class ChallengePostService {
     private final ChallengePostRepository challengePostRepository;
     private final ChallengeService challengeService;
     private final ChallengeMemberService challengeMemberService;
-    private final ChallengeMemberRepository challengeMemberRepository;
+    private final Schedule schedule;
 
     public ChallengePost write(String title, String contents, boolean status, long postScore, long id, Member member) {
 
@@ -38,16 +40,6 @@ public class ChallengePostService {
             System.out.println(postLimitRsData.getMsg());
             return null;
         }
-
-//        System.out.println("challengeMember = " + challengeMember);
-//
-//        System.out.println("challengeMember = " + challengeMember);
-//
-//        if(challengeMember.getPostLimit() == 0){
-//            challengeMember.updatePostLimit(1);
-//        } else{
-//            return null;
-//        }
 
         ChallengePost challengePost = ChallengePost.builder()
                 .postTitle(title)
@@ -90,4 +82,6 @@ public class ChallengePostService {
     public List<ChallengePost> getChallengePostByChallenge(Challenge challenge) {
         return challengePostRepository.findByLinkedChallenge(challenge);
     }
+
+
 }

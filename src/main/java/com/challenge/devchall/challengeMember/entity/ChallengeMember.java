@@ -18,7 +18,8 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Getter
 public class ChallengeMember extends BaseEntity {
-
+    private int count;
+    private int totalCount;
     private boolean isValid;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -52,6 +53,10 @@ public class ChallengeMember extends BaseEntity {
             this.postLimit++;
             return RsData.of("S-1", "포스트 작성이 가능합니다.");
         }
+    }
+
+    public void increaseCount(){
+        this.count += 1;
     }
 
 }
