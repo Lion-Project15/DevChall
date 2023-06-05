@@ -30,6 +30,8 @@ public class Challenge extends BaseEntity {
     private String challengeSubject;
     private String challengePostType;
 
+    private String challengeCreator;
+
     @OneToMany(mappedBy = "linkedChallenge")
     private List<ChallengePost> challengePostList = new ArrayList<>();
 
