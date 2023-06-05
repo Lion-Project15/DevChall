@@ -32,7 +32,9 @@ public class ChallengeMemberService {
 
         return challengeMember;
     }
-
+    public Optional<ChallengeMember> getById(long id){
+        return challengeMemberRepository.findById(id);
+    }
     public Optional<ChallengeMember> getByChallengeAndMember(Challenge challenge, Member member){
 
         return challengeMemberRepository.findByLinkedChallengeAndChallenger(challenge, member);

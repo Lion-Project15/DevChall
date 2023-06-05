@@ -32,10 +32,11 @@ public class ChallengePost extends BaseEntity {
 //    private int postStarPoint;
 
     ////@ManyToOne(cascade = CascadeType.ALL)
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
+
     private Challenge linkedChallenge;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member challenger;
 
     public void modifyPost(String postTitle, String postContents, boolean postIsPublic){

@@ -11,9 +11,11 @@ public class PointService {
     private final PointRepository pointRepository;
 
     public Point create(){
-        return pointRepository.save(Point.builder()
+        Point p = pointRepository.save(Point.builder()
                 .currentPoint(1000L)
                 .totalPoint(1000L)
                 .build());
+
+        return pointRepository.findById(p.getId()).orElse(null);
     }
 }

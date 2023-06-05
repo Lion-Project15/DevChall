@@ -40,7 +40,7 @@ public class MemberService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .challengeLimit(0)
-                .point(pointService.create())
+                .point(Point.builder().totalPoint(1000L).currentPoint(1000L).build())
                 .build();
         memberRepository.save(member);
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);

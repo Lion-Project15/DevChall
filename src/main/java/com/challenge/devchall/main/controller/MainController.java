@@ -1,6 +1,7 @@
 package com.challenge.devchall.main.controller;
 
 import com.challenge.devchall.base.rq.Rq;
+import com.challenge.devchall.base.schedule.pointManager.PointManager;
 import com.challenge.devchall.challange.dto.SettleChallengeDTO;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
@@ -29,11 +30,18 @@ public class MainController {
         return "index";
     }
 
-    @ResponseBody
     @GetMapping("/test")
-    public List<SettleChallengeDTO> test() {
+    public String test() {
+        PointManager pm = new PointManager(challengeService, challengeMemberService);
+        pm.settle();
+        return "redirect:/usr/member/me" ;
+    }
 
-        return challengeService.getSettleChallengeDto() ;
+    @ResponseBody
+    @GetMapping("/test2")
+    public List<SettleChallengeDTO> test2() {
+
+        return challengeService.getSettleChallengeDto();
     }
 
 }

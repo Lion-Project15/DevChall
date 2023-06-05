@@ -10,12 +10,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
-        @Query("SELECT cm as challmem, c.id as challenge_id, cm.challenger.id as challengemember_id, COUNT(p.id) as count " +
+        @Query("SELECT cm.id as challengemember_id, COUNT(p.id) as count " +
             "FROM ChallengeMember cm " +
             "JOIN cm.linkedChallenge c " +
-            "JOIN ChallengePost p ON cm.challenger = p.challenger AND p.linkedChallenge.id = c.id " +
+            "JOIN ChallengePost p ON cm.challenger = p.challenger AND p.linkedChallenge = c " +
             "WHERE c.endDate = :today " +
-            "GROUP BY c.id, cm.challenger, cm")
+            "GROUP BY cm.id") // 챌린지 아이디 + 멤버 아이디
 //    @Query("SELECT cm FROM ChallengeMember cm ")
     //Object[] findChallengeMemberCountByEndDate(@Param("today") LocalDate today);
         List<SettleChallengeDTO> findChallengeMemberCountByEndDate(@Param("today") LocalDate today);

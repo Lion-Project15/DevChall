@@ -33,7 +33,7 @@ public class MemberController {
     @GetMapping("/join")
     public String showJoin (MemberRequestDto memberDto, Model model) {
         model.addAttribute("memberDto", memberDto);
-        return "/usr/member/join";
+        return "usr/member/join";
     }
 
 //    @AllArgsConstructor
@@ -103,7 +103,7 @@ public class MemberController {
             model.addAttribute("challengeMembers"
                     , challengeMemberService.getByMember(rq.getMember()));
         }
-        return "/usr/member/me";
+        return "usr/member/me";
     }
 }
 

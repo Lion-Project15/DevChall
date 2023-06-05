@@ -3,11 +3,14 @@ package com.challenge.devchall.base.schedule.pointManager;
 import com.challenge.devchall.challange.dto.SettleChallengeDTO;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
+import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Transactional
 @RequiredArgsConstructor
 public class PointManager {
     List<SettleChallengeDTO> settleChallengeDTOs;
@@ -20,7 +23,15 @@ public class PointManager {
     }
     public void calcPointFromPosts(){
         for(SettleChallengeDTO dto:settleChallengeDTOs){
-            dto.getChallmem().getChallenger().getPoint().addPoint(dto.getCount());
+            ChallengeMember cm  = challengeMemberService.getById(dto.getChallengemember_id()).orElse(null);
+            Long postPoints = dto.getCount();
+            if(cm != null){
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+postPoints+"//"+cm.getChallenger().getLoginID()+"//"
+                        +cm.getChallenger().getPoint().getCurrentPoint());
+                cm.getChallenger().getPoint().addPoint(postPoints);
+                System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>after:"+cm.getChallenger().getPoint().getCurrentPoint());
+
+            }
         }
     }
 }
