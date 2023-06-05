@@ -5,11 +5,13 @@ import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
+import com.challenge.devchall.challengepost.dto.SettleChallengeDTO;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.point.entity.Point;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,6 +32,7 @@ public class ChallengeMemberService {
                 .isValid(true)
                 .challengerRole(role)
                 .postLimit(0)
+                .totalPostCount(0)
                 .build();
 
         challengeMemberRepository.save(challengeMember);
@@ -40,6 +43,10 @@ public class ChallengeMemberService {
     public Optional<ChallengeMember> getByChallengeAndMember(Challenge challenge, Member member){
 
         return challengeMemberRepository.findByLinkedChallengeAndChallenger(challenge, member);
+    }
+
+    public List<ChallengeMember> getByChallenge(Challenge challenge) {
+        return challengeMemberRepository.findByLinkedChallenge(challenge);
     }
 
     public List<ChallengeMember> getByMember(Member member){
@@ -53,7 +60,7 @@ public class ChallengeMemberService {
 
         if(currentPoint >= joinCost){
 
-            memberPoint.updateCurrentPoint((joinCost * -1));
+            memberPoint.subtract((joinCost));
 
             return RsData.of("S-1", "참가 비용을 지불할 수 있습니다");
         }else{
@@ -61,7 +68,9 @@ public class ChallengeMemberService {
         }
     }
 
-
+    public List<SettleChallengeDTO> getSettleChallengeDto() {
+        return challengeMemberRepository.findChallengeMemberCountByEndDate(LocalDate.of(2023, 6, 29));
+    }
 
 
     public List<Long> getChallengeIdsByMember(Member member) {
@@ -74,5 +83,9 @@ public class ChallengeMemberService {
         }
 
         return challengeIds;
+    }
+
+    public Optional<ChallengeMember> getById(long id){
+        return challengeMemberRepository.findById(id);
     }
 }

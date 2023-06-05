@@ -21,7 +21,6 @@ public class ChallengeMember extends BaseEntity {
     private boolean isValid;
 
     @ManyToOne(cascade = CascadeType.ALL)
-//    @ManyToOne
     private Challenge linkedChallenge;
 
     @ManyToOne
@@ -32,6 +31,7 @@ public class ChallengeMember extends BaseEntity {
 
     //스케줄러 -> 매일 초기화
     private int postLimit;
+    private int totalPostCount;
     private Long challengeTotalPoint;
 //    private List<Role> challengerRole2;
 
@@ -49,6 +49,7 @@ public class ChallengeMember extends BaseEntity {
             return RsData.of("F-1", "오늘은 이미 포스트를 작성했습니다.");
         }else{
             this.postLimit++;
+            this.totalPostCount++;
             return RsData.of("S-1", "포스트 작성이 가능합니다.");
         }
     }

@@ -21,21 +21,15 @@ public class Point extends BaseEntity {
     private Long currentPoint;
     private Long totalPoint;
 
-    public void updateCurrentPoint(int cost){
-
+    public void add(int cost){
         this.currentPoint+=cost;
+        this.totalPoint+=cost;
+        System.out.printf("참가 비용 %d 원이 추가되었습니다.", cost);
+    }
 
+    public void subtract(int cost){
+        this.currentPoint-=cost;
         System.out.printf("참가 비용 %d 원이 지불되었습니다.", cost);
     }
 
-    public Point(Long currentPoint, Long totalPoint) {
-        this.currentPoint = currentPoint;
-        this.totalPoint = totalPoint;
-    }
-
-    public Point(BaseEntityBuilder<?, ?> b, Long currentPoint, Long totalPoint) {
-        super(b);
-        this.currentPoint = currentPoint;
-        this.totalPoint = totalPoint;
-    }
 }
