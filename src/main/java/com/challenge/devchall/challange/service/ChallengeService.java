@@ -5,7 +5,6 @@ import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.dto.SettleChallengeDTO;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
-import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
@@ -32,8 +31,7 @@ public class ChallengeService {
     @Transactional
     public Challenge createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
                                 String language, String subject, String posttype, Member member) {
-
-        RsData<Member> memberRsData = memberService.updateChallengeLimit(member);
+        RsData<Member> memberRsData = memberService.checkChallengeLimit(member);
 
         //FIXME 이미 2개를 생성한 상태라면 뒤의 작업이 이루어지지 않아야 함.
         if(memberRsData.isFail()){
@@ -44,7 +42,6 @@ public class ChallengeService {
         }
 
         FormattingResult formattingResult = formatting(frequency, startDate, period);
-
         Challenge challenge = Challenge
                 .builder()
                 .challengeName(title)
@@ -58,22 +55,50 @@ public class ChallengeService {
                 .challengeLanguage(language)
                 .challengeSubject(subject)
                 .challengePostType(posttype)
+                .challengeCreator(member.getLoginID())
                 .build();
+        challengeRepository.save(challenge);
 
-        Challenge result = challengeRepository.save(challenge);
+        int createCost = challenge.getChallengePeriod() * 50;
+        RsData<Member> joinRsData = memberService.canJoin(member, createCost);
+
+        if(joinRsData.isFail()){
+            System.out.println(joinRsData.getMsg());
+            return null;
+        }
+
         challengeMemberService.addMember(challenge, member, Role.LEADER);
-        return result;
+        return challenge;
     }
     public List<SettleChallengeDTO> getSettleChallengeDto(){
 //        return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.now());
         return challengeRepository.findChallengeMemberCountByEndDate(LocalDate.of(2023, 6, 29));
 
     }
-    public List<Challenge> getChallengList() {
+//    public List<Challenge> getChallengList() {
+//        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+//        Pageable pageable = PageRequest.of(0, 30, sort);
+//        List<Challenge> challenges = challengeRepository.findByChallengeStatus(true, pageable);
+//        return challenges;
+//    }
+
+    public List<Challenge> getChallengList(Member member) {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
-        Pageable pageable = PageRequest.of(0,30,sort);
-        return challengeRepository.findAll(pageable).getContent();
+        Pageable pageable = PageRequest.of(0, 30, sort);
+
+        // 현재 사용자가 참여 중인 챌린지 ID 목록을 가져옴
+        List<Long> challengeIds = challengeMemberService.getChallengeIdsByMember(member);
+
+        // 현재 사용자가 참여 중인 챌린지를 제외한 모집 중인 챌린지 목록을 가져옴
+        List<Challenge> challenges = challengeRepository.findByChallengeStatusAndIdNotIn(true, challengeIds, pageable);
+
+        return challenges;
     }
+
+
+
+
+
 
     public class FormattingResult {
         private int formattingFrequency;

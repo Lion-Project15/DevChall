@@ -32,6 +32,7 @@ public class Challenge extends BaseEntity {
     private String challengeLanguage;
     private String challengeSubject;
     private String challengePostType;
+    private String challengeCreator;
 
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Builder.Default

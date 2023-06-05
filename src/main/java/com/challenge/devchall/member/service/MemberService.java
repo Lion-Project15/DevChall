@@ -25,7 +25,7 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PointService pointService;
     public Optional<Member> findByLoginID(String loginID) {
-        return memberRepository.findByLoginID(loginID); //findByLoginID??
+        return memberRepository.findByLoginID(loginID);
     }
 
     @Transactional
@@ -40,7 +40,7 @@ public class MemberService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .challengeLimit(0)
-                .point(Point.builder().totalPoint(1000L).currentPoint(1000L).build())
+                .point(pointService.create())
                 .build();
         memberRepository.save(member);
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
@@ -75,7 +75,7 @@ public class MemberService {
         return memberRepository.findByLoginID(loginId).orElse(null);
     }
 
-    public RsData<Member> updateChallengeLimit(Member member){
+    public RsData<Member> checkChallengeLimit(Member member){
 
         int challengeLimit = member.getChallengeLimit();
 
@@ -86,6 +86,20 @@ public class MemberService {
         }else{
             return RsData.of("F-1", "이미 이번달에 2개의 챌린지를 생성하셨습니다.");
         }
+    }
 
+    public RsData<Member> canJoin(Member member, long joinCost){
+
+        Point memberPoint = member.getPoint();
+        Long currentPoint = memberPoint.getCurrentPoint();
+
+        if(currentPoint >= joinCost){
+
+            memberPoint.subtractPoint(joinCost);
+
+            return RsData.of("S-1", "참가 비용을 지불할 수 있습니다");
+        }else{
+            return RsData.of("F-3", "참가 비용이 부족합니다.");
+        }
     }
 }

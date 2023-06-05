@@ -20,15 +20,15 @@ public class Point extends BaseEntity {
     private Long currentPoint;
     private Long totalPoint;
 
-
     public void addPoint(Long point){
         this.currentPoint += point;
         this.totalPoint += point;
-        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>currentP:"+currentPoint);
+        System.out.printf("%d 원이 추가되었습니다.", point);
     }
-    public void subtractPoint(Long point){
-        if(currentPoint-point>=0){
-            this.currentPoint = currentPoint-point;
+    public void subtractPoint(Long point) {
+        if (currentPoint - point >= 0) {
+            this.currentPoint = currentPoint - point;
+            System.out.printf("%d 원이 지불되었습니다.", point);
         }
     }
 }
