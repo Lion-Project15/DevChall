@@ -7,7 +7,6 @@ import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
 import com.challenge.devchall.challengepost.dto.SettleChallengeDTO;
 import com.challenge.devchall.member.entity.Member;
-import com.challenge.devchall.point.entity.Point;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +43,7 @@ public class ChallengeMemberService {
 
         joinRsData.setData(challengeMemberRepository.save(challengeMember));
         member.getPoint().subtract(joinCost);
+        challenge.addPoint(joinCost);
 
         return joinRsData;
     }

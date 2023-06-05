@@ -32,6 +32,7 @@ public class Challenge extends BaseEntity {
     private String challengeLanguage;
     private String challengeSubject;
     private String challengePostType;
+    private long gatherPoints;
 
     private String challengeCreator;
     @LazyCollection(LazyCollectionOption.EXTRA)
@@ -39,4 +40,10 @@ public class Challenge extends BaseEntity {
     @OneToMany(mappedBy = "linkedChallenge")
     private List<ChallengePost> challengePostList = new ArrayList<>();
 
+    public void addPoint(int points){
+        this.gatherPoints+=points;
+    }
+    public void subtractPoint(int points){
+        this.gatherPoints-=points;
+    }
 }

@@ -57,6 +57,7 @@ public class ChallengeService {
                 .challengeSubject(subject)
                 .challengePostType(posttype)
                 .challengeCreator(member.getLoginID())
+                .gatherPoints(0)
                 .build();
 
         int createCost = challenge.getChallengePeriod() * 50;

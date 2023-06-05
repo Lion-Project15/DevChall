@@ -49,31 +49,6 @@ public class Schedule {
             System.out.println("초기화되었습니다.");
         }
 
-        // 버튼의 활성화 여부를 확인
-        public boolean isButtonEnabled() {
-            return isButtonEnabled;
-        }
-
-        // count 증가
-        public void increaseCount(boolean isPostComplete) {
-            if (isPostComplete) {
-                // 글 작성이 완료된 경우
-                count++;
-            }
-            if (count >= frequency) {
-                isButtonEnabled = false;
-            } else {
-                isButtonEnabled = true;
-            }
-        }
-
-        // 글 작성 완료 시
-        public void PostComplete() {
-            increaseCount(true);
-            if (!isButtonEnabled()) {
-                System.out.println("필수 글 작성이 완료되었습니다.");
-            }
-        }
 
         // 달성률 계산
         public double getAchievementRate(int totalCount, int unitPeriod) {
