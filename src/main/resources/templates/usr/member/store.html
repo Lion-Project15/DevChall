@@ -1,0 +1,247 @@
+<html layout:decorate="~{usr/member/layout.html}">
+
+<head>
+    <title>상점 페이지</title>
+</head>
+
+<body>
+
+<main layout:fragment="main" body class="bg-[#121212] w-full flex-col flex">
+    <div class="gap-75px flex">
+        <div id="inven" class="bg-black col-span-1 md:col-span-3 xl:col-span-3"
+             style="border-top-left-radius: 8rem; height: 92.3rem; left: 0; top: 7rem; width: calc(100% / 3);">
+
+            <div class="p-2 w-200" style="color: #03fa6e; text-align: center; margin-top: 60px;">
+                <h1 class="text-[#03fa6e] text-2xl font-bold" style="font-size: 40px;">My Inventory</h1>
+            </div>
+
+            <div class="user-image-jKB bg-[#313131] rounded-[4.3444rem] flex-shrink-0 h-[11.5rem] mx-auto flex justify-center items-center mt-20"
+                 style="width: 200px;">
+                <!--캐릭터 아이템 추가-->
+                <a href="#" class="flex flex-col items-center group px-1">
+                    <img src="/images/Character6.png" alt="Character" class="transition-all duration-300 transform group-hover:scale-110">
+                </a>
+            </div>
+
+            <div class="flex justify-center items-center">
+                <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-20"
+                     style="width: 200px;">
+                    <span class="mt-4 text-[#000000] font-bold text-xl">유저 닉네임</span>
+                </div>
+            </div>
+
+            <div class="flex justify-center items-center">
+                <div class="flex justify-center bg-[#000000] rounded-[4.3444rem] flex-shrink-0 h-[4rem] mx-[18rem] w-[calc(100% - 30rem)] mt-20 border border-[#03fa6e]"
+                     style="width: 200px;">
+                    <span class="mt-4 text-[#03fa6e] font-bold text-xl">1,000 Point</span>
+                </div>
+            </div>
+
+            <div id="center"
+                 class="px-30 m-20 bg-[#313131] rounded-[1.7rem] h-[20rem] top-[48.2rem] w-[20rem] flex justify-center items-center">
+                <button class="flex items-center justify-center w-12 h-12 bg-[#000000] rounded-full text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                         stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!--아이템 목록-->
+        <div id="items" class="flex flex-grow flex-wrap gap-10 mt-5 mx-20">
+            <!--아이템1_Font Color-->
+            <div id="item1" class="flex card w-1/4 bg-[#03fa6e] bg-opacity-10">
+                <div class="flex flex-col justify-center items-center h-full">
+
+                    <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-5"
+                         style="width: 200px;">
+                        <span class="mt-4 text-[#000000] font-bold text-xl">Font Color</span>
+                    </div>
+
+                    <div class="card p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <div class="mx-10 mt-5 justify-center" style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; background-color: #FCE411;"></div>
+                        <div class="flex flex-col justify-end items-end mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <div class="mx-10 mt-5 justify-center" style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; background-color: #ED3096;"></div>
+                        <div class="flex flex-col justify-end items-end mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <div class="mx-10 mt-5 justify-center" style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; background-color: #1144FC;"></div>
+                        <div class="flex flex-col justify-end items-end mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <div class="mx-10 mt-5 justify-center" style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; background-color: #FF9900;"></div>
+                        <div class="flex flex-col justify-end items-end mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <div class="mx-10 mt-5 justify-center" style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; background-color: #3CB24F;"></div>
+                        <div class="flex flex-col justify-end items-end mt-7 space-y-6">
+                            <a class="mt-3 mx-5" style="color:#3CB24F">User1</a>
+                            <span class="badge badge-custom mx-1" style="font-size: small; background-color: black; color: #03fa6e; border: 2px solid #03fa6e; border-radius: 6px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 75px; height: 50px; padding: 10px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 3px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--아이템2_New Character-->
+            <div id="item2" class="flex card w-1/4 bg-[#03fa6e] bg-opacity-10">
+                <div class="flex flex-col justify-center items-center h-full">
+
+                    <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-5"
+                         style="width: 200px;">
+                        <span class="mt-4 text-[#000000] font-bold text-xl">New Character</span>
+                    </div>
+
+
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <!--캐릭터 아이템 추가-->
+                        <a href="#" class="flex flex-col items-center group px-1">
+                            <img src="/images/Character.png" alt="Character" class="transition-all duration-300 transform group-hover:scale-110">
+                        </a>
+                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <!--캐릭터 아이템 추가-->
+                        <a href="#" class="flex flex-col items-center group px-1">
+                            <img src="/images/Character2.png" alt="Character" class="transition-all duration-300 transform group-hover:scale-110">
+                        </a>
+                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <!--캐릭터 아이템 추가-->
+                        <a href="#" class="flex flex-col items-center group px-1">
+                            <img src="/images/Character3.png" alt="Character" class="transition-all duration-300 transform group-hover:scale-110">
+                        </a>
+                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <!--캐릭터 아이템 추가-->
+                        <a href="#" class="flex flex-col items-center group px-1">
+                            <img src="/images/Character4.png" alt="Character" class="transition-all duration-300 transform group-hover:scale-110">
+                        </a>
+                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <!--캐릭터 아이템 추가-->
+                        <a href="#" class="flex flex-col items-center group px-1">
+                            <img src="/images/Character5.png" alt="Character" class="transition-all duration-300 transform group-hover:scale-110">
+                        </a>
+                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="item3" class="flex card w-1/4 bg-[#03fa6e] bg-opacity-10">
+                <div class="flex flex-col justify-center items-center h-full">
+                    <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-5"
+                         style="width: 200px;">
+                        <span class="mt-4 text-[#000000] font-bold text-xl">Coming Soon</span>
+                    </div>
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;">
+                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+</body>
+
+</html>

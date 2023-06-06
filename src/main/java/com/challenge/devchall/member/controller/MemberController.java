@@ -101,5 +101,11 @@ public class MemberController {
         }
         return "/usr/member/me";
     }
+    @GetMapping("/store")
+    public String getStore(Model model){
+
+        return "/usr/member/store";
+    }
+
 }
 
