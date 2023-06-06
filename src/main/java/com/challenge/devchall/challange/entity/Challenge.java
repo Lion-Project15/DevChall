@@ -46,4 +46,7 @@ public class Challenge extends BaseEntity {
     public void subtractPoint(int points){
         this.gatherPoints-=points;
     }
+    public void resetPoint(){
+        this.gatherPoints = 0;
+    }
 }

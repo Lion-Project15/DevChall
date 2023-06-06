@@ -10,6 +10,7 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.repository.ChallengePostRepository;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.point.schedule.Schedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -92,4 +93,5 @@ public class ChallengePostService {
         challengePostById.modifyPost(title, contents, status);
 
     }
+
 }

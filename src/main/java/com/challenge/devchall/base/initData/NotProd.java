@@ -33,7 +33,7 @@ public class NotProd {
                 Member user3 = memberService.join("user3", "1234", "user3@devchall.com", "user3", "user3").getData();
                 Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4", "user4").getData();
                 Member user5 = memberService.join("user5", "1234", "user5@devchall.com", "user5", "user5").getData();
-                Challenge c1 = challengeService.createChallenge("1번 챌린지", "1번 챌린지 내용입니다", true, "day1","2023-05-29", "2주", "C", "개념 공부", "인증샷", admin);
+                Challenge c1 = challengeService.createChallenge("1번 챌린지", "1번 챌린지 내용입니다", true, "day1","2023-06-01", "2주", "C", "개념 공부", "인증샷", admin);
                 Challenge c2 = challengeService.createChallenge("2번 챌린지", "2번 챌린지 내용입니다", false, "day3","2023-06-01", "4주", "Java", "프로젝트", "IDE 캡처", user1);
                 Challenge c3 =  challengeService.createChallenge("3번 챌린지", "3번 챌린지 내용입니다", true, "day7","2023-06-01", "8주", "Python", "시험 대비", "Github", user2);
                 Challenge c4 = challengeService.createChallenge("re 2번 챌린지", "re 2번 챌린지 내용입니다", false, "day3","2023-06-01", "4주", "Java", "프로젝트", "IDE 캡처", user5);

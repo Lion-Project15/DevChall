@@ -73,7 +73,7 @@ public class ChallengeMemberService {
     }
 
     public List<SettleChallengeDTO> getSettleChallengeDto() {
-        return challengeMemberRepository.findChallengeMemberCountByEndDate(LocalDate.of(2023, 6, 5));
+        return challengeMemberRepository.findChallengeMemberCountByEndDate(LocalDate.of(2023, 6, 29));
     }
 
 
