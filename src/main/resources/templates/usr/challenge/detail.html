@@ -23,8 +23,7 @@
     </script>
 
     <div class="flex">
-        <h2>챌린지 대표 이미지 들어갈 자리</h2>
-        <img src="/images/Challenge-img.png" alt="post_image"/>
+            <img src="/images/example1.png" alt="post_image" class="w-full h-[200px]"/>
     </div>
 
     <div class="divider"></div>
@@ -97,7 +96,7 @@
                             <div th:each="post : ${challengePostList}">
                                 <div class="card w-[200px] shadow-xl">
                                     <figure>
-                                        <img src="/images/Challenge-img.png" alt="post_image"/>
+                                        <img src="/images/example1.png" alt="post_image"/>
                                     </figure>
                                     <div class="card-body">
                                         <h2 class="card-title" th:text="${post.postTitle}"></h2>
