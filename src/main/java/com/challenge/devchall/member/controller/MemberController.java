@@ -15,9 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,10 +103,28 @@ public class MemberController {
         }
         return "/usr/member/me";
     }
-    @GetMapping("/store")
-    public String getStore(Model model){
 
+    @GetMapping("/store")
+    public String getStore(Model model, Principal principal) {
+        String memberNickname = principal.getName(); // 현재 인증된 사용자의 닉네임
+        int memberPoint = memberService.getMemberPoint(memberNickname);
+
+        model.addAttribute("memberNickname", memberNickname);
+        model.addAttribute("memberPoint", memberPoint);
         return "/usr/member/store";
+    }
+
+    @GetMapping("/store/buy/{buyCode}")
+    public String buyItem(@PathVariable("buyCode") String buyCode,
+                          Principal principal){
+
+        Member loginMember = memberService.getByLoginId(principal.getName());
+
+        RsData<Member> buyRsData = memberService.buyItem(buyCode, loginMember);
+
+        System.out.println(buyRsData.getMsg());
+
+        return "redirect:/usr/member/store";
     }
 
 }

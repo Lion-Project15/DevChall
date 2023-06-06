@@ -4,13 +4,17 @@ import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.point.entity.Point;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -102,4 +106,78 @@ public class MemberService {
             return RsData.of("F-3", "참가 비용이 부족합니다.");
         }
     }
+
+    @Transactional
+    public RsData<Member> buyItem(String buyCode, Member member){
+
+        /*
+        가격, 아이템 구매 코드 유형
+        (1) L or H (싼 것, 비싼것)
+        (2) F or C (폰트, 캐릭터)
+        (3) 색상코드 or 캐릭터명
+        ex) L-F-358544 (가격이 싼 폰트 358544에 대한 구매요청코드)
+        */
+
+        String[] buyCodeSplit = buyCode.split("-");
+
+        System.out.println("buyCodeSplit = " + Arrays.toString(buyCodeSplit));
+
+        int itemCost = getItemCost(buyCodeSplit[0], buyCodeSplit[1]);
+
+        Point memberPoint = member.getPoint();
+
+        if(memberPoint.getCurrentPoint() >= itemCost){
+
+            member.getPoint().updateCurrentPoint(itemCost * -1);
+
+            return RsData.of("S-6", "구매에 성공하였습니다.");
+        }else{
+
+            return RsData.of("F-6", "소지금이 부족합니다.");
+        }
+
+        //돈 내는거 밖에 안되었음.
+    }
+
+    public int getItemCost(String costType, String itemType){
+
+        /*
+        싼 폰트 - 300원
+        싼 캐릭터 - 1000 원
+        비싼 폰트 - 500원
+        비싼 캐릭터 - 2000 원
+         */
+
+        if(costType.equals("L")){
+
+            if(itemType.equals("F")){
+                return 300;
+            }else{
+                return 1000;
+            }
+        }
+        else{
+            if(itemType.equals("F")){
+                return 500;
+            }else{
+                return 2000;
+            }
+        }
+
+    }
+
+    public int getMemberPoint(String loginId) {
+        Member member = getByLoginId(loginId);
+
+        if (member != null) {
+            Point point = member.getPoint();
+            if (point != null) {
+                return point.getCurrentPoint().intValue();
+            }
+        }
+        return 0; // 멤버가 존재하지 않거나 포인트 정보가 없는 경우, 0을 반환
+    }
+
+
+
 }
