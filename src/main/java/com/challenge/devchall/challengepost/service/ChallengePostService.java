@@ -10,6 +10,8 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.repository.ChallengePostRepository;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.point.entity.Point;
+import com.challenge.devchall.point.schedule.Schedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +27,7 @@ public class ChallengePostService {
     private final ChallengeService challengeService;
     private final ChallengeMemberService challengeMemberService;
     private final ChallengeMemberRepository challengeMemberRepository;
+    private final Schedule schedule;
 
     public ChallengePost write(String title, String contents, boolean status, long postScore, long id, Member member) {
 
@@ -70,6 +73,10 @@ public class ChallengePostService {
         return challengePostById;
     }
 
+    public List<ChallengePost> getChallengePostByChallenge(Challenge challenge) {
+        return challengePostRepository.findByLinkedChallenge(challenge);
+    }
+
     @Transactional
     public void deletePost(long id){
 
@@ -86,4 +93,5 @@ public class ChallengePostService {
         challengePostById.modifyPost(title, contents, status);
 
     }
+
 }
