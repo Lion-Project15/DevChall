@@ -32,6 +32,7 @@ public class ChallengeController {
     private final ChallengeMemberService challengeMemberService;
     private final MemberService memberService;
     private final ChallengeService challengeService;
+    private final PhotoService photoService;
     private final ChallengeRepository challengeRepository;
 
 
@@ -54,10 +55,12 @@ public class ChallengeController {
             Principal principal
     ) throws IOException {
 
+        String photoUrl = photoService.photoUpload(file);
+
         Member loginMember = memberService.getByLoginId(principal.getName());
 
         challengeService.createChallenge(title, contents, status, frequency, startDate, period,
-                language, subject, posttype, file, loginMember);
+                language, subject, posttype, photoUrl, loginMember);
 
         //챌린지가 img 소스를 가지도록
 

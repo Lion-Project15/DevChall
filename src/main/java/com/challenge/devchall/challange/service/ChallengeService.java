@@ -33,7 +33,7 @@ public class ChallengeService {
 
     @Transactional
     public Challenge createChallenge (String title, String contents, boolean status, String frequency, String startDate, String period,
-                                      String language, String subject, String posttype, MultipartFile file, Member member) throws IOException {
+                                      String language, String subject, String posttype, String photoUrl, Member member) throws IOException {
 
         RsData<Member> memberRsData = memberService.checkChallengeLimit(member);
 
@@ -41,20 +41,8 @@ public class ChallengeService {
         //FIXME 이미 2개를 생성한 상태라면 뒤의 작업이 이루어지지 않아야 함.
         if (memberRsData.isFail()) {
             System.out.println(memberRsData.getMsg());
-            System.out.println(memberRsData.getMsg());
-            System.out.println(memberRsData.getMsg());
             return null;
         }
-
-        //파일을 버킷에 저장
-        String photoUrl = photoService.photoUpload(file);
-
-        System.out.println("photoUrl = " + photoUrl);
-        System.out.println("photoUrl = " + photoUrl);
-        System.out.println("photoUrl = " + photoUrl);
-        System.out.println("photoUrl = " + photoUrl);
-        System.out.println("photoUrl = " + photoUrl);
-
 
         FormattingResult formattingResult = formatting(frequency, startDate, period);
 
