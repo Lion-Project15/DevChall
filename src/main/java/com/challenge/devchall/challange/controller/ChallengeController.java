@@ -11,12 +11,15 @@ import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.member.service.MemberService;
+import com.challenge.devchall.photo.service.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -47,13 +50,16 @@ public class ChallengeController {
             @RequestParam boolean status, @RequestParam String frequency,
             @RequestParam String startDate, @RequestParam String period,
             @RequestParam String language, @RequestParam String subject,
-            @RequestParam String posttype, Principal principal
-    ){
+            @RequestParam String posttype, @RequestParam MultipartFile file,
+            Principal principal
+    ) throws IOException {
 
         Member loginMember = memberService.getByLoginId(principal.getName());
 
         challengeService.createChallenge(title, contents, status, frequency, startDate, period,
-                language, subject, posttype, loginMember);
+                language, subject, posttype, file, loginMember);
+
+        //챌린지가 img 소스를 가지도록
 
         return "redirect:/";
     }
