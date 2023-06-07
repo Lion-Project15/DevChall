@@ -6,7 +6,7 @@
 
 <body>
 
-<main layout:fragment="main" body class="bg-[#121212] text-white flex flex-col w-full">
+<main layout:fragment="main" body class="bg-[#121212] text-white flex flex-col w-full h-full">
 <!--    <script>-->
 <!--        function LoginForm__submit(form) {-->
 <!--            // loginID 이(가) 올바른지 체크-->
@@ -47,9 +47,9 @@
     <div>
         <img src="/images/logo.png" class="w-[250px] h-[250px]">
     </div>
-    <div class="flex flex-1">
-        <form th:action method="POST" class="flex flex-col justify-center items-center w-full" onsubmit="LoginForm__submit(this); return false;">
-            <div class="w-full p-20 md:w-[35rem]">
+    <div class="flex flex-1 h-full">
+        <form th:action method="POST" class="flex flex-col justify-1/2 items-center w-full" onsubmit="LoginForm__submit(this); return false;">
+            <div class="w-full p-10 md:w-[35rem]">
                 <p class="text-[25px]">로그인</p>
                         <div>
                             <div class="w-full">
