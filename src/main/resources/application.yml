@@ -28,3 +28,15 @@ logging:
     org.hibernate.orm.jdbc.bind: TRACE
     org.hibernate.orm.jdbc.extract: TRACE
     org.springframework.security: DEBUG
+cloud:
+  aws:
+    credentials:
+      access-key: 액세스키
+      secret-key: 시크릿키
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+    s3:
+      endpoint: https://kr.object.ncloudstorage.com
+      bucket: devchall
