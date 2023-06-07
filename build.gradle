@@ -37,6 +37,8 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	testImplementation 'org.springframework.security:spring-security-test'
+
+	implementation 'com.mysql:mysql-connector-j:8.0.33'
 }
 
 tasks.named('test') {
