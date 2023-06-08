@@ -93,12 +93,11 @@
             <a th:if="${@rq.logout}" href="usr/member/login" class="btn btn-sm bg-accent mx-2">로그인</a>
 
             <a th:if="${@rq.login}" href="usr/member/me" class="badge badge-accent font-bold" th:text="${@rq.member.nickname}"></a>
+<!--            <a th:if="${@rq.login}" href="usr/member/me" class="badge badge-accent font-bold" th:text="${@rq.member.inventoryList[0].item.pattern}"></a>--<div th:if="${@rq.member.inventoryList != null and #lists.size(@rq.member.inventoryList) > 0}">-->
+                <ul><a th:each="inventory : ${@rq.member.inventoryList}" th:style="'color: ' + ${inventory.item.pattern}" th:if="${@rq.login}" href="usr/member/me"class="badge badge-accent font-bold"th:text="${@rq.member.nickname}"></a>
 
-<!--            <div th:if="${@rq.member.itemList != null and #lists.size(@rq.member.itemList) > 0}">-->
-<!--                <ul>-->
-<!--                    <li th:each="item : ${@rq.member.itemList}" th:text="${item}"></li>-->
-<!--                </ul>-->
-<!--            </div>-->
+                </ul>
+            </div>
 
 
             <form th:action="|/usr/member/logout|" method="post" class="m-0">

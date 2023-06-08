@@ -21,7 +21,7 @@ import java.util.List;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 public class Item extends BaseEntity {
-    
+
     private String name;
     private String type;
     private String pattern;

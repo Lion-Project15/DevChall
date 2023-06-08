@@ -75,7 +75,7 @@
                         class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
                     <a th:href="|/usr/challenge/detail/${challengeMember.linkedChallenge.id}|">
                         <figure class="pt-5">
-                            <img th:src="${challengeMember.getLinkedChallenge().challengeImg}" alt="Shoes" class="rounded-xl w-[90%]" />
+                            <img th:src="${challengeMember.getLinkedChallenge().smallPhoto}" alt="Shoes" class="rounded-xl w-[90%]" />
                         </figure>
                     </a>
                     <div class="card-body items-center text-center" style="padding: 10px">
@@ -136,7 +136,7 @@
                             <div class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
                                 <a th:href="|/usr/challenge/detail/${challenge.id}|">
                                     <figure class="pt-5">
-                                        <img th:src="${challenge.challengeImg}" alt="Challenge_img" class="rounded-xl w-[90%]" />
+                                        <img th:src="${challenge.smallPhoto}" alt="Challenge_img" class="rounded-xl w-[90%]" />
                                     </figure>
                                 </a>
 
