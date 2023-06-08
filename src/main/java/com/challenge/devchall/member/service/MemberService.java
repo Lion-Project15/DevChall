@@ -1,7 +1,10 @@
 package com.challenge.devchall.member.service;
 
 import com.challenge.devchall.base.rsData.RsData;
+import com.challenge.devchall.inventory.entity.Inventory;
+import com.challenge.devchall.inventory.service.InventoryService;
 import com.challenge.devchall.item.repository.ItemRepository;
+import com.challenge.devchall.item.service.ItemService;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.point.entity.Point;
@@ -28,10 +31,10 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
 
-    private final ItemRepository itemRepository;
-
+    private final ItemService itemService;
 
     private final PointService pointService;
+    private final InventoryService inventoryService;
 
     public Optional<Member> findByLoginID(String loginID) {
         return memberRepository.findByLoginID(loginID);
@@ -115,7 +118,7 @@ public class MemberService {
 
 
     @Transactional
-    public RsData<Member> buyItem(String buyCode, Member member){
+    public RsData<Inventory> buyItem(String buyCode, Member member){
 
         /*
         가격, 아이템 구매 코드 유형
@@ -132,26 +135,29 @@ public class MemberService {
         int itemCost = getItemCost(buyCodeSplit[0], buyCodeSplit[1]);
 
         Point memberPoint = member.getPoint();
-
-        if(memberPoint.getCurrentPoint() >= itemCost){
+        //아이템이 존재하나?
+        Item buyItem = itemService.getByName(buyCode).orElse(null);
+        if(memberPoint.getCurrentPoint() >= itemCost && buyItem != null){
 
             //포인트 차감
             member.getPoint().subtract(itemCost);
 
             //FIXME 구매한 아이템이 들어오도록 하는 것 짜야함. + 실제 적용
 
-            Item purchasedItem = Item
-                    .builder()
-                    .name(buyCodeSplit[2])
-                    .type(buyCodeSplit[1])
-                    .member(member)
-                    .build();
+//            Item purchasedItem = Item
+//                    .builder()
+//                    .name(buyCodeSplit[2])
+//                    .type(buyCodeSplit[1])
+//                    .colorCode(buyCodeSplit[3])
+//                   .build();
 
-            itemRepository.save(purchasedItem);
-
+            RsData rs = inventoryService.create(member, buyItem);
 
             // 아이템을 멤버에게 추가
-            member.setPurchasedItem(purchasedItem, member);
+            //member.setPurchasedItem(purchasedItem, member);
+            if(rs.isFail()) {
+                return rs;
+            }
 
             return RsData.of("S-6", "구매에 성공하였습니다.");
 

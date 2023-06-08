@@ -5,6 +5,7 @@ import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
+import com.challenge.devchall.item.service.ItemService;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +23,8 @@ public class NotProd {
             MemberService memberService,
             ChallengeService challengeService,
             ChallengeMemberService challengeMemberService,
-            ChallengePostService challengePostService
+            ChallengePostService challengePostService,
+            ItemService itemService
     ) {
         return new CommandLineRunner() {
             @Override
@@ -61,7 +63,13 @@ public class NotProd {
                 challengePostService.write("3-2인증", "3-2인증 내용입니다.", true, 4, c3.getId(), photoUrl, user5);
                 challengePostService.write("re2-1인증", "re2-1인증 내용입니다.", true, 4, c4.getId(), photoUrl, user1);
                 challengePostService.write("re2-2인증", "re2-2인증 내용입니다.", true, 4, c4.getId(), photoUrl, user5);
+
+                itemService.create("L-F-FCE411","font","FCE411");
+
             }
         };
+
+
+
     }
 }

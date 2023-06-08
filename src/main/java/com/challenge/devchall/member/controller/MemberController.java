@@ -3,6 +3,7 @@ package com.challenge.devchall.member.controller;
 import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.base.rsData.RsData;
+import com.challenge.devchall.inventory.entity.Inventory;
 import com.challenge.devchall.member.dto.MemberRequestDto;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
@@ -121,7 +122,7 @@ public class MemberController {
 
         Member loginMember = memberService.getByLoginId(principal.getName());
 
-        RsData<Member> buyRsData = memberService.buyItem(buyCode, loginMember);
+        RsData<Inventory> buyRsData = memberService.buyItem(buyCode, loginMember);
 
         System.out.println(buyRsData.getMsg());
 
