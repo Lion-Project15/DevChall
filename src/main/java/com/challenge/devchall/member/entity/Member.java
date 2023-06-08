@@ -27,7 +27,6 @@ import java.util.*;
 public class Member extends BaseEntity {
     @Column(unique = true)
     private String loginID; //회원 로그인 id
-    private String username; //본명
     private String password;
     private String repeatPassword;
 

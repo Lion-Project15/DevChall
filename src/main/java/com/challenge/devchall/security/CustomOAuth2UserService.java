@@ -35,10 +35,23 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             case "NAVER" -> ((Map<String, String>) oAuth2User.getAttributes().get("response")).get("id");
             default -> oAuth2User.getName();
         };
+        String email = switch (providerTypeCode) {
+            case "NAVER" -> ((Map<String,String>) oAuth2User.getAttributes().get("response")).get("email");
+            default -> oAuth2User.getName();
+        };
+        String nickname = switch (providerTypeCode) {
+            case "NAVER" -> ((Map<String,String>) oAuth2User.getAttributes().get("response")).get("nickname");
+            default -> oAuth2User.getName();
+        };
 
         String loginId = providerTypeCode + "__%s".formatted(oauthId);
+        String codeID = oauthId;
 
-        Member member = memberService.whenSocialLogin(providerTypeCode, loginId).getData();
+        Map<String, Object> attributes = oAuth2User.getAttributes();
+
+        System.out.println("attributes = " + attributes);
+
+        Member member = memberService.whenSocialLogin(providerTypeCode, codeID, email, nickname).getData();
 
         return new CustomOAuth2User(member.getLoginID(), member.getPassword(), member.getGrantedAuthorities());
     }

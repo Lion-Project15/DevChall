@@ -32,33 +32,24 @@ public class MemberService {
     }
 
     @Transactional
-    public RsData<Member> join(String loginID, String password, String email, String nickname, String username) {
+    public RsData<Member> join(String loginID, String password, String email, String nickname) {
 
-        RsData<Member> rsData = validateMember(loginID, email, nickname);
-
+        RsData<Member> rsData = validateMember(loginID, email);
         if (rsData.isFail()) return rsData;
-        Member member = Member
-                .builder()
-                .loginID(loginID)
-                .email(email)
-                .nickname(nickname)
-                .username(username)
-                .password(passwordEncoder.encode(password))
-                .challengeLimit(0)
-                .point(pointService.create())
-                .build();
-        memberRepository.save(member);
-        return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
+
+        return join("DevChall",loginID,password,email,nickname);
     }
-    private RsData<Member> join(String providerTypeCode, String loginID, String password){
+    private RsData<Member> join (String providerTypeCode, String loginID, String password, String email, String nickname){
         if (findByLoginID(loginID).isPresent()) {
             return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginID));
         }
+        if (StringUtils.hasText(password)) password = passwordEncoder.encode(password);
         Member member = Member
                 .builder()
                 .providerTypeCode(providerTypeCode)
                 .loginID(loginID)
-                .nickname(loginID)
+                .email(email)
+                .nickname(nickname)
                 .password(password)
                 .challengeLimit(0)
                 .point(pointService.create())
@@ -67,20 +58,15 @@ public class MemberService {
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
     }
 
-
-    public RsData<Member> validateMember (String loginID, String email, String nickname) {
+    public RsData<Member> validateMember (String loginID, String email) {
         if (findByLoginID(loginID).isPresent()) {
             return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginID));
         }
-        if (memberRepository.existsByNickname(nickname)){
-            return RsData.of("F-2", "해당 닉네임은(%s)는 이미 사용중입니다. 다른 닉네임을 사용해주세요.".formatted(nickname));
-        }
         if (memberRepository.existsByEmail(email)){
-            return RsData.of("F-3", "해당 이메일은 이미 사용중입니다.");
+            return RsData.of("F-2", "해당 이메일은 이미 사용중입니다.");
         }
         return RsData.of("S-1", "유효성 검사 완료");
     }
-
 
     public Map<String, String> validateHandling(Errors errors) {
         Map<String, String> validatorResult = new HashMap<>();
@@ -94,15 +80,14 @@ public class MemberService {
 
     // 소셜 로그인(카카오, 구글, 네이버) 로그인이 될 때 마다 실행되는 함수
     @Transactional
-    public RsData<Member> whenSocialLogin(String providerTypeCode, String loginID) {
+    public RsData<Member> whenSocialLogin(String providerTypeCode, String loginID, String email, String nickname) {
         Optional<Member> opMember = findByLoginID(loginID); // socialId 예시 : KAKAO__1312319038130912, NAVER__1230812300
 
         if (opMember.isPresent()) return RsData.of("S-2", "로그인 되었습니다.", opMember.get());
 
-        // 소셜 로그인를 통한 가입시 비번은 없다.
-        return join(providerTypeCode, loginID, ""); // 최초 로그인 시 딱 한번 실행
+        // 소셜 로그인를 통한 가입시 비번은 없음 "" 처리
+        return join(providerTypeCode, loginID, "", email, nickname); // 최초 로그인 시 딱 한번 실행
     }
-
 
     public Member getByLoginId(String loginID){
 
