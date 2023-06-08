@@ -40,6 +40,8 @@ public class Member extends BaseEntity {
     private String emailToken; //이메일 토큰
     private boolean isValid; // 인증 여부
 
+    private String providerTypeCode; //소셜 회원인지 알 수 있음
+
     @OneToOne(cascade = CascadeType.ALL) //영속화 작업
     @JoinColumn(referencedColumnName = "id") //데이터베이스의 point id와 join
     private Point point;

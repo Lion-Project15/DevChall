@@ -7,87 +7,6 @@
 <body>
 
 <main layout:fragment="main" class="bg-[#121212] text-white flex flex-col w-full h-full">
-    <!--<script>
-        function JoinForm__submit(form) {
-            // loginID 이(가) 올바른지 체크
-
-            form.loginID.value = form.loginID.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
-
-            //loginID == 아이디
-            if (form.loginID.value.length === 0) {
-                toastWarning('아이디를 입력해주세요.');
-                form.loginID.focus();
-                return;
-            }
-
-            if (form.loginID.value.length < 4) {
-                toastWarning('아이디를 4자 이상 입력해주세요.');
-                form.loginID.focus();
-                return;
-            }
-            // nickname = 닉네임
-            form.nickname.value = form.nickname.value.trim();
-            if (form.nickname.value.length === 0) {
-                toastWarning('닉네임을 입력해주세요.');
-                form.nickname.focus();
-                return;
-            }
-
-            if (form.nickname.value.length < 1) {
-                toastWarning('닉네임을 입력해주세요.');
-                form.nickname.focus();
-                return;
-            }
-
-            // password 이(가) 올바른지 체크
-
-
-            // email == 이메일
-            form.email.value = form.email.value.trim();
-            if (form.email.value.length === 0) {
-                toastWarning('이메일을 입력해주세요.');
-                form.email.focus();
-                return;
-            }
-
-            if (form.email.value.length < 1) {
-                toastWarning('이메일을 입력해주세요.');
-                form.email.focus();
-                return;
-            }
-
-            // username == 본명
-            form.username.value = form.username.value.trim();
-            if (form.username.value.length === 0) {
-                toastWarning('이름을 입력해주세요.');
-                form.username.focus();
-                return;
-            }
-
-            if (form.username.value.length < 1) {
-                toastWarning('이름을 입력해주세요.');
-                form.loginID.focus();
-                return;
-            }
-
-            // password = 비밀번호
-            form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거
-
-            if (form.password.value.length == 0) {
-                form.password.focus();
-                toastWarning('비밀번호를 입력해주세요.');
-                return;
-            }
-
-            if (form.password.value.length < 4) {
-                toastWarning('비밀번호를 4자 이상 입력해주세요.');
-                form.password.focus();
-                return;
-            }
-
-            form.submit(); // 폼 발송
-        }
-    </script>-->
     <div>
         <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/logo.png" class="w-[250px] h-[250px]">
     </div>
@@ -166,8 +85,8 @@
                     </label>
                 </div>
                 <div class="mt-[20px] flex justify-center space-x-6">
-                    <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/naver-icon.png" class="w-[50px] h-[50px]">
-                    <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/kakao-icon.png" class="w-[50px] h-[50px]">
+                    <a href="/oauth2/authorization/naver"><img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/naver-icon.png" class="w-[50px] h-[50px]"></a>
+                    <a href="/oauth2/authorization/kakao"><img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/kakao-icon.png" class="w-[50px] h-[50px]"></a>
                 </div>
             </div>
         </form>

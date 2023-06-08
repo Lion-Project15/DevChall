@@ -36,30 +36,6 @@ public class MemberController {
         return "/usr/member/join";
     }
 
-//    @AllArgsConstructor
-//    @Getter
-//    public static class JoinForm {
-//        @NotBlank
-//        @Size(min = 4, max = 15)
-//        private final String loginID;
-//
-//        @NotBlank
-//        @Size(min = 4, max = 15)
-//        private final String password;
-//
-//        @NotBlank
-//        @Size(min = 1, max = 30)
-//        private final String username;
-//
-//        @NotBlank
-//        @Size(min = 4, max = 30)
-//        private final String email;
-//
-//        @NotBlank
-//        @Size(min = 1, max = 30)
-//        private final String nickname;
-//    }
-
     @PostMapping("/join")
     public String join (@Valid MemberRequestDto memberDto, BindingResult bindingResult, Model model) {
         RsData<Member> validateRsData = memberService.validateMember(memberDto.getLoginID(), memberDto.getEmail(), memberDto.getNickname());

@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
@@ -32,6 +33,7 @@ public class MemberService {
 
     @Transactional
     public RsData<Member> join(String loginID, String password, String email, String nickname, String username) {
+
         RsData<Member> rsData = validateMember(loginID, email, nickname);
 
         if (rsData.isFail()) return rsData;
@@ -48,6 +50,20 @@ public class MemberService {
         memberRepository.save(member);
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
     }
+    private RsData<Member> join(String providerTypeCode, String loginId, String password){
+        if (findByLoginID(loginId).isPresent()) {
+            return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginId));
+        }
+        Member member = Member
+                .builder()
+                .providerTypeCode(providerTypeCode)
+                .loginID(loginId)
+                .password(password)
+                .build();
+        memberRepository.save(member);
+        return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
+    }
+
 
     public RsData<Member> validateMember (String loginID, String email, String nickname) {
         if (findByLoginID(loginID).isPresent()) {
@@ -72,6 +88,18 @@ public class MemberService {
         }
         return validatorResult;
     }
+
+    // 소셜 로그인(카카오, 구글, 네이버) 로그인이 될 때 마다 실행되는 함수
+    @Transactional
+    public RsData<Member> whenSocialLogin(String providerTypeCode, String loginId) {
+        Optional<Member> opMember = findByLoginID(loginId); // socialId 예시 : KAKAO__1312319038130912, NAVER__1230812300
+
+        if (opMember.isPresent()) return RsData.of("S-2", "로그인 되었습니다.", opMember.get());
+
+        // 소셜 로그인를 통한 가입시 비번은 없다.
+        return join(providerTypeCode, loginId, ""); // 최초 로그인 시 딱 한번 실행
+    }
+
 
     public Member getByLoginId(String loginId){
 
@@ -106,7 +134,4 @@ public class MemberService {
         }
     }
 
-    public ConfigurationEvent whenSocialLogin (String providerTypeCode, String username) {
-        return null;
-    }
 }
