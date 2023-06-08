@@ -4,6 +4,7 @@ import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.point.entity.Point;
+import com.challenge.devchall.pointHistory.entity.PointHistory;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -53,6 +54,11 @@ public class Member extends BaseEntity {
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Builder.Default
     private List<ChallengePost> myPostList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @Builder.Default
+    private List<PointHistory> pointHistories = new ArrayList<>();
 
     //스케줄러 -> 매달 1일에 0으로 초기화 되어야함.
     private int challengeLimit;

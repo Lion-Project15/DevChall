@@ -98,10 +98,6 @@ public class ChallengeService {
     }
 
 
-
-
-
-
     public class FormattingResult {
         private int formattingFrequency;
         private LocalDate formattingStartDate;

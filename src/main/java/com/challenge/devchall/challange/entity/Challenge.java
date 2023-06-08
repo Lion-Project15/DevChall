@@ -2,6 +2,8 @@ package com.challenge.devchall.challange.entity;
 
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.pointHistory.entity.PointHistory;
+import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;

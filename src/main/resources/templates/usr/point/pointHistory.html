@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Point History</title>
+</head>
+<body>
+<h1>Point History</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Point</th>
+        <th>Type</th>
+        <th>Timestamp</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over pointHistoryList -->
+    <tr th:each="pointHistory : ${pointHistoryList}">
+        <td th:text="${pointHistory.point}"></td>
+        <td th:text="${pointHistory.type}"></td>
+        <td th:text="${pointHistory.getCreateDateStr()}"></td>
+        <td th:text="${pointHistory.currentpoint}"></td>
+    </tr>
+
+
+    </tbody>
+</table>
+</body>
+</html>
