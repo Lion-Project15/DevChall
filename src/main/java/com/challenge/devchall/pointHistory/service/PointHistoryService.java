@@ -25,7 +25,7 @@ public class PointHistoryService {
         return pointHistoryRepository.findAll();
     }
 
-    public void addPointHistory(Member member, int point, String type) {
+    public void addPointHistory(Member member, long point, String type) {
 
 
         PointHistory pointHistory = PointHistory.builder()

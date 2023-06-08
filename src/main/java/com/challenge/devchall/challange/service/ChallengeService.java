@@ -37,12 +37,14 @@ public class ChallengeService {
 
         RsData<Member> memberRsData = memberService.checkChallengeLimit(member);
 
-
         //FIXME 이미 2개를 생성한 상태라면 뒤의 작업이 이루어지지 않아야 함.
         if (memberRsData.isFail()) {
             System.out.println(memberRsData.getMsg());
             return null;
         }
+
+        String largePhoto = photoService.getLargePhoto(photoUrl);
+        String smallPhoto = photoService.getSmallPhoto(photoUrl);
 
         FormattingResult formattingResult = formatting(frequency, startDate, period);
 
@@ -51,7 +53,8 @@ public class ChallengeService {
                 .challengeName(title)
                 .challengeContents(contents)
                 .challengeStatus(status)
-                .challengeImg(photoUrl)
+                .largePhoto(largePhoto)
+                .smallPhoto(smallPhoto)
                 .challengeFrequency(formattingResult.formattingFrequency)
                 .startDate(formattingResult.formattingStartDate)
                 .endDate(formattingResult.formattingStartDate.plusWeeks(formattingResult.formattingPeriod))

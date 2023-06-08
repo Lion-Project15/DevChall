@@ -10,6 +10,7 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.repository.ChallengePostRepository;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.photo.service.PhotoService;
 import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.point.schedule.Schedule;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class ChallengePostService {
     private final ChallengeService challengeService;
     private final ChallengeMemberService challengeMemberService;
     private final ChallengeMemberRepository challengeMemberRepository;
-    private final Schedule schedule;
+    private final PhotoService photoService;
 
     public ChallengePost write(String title, String contents, boolean status, long postScore, long id,
                                String photoUrl, Member member) {
@@ -43,15 +44,8 @@ public class ChallengePostService {
             return null;
         }
 
-//        System.out.println("challengeMember = " + challengeMember);
-//
-//        System.out.println("challengeMember = " + challengeMember);
-//
-//        if(challengeMember.getPostLimit() == 0){
-//            challengeMember.updatePostLimit(1);
-//        } else{
-//            return null;
-//        }
+        String largePhoto = photoService.getLargePhoto(photoUrl);
+        String smallPhoto = photoService.getSmallPhoto(photoUrl);
 
         ChallengePost challengePost = ChallengePost.builder()
                 .postTitle(title)
@@ -60,7 +54,8 @@ public class ChallengePostService {
                 .postScore(postScore)
                 .linkedChallenge(linkedChallenge)
                 .challenger(member)
-                .postImg(photoUrl)
+                .largePhoto(largePhoto)
+                .smallPhoto(smallPhoto)
                 .build();
 
         challengePostRepository.save(challengePost);

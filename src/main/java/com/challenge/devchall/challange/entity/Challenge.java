@@ -26,7 +26,8 @@ public class Challenge extends BaseEntity {
     private String challengeName;
     private String challengeContents;
     private boolean challengeStatus;
-    private String challengeImg;
+    private String largePhoto;
+    private String smallPhoto;
     private int challengeFrequency;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -43,10 +44,10 @@ public class Challenge extends BaseEntity {
     @OneToMany(mappedBy = "linkedChallenge")
     private List<ChallengePost> challengePostList = new ArrayList<>();
 
-    public void addPoint(int points){
+    public void addPoint(long points){
         this.gatherPoints+=points;
     }
-    public void subtractPoint(int points){
+    public void subtractPoint(long points){
         this.gatherPoints-=points;
     }
     public void resetPoint(){

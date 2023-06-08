@@ -4,12 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <title>챌린지 디테일 페이지</title>
-
-    <style>
-        .custom-container {
-            max-width: 35%;
-        }
-    </style>
 </head>
 
 <body>
@@ -29,11 +23,11 @@
     </script>
 
 
-    <div class="custom-container justify-center mt-5">
-        <img th:src="${challenge.challengeImg}" alt="challenge_image"/>
+    <div class="flex justify-center items-center mt-5">
+        <div>
+            <img th:src="${challenge.largePhoto}" alt="challenge_image"/>
+        </div>
     </div>
-
-    <div class="divider"></div>
 
     <div class="flex flex-col w-full">
 
@@ -103,7 +97,7 @@
                             <div th:each="post : ${challengePostList}">
                                 <div class="card w-[200px] shadow-xl">
                                     <figure>
-                                        <img th:src="${post.postImg}" alt="post_image"/>
+                                        <img th:src="${post.smallPhoto}" alt="post_image"/>
                                     </figure>
                                     <div class="card-body">
                                         <h2 class="card-title" th:text="${post.postTitle}"></h2>

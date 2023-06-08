@@ -55,6 +55,14 @@ public class S3Config {
         S3Config.bucket = bucket;
     }
 
+    @Getter
+    private static String cdnUrl;
+
+    @Value("${cloud.cdn.url}")
+    public void setCdnUrl(String cdnUrl){
+        S3Config.cdnUrl = cdnUrl;
+    }
+
     public static AmazonS3 amazonS3Client() {
         BasicAWSCredentials awsCreds = new BasicAWSCredentials(accessKey,secretKey);
         return (AmazonS3) AmazonS3ClientBuilder.standard()

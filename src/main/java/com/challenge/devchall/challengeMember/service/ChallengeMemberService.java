@@ -27,7 +27,7 @@ public class ChallengeMemberService {
 
     public RsData<ChallengeMember> addMember(Challenge challenge, Member member, Role role){
 
-        int joinCost = challenge.getChallengePeriod() * 50;
+        long joinCost = challenge.getChallengePeriod() * 50;
         RsData<ChallengeMember> joinRsData = canJoin(member, joinCost);
 
         if(joinRsData.isFail()){
@@ -65,7 +65,7 @@ public class ChallengeMemberService {
         return challengeMemberRepository.findByChallenger(member);
     }
 
-    private RsData<ChallengeMember> canJoin(Member member, int joinCost){
+    private RsData<ChallengeMember> canJoin(Member member, long joinCost){
 
         Long currentPoint = member.getPoint().getCurrentPoint();
 

@@ -93,6 +93,7 @@ public class PointService {
         if (cm.getChallengerRole() == Role.LEADER) {
             totalReward = Math.round(reward * 1.07);
         }
+        pointHistoryService.addPointHistory(cm.getChallenger(), totalReward, "챌린지 정산");
         cm.getChallenger().getPoint().add((int) totalReward);
     }
     public boolean checkAchievementRate(ChallengeMember cm, Challenge challenge) {

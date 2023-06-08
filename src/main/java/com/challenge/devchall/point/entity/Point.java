@@ -22,13 +22,13 @@ public class Point extends BaseEntity {
     private Long currentPoint;
     private Long totalPoint;
 
-    public void add(int cost){
+    public void add(long cost){
         this.currentPoint+=cost;
         this.totalPoint+=cost;
         System.out.printf("참가 비용 %d 원이 추가되었습니다.", cost);
     }
 
-    public void subtract(int cost){
+    public void subtract(long cost){
         this.currentPoint-=cost;
         System.out.printf("참가 비용 %d 원이 지불되었습니다.", cost);
 
