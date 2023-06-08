@@ -34,6 +34,10 @@ public class NotProd {
                 Member user3 = memberService.join("user3", "1234", "user3@devchall.com", "user3", "user3").getData();
                 Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4", "user4").getData();
                 Member user5 = memberService.join("user5", "1234", "user5@devchall.com", "user5", "user5").getData();
+
+                //미정 소셜 로그인정보
+                Member memberUserMJByKakao = memberService.whenSocialLogin("KAKAO", "KAKAO__2824935881").getData();
+                Member memberUserMJByNaver = memberService.whenSocialLogin("NAVER", "KAKAO__nydxlR1MJUEOU2XKgEWh4nhLSWUAE9eIXR5ae8oOAbQ").getData();
               
                 String photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
 
