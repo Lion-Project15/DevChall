@@ -10,12 +10,12 @@
 
     <script>
         function showBuy(buyCode) {
-            if (confirm('정말로 구매하시겠습니까?')) {
-                alert(buyCode + "아이템을 구매합니다!");
-                <!-- 구매 관련 메서드 들어갈 자리-->
-                location.href = "/usr/member/store/buy/" + buyCode;
-            } else {
+            if (!confirm('정말로 구매하시겠습니까?')) {
                 alert("구매가 취소되었습니다");
+
+            } else {
+                <!-- 구매 관련 메서드 들어갈 자리-->
+                location.href = "/usr/member/store/buy/" + buyCode + "?equipped=" + confirm('바로 착용하시겠습니까?');
             }
         }
     </script>

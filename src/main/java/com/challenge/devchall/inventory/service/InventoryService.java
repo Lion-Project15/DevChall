@@ -15,13 +15,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class InventoryService {
     private final InventoryRepository inventoryRepository;
 
-    public RsData<Inventory> create(Member member, Item item){
+    public RsData<Inventory> create(Member member, Item item, boolean equipped){
         if(isPurchased(member, item)){
             return RsData.of("F-1", "이미 구매한 아이템입니다.");
         }
         Inventory inventory = inventoryRepository.save(Inventory.builder()
                 .member(member)
-                .item(item).build());
+                .item(item)
+                .equipped(equipped)
+                .build());
         return RsData.of("S-1", "구매에 성공하였습니다.", inventory);
     }
 

@@ -4,6 +4,7 @@ import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.inventory.entity.Inventory;
+import com.challenge.devchall.item.entity.Item;
 import com.challenge.devchall.point.entity.Point;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -90,5 +91,23 @@ public class Member extends BaseEntity {
         this.challengeLimit = challengeLimit;
     }
 
+    public Inventory getEquippedFont(){
+        for(Inventory iv: inventoryList){
+            if(iv.isEquipped() && //장착중
+                    iv.getItem().getType().equals("font")){ //타입=폰트
+                return iv;
+            }
+        }
+        return null;
+    }
+    public Item getEquippedCharacter(){
+        for(Inventory iv: inventoryList){
+            if(iv.isEquipped() && //장착중
+                    iv.getItem().getType().equals("character")){ //타입=폰트
+                return iv.getItem();
+            }
+        }
+        return null;
+    }
 
 }

@@ -25,6 +25,11 @@ public class Inventory extends BaseEntity {
     @ManyToOne
     private Item item;
 
-
+    public void unequip(){
+        this.equipped = false;
+    }
+    public void equip(){
+        this.equipped = true;
+    }
     
 }

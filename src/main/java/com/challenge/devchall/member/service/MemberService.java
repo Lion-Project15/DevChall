@@ -58,7 +58,7 @@ public class MemberService {
 
         memberRepository.save(member);
 
-        inventoryService.create(member, itemService.getByName("basic").orElse(null));
+        inventoryService.create(member, itemService.getByName("basic").orElse(null), true);
 
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
     }
@@ -122,7 +122,7 @@ public class MemberService {
 
 
     @Transactional
-    public RsData<Inventory> buyItem(String buyCode, Member member){
+    public RsData<Inventory> buyItem(String buyCode, Member member, boolean equip){
 
         Item buyItem = itemService.getByName(buyCode).orElse(null);
 
@@ -138,13 +138,17 @@ public class MemberService {
             return RsData.of("F-6", "소지금이 부족합니다.");
         }
 
-        RsData<Inventory> rs = inventoryService.create(member, buyItem);
+        RsData<Inventory> rs = inventoryService.create(member, buyItem, false);
 
         if(rs.isFail()) {//이미 구매한 아이템
             return rs;
         }
 
         member.getPoint().subtract(buyItem.getPrice());
+        if(equip){
+            member.getEquippedFont().unequip();
+            rs.getData().equip();
+        }
 
         return RsData.of("S-6", "구매에 성공하였습니다.");
     }
