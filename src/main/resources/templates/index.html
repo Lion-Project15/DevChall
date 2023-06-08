@@ -12,43 +12,43 @@
     <!--  헤더 시작  -->
     <header class="flex w-full justify-between">
         <section class="flex">
-            <img src="/images/logoXL.png" alt="DevChall" class="w-[200px] h-[200px] flex-shrink-0 mx-10 p-2">
+            <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/logoXL.png" alt="DevChall" class="w-[200px] h-[200px] flex-shrink-0 mx-10 p-2">
         </section>
         <!--   카테고리 타임리프 작업 필요    -->
         <section class="flex w-[90%]">
             <article class="flex justify-center w-full">
                 <div class="flex items-center flex-wrap justify-around w-[90%]">
-                    <a href="#" class="flex flex-col items-center group px-1">
+                    <a href="/?language=java" class="flex flex-col items-center group px-1">
                         <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
-                        <div class="text-xs font-bold p-2">UI/UX</div>
+                        <div class="text-xs font-bold p-2">Java</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center group px-1">
+                    <a href="/?language=python" class="flex flex-col items-center group px-1">
                         <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
-                        <div class="text-xs font-bold p-2">UI/UX</div>
+                        <div class="text-xs font-bold p-2">Python</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center group">
+                    <a href="/?language=javascript" class="flex flex-col items-center group">
                         <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
-                        <div class="text-xs font-bold p-2">UI/UX</div>
+                        <div class="text-xs font-bold p-2">JavaScript</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center group">
+                    <a href="?language=c" class="flex flex-col items-center group">
                         <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
-                        <div class="text-xs font-bold p-2">UI/UX</div>
+                        <div class="text-xs font-bold p-2">C</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center group">
+                    <a href="/?subject=project" class="flex flex-col items-center group">
                         <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
-                        <div class="text-xs font-bold p-2">UI/UX</div>
+                        <div class="text-xs font-bold p-2">프로젝트</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center group">
+                    <a href="/?subject=coding" class="flex flex-col items-center group">
                         <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
-                        <div class="text-xs font-bold p-2">UI/UX</div>
+                        <div class="text-xs font-bold p-2">코딩테스트</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center group">
+                    <a href="/?subject=study" class="flex flex-col items-center group">
                         <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
-                        <div class="text-xs font-bold p-2">UI/UX</div>
+                        <div class="text-xs font-bold p-2">개념 공부</div>
                     </a>
-                    <a href="#" class="flex flex-col items-center group">
+                    <a href="/?subject=test" class="flex flex-col items-center group">
                         <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
-                        <div class="text-xs font-bold p-2">UI/UX</div>
+                        <div class="text-xs font-bold p-2">시험 대비</div>
                     </a>
                 </div>
             </article>
@@ -56,7 +56,8 @@
     </header>
     <!--  헤더 끝  -->
 
-    <section class="bg-[#F2F4F4]" style="border-top-left-radius: 4rem;">
+
+    <section class="bg-[#F2F4F4] h-full" style="border-top-left-radius: 4rem;">
 
         <!--    나의 챌린지  -->
         <article th:if="${@rq.login}" class="p-5 mx-5">
@@ -74,7 +75,7 @@
                         class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
                     <a th:href="|/usr/challenge/detail/${challengeMember.linkedChallenge.id}|">
                         <figure class="pt-5">
-                            <img src="/images/example1.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                            <img th:src="${challengeMember.getLinkedChallenge().challengeImg}" alt="Shoes" class="rounded-xl w-[90%]" />
                         </figure>
                     </a>
                     <div class="card-body items-center text-center" style="padding: 10px">
@@ -109,13 +110,25 @@
 
         <!--    챌린지 리스트 시작   -->
         <article class="p-5 mx-5">
+            <div class="p-2">
+                <h1 class="text-black text-2xl font-bold">>모집 중인 챌린지
+                    <span  th:if="${param.subject != null && !param.subject.isEmpty()}">
+                        <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'test')}">시험 대비</span>
+                        <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'project')}">프로젝트</span>
+                        <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'study')}">개념 공부</span>
+                        <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'coding')}">코딩 테스트</span>
+                        <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'algorithm')}">알고리즘</span>
+                        <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'solving')}">예제 풀기</span>
+
+                    </span>
+                    <span class="badge badge-accent mx-1" th:if="${param.language != null && !param.language.isEmpty()}"
+                          th:text="${param.language}"></span>
+                </h1>
+            </div>
             <div class="text-center mt-10 text-black" th:if="${challenges == null or #lists.isEmpty(challenges)}" >
                 <i class="fa-regular fa-face-laugh"></i> 모집중인 챌린지가 없어요. 새로운 챌린지를 생성해보세요!
             </div>
             <div th:unless="${challenges == null or #lists.isEmpty(challenges)}">
-                <div class="p-2">
-                    <h1 class="text-black text-2xl font-bold">>모집 중인 챌린지</h1>
-                </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[20px]">
                     <div th:each="challenge:${challenges}">
@@ -123,7 +136,7 @@
                             <div class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
                                 <a th:href="|/usr/challenge/detail/${challenge.id}|">
                                     <figure class="pt-5">
-                                        <img src="/images/example1.png" alt="Shoes" class="rounded-xl w-[90%]" />
+                                        <img th:src="${challenge.challengeImg}" alt="Challenge_img" class="rounded-xl w-[90%]" />
                                     </figure>
                                 </a>
 

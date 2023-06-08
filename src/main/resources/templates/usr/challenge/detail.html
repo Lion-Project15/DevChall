@@ -28,10 +28,12 @@
 
     </script>
 
+
     <div class="flex mt-5 justify-center">
-        <div class="custom-container">
-            <img src="/images/example1.png" alt="post_image" class="card justify-center items-center"/>
-        </div>
+
+    <div class="custom-container justify-center mt-5">
+        <img th:src="${challenge.challengeImg}" alt="challenge_image"/>
+
     </div>
 
     <div class="flex flex-col w-full">
@@ -102,7 +104,7 @@
                             <div th:each="post : ${challengePostList}">
                                 <div class="card w-[200px] shadow-xl">
                                     <figure>
-                                        <img src="/images/example1.png" alt="post_image"/>
+                                        <img th:src="${post.postImg}" alt="post_image"/>
                                     </figure>
                                     <div class="card-body">
                                         <h2 class="card-title" th:text="${post.postTitle}"></h2>
@@ -121,6 +123,7 @@
             <div class="w-1/5"></div>
         </div>
     </div>
+</div>
 
 </main>
 </body>

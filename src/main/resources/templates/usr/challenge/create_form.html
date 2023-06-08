@@ -10,11 +10,8 @@
 <main layout:fragment="main" class="flex flex-col w-full">
 
     <!-- FIXME 챌린지별 사진으로 변경?-->
-    <div>
-        <h1>Layout 네비게이션 바 들어갈 자리</h1>
-    </div>
-    <div class="flex flex-1">
-        <form method="post" th:action="@{/usr/challenge/create}" class="flex flex-col justify-center items-center w-full">
+    <div class="flex flex-1 justify-center items-center">
+        <form method="post" th:action="@{/usr/challenge/create}" enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full">
             <div class="card bg-white">
                 <div class="w-full p-10 lg:w-[65rem]">
                     <p class="text-[25px] bolder">챌린지 생성</p>
@@ -107,10 +104,13 @@
 
                                     <select name="subject" class="select select-accent w-70 max-w-xs">
                                         <option disabled selected>공부 주제</option>
-                                        <option>개념 공부</option>
-                                        <option>시험 대비</option>
-                                        <option>예제 풀기</option>
-                                        <option>프로젝트</option>
+                                        <option value="project">프로젝트</option>
+                                        <option value="coding">코딩테스트</option>
+                                        <option value="algorithm">알고리즘</option>
+                                        <option value="study">개념 공부</option>
+                                        <option value="test">시험 대비</option>
+                                        <option value="solving">예제 풀기</option>
+
                                     </select>
 
                                     <select name="posttype" class="select select-accent w-70 max-w-xs">
@@ -129,7 +129,7 @@
                                     <label for="img" class="label">
                                         <span class="text-gray-400">챌린지 대표 이미지</span>
                                     </label>
-                                    <input id="img" name="img" type="file" class="file-input file-input-bordered file-input-accent w-full max-w-xs" />
+                                    <input id="img" name="file" type="file" class="file-input file-input-bordered file-input-accent w-full max-w-xs" />
                                 </div>
                             </div>
 

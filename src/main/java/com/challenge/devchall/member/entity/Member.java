@@ -6,10 +6,13 @@ import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.item.entity.Item;
 import com.challenge.devchall.point.entity.Point;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,7 +21,7 @@ import java.util.*;
 
 @SuperBuilder
 @NoArgsConstructor
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"challengeMemberList", "myPostList"})
 @Entity
 @Getter
 @EntityListeners(AuditingEntityListener.class)
@@ -43,9 +46,13 @@ public class Member extends BaseEntity {
     private Point point;
 
     @OneToMany(mappedBy = "challenger")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @Builder.Default
     private List<ChallengeMember> challengeMemberList = new ArrayList<>();
 
     @OneToMany(mappedBy = "challenger")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @Builder.Default
     private List<ChallengePost> myPostList = new ArrayList<>();
 
     //스케줄러 -> 매달 1일에 0으로 초기화 되어야함.

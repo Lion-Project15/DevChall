@@ -5,6 +5,7 @@ import com.challenge.devchall.item.repository.ItemRepository;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.point.entity.Point;
+import com.challenge.devchall.point.service.PointService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,16 +27,19 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
+
     private final ItemRepository itemRepository;
 
+
+    private final PointService pointService;
+
     public Optional<Member> findByLoginID(String loginID) {
-        return memberRepository.findByLoginID(loginID); //findByLoginID??
+        return memberRepository.findByLoginID(loginID);
     }
 
     @Transactional
     public RsData<Member> join(String loginID, String password, String email, String nickname, String username) {
         RsData<Member> rsData = validateMember(loginID, email, nickname);
-        Point point = new Point(1000L, 1000L);
 
         if (rsData.isFail()) return rsData;
         Member member = Member
@@ -46,7 +50,7 @@ public class MemberService {
                 .username(username)
                 .password(passwordEncoder.encode(password))
                 .challengeLimit(0)
-                .point(point)
+                .point(pointService.create())
                 .build();
         memberRepository.save(member);
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
@@ -81,7 +85,7 @@ public class MemberService {
         return memberRepository.findByLoginID(loginId).orElse(null);
     }
 
-    public RsData<Member> updateChallengeLimit(Member member){
+    public RsData<Member> checkChallengeLimit(Member member){
 
         int challengeLimit = member.getChallengeLimit();
 
@@ -101,7 +105,7 @@ public class MemberService {
 
         if(currentPoint >= joinCost){
 
-            memberPoint.updateCurrentPoint((joinCost * -1));
+            memberPoint.subtract(joinCost);
 
             return RsData.of("S-1", "참가 비용을 지불할 수 있습니다");
         }else{
@@ -132,7 +136,7 @@ public class MemberService {
         if(memberPoint.getCurrentPoint() >= itemCost){
 
             //포인트 차감
-            member.getPoint().updateCurrentPoint(itemCost * -1);
+            member.getPoint().subtract(itemCost);
 
             //FIXME 구매한 아이템이 들어오도록 하는 것 짜야함. + 실제 적용
 

@@ -9,7 +9,7 @@
 
     <div class="flex flex-1">
         <form method="post" th:action="@{|/usr/challenge/write_form/${challenge.id}|}"
-              class="flex flex-col justify-center items-center w-full">
+              enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full">
             <div class="card bg-white">
                 <div class="w-full p-10 lg:w-[65rem]">
                     <h3 class="text-lg">
@@ -72,7 +72,7 @@
                                     <label for="img" class="label">
                                         <span class="text-gray-400">인증 이미지</span>
                                     </label>
-                                    <input id="img" name="img" type="file"
+                                    <input id="img" name="file" type="file"
                                            class="file-input file-input-bordered file-input-accent w-full max-w-xs"/>
                                 </div>
                             </div>
