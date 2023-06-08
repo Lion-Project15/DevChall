@@ -27,7 +27,7 @@ public class Point extends BaseEntity {
         System.out.printf("참가 비용 %d 원이 추가되었습니다.", cost);
     }
 
-    public void subtract(int cost){
+    public void subtract(long cost){
         this.currentPoint-=cost;
         System.out.printf("참가 비용 %d 원이 지불되었습니다.", cost);
     }

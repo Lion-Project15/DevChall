@@ -93,12 +93,17 @@
             <a th:if="${@rq.logout}" href="usr/member/login" class="btn btn-sm bg-accent mx-2">로그인</a>
 
             <a th:if="${@rq.login}" href="usr/member/me" class="badge badge-accent font-bold" th:text="${@rq.member.nickname}"></a>
-<!--            <a th:if="${@rq.login}" href="usr/member/me" class="badge badge-accent font-bold" th:text="${@rq.member.inventoryList[0].item.pattern}"></a>--<div th:if="${@rq.member.inventoryList != null and #lists.size(@rq.member.inventoryList) > 0}">-->
-                <ul><a th:each="inventory : ${@rq.member.inventoryList}" th:style="'color: ' + ${inventory.item.pattern}" th:if="${@rq.login}" href="usr/member/me"class="badge badge-accent font-bold"th:text="${@rq.member.nickname}"></a>
-
-                </ul>
-            </div>
-
+<!--            <a th:if="${@rq.login}" href="usr/member/me" class="badge badge-accent font-bold" th:text="${@rq.member.inventoryList[0].item.pattern}"></a>-->
+                <div th:if="${@rq.login and @rq.member.inventoryList != null and #lists.size(@rq.member.inventoryList) > 0}">
+                    <a th:each="inventory : ${@rq.member.inventoryList}"
+                       th:style="'color: ' + ${inventory.item.subPattern} +
+                                 '; background: '+${inventory.item.pattern}+'!important'"
+                       th:if="${@rq.login}"
+                       href="usr/member/me"
+                       class="badge font-bold badge-accent"
+                       th:text="${@rq.member.nickname}">
+                    </a>
+                </div>
 
             <form th:action="|/usr/member/logout|" method="post" class="m-0">
                 <button th:if="${@rq.login}" type="submit" class="btn btn-sm btn-ghost"> 로그아웃</button>

@@ -30,6 +30,9 @@ public class NotProd {
             @Override
             @Transactional
             public void run (String... args) throws Exception {
+                itemService.create("L-F-FCE411","font","FCE411", "000000",300);
+                itemService.create("basic","font","3D4451", "FFFFFF",0);
+
                 Member admin = memberService.join("admin", "1234", "admin@admin.com", "관리자", "관리자").getData();//admin 계정
                 Member user1 = memberService.join("user1", "1234", "user1@devchall.com", "user1", "user1").getData();
                 Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2", "user2").getData();
@@ -64,7 +67,7 @@ public class NotProd {
                 challengePostService.write("re2-1인증", "re2-1인증 내용입니다.", true, 4, c4.getId(), photoUrl, user1);
                 challengePostService.write("re2-2인증", "re2-2인증 내용입니다.", true, 4, c4.getId(), photoUrl, user5);
 
-                itemService.create("L-F-FCE411","font","FCE411");
+
 
             }
         };

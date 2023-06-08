@@ -55,7 +55,11 @@ public class MemberService {
                 .challengeLimit(0)
                 .point(pointService.create())
                 .build();
+
         memberRepository.save(member);
+
+        inventoryService.create(member, itemService.getByName("basic").orElse(null));
+
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
     }
 
@@ -120,73 +124,30 @@ public class MemberService {
     @Transactional
     public RsData<Inventory> buyItem(String buyCode, Member member){
 
-        /*
-        가격, 아이템 구매 코드 유형
-        (1) L or H (싼 것, 비싼것)
-        (2) F or C (폰트, 캐릭터)
-        (3) 색상코드 or 캐릭터명
-        ex) L-F-358544 (가격이 싼 폰트 358544에 대한 구매요청코드)
-        */
+        Item buyItem = itemService.getByName(buyCode).orElse(null);
 
-        String[] buyCodeSplit = buyCode.split("-");
-
-        System.out.println("buyCodeSplit = " + Arrays.toString(buyCodeSplit));
-
-        int itemCost = getItemCost(buyCodeSplit[0], buyCodeSplit[1]);
+        if(buyItem == null) {//아이템의 존재 유무
+            return RsData.of("F-7", "아이템이 존재하지 않습니다.");
+        }
 
         Point memberPoint = member.getPoint();
-        //아이템이 존재하나?
-        Item buyItem = itemService.getByName(buyCode).orElse(null);
-        if(memberPoint.getCurrentPoint() >= itemCost && buyItem != null){
 
-            //포인트 차감
-            member.getPoint().subtract(itemCost);
+        long itemCost = buyItem.getPrice();
 
-            //FIXME 구매한 아이템이 들어오도록 하는 것 짜야함. + 실제 적용
-
-//            Item purchasedItem = Item
-//                    .builder()
-//                    .name(buyCodeSplit[2])
-//                    .type(buyCodeSplit[1])
-//                    .colorCode(buyCodeSplit[3])
-//                   .build();
-
-            RsData rs = inventoryService.create(member, buyItem);
-
-            // 아이템을 멤버에게 추가
-            //member.setPurchasedItem(purchasedItem, member);
-            if(rs.isFail()) {
-                return rs;
-            }
-
-            return RsData.of("S-6", "구매에 성공하였습니다.");
-
-        }else {
-
+        if(memberPoint.getCurrentPoint() < itemCost){ //포인트 여부
             return RsData.of("F-6", "소지금이 부족합니다.");
         }
 
-    }
+        RsData<Inventory> rs = inventoryService.create(member, buyItem);
 
-    public int getItemCost(String costType, String itemType) {
-        if (costType.equals("L")) {
-            if (itemType.equals("F")) {
-                return 300;
-            } else if (itemType.equals("C")) {
-                return 1000;
-            }
-        } else if (costType.equals("H")) {
-            if (itemType.equals("F")) {
-                return 500;
-            } else if (itemType.equals("C")) {
-                return 2000;
-            }
+        if(rs.isFail()) {//이미 구매한 아이템
+            return rs;
         }
 
-        // 예외 처리
-        throw new IllegalArgumentException("유효하지 않은 costType 또는 itemType입니다.");
-    }
+        member.getPoint().subtract(buyItem.getPrice());
 
+        return RsData.of("S-6", "구매에 성공하였습니다.");
+    }
 
     public int getMemberPoint(String loginId) {
         Member member = getByLoginId(loginId);

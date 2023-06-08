@@ -14,11 +14,13 @@ import java.util.Optional;
 public class ItemService   {
         private final ItemRepository itemRepository;
 
-        public Item create(String name, String type, String pattern){
+        public Item create(String name, String type, String pattern, String subPattern,long price){
                return itemRepository.save(Item.builder()
                        .name(name)
                        .type(type)
                        .pattern(pattern)
+                       .subPattern(subPattern)
+                       .price(price)
                        .build());
         }
 

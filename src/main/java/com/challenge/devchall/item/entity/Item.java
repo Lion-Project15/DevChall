@@ -25,6 +25,9 @@ public class Item extends BaseEntity {
     private String name;
     private String type;
     private String pattern;
+    private String subPattern;
+    private long price;
+
 
     @OneToMany(mappedBy = "item")
     private List<Inventory> inventoryList = new ArrayList<>();
