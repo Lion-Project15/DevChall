@@ -40,3 +40,5 @@ cloud:
     s3:
       endpoint: https://kr.object.ncloudstorage.com
       bucket: devchall
+  cdn:
+    url: http://iztyfajjvmsf17707682.cdn.ntruss.com/
