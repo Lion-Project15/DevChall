@@ -34,7 +34,7 @@ public class NotProd {
                 Member user3 = memberService.join("user3", "1234", "user3@devchall.com", "user3", "user3").getData();
                 Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4", "user4").getData();
                 Member user5 = memberService.join("user5", "1234", "user5@devchall.com", "user5", "user5").getData();
-
+              
                 String photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
 
                 Challenge c1 = challengeService.createChallenge("1번 챌린지", "1번 챌린지 내용입니다", true, "day1","2023-06-01", "2주", "C", "개념 공부", "인증샷", photoUrl, admin);

@@ -78,17 +78,23 @@ public class ChallengeService {
         return challenges;
     }
 
-    public List<Challenge> getChallengList(Member member) {
+    public List<Challenge> getChallengList(String language, String subject) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(0, 30, sort);
+        return challengeRepository.findByConditions(language, subject, pageable);
+    }
+
+    public List<Challenge> getChallengList(String language, String subject, Member member) {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
 
         // 현재 사용자가 참여 중인 챌린지 ID 목록을 가져옴
-        List<Long> challengeIds = challengeMemberService.getChallengeIdsByMember(member);
+        //List<Long> challengeIds = challengeMemberService.getChallengeIdsByMember(member);
 
         // 현재 사용자가 참여 중인 챌린지를 제외한 모집 중인 챌린지 목록을 가져옴
-        List<Challenge> challenges = challengeRepository.findByChallengeStatusAndIdNotIn(true, challengeIds, pageable);
+        //List<Challenge> challenges = challengeRepository.findByChallengeStatusAndIdNotIn(true, challengeIds, pageable);
 
-        return challenges;
+        return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);
     }
 
 
