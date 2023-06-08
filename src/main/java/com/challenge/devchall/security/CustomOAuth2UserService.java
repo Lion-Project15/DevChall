@@ -44,14 +44,16 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             default -> oAuth2User.getName();
         };
 
-        String loginId = providerTypeCode + "__%s".formatted(oauthId);
-        String codeID = oauthId;
+//        String loginId = providerTypeCode + "__%s".formatted(oauthId);
+        if (oauthId.length() > 8) {
+            oauthId = providerTypeCode + "__%s".formatted(oauthId.substring(0,8));
+        }
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
         System.out.println("attributes = " + attributes);
 
-        Member member = memberService.whenSocialLogin(providerTypeCode, codeID, email, nickname).getData();
+        Member member = memberService.whenSocialLogin(providerTypeCode, oauthId, email, nickname).getData();
 
         return new CustomOAuth2User(member.getLoginID(), member.getPassword(), member.getGrantedAuthorities());
     }
