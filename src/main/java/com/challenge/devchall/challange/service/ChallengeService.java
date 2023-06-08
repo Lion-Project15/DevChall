@@ -43,7 +43,8 @@ public class ChallengeService {
             return null;
         }
 
-        String smallUrl = photoService.getSmallImg(photoUrl);
+        String largePhoto = photoService.getLargePhoto(photoUrl);
+        String smallPhoto = photoService.getSmallPhoto(photoUrl);
 
         FormattingResult formattingResult = formatting(frequency, startDate, period);
 
@@ -52,7 +53,8 @@ public class ChallengeService {
                 .challengeName(title)
                 .challengeContents(contents)
                 .challengeStatus(status)
-                .challengeImg(smallUrl)
+                .largePhoto(largePhoto)
+                .smallPhoto(smallPhoto)
                 .challengeFrequency(formattingResult.formattingFrequency)
                 .startDate(formattingResult.formattingStartDate)
                 .endDate(formattingResult.formattingStartDate.plusWeeks(formattingResult.formattingPeriod))
@@ -97,11 +99,6 @@ public class ChallengeService {
 
         return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);
     }
-
-
-
-
-
 
     public class FormattingResult {
         private int formattingFrequency;
