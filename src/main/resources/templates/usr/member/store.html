@@ -20,7 +20,6 @@
         }
     </script>
 
-
     <div class="gap-75px flex">
         <div id="inven" class="bg-black col-span-1 md:col-span-3 xl:col-span-3"
              style="border-top-left-radius: 8rem; height: 92.3rem; left: 0; top: 7rem; width: calc(100% / 3);">
@@ -44,23 +43,22 @@
                 </div>
             </div>
 
-
             <div class="flex justify-center items-center">
                 <div class="flex justify-center bg-[#000000] rounded-[4.3444rem] flex-shrink-0 h-[4rem] mx-[18rem] w-[calc(100% - 30rem)] mt-20 border border-[#03fa6e]"
                      style="width: 200px;">
-                    <a class="mt-4 text-[#03fa6e] font-bold text-xl" th:text="${memberPoint + ' point'}">point</a>
+                    <a class="mt-4 text-[#03fa6e] font-bold text-xl" th:text="${memberPoint + 'point'}">point</a>
                 </div>
             </div>
 
-            <div id="center"
-                 class="px-30 m-20 bg-[#313131] rounded-[1.7rem] h-[20rem] top-[48.2rem] w-[20rem] flex justify-center items-center">
+            <div id="center" class="px-30 m-20 bg-[#313131] round-[1.7rem] h-[20rem] top-[48.2rem] w-[20rem] flex justify-center items-center">
                 <button class="flex items-center justify-center w-12 h-12 bg-[#000000] rounded-full text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                         stroke="currentColor">
+                        stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
                 </button>
             </div>
+
         </div>
 
         <!--아이템 목록-->

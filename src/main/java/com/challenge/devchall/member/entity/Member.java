@@ -3,6 +3,7 @@ package com.challenge.devchall.member.entity;
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.item.entity.Item;
 import com.challenge.devchall.point.entity.Point;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -50,10 +51,24 @@ public class Member extends BaseEntity {
     //스케줄러 -> 매달 1일에 0으로 초기화 되어야함.
     private int challengeLimit;
 
+    //현재 적용중인 폰트
+    private String currentFont;
+
+    //보유중인 아이템 리스트
+//    @ElementCollection
+//    private List<String> itemList = new ArrayList<>();
+//    //하나의 멤버가 여러개의 "아이템" String 을 가진다.
+//    //itemList 에다가 아이템이 추가될 때마다 "F10564" << 이거를 member.itemList.add("F10564");
+
+    @OneToMany(mappedBy = "member")
+    private List<Item> itemList = new ArrayList<>();
+    //하나의 멤버가 여러개의 "아이템" 객체를 가진다
+
+
     //FIXME 최대 참여 갯수도 추가해야함
 
     //role은 spring security 이후에 작성
-    public List<? extends GrantedAuthority> getGrantedAuthorities() {
+    public List<? extends GrantedAuthority>getGrantedAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
         grantedAuthorities.add(new SimpleGrantedAuthority("member"));
@@ -69,6 +84,12 @@ public class Member extends BaseEntity {
     public void setChallengeLimit(int challengeLimit){
 
         this.challengeLimit = challengeLimit;
+    }
+
+    public void setPurchasedItem(Item item, Member member){
+
+        member.itemList.add(item);
+
     }
 
 

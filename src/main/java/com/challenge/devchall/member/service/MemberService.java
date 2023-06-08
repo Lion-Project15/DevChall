@@ -1,18 +1,18 @@
 package com.challenge.devchall.member.service;
 
 import com.challenge.devchall.base.rsData.RsData;
+import com.challenge.devchall.item.repository.ItemRepository;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.point.entity.Point;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
+import com.challenge.devchall.item.entity.Item;
+
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,6 +26,8 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
+    private final ItemRepository itemRepository;
+
     public Optional<Member> findByLoginID(String loginID) {
         return memberRepository.findByLoginID(loginID); //findByLoginID??
     }
@@ -107,6 +109,7 @@ public class MemberService {
         }
     }
 
+
     @Transactional
     public RsData<Member> buyItem(String buyCode, Member member){
 
@@ -128,43 +131,52 @@ public class MemberService {
 
         if(memberPoint.getCurrentPoint() >= itemCost){
 
+            //포인트 차감
             member.getPoint().updateCurrentPoint(itemCost * -1);
 
+            //FIXME 구매한 아이템이 들어오도록 하는 것 짜야함. + 실제 적용
+
+            Item purchasedItem = Item
+                    .builder()
+                    .name(buyCodeSplit[2])
+                    .type(buyCodeSplit[1])
+                    .member(member)
+                    .build();
+
+            itemRepository.save(purchasedItem);
+
+
+            // 아이템을 멤버에게 추가
+            member.setPurchasedItem(purchasedItem, member);
+
             return RsData.of("S-6", "구매에 성공하였습니다.");
-        }else{
+
+        }else {
 
             return RsData.of("F-6", "소지금이 부족합니다.");
         }
 
-        //돈 내는거 밖에 안되었음.
     }
 
-    public int getItemCost(String costType, String itemType){
-
-        /*
-        싼 폰트 - 300원
-        싼 캐릭터 - 1000 원
-        비싼 폰트 - 500원
-        비싼 캐릭터 - 2000 원
-         */
-
-        if(costType.equals("L")){
-
-            if(itemType.equals("F")){
+    public int getItemCost(String costType, String itemType) {
+        if (costType.equals("L")) {
+            if (itemType.equals("F")) {
                 return 300;
-            }else{
+            } else if (itemType.equals("C")) {
                 return 1000;
             }
-        }
-        else{
-            if(itemType.equals("F")){
+        } else if (costType.equals("H")) {
+            if (itemType.equals("F")) {
                 return 500;
-            }else{
+            } else if (itemType.equals("C")) {
                 return 2000;
             }
         }
 
+        // 예외 처리
+        throw new IllegalArgumentException("유효하지 않은 costType 또는 itemType입니다.");
     }
+
 
     public int getMemberPoint(String loginId) {
         Member member = getByLoginId(loginId);
@@ -177,7 +189,5 @@ public class MemberService {
         }
         return 0; // 멤버가 존재하지 않거나 포인트 정보가 없는 경우, 0을 반환
     }
-
-
 
 }

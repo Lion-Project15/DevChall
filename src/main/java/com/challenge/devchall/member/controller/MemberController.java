@@ -111,6 +111,7 @@ public class MemberController {
 
         model.addAttribute("memberNickname", memberNickname);
         model.addAttribute("memberPoint", memberPoint);
+
         return "/usr/member/store";
     }
 
