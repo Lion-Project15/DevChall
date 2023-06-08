@@ -1,5 +1,6 @@
 package com.challenge.devchall.member.service;
 
+import ch.qos.logback.core.spi.ConfigurationEvent;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
+import java.awt.datatransfer.Clipboard;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -102,5 +104,9 @@ public class MemberService {
         }else{
             return RsData.of("F-3", "참가 비용이 부족합니다.");
         }
+    }
+
+    public ConfigurationEvent whenSocialLogin (String providerTypeCode, String username) {
+        return null;
     }
 }
