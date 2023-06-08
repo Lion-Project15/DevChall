@@ -8,13 +8,16 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
+import com.challenge.devchall.photo.service.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -26,17 +29,17 @@ public class ChallengeService {
     private final ChallengeRepository challengeRepository;
     private final ChallengeMemberService challengeMemberService;
     private final MemberService memberService;
+    private final PhotoService photoService;
 
     @Transactional
-    public Challenge createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
-                                String language, String subject, String posttype, Member member) {
+    public Challenge createChallenge (String title, String contents, boolean status, String frequency, String startDate, String period,
+                                      String language, String subject, String posttype, String photoUrl, Member member) throws IOException {
 
         RsData<Member> memberRsData = memberService.checkChallengeLimit(member);
 
+
         //FIXME 이미 2개를 생성한 상태라면 뒤의 작업이 이루어지지 않아야 함.
-        if(memberRsData.isFail()){
-            System.out.println(memberRsData.getMsg());
-            System.out.println(memberRsData.getMsg());
+        if (memberRsData.isFail()) {
             System.out.println(memberRsData.getMsg());
             return null;
         }
@@ -48,7 +51,7 @@ public class ChallengeService {
                 .challengeName(title)
                 .challengeContents(contents)
                 .challengeStatus(status)
-                .challengeImg(null)
+                .challengeImg(photoUrl)
                 .challengeFrequency(formattingResult.formattingFrequency)
                 .startDate(formattingResult.formattingStartDate)
                 .endDate(formattingResult.formattingStartDate.plusWeeks(formattingResult.formattingPeriod))
@@ -66,6 +69,7 @@ public class ChallengeService {
         challengeMemberService.addMember(challenge, member, Role.LEADER);
         return challenge;
     }
+
 
     public List<Challenge> getChallengList() {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");

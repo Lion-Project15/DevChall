@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Configuration
 @Profile({"dev", "test"})
@@ -33,10 +34,13 @@ public class NotProd {
                 Member user3 = memberService.join("user3", "1234", "user3@devchall.com", "user3", "user3").getData();
                 Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4", "user4").getData();
                 Member user5 = memberService.join("user5", "1234", "user5@devchall.com", "user5", "user5").getData();
-                Challenge c1 = challengeService.createChallenge("1번 챌린지", "1번 챌린지 내용입니다", true, "day1","2023-06-01", "2주", "C", "study", "인증샷", admin);
-                Challenge c2 = challengeService.createChallenge("2번 챌린지", "2번 챌린지 내용입니다", false, "day3","2023-06-01", "4주", "Java", "project", "IDE 캡처", user1);
-                Challenge c3 =  challengeService.createChallenge("3번 챌린지", "3번 챌린지 내용입니다", true, "day7","2023-06-01", "8주", "Python", "test", "Github", user2);
-                Challenge c4 = challengeService.createChallenge("re 2번 챌린지", "re 2번 챌린지 내용입니다", false, "day3","2023-06-01", "4주", "Java", "project", "IDE 캡처", user5);
+              
+                String photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
+
+                Challenge c1 = challengeService.createChallenge("1번 챌린지", "1번 챌린지 내용입니다", true, "day1","2023-06-01", "2주", "C", "개념 공부", "인증샷", photoUrl, admin);
+                Challenge c2 = challengeService.createChallenge("2번 챌린지", "2번 챌린지 내용입니다", false, "day3","2023-06-01", "4주", "Java", "프로젝트", "IDE 캡처", photoUrl,user1);
+                Challenge c3 =  challengeService.createChallenge("3번 챌린지", "3번 챌린지 내용입니다", true, "day7","2023-06-01", "8주", "Python", "시험 대비", "Github", photoUrl,user2);
+                Challenge c4 = challengeService.createChallenge("re 2번 챌린지", "re 2번 챌린지 내용입니다", false, "day3","2023-06-01", "4주", "Java", "프로젝트", "IDE 캡처", photoUrl,user5);
 
                 challengeMemberService.addMember(challengeService.getChallengeById(c1.getId()), user1, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c1.getId()), user2, Role.CREW);
@@ -47,16 +51,16 @@ public class NotProd {
                 challengeMemberService.addMember(challengeService.getChallengeById(c4.getId()), user1, Role.CREW);
 
 
-                challengePostService.write("1-1인증", "1-1인증 내용입니다.", true, 3, c1.getId(), user1);
-                challengePostService.write("1-2인증", "1-2인증 내용입니다.", false, 4, c1.getId(), user2);
-                challengePostService.write("2-1인증", "2-1인증 내용입니다.", true, 5, c2.getId(), admin);
-                challengePostService.write("2-2인증", "2-2인증 내용입니다.", false, 1, c2.getId(), user3);
-                challengePostService.write("2-3인증", "2-3인증 내용입니다.", false, 1, c2.getId(), user1);
-                challengePostService.write("2-4인증", "2-4인증 내용입니다.", false, 1, c2.getId(), user1);
-                challengePostService.write("3-1인증", "3-1인증 내용입니다.", true, 2, c3.getId(), user4);
-                challengePostService.write("3-2인증", "3-2인증 내용입니다.", true, 4, c3.getId(), user5);
-                challengePostService.write("re2-1인증", "re2-1인증 내용입니다.", true, 4, c4.getId(), user1);
-                challengePostService.write("re2-2인증", "re2-2인증 내용입니다.", true, 4, c4.getId(), user5);
+                challengePostService.write("1-1인증", "1-1인증 내용입니다.", true, 3, c1.getId(), photoUrl, user1);
+                challengePostService.write("1-2인증", "1-2인증 내용입니다.", false, 4, c1.getId(), photoUrl, user2);
+                challengePostService.write("2-1인증", "2-1인증 내용입니다.", true, 5, c2.getId(), photoUrl, admin);
+                challengePostService.write("2-2인증", "2-2인증 내용입니다.", false, 1, c2.getId(), photoUrl, user3);
+                challengePostService.write("2-3인증", "2-3인증 내용입니다.", false, 1, c2.getId(), photoUrl, user1);
+                challengePostService.write("2-4인증", "2-4인증 내용입니다.", false, 1, c2.getId(), photoUrl, user1);
+                challengePostService.write("3-1인증", "3-1인증 내용입니다.", true, 2, c3.getId(), photoUrl, user4);
+                challengePostService.write("3-2인증", "3-2인증 내용입니다.", true, 4, c3.getId(), photoUrl, user5);
+                challengePostService.write("re2-1인증", "re2-1인증 내용입니다.", true, 4, c4.getId(), photoUrl, user1);
+                challengePostService.write("re2-2인증", "re2-2인증 내용입니다.", true, 4, c4.getId(), photoUrl, user5);
             }
         };
     }

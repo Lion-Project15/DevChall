@@ -29,7 +29,8 @@ public class ChallengePostService {
     private final ChallengeMemberRepository challengeMemberRepository;
     private final Schedule schedule;
 
-    public ChallengePost write(String title, String contents, boolean status, long postScore, long id, Member member) {
+    public ChallengePost write(String title, String contents, boolean status, long postScore, long id,
+                               String photoUrl, Member member) {
 
         Challenge linkedChallenge = challengeService.getChallengeById(id);
 
@@ -59,6 +60,7 @@ public class ChallengePostService {
                 .postScore(postScore)
                 .linkedChallenge(linkedChallenge)
                 .challenger(member)
+                .postImg(photoUrl)
                 .build();
 
         challengePostRepository.save(challengePost);

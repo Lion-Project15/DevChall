@@ -35,6 +35,7 @@ public class Challenge extends BaseEntity {
     private long gatherPoints;
 
     private String challengeCreator;
+    private String photoFile;
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Builder.Default
     @OneToMany(mappedBy = "linkedChallenge")
@@ -49,4 +50,5 @@ public class Challenge extends BaseEntity {
     public void resetPoint(){
         this.gatherPoints = 0;
     }
+
 }

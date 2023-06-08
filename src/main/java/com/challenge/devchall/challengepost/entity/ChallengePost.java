@@ -24,9 +24,9 @@ public class ChallengePost extends BaseEntity {
     private String postContents;
     private boolean postIsPublic;
     private long postScore;
+    private String postImg;
 
     //FIXME 일단 보류
-//    private String postImg;
 //    private boolean postModify;
 //    private int postStarPoint;
 

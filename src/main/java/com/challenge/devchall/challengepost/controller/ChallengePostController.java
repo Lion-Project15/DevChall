@@ -10,11 +10,14 @@ import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
+import com.challenge.devchall.photo.service.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.Optional;
 
@@ -28,6 +31,7 @@ public class ChallengePostController {
     private final ChallengeService challengeService;
     private final ChallengeMemberService challengeMemberService;
     private final MemberService memberService;
+    private final PhotoService photoService;
 
 
     @GetMapping("/write_form/{id}")
@@ -46,15 +50,18 @@ public class ChallengePostController {
                                   @RequestParam String contents,
                                   @RequestParam boolean status,
                                   @RequestParam long postScore,
+                                  @RequestParam MultipartFile file,
                                   Principal principal,
                                   Model model
-    ) {
+    ) throws IOException {
 
         //포스트를 쓰기 전에, 쓸 수 있는지부터 검사 해야한다.
         Challenge linkedChallenge = challengeService.getChallengeById(id);
         Member member = memberService.findByLoginID(principal.getName()).orElse(null);
 
-        ChallengePost post = challengePostService.write(title, contents, status, postScore, id, member);
+        String photoUrl = photoService.photoUpload(file);
+
+        ChallengePost post = challengePostService.write(title, contents, status, postScore, id, photoUrl, member);
 
         model.addAttribute("linkedChallenge", linkedChallenge);
         model.addAttribute("post", post);
