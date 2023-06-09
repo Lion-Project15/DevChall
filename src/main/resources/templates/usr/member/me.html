@@ -20,14 +20,11 @@
                         </div>
 <!--                        <h3 class="text-3xl" th:text="${@rq.member.loginID}"></h3>-->
 
-                        <h3 class="text-3xl" th:text="${@rq.member.loginID}">
-                            <a href="usr/member/me"
-                            th:style="'color: #' + ${rq.member.equippedFont.item.subPattern} + ' !important;'"
-                            th:if="${rq.login}"
-                            th:text="${rq.member.loginID}"></a>
+                        <h3 class="text-3xl rounded-xl"
+                            th:style="'color: #' + ${@rq.member.equippedFont.item.subPattern} +'; background: #'+${@rq.member.equippedFont.item.pattern}"
+                            th:if="${@rq.login}"
+                            th:text="${@rq.member.loginID}">
                         </h3>
-
-
 
 
 

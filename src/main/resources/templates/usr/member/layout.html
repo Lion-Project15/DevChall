@@ -93,7 +93,7 @@
             <a th:if="${@rq.logout}" href="/usr/member/login" class="btn btn-sm bg-accent mx-2">로그인</a>
 
 <!--            <a th:if="${@rq.login}" href="usr/member/me" class="badge badge-accent font-bold" th:text="${@rq.member.nickname}"></a>-->
-            <a href="usr/member/me"
+            <a href="/usr/member/me"
                th:style="'color: #' + ${@rq.member.equippedFont.item.subPattern} +
                        '; background: #'+${@rq.member.equippedFont.item.pattern}+' !important'"
                th:if="${@rq.login}"

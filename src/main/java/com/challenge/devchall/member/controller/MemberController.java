@@ -95,14 +95,14 @@ public class MemberController {
         return "/usr/member/store";
     }
 
-    @GetMapping("/store/buy/{buyCode}")
-    public String buyItem(@PathVariable("buyCode") String buyCode,
+    @GetMapping("/store/buy/{itemId}")
+    public String buyItem(@PathVariable("itemId") String itemId,
                           @RequestParam(required = false, defaultValue = "false") boolean equipped,
                           Principal principal){
 
         Member loginMember = memberService.getByLoginId(principal.getName());
 
-        RsData<Inventory> buyRsData = memberService.buyItem(buyCode, loginMember, equipped);
+        RsData<Inventory> buyRsData = memberService.buyItem(itemId, loginMember, equipped);
 
         System.out.println(buyRsData.getMsg());
 

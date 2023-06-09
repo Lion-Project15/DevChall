@@ -33,4 +33,8 @@ public class ItemService   {
     public List<Item> getByType(String type) {
             return itemRepository.findByType(type);
     }
+
+    public Optional<Item> getById(long itemId) {
+            return itemRepository.findById(itemId);
+    }
 }

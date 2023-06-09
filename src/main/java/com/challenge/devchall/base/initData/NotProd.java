@@ -33,6 +33,12 @@ public class NotProd {
 
                 itemService.create("L-F-FCE411","font","FCE411", "000000",300);
                 itemService.create("basic","font","3D4451", "FFFFFF",0);
+                itemService.create("ED3096","font","ED3096", "FFFFFF",0);
+                itemService.create("FF9900","font","FF9900", "000000",0);
+                itemService.create("1144FC","font","1144FC", "FFFFFF",0);
+                itemService.create("3CB24F","font","3CB24F", "FFFFFF",0);
+
+
 
                 Member admin = memberService.join("admin", "1234", "admin@admin.com",  "관리자").getData();//admin 계정
                 Member user1 = memberService.join("user1", "1234", "user1@devchall.com",  "user1").getData();

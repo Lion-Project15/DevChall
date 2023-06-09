@@ -140,9 +140,9 @@ public class MemberService {
 
 
     @Transactional
-    public RsData<Inventory> buyItem(String buyCode, Member member, boolean equip){
+    public RsData<Inventory> buyItem(String itemId, Member member, boolean equip){
 
-        Item buyItem = itemService.getByName(buyCode).orElse(null);
+        Item buyItem = itemService.getById(Long.parseLong(itemId)).orElse(null);
 
         if(buyItem == null) {//아이템의 존재 유무
             return RsData.of("F-7", "아이템이 존재하지 않습니다.");

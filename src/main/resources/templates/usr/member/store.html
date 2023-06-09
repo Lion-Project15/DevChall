@@ -9,13 +9,13 @@
 <main layout:fragment="main" body class="bg-[#121212] w-full flex-col flex">
 
     <script>
-        function showBuy(buyCode) {
+        function showBuy(itemId) {
             if (!confirm('정말로 구매하시겠습니까?')) {
                 alert("구매가 취소되었습니다");
 
             } else {
                 <!-- 구매 관련 메서드 들어갈 자리-->
-                location.href = "/usr/member/store/buy/" + buyCode + "?equipped=" + confirm('바로 착용하시겠습니까?');
+                location.href = "/usr/member/store/buy/" + itemId + "?equipped=" + confirm('바로 착용하시겠습니까?');
             }
         }
     </script>
@@ -61,12 +61,25 @@
             </div>
 
             <div id="center" class="px-30 m-20 bg-[#313131] round-[1.7rem] h-[20rem] top-[48.2rem] w-[20rem] flex justify-center items-center">
-                <button class="flex items-center justify-center w-12 h-12 bg-[#000000] rounded-full text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                    </svg>
-                </button>
+<!--                <button class="flex items-center justify-center w-12 h-12 bg-[#000000] rounded-full text-white">-->
+<!--                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"-->
+<!--                        stroke="currentColor">-->
+<!--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>-->
+<!--                    </svg>-->
+<!--                </button>-->
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-[10px]" th:if="${@rq.login}">
+                    <a href="#" th:each="inventory:${@rq.member.inventoryList}"
+                       th:onclick="'showBuy('+${inventory.item.id}+')'">
+                        <div th:if="${inventory.equipped}"
+                             class="w-[85px] h-[85px] flex justify-center items-center"
+                             th:style="'background-color: #'+${inventory.item.pattern}+';'">
+                            <div class="badge badge-accent">착용중</div>
+                        </div>
+                        <div th:if="${!inventory.equipped}"
+                             class="w-[85px] h-[85px] flex justify-center items-center"
+                             th:style="'background-color: #'+${inventory.item.pattern}+';'"></div>
+                    </a>
+                </div>
             </div>
 
         </div>
@@ -83,7 +96,8 @@
                     </div>
 <!--                    -->
                     <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7"
-                         th:each="font:${items['fonts']}">
+                         th:each="font:${items['fonts']}"
+                         th:if="${!#strings.equals(font.name, 'basic')}">
                         <div >
                             <!--색상 아이템 추가-->
                             <div class="mx-3 mt-5 w-[100px] h-[100px] flex justify-center items-center"
@@ -91,49 +105,9 @@
                             <div  class="flex flex-col justify-end items-start mt-7 space-y-6">
                                 <span th:text="${font.price}"
                                       class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                                <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy("L-F-FCE411")>
+                                <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" th:onclick="'showBuy('+${font.id}+')'">
                                     <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
-                        <!--색상 아이템 추가-->
-                        <div class="mx-3 mt-5" style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; background-color: #ED3096;"></div>
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
-                        <!--색상 아이템 추가-->
-                        <div class="mx-3 mt-5" style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; background-color: #1144FC;"></div>
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
-                        <!--색상 아이템 추가-->
-                        <div class="mx-3 mt-5" style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; background-color: #FF9900;"></div>
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
-                        <!--색상 아이템 추가-->
-                        <div class="mx-3 mt-5" style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; background-color: #3CB24F;"></div>
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
                             </div>
                         </div>
                     </div>
