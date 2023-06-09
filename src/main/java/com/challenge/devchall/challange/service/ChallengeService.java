@@ -32,8 +32,8 @@ public class ChallengeService {
     private final PhotoService photoService;
 
     @Transactional
-    public RsData<Challenge> createChallenge (String title, String contents, boolean status, String frequency, String startDate, String period,
-                                      String language, String subject, String postType, MultipartFile file, Member member) throws IOException {
+    public RsData<Challenge> createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
+                                             String language, String subject, String postType, MultipartFile file, Member member) throws IOException {
 
         //1차 검증. 멤버가 한달에 한개 생성 제한에 걸리지 않는가?
         RsData<Member> memberRsData = memberService.checkChallengeLimit(member);
@@ -52,11 +52,17 @@ public class ChallengeService {
         String largePhoto = "";
         String smallPhoto = "";
 
-        if(checkRsData.isSuccess()){
+        //이미지가 있는 경우 이미지 리사이징, 경로 할당
+        if (checkRsData.isSuccess() && checkRsData.getResultCode().equals("S-1")) {
             String photoUrl = photoService.photoUpload(file);
             largePhoto = photoService.getLargePhoto(photoUrl);
             smallPhoto = photoService.getSmallPhoto(photoUrl);
-        }else{
+        } else if (checkRsData.getResultCode().equals("S-2")) {
+            //이미지 없이 만들 경우, 디폴트로 example1 이미지로 생성
+            String photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
+            largePhoto = photoService.getLargePhoto(photoUrl);
+            smallPhoto = photoService.getSmallPhoto(photoUrl);
+        } else {
             System.out.println(checkRsData.getMsg());
             return checkRsData;
         }
@@ -128,18 +134,18 @@ public class ChallengeService {
         }
     }
 
-    public FormattingResult formatting(String frequency, String start_date, String period){
+    public FormattingResult formatting(String frequency, String start_date, String period) {
 
         int formattingFrequency = formattingFrequency(frequency);
         LocalDate formattingStartDate = formattingDate(start_date);
         int formattingPeriod = formattingPeriod(period);
 
-        FormattingResult formattingResult = new FormattingResult( formattingFrequency, formattingStartDate, formattingPeriod);
+        FormattingResult formattingResult = new FormattingResult(formattingFrequency, formattingStartDate, formattingPeriod);
 
         return formattingResult;
     }
 
-    public int formattingFrequency(String frequency){
+    public int formattingFrequency(String frequency) {
 
         String[] frequencyData = frequency.split("day");
 
@@ -147,7 +153,7 @@ public class ChallengeService {
 
     }
 
-    public LocalDate formattingDate(String date){
+    public LocalDate formattingDate(String date) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateTime = LocalDate.parse(date, formatter);
@@ -155,7 +161,7 @@ public class ChallengeService {
         return dateTime;
     }
 
-    public int formattingPeriod(String period){
+    public int formattingPeriod(String period) {
 
         String[] periodDate = period.split("주");
 
@@ -169,49 +175,87 @@ public class ChallengeService {
         return challenge;
     }
 
-    public boolean hasPost(Challenge challenge){
+    public boolean hasPost(Challenge challenge) {
 
         List<ChallengePost> challengePostList = challenge.getChallengePostList();
 
-        if(challengePostList.isEmpty()){
+        if (challengePostList.isEmpty()) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
 
-    public RsData<Challenge> checkCreateRule (String title, LocalDate startDate, String contents, MultipartFile file){
+    public RsData<Challenge> checkCreateRule(String title, LocalDate startDate, String contents, MultipartFile file) {
 
         List<Challenge> byChallengeName = challengeRepository.findByChallengeName(title);
 
-        if(!byChallengeName.isEmpty()){
+        if (!byChallengeName.isEmpty()) {
             return RsData.of("F-1", "이미 존재하는 챌린지 명입니다.");
         }
 
-        if(title.length() > 25){
+        if (title.length() > 25) {
             return RsData.of("F-2", "제목은 25자 까지만 가능합니다.");
         }
 
-        if(startDate.isBefore(LocalDate.now())){
+        if (startDate.isBefore(LocalDate.now())) {
             return RsData.of("F-3", "챌린지 시작일은 내일 날짜부터 지정할 수 있습니다.");
         }
 
-        if(contents.length() > 500){
+        if (contents.length() > 500) {
             return RsData.of("F-4", "챌린지 내용은 500자 까지만 작성 가능합니다.");
         }
 
         RsData<String> imgRsData = photoService.isImgFile(file.getOriginalFilename());
 
-        if (!file.isEmpty() && imgRsData.isSuccess()) {
-            System.out.println(imgRsData.getMsg());
-        }else{
-            //toast ui warning으로 처리?
-            System.out.println(imgRsData.getMsg());
-            return RsData.of("F-5", "대표이미지 첨부는 jpg, jpeg, png, gif 확장자만 가능합니다.");
+        if (file.isEmpty()) {
+            //파일이 없어도, 생성은 가능하다 + 마지막 검사이므로, 생성 가능(S-1) 리턴
+            System.out.println("비었지만 생성이 가능");
+            return RsData.of("S-2", "이미지가 없어도 생성은 가능합니다.");
+        } else {
+            //파일이 있을 경우, 확장자 검사
+            if (!file.isEmpty() && imgRsData.isSuccess()) {
+                System.out.println(imgRsData.getMsg());
+            } else {
+                //toast ui warning으로 처리?
+                System.out.println(imgRsData.getMsg());
+                return RsData.of("F-5", "대표이미지 첨부는 jpg, jpeg, png, gif 확장자만 가능합니다.");
+            }
         }
 
-        return RsData.of("S-1", "챌린지 생성이 가능합니다!");
+        return RsData.of("S-1", "이미지가 있는 챌린지 생성이 가능합니다!");
     }
 
+    //FIXME (중복코드) 사진이 없어도 생성이 되는 것은 이미 createChallenge에 작성되어 있지만, NotProd 처리를 못했음.
+    public Challenge createChallengeForNotProd(String title, String contents, boolean status, String frequency, String startDate, String period,
+                                               String language, String subject, String postType, Member member) throws IOException {
+
+        String largePhoto = "http://iztyfajjvmsf17707682.cdn.ntruss.com/devchall_img/example1.png?type=m&w=700&h=400&quality=90&bgcolor=FFFFFF&extopt=3";
+        String smallPhoto = "http://iztyfajjvmsf17707682.cdn.ntruss.com/devchall_img/example1.png?type=m&w=200&h=115&quality=90&bgcolor=FFFFFF&extopt=0&anilimit=1";
+        FormattingResult formattingResult = formatting(frequency, startDate, period);
+
+        Challenge challenge = Challenge
+                .builder()
+                .challengeName(title)
+                .challengeContents(contents)
+                .challengeStatus(status)
+                .largePhoto(largePhoto)
+                .smallPhoto(smallPhoto)
+                .challengeFrequency(formattingResult.formattingFrequency)
+                .startDate(formattingResult.formattingStartDate)
+                .endDate(formattingResult.formattingStartDate.plusWeeks(formattingResult.formattingPeriod))
+                .challengePeriod(formattingResult.formattingPeriod)
+                .challengeLanguage(language)
+                .challengeSubject(subject)
+                .challengePostType(postType)
+                .challengeCreator(member.getLoginID())
+                .gatherPoints(0)
+                .challengeMemberLimit(50)
+                .build();
+
+        challengeRepository.save(challenge);
+        challengeMemberService.addMember(challenge, member, Role.LEADER);
+
+        return challenge;
+    }
 }

@@ -54,7 +54,7 @@ public class ChallengeController {
             @RequestParam boolean status, @RequestParam String frequency,
             @RequestParam String startDate, @RequestParam String period,
             @RequestParam String language, @RequestParam String subject,
-            @RequestParam String posttype, @RequestParam MultipartFile file,
+            @RequestParam String posttype, @RequestParam(required = false) MultipartFile file,
             Principal principal
     ) throws IOException {
 
