@@ -63,9 +63,10 @@ public class ChallengeController {
         RsData<Challenge> createRsData = challengeService.createChallenge(title, contents, status, frequency, startDate, period,
                 language, subject, posttype, file, loginMember);
 
-        //FIXME rq.historyback() + warning??
+        //FIXME rq.historyBack() + warning??
         if(createRsData.isFail()){
             System.out.println("챌린지 생성에 실패하였습니다.");
+            System.out.println(createRsData.getMsg());
             return "redirect:/";
         }
 

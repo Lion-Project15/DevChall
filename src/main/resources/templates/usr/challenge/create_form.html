@@ -58,7 +58,9 @@
                                 <div class="w-full">
                                     <label class="label">
                                         <!-- 공개여부 UI 재설정 필요-->
-                                        <span class="">공개 여부</span>
+                                        <label class="label">
+                                            <span class="text-gray-400">공개 여부</span>
+                                        </label>
                                     </label>
                                     <input type="radio" name="status" id="public" value=true class="radio radio-accent"
                                            checked>공개
@@ -73,11 +75,10 @@
                                         <!-- 인증 주기 UI 재설정 필요-->
                                         <span class="text-gray-400">챌린지 주기를 선택해 주세요</span>
                                     </label>
-                                    <input type="radio" name="frequency" value="day1" class="radio radio-accent"
-                                           checked>주 1회
+                                    <input type="radio" name="frequency" value="day1" class="radio radio-accent" checked>주 1회
                                     <input type="radio" name="frequency" value="day3" class="radio radio-accent">주 3회
-                                    <input type="radio" name="frequency" value="day7" class="radio radio-accent">매일(주
-                                    7회)
+                                    <input type="radio" name="frequency" value="day5" class="radio radio-accent">주 5회
+                                    <input type="radio" name="frequency" value="day7" class="radio radio-accent">매일(주 7회)
                                 </div>
                             </div>
                         </div>
@@ -143,31 +144,29 @@
                                 </div>
                             </div>
 
+                            <label for="my_modal_6" class="btn">생성 규칙 보기</label>
+
+                            <input type="checkbox" id="my_modal_6" class="modal-toggle modal-warning" />
+                            <div class="modal">
+                                <div class="modal-box">
+                                    <h3 class="font-bold text-lg">챌린지 생성 규칙</h3>
+                                    <p class="py-4">1. 챌린지 제목은 중복될 수 없습니다.</p>
+                                    <p class="py-4">2. 챌린지 제목은 25자 까지 작성 가능합니다.</p>
+                                    <p class="py-4">3. 챌린지 내용은 500자 까지 작성 가능합니다.</p>
+                                    <p class="py-4">4. 챌린지 시작일은 내일부터 지정 가능합니다.</p>
+                                    <p class="py-4">5. 첨부 파일의 확장자 명은 JPG, JPEG, PNG, GIF 만 가능합니다.</p>
+                                    <p class="py-4">6. 이미지가 첨부되지 않은 경우, 기본 이미지로 설정 됩니다.</p>
+                                    <div class="modal-action">
+                                        <label for="my_modal_6" class="btn">닫기 X</label>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
                     <div class="flex flex-col justify-center mt-[20px]">
-                        <input type="submit" value="생성완료" class="btn btn-md btn-accent btn-success gap-3">
-
-                        <!-- The button to open modal -->
-                        <label for="my_modal_6" class="btn">생성 규칙 보기</label>
-
-                        <!-- Put this part before </body> tag -->
-                        <input type="checkbox" id="my_modal_6" class="modal-toggle" />
-                        <div class="modal">
-                            <div class="modal-box">
-                                <h3 class="font-bold text-lg">챌린지 생성 규칙</h3>
-                                <p class="py-4">1. 챌린지 제목은 중복될 수 없습니다.</p>
-                                <p class="py-4">2. 챌린지 제목은 25자 까지 작성 가능합니다.</p>
-                                <p class="py-4">3. 챌린지 내용은 500자 까지 작성 가능합니다.</p>
-                                <p class="py-4">4. 챌린지 시작일은 내일부터 지정 가능합니다.</p>
-                                <p class="py-4">5. 첨부 파일의 확장자 명은 JPG, JPEG, PNG, GIF 만 가능합니다.</p>
-
-                                <div class="modal-action">
-                                    <label for="my_modal_6" class="btn">닫기 X</label>
-                                </div>
-                            </div>
-                        </div>
+                        <input type="submit" value="생성완료" class=" w-200 btn btn-md btn-accent btn-success gap-3">
                     </div>
 
                 </div>

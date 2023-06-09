@@ -49,23 +49,22 @@ public class ChallengeService {
         //2차 검증, 챌린지 생성 룰이 지켜졌는지 검사
         RsData<Challenge> checkRsData = checkCreateRule(title, formattingResult.formattingStartDate, contents, file);
 
-        String largePhoto = "";
-        String smallPhoto = "";
+        String photoUrl = "";
 
-        //이미지가 있는 경우 이미지 리사이징, 경로 할당
         if (checkRsData.isSuccess() && checkRsData.getResultCode().equals("S-1")) {
-            String photoUrl = photoService.photoUpload(file);
-            largePhoto = photoService.getLargePhoto(photoUrl);
-            smallPhoto = photoService.getSmallPhoto(photoUrl);
+            //이미지가 있는 경우 이미지 리사이징, 경로 할당
+            photoUrl = photoService.photoUpload(file);
         } else if (checkRsData.getResultCode().equals("S-2")) {
             //이미지 없이 만들 경우, 디폴트로 example1 이미지로 생성
-            String photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
-            largePhoto = photoService.getLargePhoto(photoUrl);
-            smallPhoto = photoService.getSmallPhoto(photoUrl);
+            photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
         } else {
+            //생성 불가 - 제약조건 걸림
             System.out.println(checkRsData.getMsg());
             return checkRsData;
         }
+
+        String largePhoto = photoService.getLargePhoto(photoUrl);
+        String smallPhoto = photoService.getSmallPhoto(photoUrl);
 
         Challenge challenge = Challenge
                 .builder()
