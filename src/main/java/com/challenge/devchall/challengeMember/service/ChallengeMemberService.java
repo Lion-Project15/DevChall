@@ -89,6 +89,13 @@ public class ChallengeMemberService {
         return challengeIds;
     }
 
+    public int getCountByChallengeId(Long challengeId){
+
+        int count = challengeMemberRepository.countByLinkedChallenge_Id(challengeId);
+
+        return count;
+    }
+
     public Optional<ChallengeMember> getById(long id){
         return challengeMemberRepository.findById(id);
     }

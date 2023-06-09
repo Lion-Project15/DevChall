@@ -64,6 +64,7 @@ public class ChallengeService {
                 .challengePostType(posttype)
                 .challengeCreator(member.getLoginID())
                 .gatherPoints(0)
+                .challengeMemberLimit(50)
                 .build();
 
         int createCost = challenge.getChallengePeriod() * 50;
@@ -87,7 +88,7 @@ public class ChallengeService {
         return challengeRepository.findByConditions(language, subject, pageable);
     }
 
-    public List<Challenge> getChallengList(String language, String subject, Member member) {
+    public List<Challenge> getChallengeList(String language, String subject, Member member) {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
 

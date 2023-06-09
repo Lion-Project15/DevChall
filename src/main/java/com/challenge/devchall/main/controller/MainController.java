@@ -1,6 +1,7 @@
 package com.challenge.devchall.main.controller;
 
 import com.challenge.devchall.base.rq.Rq;
+import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.dto.SettleChallengeDTO;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,11 +29,25 @@ public class MainController {
                            @RequestParam(required = false, defaultValue = "") String subject){
         language = language.isBlank()? null: language.trim();
         subject = subject.isBlank()? null : subject.trim();
+
+        List<Challenge> challengeList = challengeService.getChallengeList(language, subject, rq.getMember());
+        List<Integer> countList = new ArrayList<>();
+
+        for (Challenge challenge : challengeList) {
+            int countByChallengeId = challengeMemberService.getCountByChallengeId(challenge.getId());
+
+            while (countList.size() <= challenge.getId()) {
+                countList.add(0);
+            }
+            countList.set(Math.toIntExact(challenge.getId()), countByChallengeId);
+        }
+
         if(rq.isLogin()){
             model.addAttribute("challengeMembers"
                     , challengeMemberService.getByMember(rq.getMember()));
             model.addAttribute("challenges",
-                    challengeService.getChallengList(language, subject, rq.getMember()));
+                    challengeList);
+            model.addAttribute("countList", countList);
         } else {
             model.addAttribute("challenges",
                     challengeService.getChallengList(language,subject));
