@@ -99,7 +99,7 @@
         <th>생성일</th>
         <th>현재 포인트</th>
     </tr>
-    <tr th:each="pointHistory : ${pointHistoryList}">
+    <tr  th:each="pointHistory : ${pointHistoryList} ">
         <td th:text="${pointHistory.point}"></td>
         <td th:text="${pointHistory.type}"></td>
         <td th:text="${pointHistory.getCreateDateStr()}"></td>
