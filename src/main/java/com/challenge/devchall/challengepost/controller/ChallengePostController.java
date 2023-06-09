@@ -59,7 +59,15 @@ public class ChallengePostController {
         Challenge linkedChallenge = challengeService.getChallengeById(id);
         Member member = memberService.findByLoginID(principal.getName()).orElse(null);
 
-        String photoUrl = photoService.photoUpload(file);
+
+        String photoUrl = null;
+
+        if (!file.isEmpty()) {
+            photoUrl = photoService.photoUpload(file);
+        } else {
+            // 이미지 파일이 없는 경우 기본 이미지 URL 설정
+            photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
+        }
 
         ChallengePost post = challengePostService.write(title, contents, status, postScore, id, photoUrl, member).getData();
 

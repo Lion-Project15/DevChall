@@ -30,51 +30,6 @@ public class ChallengePostService {
     private final ChallengeMemberRepository challengeMemberRepository;
     private final PhotoService photoService;
 
-//    public ChallengePost write(String title, String contents, boolean status, long postScore, long id,
-//                               String photoUrl, Member member) {
-//
-//        Challenge linkedChallenge = challengeService.getChallengeById(id);
-//
-//        ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member).orElse(null);
-//
-//        RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
-//
-//        if(postLimitRsData.isFail()){
-//            System.out.println(postLimitRsData.getMsg());
-//            return null;
-//        }
-//
-//        // 제목 길이 제한
-//        int titleMaxLength = 25;
-//        if (title.length() > titleMaxLength) {
-//            RsData.of("F-1", "제목은 25자 미만으로 작성해 주세요");
-//        }
-//
-//        // 내용 길이 제한
-//        int contentsMaxLength = 500;
-//        if (contents.length() > contentsMaxLength) {
-//            RsData.of("F-1", "내용은 500자 미만으로 작성해 주세요");
-//        }
-//
-//        String largePhoto = photoService.getLargePhoto(photoUrl);
-//        String smallPhoto = photoService.getSmallPhoto(photoUrl);
-//
-//        ChallengePost challengePost = ChallengePost.builder()
-//                .postTitle(title)
-//                .postContents(contents)
-//                .postIsPublic(status)
-//                .postScore(postScore)
-//                .linkedChallenge(linkedChallenge)
-//                .challenger(member)
-//                .largePhoto(largePhoto)
-//                .smallPhoto(smallPhoto)
-//                .build();
-//
-//        challengePostRepository.save(challengePost);
-//
-//        return challengePost;
-//    }
-
     public RsData<ChallengePost> write(String title, String contents, boolean status, long postScore, long id,
                                        String photoUrl, Member member) {
 
@@ -83,6 +38,7 @@ public class ChallengePostService {
         ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member).orElse(null);
 
         RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
+
 
         if (postLimitRsData.isFail()) {
             System.out.println(postLimitRsData.getMsg());
