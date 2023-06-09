@@ -39,4 +39,6 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
                                            @Param("me") Member me,
                                            Pageable pageable);
 
+    List<Challenge> findByChallengeName(String challengeName);
+
 }

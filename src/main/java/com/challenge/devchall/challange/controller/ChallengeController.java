@@ -58,23 +58,16 @@ public class ChallengeController {
             Principal principal
     ) throws IOException {
 
-        RsData<String> imgRsData = isImgFile(file.getOriginalFilename());
-
-        if (!file.isEmpty() && imgRsData.isSuccess()) {
-            System.out.println(imgRsData.getMsg());
-        }else{
-            //toast ui warning으로 처리?
-            System.out.println(imgRsData.getMsg());
-            return "redirect:/";
-        }
-
-
-        String photoUrl = photoService.photoUpload(file);
-
         Member loginMember = memberService.getByLoginId(principal.getName());
 
-        challengeService.createChallenge(title, contents, status, frequency, startDate, period,
-                language, subject, posttype, photoUrl, loginMember);
+        RsData<Challenge> createRsData = challengeService.createChallenge(title, contents, status, frequency, startDate, period,
+                language, subject, posttype, file, loginMember);
+
+        //FIXME rq.historyback() + warning??
+        if(createRsData.isFail()){
+            System.out.println("챌린지 생성에 실패하였습니다.");
+            return "redirect:/";
+        }
 
         return "redirect:/";
     }
@@ -118,21 +111,6 @@ public class ChallengeController {
         model.addAttribute("isJoin", isJoin);
 
         return "/usr/challenge/detail";
-    }
-
-    public RsData<String> isImgFile(String fileName) {
-
-        //확장자 추출
-        String fileExtension = StringUtils.getFilenameExtension(fileName);
-
-        if (fileExtension != null && (fileExtension.equals("jpg") || fileExtension.equals("jpeg")
-                || fileExtension.equals("png") || fileExtension.equals("gif"))){
-
-            return RsData.of("S-6", "이미지가 맞습니다.");
-        }
-        else
-            return RsData.of("F-6", "이미지만 업로드가 가능합니다.");
-
     }
 
 }

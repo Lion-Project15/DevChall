@@ -32,21 +32,34 @@ public class ChallengeService {
     private final PhotoService photoService;
 
     @Transactional
-    public Challenge createChallenge (String title, String contents, boolean status, String frequency, String startDate, String period,
-                                      String language, String subject, String posttype, String photoUrl, Member member) throws IOException {
+    public RsData<Challenge> createChallenge (String title, String contents, boolean status, String frequency, String startDate, String period,
+                                      String language, String subject, String postType, MultipartFile file, Member member) throws IOException {
 
+        //1차 검증. 멤버가 한달에 한개 생성 제한에 걸리지 않는가?
         RsData<Member> memberRsData = memberService.checkChallengeLimit(member);
 
-        //FIXME 이미 2개를 생성한 상태라면 뒤의 작업이 이루어지지 않아야 함.
+        //이미 이번 달에 챌린지를 생성한 상태라면 뒤의 작업이 이루어지지 않아야 함.
         if (memberRsData.isFail()) {
             System.out.println(memberRsData.getMsg());
-            return null;
+            return RsData.of(memberRsData.getResultCode(), memberRsData.getMsg());
         }
 
-        String largePhoto = photoService.getLargePhoto(photoUrl);
-        String smallPhoto = photoService.getSmallPhoto(photoUrl);
-
         FormattingResult formattingResult = formatting(frequency, startDate, period);
+
+        //2차 검증, 챌린지 생성 룰이 지켜졌는지 검사
+        RsData<Challenge> checkRsData = checkCreateRule(title, formattingResult.formattingStartDate, contents, file);
+
+        String largePhoto = "";
+        String smallPhoto = "";
+
+        if(checkRsData.isSuccess()){
+            String photoUrl = photoService.photoUpload(file);
+            largePhoto = photoService.getLargePhoto(photoUrl);
+            smallPhoto = photoService.getSmallPhoto(photoUrl);
+        }else{
+            System.out.println(checkRsData.getMsg());
+            return checkRsData;
+        }
 
         Challenge challenge = Challenge
                 .builder()
@@ -61,21 +74,23 @@ public class ChallengeService {
                 .challengePeriod(formattingResult.formattingPeriod)
                 .challengeLanguage(language)
                 .challengeSubject(subject)
-                .challengePostType(posttype)
+                .challengePostType(postType)
                 .challengeCreator(member.getLoginID())
                 .gatherPoints(0)
                 .challengeMemberLimit(50)
                 .build();
 
-        int createCost = challenge.getChallengePeriod() * 50;
+        //현재 안쓰이고 있음.
+        //int createCost = challenge.getChallengePeriod() * 50;
 
         challengeRepository.save(challenge);
         challengeMemberService.addMember(challenge, member, Role.LEADER);
-        return challenge;
+
+        return RsData.of("S-1", "챌린지 생성에 성공하였습니다!");
     }
 
 
-    public List<Challenge> getChallengList() {
+    public List<Challenge> getChallengeList() {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
         List<Challenge> challenges = challengeRepository.findByChallengeStatus(true, pageable);
@@ -144,8 +159,6 @@ public class ChallengeService {
 
         String[] periodDate = period.split("주");
 
-
-
         return Integer.parseInt(periodDate[0]);
     }
 
@@ -166,6 +179,39 @@ public class ChallengeService {
         else {
             return true;
         }
+    }
+
+    public RsData<Challenge> checkCreateRule (String title, LocalDate startDate, String contents, MultipartFile file){
+
+        List<Challenge> byChallengeName = challengeRepository.findByChallengeName(title);
+
+        if(!byChallengeName.isEmpty()){
+            return RsData.of("F-1", "이미 존재하는 챌린지 명입니다.");
+        }
+
+        if(title.length() > 25){
+            return RsData.of("F-2", "제목은 25자 까지만 가능합니다.");
+        }
+
+        if(startDate.isBefore(LocalDate.now())){
+            return RsData.of("F-3", "챌린지 시작일은 내일 날짜부터 지정할 수 있습니다.");
+        }
+
+        if(contents.length() > 500){
+            return RsData.of("F-4", "챌린지 내용은 500자 까지만 작성 가능합니다.");
+        }
+
+        RsData<String> imgRsData = photoService.isImgFile(file.getOriginalFilename());
+
+        if (!file.isEmpty() && imgRsData.isSuccess()) {
+            System.out.println(imgRsData.getMsg());
+        }else{
+            //toast ui warning으로 처리?
+            System.out.println(imgRsData.getMsg());
+            return RsData.of("F-5", "대표이미지 첨부는 jpg, jpeg, png, gif 확장자만 가능합니다.");
+        }
+
+        return RsData.of("S-1", "챌린지 생성이 가능합니다!");
     }
 
 }
