@@ -15,6 +15,6 @@ spring:
 logging:
   level:
     root: INFO
-    com.ll.gramgram: INFO
+    com.challenge.devchall: INFO
     org.hibernate.orm.jdbc.bind: INFO
     org.hibernate.orm.jdbc.extract: INFO
