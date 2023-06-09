@@ -82,7 +82,7 @@ public class ChallengeService {
         return challenges;
     }
 
-    public List<Challenge> getChallengList(String language, String subject) {
+    public List<Challenge> getChallengeList(String language, String subject) {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
         return challengeRepository.findByConditions(language, subject, pageable);

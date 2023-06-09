@@ -11,7 +11,7 @@
 
     <!-- FIXME 챌린지별 사진으로 변경?-->
     <div class="flex flex-1 justify-center items-center">
-        <form method="post" th:action="@{/usr/challenge/create}" onsubmit="LikeForm__submit(this); return false;"
+        <form method="post" th:action="@{/usr/challenge/create}"
               enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full">
             <div class="card bg-white">
                 <div class="w-full p-10 lg:w-[65rem]">
@@ -148,9 +148,6 @@
 
                     <div class="flex flex-col justify-center mt-[20px]">
                         <input type="submit" value="생성완료" class="btn btn-md btn-accent btn-success gap-3">
-                        <!--          <button id="btn-join-1" class="btn btn-md btn-primary btn-success gap-3">-->
-                        <!--            <span>회원가입</span>-->
-                        <!--          </button>-->
                     </div>
 
                 </div>
