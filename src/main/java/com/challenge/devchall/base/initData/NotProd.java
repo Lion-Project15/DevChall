@@ -28,12 +28,16 @@ public class NotProd {
             @Override
             @Transactional
             public void run (String... args) throws Exception {
-                Member admin = memberService.join("admin", "1234", "admin@admin.com", "관리자", "관리자").getData();//admin 계정
-                Member user1 = memberService.join("user1", "1234", "user1@devchall.com", "user1", "user1").getData();
-                Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2", "user2").getData();
-                Member user3 = memberService.join("user3", "1234", "user3@devchall.com", "user3", "user3").getData();
-                Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4", "user4").getData();
-                Member user5 = memberService.join("user5", "1234", "user5@devchall.com", "user5", "user5").getData();
+                Member admin = memberService.join("admin", "1234", "admin@admin.com",  "관리자").getData();//admin 계정
+                Member user1 = memberService.join("user1", "1234", "user1@devchall.com",  "user1").getData();
+                Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2").getData();
+                Member user3 = memberService.join("user3", "1234", "user3@devchall.com",  "user3").getData();
+                Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4").getData();
+                Member user5 = memberService.join("user5", "1234", "user5@devchall.com",  "user5").getData();
+
+                //미정 소셜 로그인정보
+//                Member memberUserMJByKakao = memberService.whenSocialLogin("KAKAO", "KAKAO__2824935881","mijeong1015@naver.com","미정").getData();
+//                Member memberUserMJByNaver = memberService.whenSocialLogin("NAVER", "NAVER__nydxlR1MJUEOU2XKgEWh4nhLSWUAE9eIXR5ae8oOAbQ").getData();
               
                 String photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
 

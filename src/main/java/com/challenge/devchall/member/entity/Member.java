@@ -27,7 +27,6 @@ import java.util.*;
 public class Member extends BaseEntity {
     @Column(unique = true)
     private String loginID; //회원 로그인 id
-    private String username; //본명
     private String password;
     private String repeatPassword;
 
@@ -37,8 +36,7 @@ public class Member extends BaseEntity {
     @Column(unique = true)
     private String email;
 
-    private String emailToken; //이메일 토큰
-    private boolean isValid; // 인증 여부
+    private String providerTypeCode; //소셜 회원 = (NAVER or KAKAO), 일반회원 = (DevChall)
 
     @OneToOne(cascade = CascadeType.ALL) //영속화 작업
     @JoinColumn(referencedColumnName = "id") //데이터베이스의 point id와 join

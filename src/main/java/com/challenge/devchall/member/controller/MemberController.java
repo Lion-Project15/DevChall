@@ -17,6 +17,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,40 +37,15 @@ public class MemberController {
         return "/usr/member/join";
     }
 
-//    @AllArgsConstructor
-//    @Getter
-//    public static class JoinForm {
-//        @NotBlank
-//        @Size(min = 4, max = 15)
-//        private final String loginID;
-//
-//        @NotBlank
-//        @Size(min = 4, max = 15)
-//        private final String password;
-//
-//        @NotBlank
-//        @Size(min = 1, max = 30)
-//        private final String username;
-//
-//        @NotBlank
-//        @Size(min = 4, max = 30)
-//        private final String email;
-//
-//        @NotBlank
-//        @Size(min = 1, max = 30)
-//        private final String nickname;
-//    }
-
     @PostMapping("/join")
     public String join (@Valid MemberRequestDto memberDto, BindingResult bindingResult, Model model) {
-        RsData<Member> validateRsData = memberService.validateMember(memberDto.getLoginID(), memberDto.getEmail(), memberDto.getNickname());
+        RsData<Member> validateRsData = memberService.validateMember(memberDto.getLoginID(), memberDto.getEmail());
 
         if (bindingResult.hasErrors() || validateRsData.isFail() ) {
             if (validateRsData.isFail()){
                 switch (validateRsData.getResultCode()){
                     case "F-1" -> model.addAttribute("valid_loginID",validateRsData.getMsg());
-                    case "F-2" -> model.addAttribute("valid_nickname",validateRsData.getMsg());
-                    case "F-3" -> model.addAttribute("valid_email",validateRsData.getMsg());
+                    case "F-2" -> model.addAttribute("valid_email",validateRsData.getMsg());
                 }
 
             }
@@ -80,15 +56,17 @@ public class MemberController {
             model.addAttribute("memberDto",memberDto);
             return "usr/member/join";
         }
-        RsData<Member> rsData = memberService.join(memberDto.getLoginID(), memberDto.getPassword(), memberDto.getEmail(), memberDto.getNickname(), memberDto.getUsername());
-
+        RsData<Member> rsData = memberService.join(memberDto.getLoginID(), memberDto.getPassword(),memberDto.getEmail(), memberDto.getNickname());
 
         return "redirect:/usr/member/login";
     }
 
-    @PreAuthorize("isAnonymous()")
     @GetMapping("/login")
-    public String showLogin () {
+    public String showLogin (@RequestParam(value = "error", required = false)String error,
+                              @RequestParam(value = "exception", required = false)String exception, Model model) {
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
+
         return "/usr/member/login";
     }
 

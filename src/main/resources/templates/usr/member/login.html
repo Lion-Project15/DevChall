@@ -1,4 +1,4 @@
-<html layout:decorate="~{usr/member/layout.html}">
+<html layout:decorate="~{usr/member/layout.html}" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 
 <head>
     <title>로그인</title>
@@ -7,43 +7,6 @@
 <body>
 
 <main layout:fragment="main" body class="bg-[#121212] text-white flex flex-col w-full h-full">
-<!--    <script>-->
-<!--        function LoginForm__submit(form) {-->
-<!--            // loginID 이(가) 올바른지 체크-->
-
-<!--            form.loginID.value = form.loginID.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거-->
-
-<!--            if (form.loginID.value.length == 0) {-->
-<!--                toastWarning('아이디를 입력해주세요.');-->
-<!--                form.loginID.focus();-->
-<!--                return;-->
-<!--            }-->
-
-<!--            if (form.loginID.value.length < 4) {-->
-<!--                toastWarning('아이디를 4자 이상 입력해주세요.');-->
-<!--                form.loginID.focus();-->
-<!--                return;-->
-<!--            }-->
-
-<!--            // password 이(가) 올바른지 체크-->
-
-<!--            form.password.value = form.password.value.trim(); // 입력란의 입력값에 있을지 모르는 좌우공백제거-->
-
-<!--            if (form.password.value.length == 0) {-->
-<!--                form.password.focus();-->
-<!--                toastWarning('비밀번호를 입력해주세요.');-->
-<!--                return;-->
-<!--            }-->
-
-<!--            if (form.password.value.length < 4) {-->
-<!--                toastWarning('비밀번호를 4자 이상 입력해주세요.');-->
-<!--                form.password.focus();-->
-<!--                return;-->
-<!--            }-->
-
-<!--            form.submit(); // 폼 발송-->
-<!--        }-->
-<!--    </script>-->
     <div>
         <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/logo.png" class="w-[250px] h-[250px]">
     </div>
@@ -65,6 +28,9 @@
                             </label>
                             <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
                         </div>
+                <c:if test="${error}">
+                    <p th:style="${'color: red; font-size:14px;'}" class="exception" th:text="${exception}"></p>
+                </c:if>
                 <div class="flex flex-col justify-center mt-[20px]">
                     <button id="btn-join-1" class="btn btn-md btn-accent gap-3">
                         <span class="text-white" style="font-size: 17px;">로그인</span>
@@ -75,8 +41,8 @@
                         </label>
                     </div>
                     <div class="mt-[20px] flex justify-center space-x-6">
-                        <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/naver-icon.png" class="w-[50px] h-[50px]">
-                        <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/kakao-icon.png" class="w-[50px] h-[50px]">
+                        <a href="/oauth2/authorization/naver"><img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/naver-icon.png" class="w-[50px] h-[50px]"></a>
+                        <a href="/oauth2/authorization/kakao"><img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/kakao-icon.png" class="w-[50px] h-[50px]"></a>
                     </div>
                 </div>
             </div>
