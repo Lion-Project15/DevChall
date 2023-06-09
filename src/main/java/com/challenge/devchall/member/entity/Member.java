@@ -100,11 +100,11 @@ public class Member extends BaseEntity {
         }
         return null;
     }
-    public Item getEquippedCharacter(){
+    public Inventory getEquippedCharacter(){
         for(Inventory iv: inventoryList){
             if(iv.isEquipped() && //장착중
                     iv.getItem().getType().equals("character")){ //타입=폰트
-                return iv.getItem();
+                return iv;
             }
         }
         return null;

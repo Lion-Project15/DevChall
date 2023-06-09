@@ -4,6 +4,8 @@ import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.inventory.entity.Inventory;
+import com.challenge.devchall.item.entity.Item;
+import com.challenge.devchall.item.service.ItemService;
 import com.challenge.devchall.member.dto.MemberRequestDto;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,7 +29,8 @@ import java.util.Map;
 @RequestMapping("/usr/member")
 public class MemberController {
     private final MemberService memberService;
-    final private ChallengeMemberService challengeMemberService;
+    private final ChallengeMemberService challengeMemberService;
+    private final ItemService itemService;
     private final Rq rq;
 
     //회원가입
@@ -103,12 +107,12 @@ public class MemberController {
     }
 
     @GetMapping("/store")
-    public String getStore(Model model, Principal principal) {
-        String memberNickname = principal.getName(); // 현재 인증된 사용자의 닉네임
-        int memberPoint = memberService.getMemberPoint(memberNickname);
+    public String getStore(Model model) {
+        Map<String, List<Item>> items = new HashMap<>();
+        items.put("fonts",itemService.getByType("font"));
+        items.put("characters",itemService.getByType("character"));
 
-        model.addAttribute("memberNickname", memberNickname);
-        model.addAttribute("memberPoint", memberPoint);
+        model.addAttribute("items", items);
 
         return "/usr/member/store";
     }

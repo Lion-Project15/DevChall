@@ -146,7 +146,12 @@ public class MemberService {
 
         member.getPoint().subtract(buyItem.getPrice());
         if(equip){
-            member.getEquippedFont().unequip();
+            if(buyItem.getType().equals("font")) {
+                member.getEquippedFont().unequip();
+            } else if (buyItem.getType().equals("character")) {
+                member.getEquippedCharacter().unequip();
+            }
+
             rs.getData().equip();
         }
 

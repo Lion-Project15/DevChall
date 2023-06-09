@@ -39,14 +39,24 @@
             <div class="flex justify-center items-center">
                 <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-20"
                      style="width: 200px;">
-                    <a class="mt-4 text-[#000000] font-bold text-xl" th:text="${memberNickname}"></a>
+                    <a class="mt-4 text-[#313131] font-bold text-xl" th:text="${@rq.member.nickname}"></a>
+<!--                    <a href="usr/member/me"-->
+<!--                       th:style="'color: #' + ${rq.member.equippedFont.item.subPattern} + '; background: #'+${rq.member.equippedFont.item.pattern}+' !important'"-->
+<!--                       th:if="${rq.login}"-->
+<!--                       class="mt-4 text-xl font-bold"-->
+<!--                       th:text="${rq.member.nickname}">-->
+<!--                    </a>-->
                 </div>
             </div>
+
+
+
+
 
             <div class="flex justify-center items-center">
                 <div class="flex justify-center bg-[#000000] rounded-[4.3444rem] flex-shrink-0 h-[4rem] mx-[18rem] w-[calc(100% - 30rem)] mt-20 border border-[#03fa6e]"
                      style="width: 200px;">
-                    <a class="mt-4 text-[#03fa6e] font-bold text-xl" th:text="${memberPoint + 'point'}">point</a>
+                    <a class="mt-4 text-[#03fa6e] font-bold text-xl" th:text="${@rq.member.point.currentPoint + 'point'}">point</a>
                 </div>
             </div>
 
@@ -71,14 +81,19 @@
                          style="width: 200px;">
                         <span class="mt-4 text-[#000000] font-bold text-xl">Font Color</span>
                     </div>
-
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
-                        <!--색상 아이템 추가-->
-                        <div class="mx-3 mt-5" style="display: flex; justify-content: center; align-items: center; width: 100px; height: 100px; background-color: #FCE411;"></div>
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy("L-F-FCE411")>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+<!--                    -->
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7"
+                         th:each="font:${items['fonts']}">
+                        <div >
+                            <!--색상 아이템 추가-->
+                            <div class="mx-3 mt-5 w-[100px] h-[100px] flex justify-center items-center"
+                                 th:style="'background-color: #'+${font.pattern}+';'"></div>
+                            <div  class="flex flex-col justify-end items-start mt-7 space-y-6">
+                                <span th:text="${font.price}"
+                                      class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                                <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy("L-F-FCE411")>
+                                    <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                                </div>
                             </div>
                         </div>
                     </div>
