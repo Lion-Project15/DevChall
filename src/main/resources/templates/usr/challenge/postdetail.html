@@ -39,6 +39,11 @@
                     <img class="mt-10" th:src="${post.largePhoto}" alt="post_image"/>
                 </div>
 
+                <div class="w-full p-10 lg:w-[65rem]">
+                    <span class="badge badge-md">자기 평가</span>
+                    <h3 class="text-lg font-bold mx-3" th:text="${post.postScore}"></h3>
+                </div>
+
                 <div class="flex flex-row justify-center">
                     <a class="btn btn-accent" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
                     <button class="btn btn-accent mx-5" th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>

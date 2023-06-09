@@ -100,6 +100,11 @@
                                         <img th:src="${post.smallPhoto}" alt="post_image"/>
                                     </figure>
                                     <div class="card-body">
+                                        <p>
+                                            <i class="fa-sharp fa-solid fa-star fa-beat fa-sm" style="color: #40dd84;"></i>
+                                            <small th:text="${post.postScore}"></small>
+                                        </p>
+
                                         <h2 class="card-title" th:text="${post.postTitle}"></h2>
                                         <p th:text="${post.postContents}"></p>
                                         <div class="card-actions justify-end">
