@@ -30,4 +30,41 @@ public class InventoryService {
     public boolean isPurchased(Member member, Item item){ //true: 이미 구매함, false: 처음 구매
         return inventoryRepository.findByMemberAndItem(member, item).isPresent();
     }
+
+    public void changeFontEquip(long itemId, Member member) {
+
+        if(member!=null){
+
+            member.getEquippedFont().unequip();
+
+            for(Inventory inventory: member.getInventoryList()){
+
+                if(inventory.getItem().getId()==itemId){
+
+                    inventory.equip();
+
+                    return;
+                }
+            }
+
+        }
+    }
+
+    public void changeCharacterEquip(long itemId, Member member) {
+        if(member!=null){
+
+            member.getEquippedCharacter().unequip();
+
+            for(Inventory inventory: member.getInventoryList()){
+
+                if(inventory.getItem().getId()==itemId){
+
+                    inventory.equip();
+
+                    return;
+                }
+            }
+
+        }
+    }
 }

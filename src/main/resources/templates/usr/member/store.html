@@ -18,6 +18,11 @@
                 location.href = "/usr/member/store/buy/" + itemId + "?equipped=" + confirm('바로 착용하시겠습니까?');
             }
         }
+        function changeEquip(itemId) {
+            if (confirm('착용 하시겠습니까?' + itemId)) {
+                location.href = "/usr/inventory/change/" + itemId;
+            }
+        }
     </script>
 
     <div class="gap-75px flex">
@@ -36,10 +41,10 @@
                 </a>
             </div>
 
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center" th:if="${@rq.login}">
                 <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-20"
                      style="width: 200px;">
-                    <a class="mt-4 text-[#313131] font-bold text-xl" th:text="${@rq.member.nickname}"></a>
+                    <a class="mt-4 text-[#313131] font-bold text-xl"  th:text="${@rq.member.nickname}"></a>
 <!--                    <a href="usr/member/me"-->
 <!--                       th:style="'color: #' + ${rq.member.equippedFont.item.subPattern} + '; background: #'+${rq.member.equippedFont.item.pattern}+' !important'"-->
 <!--                       th:if="${rq.login}"-->
@@ -53,7 +58,7 @@
 
 
 
-            <div class="flex justify-center items-center">
+            <div class="flex justify-center items-center" th:if="${@rq.login}">
                 <div class="flex justify-center bg-[#000000] rounded-[4.3444rem] flex-shrink-0 h-[4rem] mx-[18rem] w-[calc(100% - 30rem)] mt-20 border border-[#03fa6e]"
                      style="width: 200px;">
                     <a class="mt-4 text-[#03fa6e] font-bold text-xl" th:text="${@rq.member.point.currentPoint + 'point'}">point</a>
@@ -61,24 +66,14 @@
             </div>
 
             <div id="center" class="px-30 m-20 bg-[#313131] round-[1.7rem] h-[20rem] top-[48.2rem] w-[20rem] flex justify-center items-center">
-<!--                <button class="flex items-center justify-center w-12 h-12 bg-[#000000] rounded-full text-white">-->
-<!--                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"-->
-<!--                        stroke="currentColor">-->
-<!--                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>-->
-<!--                    </svg>-->
-<!--                </button>-->
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-[10px]" th:if="${@rq.login}">
-                    <a href="#" th:each="inventory:${@rq.member.inventoryList}"
-                       th:onclick="'showBuy('+${inventory.item.id}+')'">
-                        <div th:if="${inventory.equipped}"
-                             class="w-[85px] h-[85px] flex justify-center items-center"
+                    <div style="cursor: pointer" th:each="inventory:${@rq.member.inventoryList}"
+                       th:onclick="'changeEquip('+${inventory.item.id}+')'">
+                        <div class="w-[85px] h-[85px] flex justify-center items-center"
                              th:style="'background-color: #'+${inventory.item.pattern}+';'">
-                            <div class="badge badge-accent">착용중</div>
+                            <div th:if="${inventory.equipped}" class="badge badge-accent">착용중</div>
                         </div>
-                        <div th:if="${!inventory.equipped}"
-                             class="w-[85px] h-[85px] flex justify-center items-center"
-                             th:style="'background-color: #'+${inventory.item.pattern}+';'"></div>
-                    </a>
+                    </div>
                 </div>
             </div>
 

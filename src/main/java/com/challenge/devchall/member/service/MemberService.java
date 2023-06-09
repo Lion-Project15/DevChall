@@ -165,12 +165,11 @@ public class MemberService {
         member.getPoint().subtract(buyItem.getPrice());
         if(equip){
             if(buyItem.getType().equals("font")) {
-                member.getEquippedFont().unequip();
+                inventoryService.changeFontEquip(buyItem.getId(), member);
             } else if (buyItem.getType().equals("character")) {
-                member.getEquippedCharacter().unequip();
-            }
+                inventoryService.changeCharacterEquip(buyItem.getId(), member);
 
-            rs.getData().equip();
+            }
         }
 
         return RsData.of("S-6", "구매에 성공하였습니다.");

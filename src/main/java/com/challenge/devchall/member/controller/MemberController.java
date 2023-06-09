@@ -95,6 +95,7 @@ public class MemberController {
         return "/usr/member/store";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/store/buy/{itemId}")
     public String buyItem(@PathVariable("itemId") String itemId,
                           @RequestParam(required = false, defaultValue = "false") boolean equipped,
