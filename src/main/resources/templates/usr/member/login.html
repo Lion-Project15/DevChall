@@ -1,4 +1,4 @@
-<html layout:decorate="~{usr/member/layout.html}">
+<html layout:decorate="~{usr/member/layout.html}" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 
 <head>
     <title>로그인</title>
@@ -28,6 +28,9 @@
                             </label>
                             <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
                         </div>
+                <c:if test="${error}">
+                    <p th:style="${'color: red; font-size:14px;'}" class="exception" th:text="${exception}"></p>
+                </c:if>
                 <div class="flex flex-col justify-center mt-[20px]">
                     <button id="btn-join-1" class="btn btn-md btn-accent gap-3">
                         <span class="text-white" style="font-size: 17px;">로그인</span>

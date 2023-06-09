@@ -81,7 +81,7 @@ public class MemberService {
     // 소셜 로그인(카카오, 구글, 네이버) 로그인이 될 때 마다 실행되는 함수
     @Transactional
     public RsData<Member> whenSocialLogin(String providerTypeCode, String loginID, String email, String nickname) {
-        Optional<Member> opMember = findByLoginID(loginID); // socialId 예시 : KAKAO__1312319038130912, NAVER__1230812300
+        Optional<Member> opMember = findByLoginID(loginID);
 
         if (opMember.isPresent()) return RsData.of("S-2", "로그인 되었습니다.", opMember.get());
 

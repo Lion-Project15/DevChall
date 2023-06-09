@@ -51,7 +51,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
 
-        System.out.println("attributes = " + attributes);
+//        System.out.println("attributes = " + attributes);
 
         Member member = memberService.whenSocialLogin(providerTypeCode, oauthId, email, nickname).getData();
 
