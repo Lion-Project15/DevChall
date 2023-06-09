@@ -1,5 +1,6 @@
 package com.challenge.devchall.member.service;
 
+import ch.qos.logback.core.spi.ConfigurationEvent;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.inventory.entity.Inventory;
 import com.challenge.devchall.inventory.service.InventoryService;
@@ -13,12 +14,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import com.challenge.devchall.item.entity.Item;
-
-
 import java.util.Arrays;
+
+import java.awt.datatransfer.Clipboard;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -41,17 +44,25 @@ public class MemberService {
     }
 
     @Transactional
-    public RsData<Member> join(String loginID, String password, String email, String nickname, String username) {
-        RsData<Member> rsData = validateMember(loginID, email, nickname);
+    public RsData<Member> join(String loginID, String password, String email, String nickname) {
 
+        RsData<Member> rsData = validateMember(loginID, email);
         if (rsData.isFail()) return rsData;
+
+        return join("DevChall",loginID,password,email,nickname);
+    }
+    private RsData<Member> join (String providerTypeCode, String loginID, String password, String email, String nickname){
+        if (findByLoginID(loginID).isPresent()) {
+            return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginID));
+        }
+        if (StringUtils.hasText(password)) password = passwordEncoder.encode(password);
         Member member = Member
                 .builder()
+                .providerTypeCode(providerTypeCode)
                 .loginID(loginID)
                 .email(email)
                 .nickname(nickname)
-                .username(username)
-                .password(passwordEncoder.encode(password))
+                .password(password)
                 .challengeLimit(0)
                 .point(pointService.create())
                 .build();
@@ -63,19 +74,15 @@ public class MemberService {
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
     }
 
-    public RsData<Member> validateMember (String loginID, String email, String nickname) {
+    public RsData<Member> validateMember (String loginID, String email) {
         if (findByLoginID(loginID).isPresent()) {
             return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginID));
         }
-        if (memberRepository.existsByNickname(nickname)){
-            return RsData.of("F-2", "해당 닉네임은(%s)는 이미 사용중입니다. 다른 닉네임을 사용해주세요.".formatted(nickname));
-        }
         if (memberRepository.existsByEmail(email)){
-            return RsData.of("F-3", "해당 이메일은 이미 사용중입니다.");
+            return RsData.of("F-2", "해당 이메일은 이미 사용중입니다.");
         }
         return RsData.of("S-1", "유효성 검사 완료");
     }
-
 
     public Map<String, String> validateHandling(Errors errors) {
         Map<String, String> validatorResult = new HashMap<>();
@@ -87,9 +94,20 @@ public class MemberService {
         return validatorResult;
     }
 
-    public Member getByLoginId(String loginId){
+    // 소셜 로그인(카카오, 구글, 네이버) 로그인이 될 때 마다 실행되는 함수
+    @Transactional
+    public RsData<Member> whenSocialLogin(String providerTypeCode, String loginID, String email, String nickname) {
+        Optional<Member> opMember = findByLoginID(loginID);
 
-        return memberRepository.findByLoginID(loginId).orElse(null);
+        if (opMember.isPresent()) return RsData.of("S-2", "로그인 되었습니다.", opMember.get());
+
+        // 소셜 로그인를 통한 가입시 비번은 없음 "" 처리
+        return join(providerTypeCode, loginID, "", email, nickname); // 최초 로그인 시 딱 한번 실행
+    }
+
+    public Member getByLoginId(String loginID){
+
+        return memberRepository.findByLoginID(loginID).orElse(null);
     }
 
     public RsData<Member> checkChallengeLimit(Member member){
