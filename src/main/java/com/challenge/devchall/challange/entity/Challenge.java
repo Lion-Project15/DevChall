@@ -36,6 +36,7 @@ public class Challenge extends BaseEntity {
     private String challengeSubject;
     private String challengePostType;
     private long gatherPoints;
+    private int challengeMemberLimit;
 
     private String challengeCreator;
     private String photoFile;

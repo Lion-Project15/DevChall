@@ -11,10 +11,18 @@ import com.challenge.devchall.base.rsData.RsData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.util.StreamUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.UUID;
 
 
@@ -82,6 +90,21 @@ public class PhotoService {
         sb.append("?type=m&w=200&h=115&quality=90&bgcolor=FFFFFF&extopt=0&anilimit=1");
 
         return sb.toString();
+    }
+
+    public RsData<String> isImgFile(String fileName) {
+
+        //확장자 추출
+        String fileExtension = StringUtils.getFilenameExtension(fileName);
+
+        if (fileExtension != null && (fileExtension.equals("jpg") || fileExtension.equals("jpeg")
+                || fileExtension.equals("png") || fileExtension.equals("gif"))){
+
+            return RsData.of("S-6", "이미지가 맞습니다.");
+        }
+        else
+            return RsData.of("F-6", "이미지만 업로드가 가능합니다.");
+
     }
 
 }
