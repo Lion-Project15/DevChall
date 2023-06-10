@@ -100,6 +100,7 @@ public class ChallengeService {
         return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);
     }
 
+
     public class FormattingResult {
         private int formattingFrequency;
         private LocalDate formattingStartDate;

@@ -1,0 +1,113 @@
+<html data-theme="light" lang="ko">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <link rel="stylesheet" href="https://jhs512.github.io/toastr/toastr.css">
+
+    <!-- 폰트어썸 아이콘 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 아이콘 목록 : https://fontawesome.com/search?o=r&m=free -->
+
+    <script>
+        toastr.options = {
+            closeButton: true,
+            debug: false,
+            newestOnTop: true,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            preventDuplicates: false,
+            onclick: null,
+            showDuration: "300",
+            hideDuration: "1000",
+            timeOut: "5000",
+            extendedTimeOut: "1000",
+            showEasing: "swing",
+            hideEasing: "linear",
+            showMethod: "fadeIn",
+            hideMethod: "fadeOut"
+        };
+
+        function toastNotice(msg) {
+            toastr["success"](msg, "알림");
+        }
+
+        function toastWarning(msg) {
+            toastr["warning"](msg, "알림");
+        }
+    </script>
+
+    <style>
+        @font-face {
+            font-family: 'NanumSquare';
+            src: url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquare@2.0/nanumsquare.css') format('sans-serif');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        html > body {
+            font-family: 'NanumSquare';
+            text-underline-position: under;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+    </style>
+    <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">DevChall</title>
+</head>
+
+<body class="bg-[#F2F4F4] text-black min-h-screen flex flex-col">
+
+<link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" rel="stylesheet" type="text/css"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<!--네브바 시작-->
+<nav>
+    <div class="navbar text-accent bg-[#121212]">
+        <div class="navbar-start">
+            <a class="btn btn-ghost normal-case">
+                <h3>DevChall</h3>
+            </a>
+        </div>
+        <div class="navbar-center hidden lg:flex ">
+        </div>
+
+    </div>
+</nav>
+<!--네브바 끝-->
+<table>
+    <tr>
+        <th>포인트</th>
+        <th>타입</th>
+        <th>생성일</th>
+        <th>현재 포인트</th>
+    </tr>
+    <tr  th:each="pointHistory : ${pointHistoryList} ">
+        <td th:text="${pointHistory.point}"></td>
+        <td th:text="${pointHistory.type}"></td>
+        <td th:text="${pointHistory.getCreateDateStr()}"></td>
+        <td th:text="${pointHistory.currentpoint}"></td>
+    </tr>
+</table>
+
+
+</body>
+
+</html>
