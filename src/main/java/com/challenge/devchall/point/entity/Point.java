@@ -3,6 +3,7 @@ package com.challenge.devchall.point.entity;
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,15 +22,16 @@ public class Point extends BaseEntity {
     private Long currentPoint;
     private Long totalPoint;
 
-    public void add(int cost){
+    public void add(long cost){
         this.currentPoint+=cost;
         this.totalPoint+=cost;
         System.out.printf("참가 비용 %d 원이 추가되었습니다.", cost);
     }
 
-    public void subtract(int cost){
+    public void subtract(long cost){
         this.currentPoint-=cost;
         System.out.printf("참가 비용 %d 원이 지불되었습니다.", cost);
+
     }
 
 }
