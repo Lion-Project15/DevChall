@@ -6,6 +6,8 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.dto.SettleChallengeDTO;
 import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.point.repository.PointRepository;
+import com.challenge.devchall.pointHistory.repository.PointHistoryRepository;
+import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import lombok.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +27,9 @@ import java.util.Map;
 @Transactional
 public class PointService {
     private final PointRepository pointRepository;
+    private final PointHistoryRepository pointHistoryRepository;
     private final ChallengeMemberService challengeMemberService;
+    private final PointHistoryService pointHistoryService;
     List<SettleChallengeDTO> settleChallengeDTOs;
 
     public Point create(){
@@ -32,6 +37,7 @@ public class PointService {
                 .currentPoint(1000L)
                 .totalPoint(1000L)
                 .build());
+
 
         return pointRepository.findById(p.getId()).orElse(null);
     }
@@ -87,6 +93,7 @@ public class PointService {
         if (cm.getChallengerRole() == Role.LEADER) {
             totalReward = Math.round(reward * 1.07);
         }
+        pointHistoryService.addPointHistory(cm.getChallenger(), totalReward, "챌린지 정산");
         cm.getChallenger().getPoint().add((int) totalReward);
     }
     public boolean checkAchievementRate(ChallengeMember cm, Challenge challenge) {
