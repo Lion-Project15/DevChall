@@ -35,7 +35,10 @@ public class ChallengePostService {
 
         Challenge linkedChallenge = challengeService.getChallengeById(id);
 
-        ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member).orElse(null);
+//        ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member).orElse(null);
+
+        ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member)
+                .orElseThrow(() -> new IllegalArgumentException("ChallengeMember에 속하지 않은 사용자는 글을 작성할 수 없습니다."));
 
         RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
 
