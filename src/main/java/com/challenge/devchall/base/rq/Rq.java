@@ -1,5 +1,6 @@
 package com.challenge.devchall.base.rq;
 
+import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -57,4 +58,21 @@ public class Rq {
         }
         return member;
     }
+
+    // 뒤로가기 + 메세지
+    public String historyBack(String msg) {
+        String referer = req.getHeader("referer");
+        String key = "historyBackErrorMsg___" + referer;
+        req.setAttribute("localStorageKeyAboutHistoryBackErrorMsg", key);
+        req.setAttribute("historyBackErrorMsg", msg);
+        // 200 이 아니라 400 으로 응답코드가 지정되도록
+        resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+        return "common/js";
+    }
+
+    // 뒤로가기 + 메세지
+    public String historyBack(RsData rsData) {
+        return historyBack(rsData.getMsg());
+    }
+
 }
