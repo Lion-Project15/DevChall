@@ -9,10 +9,25 @@
 
 <main layout:fragment="main" class="flex flex-col w-full">
 
+    <script th:inline="javascript">
+
+        function LikeForm__submit(form) {
+
+            if (form.title.length === 10) {
+                toastWarning('상대방의 인스타그램 아이디를 입력해주세요.');
+                form.title.focus();
+                return;
+            }
+
+            form.submit(); // 폼 발송
+        }
+    </script>
+
     <!-- FIXME 챌린지별 사진으로 변경?-->
     <div class="flex flex-1 justify-center items-center">
         <form method="post" th:action="@{/usr/challenge/create}"
-              enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full">
+              enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full"
+              onsubmit="LikeForm__submit(this); return false;">
             <div class="card bg-white">
                 <div class="w-full p-10 lg:w-[65rem]">
                     <p class="text-[25px] bolder">챌린지 생성</p>

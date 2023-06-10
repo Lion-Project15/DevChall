@@ -1,6 +1,7 @@
 package com.challenge.devchall.challange.controller;
 
 
+import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
@@ -35,6 +36,7 @@ public class ChallengeController {
     private final MemberService memberService;
     private final ChallengeService challengeService;
     private final PhotoService photoService;
+    private final Rq rq;
     private final ChallengeRepository challengeRepository;
 
 
@@ -63,14 +65,20 @@ public class ChallengeController {
         RsData<Challenge> createRsData = challengeService.createChallenge(title, contents, status, frequency, startDate, period,
                 language, subject, posttype, file, loginMember);
 
-        //FIXME rq.historyBack() + warning??
-        if(createRsData.isFail()){
-            System.out.println("챌린지 생성에 실패하였습니다.");
-            System.out.println(createRsData.getMsg());
-            return "redirect:/";
+//        //FIXME rq.historyBack() + warning??
+//        if(createRsData.isFail()){
+//            System.out.println("챌린지 생성에 실패하였습니다.");
+//            System.out.println(createRsData.getMsg());
+//            return "redirect:/";
+//        }
+
+        if (createRsData.isFail()) {
+            return rq.historyBack(createRsData);
         }
 
-        return "redirect:/";
+        return rq.redirectWithMsg("/", createRsData);
+
+//        return "redirect:/";
     }
 
     @GetMapping("/list")

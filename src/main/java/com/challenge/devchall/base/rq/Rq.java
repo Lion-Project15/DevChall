@@ -3,6 +3,7 @@ package com.challenge.devchall.base.rq;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
+import com.challenge.devchall.standard.util.Ut;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -11,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.security.core.userdetails.User;
+
+import java.util.Date;
 
 @Component
 @RequestScope
@@ -73,6 +76,26 @@ public class Rq {
     // 뒤로가기 + 메세지
     public String historyBack(RsData rsData) {
         return historyBack(rsData.getMsg());
+    }
+
+    // 302 + 메세지
+    public String redirectWithMsg(String url, RsData rsData) {
+        return redirectWithMsg(url, rsData.getMsg());
+    }
+
+    // 302 + 메세지
+    public String redirectWithMsg(String url, String msg) {
+        return "redirect:" + urlWithMsg(url, msg);
+    }
+
+    private String urlWithMsg(String url, String msg) {
+        // 기존 URL에 혹시 msg 파라미터가 있다면 그것을 지우고 새로 넣는다.
+        return Ut.url.modifyQueryParam(url, "msg", msgWithTtl(msg));
+    }
+
+    // 메세지에 ttl 적용
+    private String msgWithTtl(String msg) {
+        return Ut.url.encode(msg) + ";ttl=" + new Date().getTime();
     }
 
 }
