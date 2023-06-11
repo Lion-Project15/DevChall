@@ -138,12 +138,12 @@ public class ChallengePostController {
         Long linkedChallengeId = challengePostById.getLinkedChallenge().getId();
 
         // 현재 사용자의 로그인 ID를 가져옴
-        String loggedInUserId = principal.getName();
+        String loginId = principal.getName();
 
         // 게시물 작성자의 로그인 ID를 가져옴
         String postCreatorId = challengePostById.getCreatorId();
 
-        if (loggedInUserId.equals(postCreatorId)) {
+        if (loginId.equals(postCreatorId)) {
             return "redirect:/usr/challenge/postdetail/{id}";
         }
 
