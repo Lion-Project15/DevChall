@@ -1,13 +1,12 @@
 package com.challenge.devchall.challengeMember.service;
 
-import com.challenge.devchall.base.roles.ChallengeMember.Role;
+import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
 import com.challenge.devchall.challengepost.dto.SettleChallengeDTO;
 import com.challenge.devchall.member.entity.Member;
-import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

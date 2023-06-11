@@ -1,5 +1,5 @@
 package com.challenge.devchall.point.service;
-import com.challenge.devchall.base.roles.ChallengeMember.Role;
+import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
@@ -9,14 +9,11 @@ import com.challenge.devchall.point.repository.PointRepository;
 import com.challenge.devchall.pointHistory.repository.PointHistoryRepository;
 import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import lombok.*;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

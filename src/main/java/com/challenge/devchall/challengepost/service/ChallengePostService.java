@@ -17,6 +17,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,13 +38,20 @@ public class ChallengePostService {
         Challenge linkedChallenge = challengeService.getChallengeById(id);
 
         ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member).orElse(null);
+        RsData canWrite = canWrite(linkedChallenge, member);
 
-        RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
-
-        if(postLimitRsData.isFail()){
-            System.out.println(postLimitRsData.getMsg());
+        if(canWrite.isFail()){
+            System.out.println(canWrite.getMsg());
             return null;
         }
+
+
+//        RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
+
+//        if(postLimitRsData.isFail()){
+//            System.out.println(postLimitRsData.getMsg());
+//            return null;
+//        }
 
         String largePhoto = photoService.getLargePhoto(photoUrl);
         String smallPhoto = photoService.getSmallPhoto(photoUrl);
@@ -90,5 +99,26 @@ public class ChallengePostService {
         challengePostById.modifyPost(title, contents, status);
 
     }
+    public RsData canWrite(Challenge challenge, Member member){
 
+        List<ChallengePost> posts = challengePostRepository
+                .findByLinkedChallengeAndChallengerOrderByCreateDateDesc(challenge, member);
+
+        long weeks = (ChronoUnit.DAYS.between(challenge.getStartDate(), LocalDate.now())/7) + 1;
+
+        if(posts.size() == 0
+                || posts.get(0).getCreateDate().toLocalDate().isBefore(LocalDate.now())){
+
+            return RsData.of("F-1", "오늘은 이미 포스트를 작성했습니다.");
+
+        }
+//        if(posts.size() < challenge.getChallengeFrequency() * weeks){
+//
+//            return RsData.of("F-2", "이번주 할당된 포스트를 모두 작성했습니다.");
+//
+//        }
+
+
+        return RsData.of("S-1", "포스트 작성이 가능합니다.");
+    }
 }
