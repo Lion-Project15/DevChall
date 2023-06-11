@@ -57,16 +57,18 @@
                     <h3 class="text-lg font-bold mx-3" th:text="${post.postScore}"></h3>
                 </div>
 
-                <div class="flex flex-row justify-center">
-                    <a class="btn btn-accent" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
-                    <button class="btn btn-accent mx-5" th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
+                <th:unless th:if="${@rq.member.loginID}==${post.creatorId}">
+                    <div class="flex flex-row justify-center">
+                        <a class="btn btn-accent" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
+                        <button class="btn btn-accent mx-5" th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
 
-                    <h2 class="mx-5">OR</h2>
+                        <h2 class="mx-5">OR</h2>
 
-                    <button class="btn btn-warning btn-outline">
-                        <i class="fa-solid fa-heart" style="color: #da1010;"></i>
-                    </button>
-                </div>
+                        <button class="btn btn-warning btn-outline">
+                            <i class="fa-solid fa-heart" style="color: #da1010;"></i>
+                        </button>
+                    </div>
+                </th:unless>
 
 
                 <div class="pr-4 flex flex-row justify-end">
