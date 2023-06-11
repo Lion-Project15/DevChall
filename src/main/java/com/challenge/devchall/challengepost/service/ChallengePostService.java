@@ -104,14 +104,15 @@ public class ChallengePostService {
         List<ChallengePost> posts = challengePostRepository
                 .findByLinkedChallengeAndChallengerOrderByCreateDateDesc(challenge, member);
 
-        long weeks = (ChronoUnit.DAYS.between(challenge.getStartDate(), LocalDate.now())/7) + 1;
 
-        if(posts.size() == 0
-                || posts.get(0).getCreateDate().toLocalDate().isBefore(LocalDate.now())){
+
+        if(posts.size() > 0
+                && !posts.get(0).getCreateDate().toLocalDate().isBefore(LocalDate.now())){
 
             return RsData.of("F-1", "오늘은 이미 포스트를 작성했습니다.");
 
         }
+//        long weeks = (ChronoUnit.DAYS.between(challenge.getStartDate(), LocalDate.now())/7) + 1;
 //        if(posts.size() < challenge.getChallengeFrequency() * weeks){
 //
 //            return RsData.of("F-2", "이번주 할당된 포스트를 모두 작성했습니다.");

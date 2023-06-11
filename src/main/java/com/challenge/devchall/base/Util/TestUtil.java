@@ -1,4 +1,4 @@
-package com.challenge.devchall.Util;
+package com.challenge.devchall.base.Util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -22,6 +22,7 @@ public class TestUtil {
         } catch (IllegalAccessException e) {
             return false;
         }
+
 
         return true;
     }
