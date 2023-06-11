@@ -14,7 +14,7 @@
 <main layout:fragment="main" class="flex flex-col w-full min-h-screen">
     <script>
     function changeEquip(itemId) {
-        if (confirm('착용 하시겠습니까?' + itemId)) {
+        if (confirm('착용 하시겠습니까?')) {
             location.href = "/usr/inventory/me/change/" + itemId;
         }
     }
