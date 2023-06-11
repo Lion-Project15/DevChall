@@ -9,9 +9,51 @@
 
 <main layout:fragment="main" class="flex flex-col w-full">
 
+    <script th:inline="javascript">
+
+        function CreateForm__submit(form) {
+
+            if (form.title.value.length > 25 ) {
+                toastWarning('챌린지 제목은 25자 까지 가능합니다.');
+                form.title.focus();
+                console.log('제대로 됩니까?');
+                return;
+            }
+
+            if(form.contents.value.length > 500){
+                toastWarning('챌린지 내용은 500자 까지 작성 가능합니다.');
+                form.contents.focus();
+                return;
+            }
+
+            var today = new Date();
+            var selectedDate = new Date(form.startDate.value);
+
+            if(selectedDate <= today){
+                toastWarning('챌린지 시작일은 오늘 이후로 설정해야 합니다.');
+                form.startDate.focus();
+                return;
+            }
+
+            var fileInput = document.getElementById('img');
+            var fileName = fileInput.value;
+            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+
+            if (!allowedExtensions.exec(fileName)) {
+                toastWarning('첨부 파일의 확장자는 JPG, JPEG, PNG, GIF만 가능합니다.');
+                fileInput.value = '';
+                return;
+            }
+
+            form.submit(); // 폼 발송
+        }
+    </script>
+
     <!-- FIXME 챌린지별 사진으로 변경?-->
     <div class="flex flex-1 justify-center items-center">
-        <form method="post" th:action="@{/usr/challenge/create}" enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full">
+        <form method="post" th:action="@{/usr/challenge/create}"
+              enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full"
+              onsubmit="CreateForm__submit(this); return false;">
             <div class="card bg-white">
                 <div class="w-full p-10 lg:w-[65rem]">
                     <p class="text-[25px] bolder">챌린지 생성</p>
@@ -22,7 +64,9 @@
                                     <label for="title" class="label">
                                         <span class="text-gray-400">챌린지 제목</span>
                                     </label>
-                                    <input type="text" name="title" maxlength="15" placeholder="챌린지명" class="input input-bordered w-full form-control text-black" id="title" autofocus />
+                                    <input type="text" name="title" maxlength="30" placeholder="챌린지명"
+                                           class="input input-bordered w-full form-control text-black" id="title"
+                                           autofocus/>
                                 </div>
                             </div>
 
@@ -55,10 +99,14 @@
                                 <div class="w-full">
                                     <label class="label">
                                         <!-- 공개여부 UI 재설정 필요-->
-                                        <span class="">공개 여부</span>
+                                        <label class="label">
+                                            <span class="text-gray-400">공개 여부</span>
+                                        </label>
                                     </label>
-                                    <input type="radio" name="status" id="public" value=true class="radio radio-accent" checked>공개
-                                    <input type="radio" name="status" id="private" value=false class="radio radio-accent">비공개
+                                    <input type="radio" name="status" id="public" value=true class="radio radio-accent"
+                                           checked>공개
+                                    <input type="radio" name="status" id="private" value=false
+                                           class="radio radio-accent">비공개
                                 </div>
                             </div>
 
@@ -70,6 +118,7 @@
                                     </label>
                                     <input type="radio" name="frequency" value="day1" class="radio radio-accent" checked>주 1회
                                     <input type="radio" name="frequency" value="day3" class="radio radio-accent">주 3회
+                                    <input type="radio" name="frequency" value="day5" class="radio radio-accent">주 5회
                                     <input type="radio" name="frequency" value="day7" class="radio radio-accent">매일(주 7회)
                                 </div>
                             </div>
@@ -80,7 +129,9 @@
                                     <label for="contents" class="label">
                                         <span class="text-gray-400">챌린지 내용</span>
                                     </label>
-                                    <textarea rows="7" name="contents" placeholder="챌린지내용" class="textarea textarea-accent w-96 form-control text-black" id="contents"></textarea>
+                                    <textarea rows="7" name="contents" placeholder="챌린지내용"
+                                              class="textarea textarea-accent w-96 form-control text-black"
+                                              id="contents"></textarea>
                                 </div>
                             </div>
 
@@ -93,11 +144,12 @@
                                     <select name="language" class="select select-accent w-70 max-w-xs">
                                         <option disabled selected>공부하고 싶은 언어</option>
                                         <option>Java</option>
-                                        <option>Go</option>
+                                        <option>Ruby</option>
+                                        <option>React</option>
+                                        <option>Kotlin</option>
                                         <option>C</option>
                                         <option>C#</option>
                                         <option>C++</option>
-                                        <option>Rust</option>
                                         <option>JavaScript</option>
                                         <option>Python</option>
                                     </select>
@@ -110,7 +162,6 @@
                                         <option value="study">개념 공부</option>
                                         <option value="test">시험 대비</option>
                                         <option value="solving">예제 풀기</option>
-
                                     </select>
 
                                     <select name="posttype" class="select select-accent w-70 max-w-xs">
@@ -129,7 +180,26 @@
                                     <label for="img" class="label">
                                         <span class="text-gray-400">챌린지 대표 이미지</span>
                                     </label>
-                                    <input id="img" name="file" type="file" class="file-input file-input-bordered file-input-accent w-full max-w-xs" />
+                                    <input id="img" name="file" type="file"
+                                           class="file-input file-input-bordered file-input-accent w-full max-w-xs"/>
+                                </div>
+                            </div>
+
+                            <label for="my_modal_6" class="btn">생성 규칙 보기</label>
+
+                            <input type="checkbox" id="my_modal_6" class="modal-toggle modal-warning" />
+                            <div class="modal">
+                                <div class="modal-box">
+                                    <h3 class="font-bold text-lg">챌린지 생성 규칙</h3>
+                                    <p class="py-4">1. 챌린지 제목은 중복될 수 없습니다.</p>
+                                    <p class="py-4">2. 챌린지 제목은 25자 까지 작성 가능합니다.</p>
+                                    <p class="py-4">3. 챌린지 내용은 500자 까지 작성 가능합니다.</p>
+                                    <p class="py-4">4. 챌린지 시작일은 내일부터 지정 가능합니다.</p>
+                                    <p class="py-4">5. 첨부 파일의 확장자 명은 JPG, JPEG, PNG, GIF 만 가능합니다.</p>
+                                    <p class="py-4">6. 이미지가 첨부되지 않은 경우, 기본 이미지로 설정 됩니다.</p>
+                                    <div class="modal-action">
+                                        <label for="my_modal_6" class="btn">닫기 X</label>
+                                    </div>
                                 </div>
                             </div>
 
@@ -137,10 +207,7 @@
                     </div>
 
                     <div class="flex flex-col justify-center mt-[20px]">
-                        <input type="submit" value="생성완료" class="btn btn-md btn-accent btn-success gap-3">
-                        <!--          <button id="btn-join-1" class="btn btn-md btn-primary btn-success gap-3">-->
-                        <!--            <span>회원가입</span>-->
-                        <!--          </button>-->
+                        <input type="submit" value="생성완료" class=" w-200 btn btn-md btn-accent btn-success gap-3">
                     </div>
 
                 </div>
