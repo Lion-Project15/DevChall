@@ -4,6 +4,7 @@ import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
+import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
 import com.challenge.devchall.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;

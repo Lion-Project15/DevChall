@@ -10,6 +10,7 @@ import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.point.service.PointService;
+import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,8 +38,10 @@ public class MemberService {
     private final ItemService itemService;
 
     private final PointService pointService;
+
     private final InventoryService inventoryService;
 
+    private final PointHistoryService pointHistoryService;
     public Optional<Member> findByLoginID(String loginID) {
         return memberRepository.findByLoginID(loginID);
     }
@@ -70,6 +73,8 @@ public class MemberService {
         memberRepository.save(member);
 
         inventoryService.create(member, itemService.getByName("basic").orElse(null), true);
+
+        pointHistoryService.addPointHistory(member, +1000,"가입축하금");
 
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
     }

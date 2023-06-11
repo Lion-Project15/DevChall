@@ -7,6 +7,8 @@ import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
 import com.challenge.devchall.challengepost.dto.SettleChallengeDTO;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.point.entity.Point;
+import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +22,12 @@ import java.util.Optional;
 public class ChallengeMemberService {
 
     private final ChallengeMemberRepository challengeMemberRepository;
+    private final PointHistoryService pointHistoryService;
 
 
     public RsData<ChallengeMember> addMember(Challenge challenge, Member member, Role role){
 
-        int joinCost = challenge.getChallengePeriod() * 50;
+        long joinCost = challenge.getChallengePeriod() * 50;
         RsData<ChallengeMember> joinRsData = canJoin(member, joinCost);
 
         if(joinRsData.isFail()){
@@ -44,6 +47,7 @@ public class ChallengeMemberService {
         joinRsData.setData(challengeMemberRepository.save(challengeMember));
         member.getPoint().subtract(joinCost);
         challenge.addPoint(joinCost);
+        pointHistoryService.addPointHistory(member, -joinCost, "참가비");
 
         return joinRsData;
     }
@@ -61,7 +65,7 @@ public class ChallengeMemberService {
         return challengeMemberRepository.findByChallenger(member);
     }
 
-    private RsData<ChallengeMember> canJoin(Member member, int joinCost){
+    private RsData<ChallengeMember> canJoin(Member member, long joinCost){
 
         Long currentPoint = member.getPoint().getCurrentPoint();
 
@@ -87,6 +91,13 @@ public class ChallengeMemberService {
         }
 
         return challengeIds;
+    }
+
+    public int getCountByChallengeId(Long challengeId){
+
+        int count = challengeMemberRepository.countByLinkedChallenge_Id(challengeId);
+
+        return count;
     }
 
     public Optional<ChallengeMember> getById(long id){
