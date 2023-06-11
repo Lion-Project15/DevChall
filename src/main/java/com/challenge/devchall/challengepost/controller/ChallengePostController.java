@@ -130,5 +130,23 @@ public class ChallengePostController {
         return "redirect:/usr/challenge/postdetail/{id}";
     }
 
+    @GetMapping("/report/{id}")
+    public String reportPost(@PathVariable("id") long id) {
+
+        ChallengePost challengePostById = challengePostService.getChallengePostById(id);
+
+        Long linkedChallengeId = challengePostById.getLinkedChallenge().getId();
+
+        challengePostService.incrementCount(id);
+        //FIXME 테스트를 위해 1로 해놓음
+        if (challengePostById.getReportCount() >= 1) {
+            challengePostService.deletePost(id);
+            return "redirect:/usr/challenge/detail/{id}".replace("{id}", String.valueOf(linkedChallengeId));
+        }
+
+
+        return "redirect:/usr/challenge/postdetail/{id}";
+    }
+
 
 }

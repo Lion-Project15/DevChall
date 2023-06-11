@@ -32,6 +32,7 @@ public class ChallengePostService {
 
     public RsData<ChallengePost> write(String title, String contents, boolean status, long postScore, long id,
                                        String photoUrl, Member member) {
+        int reportCount = 0;
 
         Challenge linkedChallenge = challengeService.getChallengeById(id);
 
@@ -72,6 +73,7 @@ public class ChallengePostService {
                 .challenger(member)
                 .largePhoto(largePhoto)
                 .smallPhoto(smallPhoto)
+                .reportCount(reportCount)
                 .build();
 
         challengePostRepository.save(challengePost);
@@ -104,6 +106,15 @@ public class ChallengePostService {
         ChallengePost challengePostById = getChallengePostById(id);
 
         challengePostById.modifyPost(title, contents, status);
+
+    }
+
+    @Transactional
+    public void incrementCount(long postId) {
+        ChallengePost challengePost = getChallengePostById(postId);
+        int currentCount = challengePost.getReportCount();
+        challengePost.setReportCount(currentCount + 1);
+
 
     }
 

@@ -19,6 +19,15 @@
                 alert("삭제가 취소되었습니다.");
             }
         }
+
+        function wantReport(postId) {
+            if (confirm('정말로 신고 하시겠습니까?')) {
+                alert(postId + "번 인증글을 신고합니다.");
+                location.href = "/usr/challenge/report/" + postId;
+            } else {
+                alert("신고를 취소합니다.");
+            }
+        }
     </script>
 
     <div class="flex flex-1">
@@ -51,6 +60,13 @@
                     <h2 class="mx-5">OR</h2>
 
                     <button class="btn btn-warning btn-outline">
+                        <i class="fa-solid fa-heart" style="color: #da1010;"></i>
+                    </button>
+                </div>
+
+                <div class="pr-4 flex flex-row justify-end">
+                    <button th:onclick="'wantReport(\'' + ${post.id} + '\')'">
+<!--                        다른 아이콘이 안 뜸;;-->
                         <i class="fa-solid fa-heart" style="color: #da1010;"></i>
                     </button>
                 </div>
