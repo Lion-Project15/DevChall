@@ -131,11 +131,21 @@ public class ChallengePostController {
     }
 
     @GetMapping("/report/{id}")
-    public String reportPost(@PathVariable("id") long id) {
+    public String reportPost(@PathVariable("id") long id, Principal principal) {
 
         ChallengePost challengePostById = challengePostService.getChallengePostById(id);
 
         Long linkedChallengeId = challengePostById.getLinkedChallenge().getId();
+
+        // 현재 사용자의 로그인 ID를 가져옴
+        String loggedInUserId = principal.getName();
+
+        // 게시물 작성자의 로그인 ID를 가져옴
+        String postCreatorId = challengePostById.getCreatorId();
+
+        if (loggedInUserId.equals(postCreatorId)) {
+            return "redirect:/usr/challenge/postdetail/{id}";
+        }
 
         challengePostService.incrementCount(id);
         //FIXME 테스트를 위해 1로 해놓음

@@ -29,6 +29,7 @@ public class ChallengePost extends BaseEntity {
     private int reportCount;
     private String smallPhoto;
     private String largePhoto;
+    private String creatorId;
 
     //FIXME 일단 보류
 //    private boolean postModify;

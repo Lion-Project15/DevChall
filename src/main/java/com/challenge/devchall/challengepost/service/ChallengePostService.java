@@ -63,6 +63,7 @@ public class ChallengePostService {
 
         String largePhoto = photoService.getLargePhoto(photoUrl);
         String smallPhoto = photoService.getSmallPhoto(photoUrl);
+        String creatorId = member.getLoginID();
 
         ChallengePost challengePost = ChallengePost.builder()
                 .postTitle(title)
@@ -74,6 +75,7 @@ public class ChallengePostService {
                 .largePhoto(largePhoto)
                 .smallPhoto(smallPhoto)
                 .reportCount(reportCount)
+                .creatorId(creatorId)
                 .build();
 
         challengePostRepository.save(challengePost);
