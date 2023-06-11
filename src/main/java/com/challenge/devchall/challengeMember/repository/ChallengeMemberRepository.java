@@ -24,7 +24,7 @@ public interface ChallengeMemberRepository extends JpaRepository<ChallengeMember
             "FROM ChallengeMember cm " +
             "JOIN cm.linkedChallenge c " +
             "JOIN ChallengePost p ON cm.challenger = p.challenger AND p.linkedChallenge = c " +
-            "WHERE c.endDate = :today " +
+            "WHERE c.endDate = :today AND c.settleComplete = false " +
             "GROUP BY cm.id") // 챌린지 아이디 + 멤버 아이디
     List<SettleChallengeDTO> findChallengeMemberCountByEndDate(@Param("today") LocalDate today);
 

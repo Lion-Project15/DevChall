@@ -251,6 +251,7 @@ public class ChallengeService {
                 .challengeCreator(member.getLoginID())
                 .gatherPoints(0)
                 .challengeMemberLimit(50)
+                .settleComplete(false)
                 .build();
 
         challengeRepository.save(challenge);

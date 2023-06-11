@@ -37,6 +37,7 @@ public class Challenge extends BaseEntity {
     private String challengePostType;
     private long gatherPoints;
     private int challengeMemberLimit;
+    private boolean settleComplete;
 
     private String challengeCreator;
     private String photoFile;
@@ -48,11 +49,16 @@ public class Challenge extends BaseEntity {
     public void addPoint(long points){
         this.gatherPoints+=points;
     }
+
     public void subtractPoint(long points){
         this.gatherPoints-=points;
     }
+
     public void resetPoint(){
         this.gatherPoints = 0;
     }
 
+    public void complete(){
+        this.settleComplete = true;
+    }
 }

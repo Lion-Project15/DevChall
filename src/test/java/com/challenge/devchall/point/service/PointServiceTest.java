@@ -66,6 +66,7 @@ class PointServiceTest {
 
     @Test
     @WithUserDetails("user1")
+    @DisplayName("챌린지 1개에서 90% 이상의 달성자만 포인트 얻음")
     void settle () {
 
     //날자 설정(5.22 ~ 6.5) 코드로 LocalDate ld = localdate.of(2023.5.22.0.0.0)
@@ -73,6 +74,8 @@ class PointServiceTest {
         // 유저1 글 쓰기 (5.22)
         //날자 설정 (오늘)
         //addpoint? 유저1의 포인트 보여주기
+
+        pointService.settle();
 
     }
 

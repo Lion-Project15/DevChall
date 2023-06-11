@@ -48,6 +48,7 @@ public class NotProd {
 
                 challengeMemberService.addMember(challengeService.getChallengeById(c1.getId()), user1, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c1.getId()), user2, Role.CREW);
+                challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), user2, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), user3, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), admin, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c3.getId()), user4, Role.CREW);
