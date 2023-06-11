@@ -29,10 +29,11 @@ public class ChallengeMember extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role challengerRole;
 
-    //스케줄러 -> 매일 초기화
-    private int postLimit;
     private int totalPostCount;
-    private Long challengeTotalPoint;
+    //스케줄러 -> 매일 초기화
+    //private int postLimit;
+
+    //private Long challengeTotalPoint;
 //    private List<Role> challengerRole2;
 
     public void turnValid(){
@@ -43,15 +44,19 @@ public class ChallengeMember extends BaseEntity {
         this.challengerRole = challengerRole;
     }
 
-    public RsData<ChallengeMember> updatePostLimit(){
+//    public RsData<ChallengeMember> updatePostLimit(){
+//
+//        if(this.postLimit != 0){
+//            return RsData.of("F-1", "오늘은 이미 포스트를 작성했습니다.");
+//        }else{
+//            this.postLimit++;
+//            this.totalPostCount++;
+//            return RsData.of("S-1", "포스트 작성이 가능합니다.");
+//        }
+//    }
 
-        if(this.postLimit != 0){
-            return RsData.of("F-1", "오늘은 이미 포스트를 작성했습니다.");
-        }else{
-            this.postLimit++;
-            this.totalPostCount++;
-            return RsData.of("S-1", "포스트 작성이 가능합니다.");
-        }
+    public void increaseTotal(){
+        ++this.totalPostCount;
     }
 
 }

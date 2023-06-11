@@ -38,12 +38,17 @@ public class ChallengePostService {
         Challenge linkedChallenge = challengeService.getChallengeById(id);
 
         ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member).orElse(null);
-        RsData canWrite = canWrite(linkedChallenge, member);
 
-        if(canWrite.isFail()){
+        List<ChallengePost> posts = challengePostRepository
+                .findByLinkedChallengeAndChallengerOrderByCreateDateDesc(linkedChallenge, member);
+
+        RsData canWrite = canWrite(posts);
+
+        if(canWrite.isFail() || challengeMember == null){
             System.out.println(canWrite.getMsg());
             return null;
         }
+
 
 
 //        RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
@@ -55,6 +60,10 @@ public class ChallengePostService {
 
         String largePhoto = photoService.getLargePhoto(photoUrl);
         String smallPhoto = photoService.getSmallPhoto(photoUrl);
+
+        if(canUpdateTotal(linkedChallenge, posts)){
+            challengeMember.increaseTotal();
+        }
 
         ChallengePost challengePost = ChallengePost.builder()
                 .postTitle(title)
@@ -99,27 +108,19 @@ public class ChallengePostService {
         challengePostById.modifyPost(title, contents, status);
 
     }
-    public RsData canWrite(Challenge challenge, Member member){
-
-        List<ChallengePost> posts = challengePostRepository
-                .findByLinkedChallengeAndChallengerOrderByCreateDateDesc(challenge, member);
-
-
+    public RsData canWrite(List<ChallengePost> posts){
 
         if(posts.size() > 0
                 && !posts.get(0).getCreateDate().toLocalDate().isBefore(LocalDate.now())){
 
             return RsData.of("F-1", "오늘은 이미 포스트를 작성했습니다.");
-
         }
-//        long weeks = (ChronoUnit.DAYS.between(challenge.getStartDate(), LocalDate.now())/7) + 1;
-//        if(posts.size() < challenge.getChallengeFrequency() * weeks){
-//
-//            return RsData.of("F-2", "이번주 할당된 포스트를 모두 작성했습니다.");
-//
-//        }
-
 
         return RsData.of("S-1", "포스트 작성이 가능합니다.");
+    }
+
+    private boolean canUpdateTotal(Challenge challenge,List<ChallengePost> posts){
+        long weeks = (ChronoUnit.DAYS.between(challenge.getStartDate(), LocalDate.now())/7) + 1;
+        return posts.size() < challenge.getChallengeFrequency() * weeks;
     }
 }
