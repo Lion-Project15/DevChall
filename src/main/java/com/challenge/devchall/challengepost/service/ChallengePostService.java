@@ -32,24 +32,21 @@ public class ChallengePostService {
     private final ChallengeMemberRepository challengeMemberRepository;
     private final PhotoService photoService;
 
-    public ChallengePost write(String title, String contents, boolean status, long postScore, long id,
+    public RsData<ChallengePost> write(String title, String contents, boolean status, long postScore, long id,
                                String photoUrl, Member member) {
 
         Challenge linkedChallenge = challengeService.getChallengeById(id);
 
         ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member).orElse(null);
 
-        List<ChallengePost> posts = challengePostRepository
-                .findByLinkedChallengeAndChallengerOrderByCreateDateDesc(linkedChallenge, member);
+        List<ChallengePost> posts = getRecentPosts(linkedChallenge, member);
 
-        RsData canWrite = canWrite(posts);
+        RsData<ChallengePost> postRsData = canWrite(posts);
 
-        if(canWrite.isFail() || challengeMember == null){
-            System.out.println(canWrite.getMsg());
-            return null;
+        if(postRsData.isFail() || challengeMember == null){
+            System.out.println(postRsData.getMsg());
+            return postRsData;
         }
-
-
 
 //        RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
 
@@ -76,9 +73,14 @@ public class ChallengePostService {
                 .smallPhoto(smallPhoto)
                 .build();
 
-        challengePostRepository.save(challengePost);
+        postRsData.setData(challengePostRepository.save(challengePost));
 
-        return challengePost;
+        return postRsData;
+    }
+
+    public List<ChallengePost> getRecentPosts(Challenge challenge, Member member){
+        return challengePostRepository
+                .findByLinkedChallengeAndChallengerOrderByCreateDateDesc(challenge, member);
     }
 
     public ChallengePost getChallengePostById(long id){
@@ -108,7 +110,7 @@ public class ChallengePostService {
         challengePostById.modifyPost(title, contents, status);
 
     }
-    public RsData canWrite(List<ChallengePost> posts){
+    public RsData<ChallengePost> canWrite(List<ChallengePost> posts){
 
         if(posts.size() > 0
                 && !posts.get(0).getCreateDate().toLocalDate().isBefore(LocalDate.now())){

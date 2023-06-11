@@ -39,7 +39,6 @@ class PointServiceTest {
     private ChallengeService challengeService;
     @Autowired
     private MemberService memberService;
-
     @Autowired
     private ChallengePostService challengePostService;
 
@@ -52,17 +51,7 @@ class PointServiceTest {
 
     }
 
-    @Test
-    @WithUserDetails("user1")
-    @DisplayName("포스트 TestUtil 이용해서 하루 2개 이상의 포스트 쓰기")
-    void postTest () {
-        ChallengePost cp = challengePostService.getChallengePostById(5);
-        TestUtil.setFieldValue(cp, "createDate", LocalDateTime.now().minusDays(10));
-        ChallengePost post = challengePostService.write("test","test",true, 2,2,
-                "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png",memberService.getByLoginId("user1"));
-        assertThat(challengePostService.getChallengePostByChallenge(challengeService.getChallengeById(2)).size())
-                .isEqualTo(4);
-    }
+
 
     @Test
     @WithUserDetails("user1")

@@ -61,7 +61,7 @@ public class ChallengePostController {
 
         String photoUrl = photoService.photoUpload(file);
 
-        ChallengePost post = challengePostService.write(title, contents, status, postScore, id, photoUrl, member);
+        ChallengePost post = challengePostService.write(title, contents, status, postScore, id, photoUrl, member).getData();
 
         model.addAttribute("linkedChallenge", linkedChallenge);
         model.addAttribute("post", post);

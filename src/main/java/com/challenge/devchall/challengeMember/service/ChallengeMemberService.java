@@ -39,7 +39,6 @@ public class ChallengeMemberService {
                 .challenger(member)
                 .isValid(true)
                 .challengerRole(role)
-                .postLimit(0)
                 .totalPostCount(0)
                 .build();
 
