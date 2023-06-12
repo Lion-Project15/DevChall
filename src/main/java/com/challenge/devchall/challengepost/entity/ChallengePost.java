@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -29,6 +30,8 @@ public class ChallengePost extends BaseEntity {
 
     @OneToOne
     private Photo postPhoto;
+    private int reportCount;
+    private String creatorId;
 
     //FIXME 일단 보류
 //    private boolean postModify;
@@ -57,6 +60,11 @@ public class ChallengePost extends BaseEntity {
         else {
             return false;
         }
+
+    }
+
+    public void setReportCount (int reportCount) {
+        this.reportCount = reportCount;
 
     }
 
