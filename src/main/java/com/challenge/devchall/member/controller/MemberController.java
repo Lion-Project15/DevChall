@@ -3,6 +3,9 @@ package com.challenge.devchall.member.controller;
 import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.base.rsData.RsData;
+import com.challenge.devchall.inventory.entity.Inventory;
+import com.challenge.devchall.item.entity.Item;
+import com.challenge.devchall.item.service.ItemService;
 import com.challenge.devchall.member.dto.MemberRequestDto;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
@@ -14,12 +17,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -27,7 +30,8 @@ import java.util.Map;
 @RequestMapping("/usr/member")
 public class MemberController {
     private final MemberService memberService;
-    final private ChallengeMemberService challengeMemberService;
+    private final ChallengeMemberService challengeMemberService;
+    private final ItemService itemService;
     private final Rq rq;
 
     //회원가입
@@ -79,10 +83,31 @@ public class MemberController {
         }
         return "/usr/member/me";
     }
+
     @GetMapping("/store")
-    public String getStore(Model model){
+    public String getStore(Model model) {
+        Map<String, List<Item>> items = new HashMap<>();
+        items.put("fonts",itemService.getByType("font"));
+        items.put("characters",itemService.getByType("character"));
+
+        model.addAttribute("items", items);
 
         return "/usr/member/store";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/store/buy/{itemId}")
+    public String buyItem(@PathVariable("itemId") String itemId,
+                          @RequestParam(required = false, defaultValue = "false") boolean equipped,
+                          Principal principal){
+
+        Member loginMember = memberService.getByLoginId(principal.getName());
+
+        RsData<Inventory> buyRsData = memberService.buyItem(itemId, loginMember, equipped);
+
+        System.out.println(buyRsData.getMsg());
+
+        return "redirect:/usr/member/store";
     }
 
 }
