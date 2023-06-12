@@ -144,6 +144,7 @@ public class ChallengePostController {
         String postCreatorId = challengePostById.getCreatorId();
 
         if (loginId.equals(postCreatorId)) {
+            System.out.println("자신의 글은 신고할 수 없습니다.");
             return "redirect:/usr/challenge/postdetail/{id}";
         }
 
