@@ -2,8 +2,10 @@ package com.challenge.devchall.challange.entity;
 
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.pointHistory.entity.PointHistory;
 import com.challenge.devchall.pointHistory.service.PointHistoryService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -44,6 +46,11 @@ public class Challenge extends BaseEntity {
     @Builder.Default
     @OneToMany(mappedBy = "linkedChallenge")
     private List<ChallengePost> challengePostList = new ArrayList<>();
+
+    //덧글
+    @JsonIgnoreProperties({"challenge"})
+    @OneToMany(mappedBy = "challenge",cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Comment> commentList;
 
     public void addPoint(long points){
         this.gatherPoints+=points;
