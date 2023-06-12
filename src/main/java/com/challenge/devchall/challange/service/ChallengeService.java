@@ -43,6 +43,8 @@ public class ChallengeService {
 
         String photoUrl = "";
 
+        memberService.checkChallengeLimit(member);
+
         //챌린지 생성 룰이 지켜졌는지 검사
         RsData<Challenge> checkRsData = checkCreateRule(title, formattingResult.formattingStartDate, contents, member);
 
@@ -50,7 +52,6 @@ public class ChallengeService {
         if (checkRsData.isFail()) {
             return checkRsData;
         }
-
 
         RsData<String> fileRsData = photoService.isImgFile(file.getOriginalFilename());
 

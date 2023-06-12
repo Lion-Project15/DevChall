@@ -86,6 +86,7 @@ public class ChallengeController {
     public String showDetail(Model model, @PathVariable("id") long id, Principal principal) {
 
         Challenge challenge = this.challengeService.getChallengeById(id);
+
         Member loginMember = memberService.getByLoginId(principal.getName());
 
         Optional<ChallengeMember> byChallengeAndMember = challengeMemberService.getByChallengeAndMember(challenge, loginMember);
