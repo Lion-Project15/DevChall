@@ -30,23 +30,20 @@ public class MainController {
         language = language.isBlank()? null: language.trim();
         subject = subject.isBlank()? null : subject.trim();
 
-
         if(rq.isLogin()){
+
+            //공개 비공개 해서 필터링 하기
             List<Challenge> challengeList = challengeService.getChallengeList(language, subject, rq.getMember());
 
-            List<Integer> countList = getCountList(challengeList);
+            //나의 챌린지(공개, 비공개 상관 없음) => 내가 챌린지 멤버인 것 들 ... 
+            model.addAttribute("challengeMembers", challengeMemberService.getByMember(rq.getMember()));
 
-            model.addAttribute("challengeMembers"
-                    , challengeMemberService.getByMember(rq.getMember()));
+
             model.addAttribute("challenges", challengeList);
-            model.addAttribute("countList", countList);
         } else {
             List<Challenge> challengeList2 = challengeService.getChallengeList(language,subject);
 
-            List<Integer> countList = getCountList(challengeList2);
-
             model.addAttribute("challenges", challengeList2);
-            model.addAttribute("countList", countList);
         }
         return "index";
     }
@@ -64,7 +61,7 @@ public class MainController {
         return challengeMemberService.getSettleChallengeDto();
     }
 
-    //FIXME HOW?
+    //join과 DTO를 사용해서 챌린지와 카운트를 묶어서 가져오기.
     public List<Integer> getCountList(List<Challenge> challengeList){
 
         List<Integer> countList = new ArrayList<>();

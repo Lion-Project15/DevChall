@@ -29,6 +29,7 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     List<Challenge> findByConditions(@Param("challengeLanguage") String challengeLanguage,
                                      @Param("challengeSubject") String challengeSubject,
                                      Pageable pageable);
+
     @Query("SELECT c " +
             "FROM Challenge c " +
             "LEFT JOIN Tag ct ON ct.linkedChallenge = c " +

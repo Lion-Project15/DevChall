@@ -115,13 +115,14 @@ public class ChallengeService {
     }
 
 
-    //FIXME (안 쓰이는 중)
+    //FIXME (안 쓰이는 중) => true 인 것을 모두 가져오는 메서드?
     public List<Challenge> getChallengeList() {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
         return challengeRepository.findByChallengeStatus(true, pageable);
     }
 
+    //카테고리에 따라 모두 가져오는 것? (비공개 처리는?)
     public List<Challenge> getChallengeList(String language, String subject) {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
@@ -136,8 +137,10 @@ public class ChallengeService {
         List<Long> challengeIds = challengeMemberService.getChallengeIdsByMember(member);
 
         //FIXME (안쓰이는 중) 현재 사용자가 참여 중인 챌린지를 제외한 모집 중인 챌린지 목록을 가져옴
+        //내 예상이라면 오히려 이게 와야하는게 맞을 것 같은데?
         List<Challenge> challenges = challengeRepository.findByChallengeStatusAndIdNotIn(true, challengeIds, pageable);
 
+        //근데 조인하지 않은 챌린지를 리턴하고 있는 것 같음.
         return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);
     }
 

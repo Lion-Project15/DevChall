@@ -73,6 +73,6 @@ cloud:
 custom:
   challenge:
     weeklyPoint: 50
-    titleLength: 25
+    titleLength: 24
     contentLength: 500
     memberLimit: 50

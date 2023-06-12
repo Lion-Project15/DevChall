@@ -26,7 +26,6 @@ public class PointHistoryService {
 
     public void addPointHistory(Member member, long point, String type) {
 
-
         PointHistory pointHistory = PointHistory.builder()
                 .member(member)
                 .point(point)
@@ -36,7 +35,6 @@ public class PointHistoryService {
 
         pointHistoryRepository.save(pointHistory);
     }
-
 
     public List<PointHistory> getPointHistoriesByMember(Member member) {
         return pointHistoryRepository.findByMember(member);

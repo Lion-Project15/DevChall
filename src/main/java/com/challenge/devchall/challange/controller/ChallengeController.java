@@ -31,7 +31,6 @@ public class ChallengeController {
     private final MemberService memberService;
     private final ChallengeService challengeService;
     private final Rq rq;
-    private final ChallengeRepository challengeRepository;
 
 
     @PreAuthorize("isAuthenticated()")
