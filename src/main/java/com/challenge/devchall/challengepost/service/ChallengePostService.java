@@ -14,8 +14,10 @@ import com.challenge.devchall.photo.service.PhotoService;
 import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.point.schedule.Schedule;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +31,11 @@ public class ChallengePostService {
     private final ChallengeMemberService challengeMemberService;
     private final ChallengeMemberRepository challengeMemberRepository;
     private final PhotoService photoService;
+    @Value("${custom.maxLength.title}")
+    private int titleMaxLength;
+
+    @Value("${custom.maxLength.contents}")
+    private int contentsMaxLength;
 
     public RsData<ChallengePost> write(String title, String contents, boolean status, long postScore, long id,
                                        String photoUrl, Member member) {
@@ -44,19 +51,20 @@ public class ChallengePostService {
         RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
 
 
+
         if (postLimitRsData.isFail()) {
             System.out.println(postLimitRsData.getMsg());
             return null;
         }
 
         // 제목 길이 제한
-        int titleMaxLength = 25;
+
         if (title.length() > titleMaxLength) {
             return RsData.of("F-1", "제목은 최대 " + titleMaxLength + "자까지 입력할 수 있습니다.");
         }
 
         // 내용 길이 제한
-        int contentsMaxLength = 500;
+
         if (contents.length() > contentsMaxLength) {
             return RsData.of("F-1", "내용은 최대 " + contentsMaxLength + "자까지 입력할 수 있습니다.");
         }
