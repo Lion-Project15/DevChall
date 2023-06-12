@@ -59,7 +59,14 @@ public class ChallengePostController {
         Challenge linkedChallenge = challengeService.getChallengeById(id);
         Member member = memberService.findByLoginID(principal.getName()).orElse(null);
 
-        String photoUrl = photoService.photoUpload(file);
+        String photoUrl = null;
+
+        if (!file.isEmpty()) {
+            photoUrl = photoService.photoUpload(file);
+        } else {
+            // 이미지 파일이 없는 경우 기본 이미지 URL 설정
+            photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
+        }
 
         ChallengePost post = challengePostService.write(title, contents, status, postScore, id, photoUrl, member).getData();
 
@@ -118,6 +125,35 @@ public class ChallengePostController {
         challengePostService.modifyPost(id, title, contents, status);
 
         ChallengePost challengePost = challengePostService.getChallengePostById(id);
+
+        return "redirect:/usr/challenge/postdetail/{id}";
+    }
+
+    @GetMapping("/report/{id}")
+    public String reportPost(@PathVariable("id") long id, Principal principal) {
+
+        ChallengePost challengePostById = challengePostService.getChallengePostById(id);
+
+        Long linkedChallengeId = challengePostById.getLinkedChallenge().getId();
+
+        // 현재 사용자의 로그인 ID를 가져옴
+        String loginId = principal.getName();
+
+        // 게시물 작성자의 로그인 ID를 가져옴
+        String postCreatorId = challengePostById.getCreatorId();
+
+        if (loginId.equals(postCreatorId)) {
+            System.out.println("자신의 글은 신고할 수 없습니다.");
+            return "redirect:/usr/challenge/postdetail/{id}";
+        }
+
+        challengePostService.incrementCount(id);
+        //FIXME 테스트를 위해 1로 해놓음
+        if (challengePostById.getReportCount() >= 1) {
+            challengePostService.deletePost(id);
+            return "redirect:/usr/challenge/detail/{id}".replace("{id}", String.valueOf(linkedChallengeId));
+        }
+
 
         return "redirect:/usr/challenge/postdetail/{id}";
     }
