@@ -58,7 +58,7 @@ public class ChallengePostService {
         String largePhoto = photoService.getLargePhoto(photoUrl);
         String smallPhoto = photoService.getSmallPhoto(photoUrl);
 
-        if(canUpdateTotal(linkedChallenge, posts)){
+        if(canUpdateTotal(linkedChallenge, member)){
             challengeMember.increaseTotal();
         }
 
@@ -121,7 +121,9 @@ public class ChallengePostService {
         return RsData.of("S-1", "포스트 작성이 가능합니다.");
     }
 
-    private boolean canUpdateTotal(Challenge challenge,List<ChallengePost> posts){
+    private boolean canUpdateTotal(Challenge challenge, Member member){
+        List<ChallengePost> posts = getRecentPosts(challenge, member);
+
         long weeks = (ChronoUnit.DAYS.between(challenge.getStartDate(), LocalDate.now())/7) + 1;
         return posts.size() < challenge.getChallengeFrequency() * weeks;
     }
