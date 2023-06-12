@@ -51,7 +51,7 @@ class ChallengePostServiceTest {
                 .isEqualTo(4);
     }
     @Test
-    @DisplayName("하루에 한개의 이상 post 작성 제한")
+    @DisplayName("하루에 한개 이상 post 작성 제한")
     void t002(){
         Member u1 = memberService.getByLoginId("user1");
         Challenge c = challengeService.getChallengeById(2);
@@ -62,7 +62,7 @@ class ChallengePostServiceTest {
     }
 
     @Test
-    @DisplayName("totalPost는 challenge의 Frequency를 넘지 못한다 : week 2")
+    @DisplayName("totalPost는 challenge의 Frequency*week을 넘지 못한다 : week 2")
     void t003(){
         Member u1 = memberService.getByLoginId("user1");
         Challenge c = challengeService.getChallengeById(2);

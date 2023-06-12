@@ -13,17 +13,17 @@ import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
 @NoArgsConstructor
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"linkedChallenge", "challenger"})
 @Entity
 @Getter
 public class ChallengeMember extends BaseEntity {
 
     private boolean isValid;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Challenge linkedChallenge;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member challenger;
 
     @Enumerated(EnumType.STRING)

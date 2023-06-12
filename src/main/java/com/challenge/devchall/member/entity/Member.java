@@ -23,7 +23,7 @@ import java.util.*;
 
 @SuperBuilder
 @NoArgsConstructor
-@ToString(callSuper = true, exclude = {"challengeMemberList", "myPostList"})
+@ToString(callSuper = false, exclude = {"challengeMemberList", "myPostList", "pointHistories"})
 @Entity
 @Getter
 @EntityListeners(AuditingEntityListener.class)

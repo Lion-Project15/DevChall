@@ -5,6 +5,7 @@ import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.member.entity.Member;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,11 +36,10 @@ public class ChallengePost extends BaseEntity {
 //    private boolean postModify;
 //    private int postStarPoint;
 
-    ////@ManyToOne(cascade = CascadeType.ALL)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Challenge linkedChallenge;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member challenger;
 
     public void modifyPost(String postTitle, String postContents, boolean postIsPublic){
