@@ -37,15 +37,15 @@ public class ChallengeService {
     private final TagService tagService;
 
     @Transactional
-    public RsData<Challenge> createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
+    public RsData<Challenge> createChallenge(String title, String contents, boolean status, int frequency, String startDate, int period,
                                              String language, String subject, String postType, MultipartFile file, Member member) throws IOException {
 
-        FormattingResult formattingResult = formatting(frequency, startDate, period);
+        LocalDate formattingStartDate = formattingDate(startDate);
 
         String photoUrl = "";
 
         //챌린지 생성 룰이 지켜졌는지 검사
-        RsData<Challenge> checkRsData = checkCreateRule(title, formattingResult.formattingStartDate, contents, member);
+        RsData<Challenge> checkRsData = checkCreateRule(title, formattingStartDate, contents, member);
 
         //생성 불가 - 제약조건 걸림
         if (checkRsData.isFail()) {
@@ -60,16 +60,16 @@ public class ChallengeService {
 
         } else if (fileRsData.getResultCode().equals("S-7")) {
 
-            createChallengeForNoPhoto(title, contents, status, formattingResult.formattingFrequency, formattingResult.formattingStartDate,
-                    formattingResult.formattingPeriod, language, subject, postType, member);
+            createChallengeForNoPhoto(title, contents, status, frequency, formattingStartDate,
+                    period, language, subject, postType, member);
 
         } else if (fileRsData.getResultCode().equals("S-6")) {
 
             //이미지가 있는 경우 이미지 리사이징, 경로 할당
             photoUrl = photoService.photoUpload(file);
 
-            challengeBuilder(title, contents, status, formattingResult.formattingFrequency, formattingResult.formattingStartDate,
-                    formattingResult.formattingPeriod, language, subject, postType, photoUrl, member);
+            challengeBuilder(title, contents, status, frequency, formattingStartDate,
+                    period, language, subject, postType, photoUrl, member);
         }
 
         return RsData.of("S-1", "챌린지 생성에 성공하였습니다!");
@@ -141,36 +141,6 @@ public class ChallengeService {
         return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);
     }
 
-
-    public static class FormattingResult {
-        private final int formattingFrequency;
-        private final LocalDate formattingStartDate;
-        private final int formattingPeriod;
-
-        public FormattingResult(int formattingFrequency, LocalDate formattingStartDate, int formattingPeriod) {
-            this.formattingFrequency = formattingFrequency;
-            this.formattingStartDate = formattingStartDate;
-            this.formattingPeriod = formattingPeriod;
-        }
-    }
-
-    public FormattingResult formatting(String frequency, String start_date, String period) {
-
-        int formattingFrequency = formattingFrequency(frequency);
-        LocalDate formattingStartDate = formattingDate(start_date);
-        int formattingPeriod = formattingPeriod(period);
-
-        return new FormattingResult(formattingFrequency, formattingStartDate, formattingPeriod);
-    }
-
-    public int formattingFrequency(String frequency) {
-
-        String[] frequencyData = frequency.split("day");
-
-        return Integer.parseInt(frequencyData[1]);
-
-    }
-
     public LocalDate formattingDate(String date) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -178,23 +148,9 @@ public class ChallengeService {
         return LocalDate.parse(date, formatter);
     }
 
-    public int formattingPeriod(String period) {
-
-        String[] periodDate = period.split("주");
-
-        return Integer.parseInt(periodDate[0]);
-    }
-
     public Challenge getChallengeById(long id) {
 
         return this.challengeRepository.findById(id).orElse(null);
-    }
-
-    public boolean hasPost(Challenge challenge) {
-
-        List<ChallengePost> challengePostList = challenge.getChallengePostList();
-
-        return !challengePostList.isEmpty();
     }
 
     public RsData<Challenge> checkCreateRule(String title, LocalDate startDate, String contents, Member member) {

@@ -42,17 +42,17 @@ public class ChallengeController {
             return rq.historyBack(RsData.of("F-1", "챌린지를 생성하려면 로그인이 필요합니다."));
         }
 
-        return "redirect:/usr/challenge/create_form";
+        return "/usr/challenge/create_form";
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String createChallenge(
             @RequestParam String title, @RequestParam String contents,
-            @RequestParam boolean status, @RequestParam String frequency,
-            @RequestParam String startDate, @RequestParam String period,
+            @RequestParam boolean status, @RequestParam int frequency,
+            @RequestParam String startDate, @RequestParam int period,
             @RequestParam String language, @RequestParam String subject,
-            @RequestParam String posttype, @RequestParam(required = false) MultipartFile file
+            @RequestParam String postType, @RequestParam(required = false) MultipartFile file
     ) throws IOException {
 
         if (rq.isLogout()) {
@@ -62,7 +62,7 @@ public class ChallengeController {
             Member loginMember = rq.getMember();
 
             RsData<Challenge> createRsData = challengeService.createChallenge(title, contents, status, frequency,
-                    startDate, period, language, subject, posttype, file, loginMember);
+                    startDate, period, language, subject, postType, file, loginMember);
 
             if (createRsData.isFail()) {
                 //FIXME 실패시 메세지가 뜨지 않는 상황

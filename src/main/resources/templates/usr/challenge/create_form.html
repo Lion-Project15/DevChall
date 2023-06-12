@@ -103,7 +103,7 @@
                                     <option value="solving">예제 풀기</option>
                                 </select>
 
-                                <select name="posttype" class="select select-accent max-w-xs">
+                                <select name="postType" class="select select-accent max-w-xs">
                                     <option disabled selected>인증 방식</option>
                                     <option>Github</option>
                                     <option>블로그</option>
@@ -128,12 +128,12 @@
                                     <span class="text-gray-400">챌린지 기간 선택</span>
                                 </label>
                                 <select name="period" class="select select-accent w-70 max-w-xs">
-                                    <option>2주</option>
-                                    <option>3주</option>
-                                    <option>4주</option>
-                                    <option>6주</option>
-                                    <option>8주</option>
-                                    <option>12주</option>
+                                    <option value="2">2주</option>
+                                    <option value="3">3주</option>
+                                    <option value="4">4주</option>
+                                    <option value="6">6주</option>
+                                    <option value="8">8주</option>
+                                    <option value="12">12주</option>
                                 </select>
                             </div>
                         </div>
@@ -144,10 +144,10 @@
                                 <span class="text-gray-400">인증 주기 선택</span>
                             </label>
                             <div class="flex flex-row justify-around">
-                                <input type="radio" name="frequency" value="day1" class="radio radio-accent" checked>주 1회
-                                <input type="radio" name="frequency" value="day3" class="radio radio-accent">주 3회
-                                <input type="radio" name="frequency" value="day5" class="radio radio-accent">주 5회
-                                <input type="radio" name="frequency" value="day7" class="radio radio-accent">매일
+                                <input type="radio" name="frequency" value="1" class="radio radio-accent" checked>주 1회
+                                <input type="radio" name="frequency" value="3" class="radio radio-accent">주 3회
+                                <input type="radio" name="frequency" value="5" class="radio radio-accent">주 5회
+                                <input type="radio" name="frequency" value="7" class="radio radio-accent">매일
                             </div>
                         </div>
 

@@ -72,8 +72,6 @@ public class Member extends BaseEntity {
     @Builder.Default
     private List<Inventory> inventoryList = new ArrayList<>();
 
-
-
     //FIXME 최대 참여 갯수도 추가해야함
 
     //role은 spring security 이후에 작성
