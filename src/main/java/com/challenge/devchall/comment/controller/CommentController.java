@@ -25,9 +25,11 @@ import java.security.Principal;
 @RequiredArgsConstructor
 public class CommentController {
 
+
     private final CommentService commentService;
     private final Rq rq;
     private final ChallengePostService challengePostService;
+
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/write/{id}")
@@ -42,6 +44,5 @@ public class CommentController {
         return "redirect:/usr/challenge/postdetail/{id}";
 
     }
-
 
 }

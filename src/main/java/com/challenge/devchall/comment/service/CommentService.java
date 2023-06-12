@@ -43,8 +43,10 @@ public class CommentService {
         commentRepository.save(comment);
         return comment;
     }
+
     public List<Comment> findByChallengePost(ChallengePost challengePost){
         return commentRepository.findByChallengePost(challengePost);
+
     }
 
 }
