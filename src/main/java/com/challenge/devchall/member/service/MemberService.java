@@ -2,6 +2,10 @@ package com.challenge.devchall.member.service;
 
 import ch.qos.logback.core.spi.ConfigurationEvent;
 import com.challenge.devchall.base.rsData.RsData;
+import com.challenge.devchall.inventory.entity.Inventory;
+import com.challenge.devchall.inventory.service.InventoryService;
+import com.challenge.devchall.item.repository.ItemRepository;
+import com.challenge.devchall.item.service.ItemService;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.point.entity.Point;
@@ -14,8 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
+import com.challenge.devchall.item.entity.Item;
+import java.util.Arrays;
 
 import java.awt.datatransfer.Clipboard;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -27,7 +34,13 @@ public class MemberService {
 
     private final PasswordEncoder passwordEncoder;
     private final MemberRepository memberRepository;
+
+    private final ItemService itemService;
+
     private final PointService pointService;
+
+    private final InventoryService inventoryService;
+
     private final PointHistoryService pointHistoryService;
     public Optional<Member> findByLoginID(String loginID) {
         return memberRepository.findByLoginID(loginID);
@@ -56,8 +69,13 @@ public class MemberService {
                 .challengeLimit(0)
                 .point(pointService.create())
                 .build();
+
         memberRepository.save(member);
+
+        inventoryService.create(member, itemService.getByName("basic").orElse(null), true);
+
         pointHistoryService.addPointHistory(member, +1000,"가입축하금");
+
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
     }
 
@@ -123,6 +141,55 @@ public class MemberService {
         }else{
             return RsData.of("F-3", "참가 비용이 부족합니다.");
         }
+    }
+
+
+    @Transactional
+    public RsData<Inventory> buyItem(String itemId, Member member, boolean equip){
+
+        Item buyItem = itemService.getById(Long.parseLong(itemId)).orElse(null);
+
+        if(buyItem == null) {//아이템의 존재 유무
+            return RsData.of("F-7", "아이템이 존재하지 않습니다.");
+        }
+
+        Point memberPoint = member.getPoint();
+
+        long itemCost = buyItem.getPrice();
+
+        if(memberPoint.getCurrentPoint() < itemCost){ //포인트 여부
+            return RsData.of("F-6", "소지금이 부족합니다.");
+        }
+
+        RsData<Inventory> rs = inventoryService.create(member, buyItem, false);
+
+        if(rs.isFail()) {//이미 구매한 아이템
+            return rs;
+        }
+
+        member.getPoint().subtract(buyItem.getPrice());
+        if(equip){
+            if(buyItem.getType().equals("font")) {
+                inventoryService.changeFontEquip(buyItem.getId(), member);
+            } else if (buyItem.getType().equals("character")) {
+                inventoryService.changeCharacterEquip(buyItem.getId(), member);
+
+            }
+        }
+
+        return RsData.of("S-6", "구매에 성공하였습니다.");
+    }
+
+    public int getMemberPoint(String loginId) {
+        Member member = getByLoginId(loginId);
+
+        if (member != null) {
+            Point point = member.getPoint();
+            if (point != null) {
+                return point.getCurrentPoint().intValue();
+            }
+        }
+        return 0; // 멤버가 존재하지 않거나 포인트 정보가 없는 경우, 0을 반환
     }
 
 }

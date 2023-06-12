@@ -3,6 +3,8 @@ package com.challenge.devchall.member.entity;
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.inventory.entity.Inventory;
+import com.challenge.devchall.item.entity.Item;
 import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.pointHistory.entity.PointHistory;
 import jakarta.persistence.*;
@@ -61,10 +63,21 @@ public class Member extends BaseEntity {
     //스케줄러 -> 매달 1일에 0으로 초기화 되어야함.
     private int challengeLimit;
 
+    //현재 적용중인 폰트
+    private String currentFont;
+
+
+    @OneToMany(mappedBy = "member")
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @Builder.Default
+    private List<Inventory> inventoryList = new ArrayList<>();
+
+
+
     //FIXME 최대 참여 갯수도 추가해야함
 
     //role은 spring security 이후에 작성
-    public List<? extends GrantedAuthority> getGrantedAuthorities() {
+    public List<? extends GrantedAuthority>getGrantedAuthorities() {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
         grantedAuthorities.add(new SimpleGrantedAuthority("member"));
@@ -80,6 +93,25 @@ public class Member extends BaseEntity {
     public void setChallengeLimit(int challengeLimit){
 
         this.challengeLimit = challengeLimit;
+    }
+
+    public Inventory getEquippedFont(){
+        for(Inventory iv: inventoryList){
+            if(iv.isEquipped() && //장착중
+                    iv.getItem().getType().equals("font")){ //타입=폰트
+                return iv;
+            }
+        }
+        return null;
+    }
+    public Inventory getEquippedCharacter(){
+        for(Inventory iv: inventoryList){
+            if(iv.isEquipped() && //장착중
+                    iv.getItem().getType().equals("character")){ //타입=폰트
+                return iv;
+            }
+        }
+        return null;
     }
 
 }

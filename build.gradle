@@ -47,8 +47,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 
 	implementation 'com.mysql:mysql-connector-j:8.0.33'
+
 	//네이버 클라우드 이미지 배포(S3)
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+
 }
 
 tasks.named('test') {
