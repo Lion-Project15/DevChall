@@ -10,6 +10,7 @@ import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.challengepost.service.ChallengePostService;
 import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.comment.service.CommentService;
 import com.challenge.devchall.member.entity.Member;
@@ -40,6 +41,7 @@ public class ChallengeController {
     private final PhotoService photoService;
     private final Rq rq;
     private final ChallengeRepository challengeRepository;
+    private final ChallengePostService challengePostService;
     private final CommentService commentService;
 
     @PreAuthorize("isAuthenticated()")
@@ -112,6 +114,7 @@ public class ChallengeController {
         model.addAttribute("hasPost", hasPost);
         model.addAttribute("isJoin", isJoin);
         model.addAttribute("commentList",commentList);
+
 
         return "/usr/challenge/detail";
     }

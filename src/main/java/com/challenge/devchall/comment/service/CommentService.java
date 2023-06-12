@@ -6,6 +6,7 @@ import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.challengepost.service.ChallengePostService;
 import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.comment.repository.CommentRepository;
 import com.challenge.devchall.member.entity.Member;
@@ -20,28 +21,32 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentService {
 
-    @Autowired
     private final CommentRepository commentRepository;
-    private final ChallengeService challengeService;
     private final ChallengeMemberService challengeMemberService;
+    private final ChallengePostService challengePostService;
 
     public Comment write(String contents, long id, Member member) {
 
-        Challenge linkedChallenge = challengeService.getChallengeById(id);
+        ChallengePost post = challengePostService.getChallengePostById(id);
 
-        ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member).orElse(null);
+
+        ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(post.getLinkedChallenge(), member).orElse(null);
+        if (challengeMember == null){
+            return null; //오류메시지출력 + 토스트 사용
+        }
 
         Comment comment = Comment.builder()
                 .commentContent(contents)
-                .challenge(linkedChallenge)
                 .challengeMember(challengeMember)
+                .challengePost(post)
                 .build();
         commentRepository.save(comment);
         return comment;
     }
 
-    public List<Comment> findByChallenge(Challenge challenge){
-        return commentRepository.findByChallenge(challenge);
+    public List<Comment> findByChallengePost(ChallengePost challengePost){
+        return commentRepository.findByChallengePost(challengePost);
+
     }
 
 }
