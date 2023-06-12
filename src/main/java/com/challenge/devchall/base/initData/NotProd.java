@@ -50,6 +50,7 @@ public class NotProd {
 
                 String photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
 
+
                 //FIXME createChallengeForNotProd 를 작성하면 안될 것 같음 (중복코드) => Multipartfile을 어떻게 처리할 것인가...
                 Challenge c1 = challengeService.createChallengeForNotProd("1번 챌린지", "1번 챌린지 내용입니다", true, "day1","2023-06-01", "2주", "C", "개념 공부", "인증샷", admin);
                 Challenge c2 = challengeService.createChallengeForNotProd("2번 챌린지", "2번 챌린지 내용입니다", false, "day3","2023-06-01", "4주", "Java", "프로젝트", "IDE 캡처", user1);

@@ -66,11 +66,11 @@
                         <p class="text-[20px] bolder-double mt-5" th:text="${challenge.challengeCreator}"></p>
                         <div class="mt-6">
                             <p class="badge badge-warning text-[20px] bolder-double badge-lg"
-                               th:text="${challenge.challengeLanguage}"></p>
+                               th:text="${challenge.challengeTag.challengeLanguage}"></p>
                             <p class="badge badge-primary text-[20px] bolder-double badge-lg"
-                               th:text="${challenge.challengeSubject}"></p>
+                               th:text="${challenge.challengeTag.challengeSubject}"></p>
                             <p class="badge badge-notice text-[20px] bolder-double badge-lg"
-                               th:text="${challenge.challengePostType}"></p>
+                               th:text="${challenge.challengeTag.challengePostType}"></p>
                         </div>
                         <th:block th:unless="${hasPost}">
                             <p class="text-[20px] bolder-double mt-5"> 0 개</p>

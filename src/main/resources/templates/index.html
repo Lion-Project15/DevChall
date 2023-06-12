@@ -88,8 +88,8 @@
                         </a>
                         <div class="flex flex-wrap justify-center items-center">
                             <span class="badge badge-primary mx-2" style="font-size: x-small" th:text="'주 ' + ${challengeMember.linkedChallenge.challengeFrequency} + '회'"></span>
-                            <span class="badge badge-secondary mx-2" style="font-size: x-small" th:text="${challengeMember.linkedChallenge.challengeLanguage}"></span>
-                            <span class="badge badge-warning mx-2 my-1" style="font-size: x-small" th:text="${challengeMember.linkedChallenge.challengeSubject}"></span>
+                            <span class="badge badge-secondary mx-2" style="font-size: x-small" th:text="${challengeMember.linkedChallenge.challengeTag.challengeLanguage}"></span>
+                            <span class="badge badge-warning mx-2 my-1" style="font-size: x-small" th:text="${challengeMember.linkedChallenge.challengeTag.challengeSubject}"></span>
                         </div>
                         <progress class="progress progress-accent w-56" th:value="${challengeMember.totalPostCount}" th:max="${challengeMember.linkedChallenge.challengeFrequency * challengeMember.linkedChallenge.challengePeriod}"></progress>
                         <div class="card-actions flex justify-around">
@@ -145,8 +145,8 @@
                                     </a>
                                     <div class="flex flex-wrap justify-center items-center">
                                         <span class="badge badge-primary mx-2" style="font-size: x-small" th:text="'주 '+${challenge.challengeFrequency}+'회'"></span>
-                                        <span class="badge badge-secondary mx-2" style="font-size: x-small" th:text="${challenge.challengeLanguage}"></span>
-                                        <span class="badge badge-warning mx-2 my-1" style="font-size: x-small" th:text="${challenge.challengeSubject}"></span>
+                                        <span class="badge badge-secondary mx-2" style="font-size: x-small" th:text="${challenge.challengeTag.challengeLanguage}"></span>
+                                        <span class="badge badge-warning mx-2 my-1" style="font-size: x-small" th:text="${challenge.challengeTag.challengeSubject}"></span>
                                     </div>
                                     <progress class="progress progress-warning w-56" th:value="${countList.get(challenge.getId())}" th:max="${challenge.challengeMemberLimit}"></progress>
                                     <div class="card-actions flex justify-around">

@@ -43,9 +43,8 @@ public class Challenge extends BaseEntity {
 
     private long gatherPoints;
     private int challengeMemberLimit;
-
     private String challengeCreator;
-    private String photoFile;
+
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Builder.Default
     @OneToMany(mappedBy = "linkedChallenge")
