@@ -94,27 +94,27 @@
                     <div th:unless ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-start">
                         <div class="chat-image avatar">
                             <div class="w-10 rounded-full">
-                                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />
                             </div>
                         </div>
                         <div th:text ="${comment.challengeMember.challenger.nickname}" class="chat-header">
-                            Obi-Wan Kenobi
+                            닉네임
                             <time class="text-xs opacity-50" th:text="${#temporals.format(comment.createDate, 'yy.MM.dd HH:mm')}">12:45</time>
                         </div>
-                        <div class="chat-bubble" th:text="${comment.commentContent}">You were the Chosen One!</div>
+                        <div class="chat-bubble" style="color: #000000; background-color: #03FA6E7C;" th:text="${comment.commentContent}">You were the Chosen One!</div>
 
                     </div>
                     <div th:if ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-end">
                         <div class="chat-image avatar">
                             <div class="w-10 rounded-full">
-                                <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />
                             </div>
                         </div>
                         <div th:text ="${comment.challengeMember.challenger.nickname}" class="chat-header">
                             Anakin
                             <time class="text-xs opacity-50" th:text="${#temporals.format(comment.createDate, 'yy.MM.dd HH:mm')}" >12:46</time>
                         </div>
-                        <div class="chat-bubble" th:text="${comment.commentContent}">I hate you!</div>
+                        <div class="chat-bubble" style="color: #000000; background-color: #03FA6E7C;" th:text="${comment.commentContent}">I hate you!</div>
                     </div>
                 </div>
                 <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${linkedChallenge.id}">
