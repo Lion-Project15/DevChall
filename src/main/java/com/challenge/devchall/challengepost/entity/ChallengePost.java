@@ -25,7 +25,6 @@ public class ChallengePost extends BaseEntity {
     private String postContents;
     private boolean postIsPublic;
     private long postScore;
-    @Setter
     private int reportCount;
     private String smallPhoto;
     private String largePhoto;
@@ -58,6 +57,11 @@ public class ChallengePost extends BaseEntity {
         else {
             return false;
         }
+
+    }
+
+    public void setReportCount (int reportCount) {
+        this.reportCount = reportCount;
 
     }
 
