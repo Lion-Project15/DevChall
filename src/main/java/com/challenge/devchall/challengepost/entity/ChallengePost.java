@@ -2,11 +2,14 @@ package com.challenge.devchall.challengepost.entity;
 
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challange.entity.Challenge;
+import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.member.entity.Member;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +19,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -68,5 +73,9 @@ public class ChallengePost extends BaseEntity {
         this.reportCount = reportCount;
 
     }
+    //덧글
+    @JsonIgnoreProperties({"challengePost"})
+    @OneToMany(mappedBy = "challengePost",cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private List<Comment> commentList = new ArrayList<>();
 
 }

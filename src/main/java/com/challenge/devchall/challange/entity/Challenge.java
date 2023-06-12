@@ -43,15 +43,11 @@ public class Challenge extends BaseEntity {
 
     private String challengeCreator;
     private String photoFile;
+
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Builder.Default
     @OneToMany(mappedBy = "linkedChallenge")
     private List<ChallengePost> challengePostList = new ArrayList<>();
-
-    //덧글
-    @JsonIgnoreProperties({"challenge"})
-    @OneToMany(mappedBy = "challenge",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Comment> commentList;
 
     public void addPoint(long points){
         this.gatherPoints+=points;
