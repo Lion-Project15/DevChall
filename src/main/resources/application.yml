@@ -71,6 +71,8 @@ cloud:
     url: http://iztyfajjvmsf17707682.cdn.ntruss.com/
 
 custom:
-  maxLength:
-    title: 25
-    contents: 500
+  challenge:
+    weeklyPoint: 50
+    titleLength: 25
+    contentLength: 500
+    memberLimit: 50

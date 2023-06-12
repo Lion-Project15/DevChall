@@ -68,6 +68,9 @@ public class ChallengeController {
 
         if (createRsData.isFail()) {
 
+            System.out.println("createRsData = " + createRsData);
+            System.out.println("createRsData = " + createRsData);
+
             //실패시 메세지가 뜨지 않음.
             return rq.historyBack(createRsData);
         }

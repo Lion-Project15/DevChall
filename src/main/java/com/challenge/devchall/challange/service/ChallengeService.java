@@ -1,5 +1,6 @@
 package com.challenge.devchall.challange.service;
 
+import com.challenge.devchall.base.config.AppConfig;
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
@@ -101,14 +102,14 @@ public class ChallengeService {
                 .challengeTag(tag)
                 .challengeCreator(member.getLoginID())
                 .gatherPoints(0)
-                .challengeMemberLimit(50)
+                .challengeMemberLimit(AppConfig.getMemberLimit())
                 .build();
 
         tag.updateLinkedChallenge(challenge);
 
         challengeRepository.save(challenge);
         challengeMemberService.addMember(challenge, member, Role.LEADER);
-        member.setChallengeLimit(member.getChallengeLimit() + 1);
+        member.setChallengeLimit();
 
         return challenge;
     }
@@ -117,8 +118,7 @@ public class ChallengeService {
     public List<Challenge> getChallengeList() {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
-        List<Challenge> challenges = challengeRepository.findByChallengeStatus(true, pageable);
-        return challenges;
+        return challengeRepository.findByChallengeStatus(true, pageable);
     }
 
     public List<Challenge> getChallengeList(String language, String subject) {
@@ -141,10 +141,10 @@ public class ChallengeService {
     }
 
 
-    public class FormattingResult {
-        private int formattingFrequency;
-        private LocalDate formattingStartDate;
-        private int formattingPeriod;
+    public static class FormattingResult {
+        private final int formattingFrequency;
+        private final LocalDate formattingStartDate;
+        private final int formattingPeriod;
 
         public FormattingResult(int formattingFrequency, LocalDate formattingStartDate, int formattingPeriod) {
             this.formattingFrequency = formattingFrequency;
@@ -159,9 +159,7 @@ public class ChallengeService {
         LocalDate formattingStartDate = formattingDate(start_date);
         int formattingPeriod = formattingPeriod(period);
 
-        FormattingResult formattingResult = new FormattingResult(formattingFrequency, formattingStartDate, formattingPeriod);
-
-        return formattingResult;
+        return new FormattingResult(formattingFrequency, formattingStartDate, formattingPeriod);
     }
 
     public int formattingFrequency(String frequency) {
@@ -175,9 +173,8 @@ public class ChallengeService {
     public LocalDate formattingDate(String date) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dateTime = LocalDate.parse(date, formatter);
 
-        return dateTime;
+        return LocalDate.parse(date, formatter);
     }
 
     public int formattingPeriod(String period) {
@@ -189,20 +186,14 @@ public class ChallengeService {
 
     public Challenge getChallengeById(long id) {
 
-        Challenge challenge = this.challengeRepository.findById(id).orElse(null);
-
-        return challenge;
+        return this.challengeRepository.findById(id).orElse(null);
     }
 
     public boolean hasPost(Challenge challenge) {
 
         List<ChallengePost> challengePostList = challenge.getChallengePostList();
 
-        if (challengePostList.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !challengePostList.isEmpty();
     }
 
     public RsData<Challenge> checkCreateRule(String title, LocalDate startDate, String contents, Member member) {
@@ -221,16 +212,16 @@ public class ChallengeService {
             return RsData.of("F-2", "이미 존재하는 챌린지 명입니다.");
         }
 
-        if (title.length() > 25) {
-            return RsData.of("F-3", "제목은 25자 까지만 가능합니다.");
+        if (title.length() > AppConfig.getTitleLength()) {
+            return RsData.of("F-3", "제목은 %d자 까지만 가능합니다.".formatted(AppConfig.getTitleLength()));
         }
 
         if (startDate.isBefore(LocalDate.now())) {
             return RsData.of("F-4", "챌린지 시작일은 내일 날짜부터 지정할 수 있습니다.");
         }
 
-        if (contents.length() > 500) {
-            return RsData.of("F-5", "챌린지 내용은 500자 까지만 작성 가능합니다.");
+        if (contents.length() > AppConfig.getContentLength()) {
+            return RsData.of("F-5", "챌린지 내용은 %d자 까지만 작성 가능합니다.".formatted(AppConfig.getContentLength()));
         }
 
         return RsData.of("S-1", "챌린지 생성이 가능합니다!");

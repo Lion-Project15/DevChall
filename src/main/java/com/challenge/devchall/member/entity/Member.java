@@ -89,10 +89,8 @@ public class Member extends BaseEntity {
         return grantedAuthorities;
     }
 
-    //FIXME 세터 말고 다른 방법?
-    public void setChallengeLimit(int challengeLimit){
-
-        this.challengeLimit = challengeLimit;
+    public void setChallengeLimit(){
+        this.challengeLimit++;
     }
 
     public Inventory getEquippedFont(){

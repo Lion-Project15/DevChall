@@ -1,5 +1,6 @@
 package com.challenge.devchall.challengeMember.service;
 
+import com.challenge.devchall.base.config.AppConfig;
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
@@ -27,7 +28,7 @@ public class ChallengeMemberService {
 
     public RsData<ChallengeMember> addMember(Challenge challenge, Member member, Role role){
 
-        long joinCost = challenge.getChallengePeriod() * 50;
+        long joinCost = (long) challenge.getChallengePeriod() * AppConfig.getWeeklyPoint();
         RsData<ChallengeMember> joinRsData = canJoin(member, joinCost);
 
         if(joinRsData.isFail()){

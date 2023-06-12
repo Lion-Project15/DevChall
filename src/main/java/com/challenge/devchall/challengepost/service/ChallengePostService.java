@@ -32,10 +32,10 @@ public class ChallengePostService {
     private final ChallengeMemberService challengeMemberService;
     private final ChallengeMemberRepository challengeMemberRepository;
     private final PhotoService photoService;
-    @Value("${custom.maxLength.title}")
+    @Value("${custom.challenge.titleLength}")
     private int titleMaxLength;
 
-    @Value("${custom.maxLength.contents}")
+    @Value("${custom.challenge.contentLength}")
     private int contentsMaxLength;
 
     public RsData<ChallengePost> write(String title, String contents, boolean status, long postScore, long id,
