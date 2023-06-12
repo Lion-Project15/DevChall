@@ -85,6 +85,10 @@ public class ChallengeController {
     @GetMapping("/detail/{id}")
     public String showDetail(Model model, @PathVariable("id") long id, Principal principal) {
 
+        if (principal == null) {
+            return "redirect:/usr/member/login";
+        }
+
         Challenge challenge = this.challengeService.getChallengeById(id);
         Member loginMember = memberService.getByLoginId(principal.getName());
 
