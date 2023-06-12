@@ -8,6 +8,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -24,8 +25,10 @@ public class ChallengePost extends BaseEntity {
     private String postContents;
     private boolean postIsPublic;
     private long postScore;
+    private int reportCount;
     private String smallPhoto;
     private String largePhoto;
+    private String creatorId;
 
     //FIXME 일단 보류
 //    private boolean postModify;
@@ -54,6 +57,11 @@ public class ChallengePost extends BaseEntity {
         else {
             return false;
         }
+
+    }
+
+    public void setReportCount (int reportCount) {
+        this.reportCount = reportCount;
 
     }
 
