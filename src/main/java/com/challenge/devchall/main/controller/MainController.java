@@ -41,12 +41,12 @@ public class MainController {
             model.addAttribute("challenges", challengeList);
             model.addAttribute("countList", countList);
         } else {
-            List<Challenge> challengeList2 = challengeService.getChallengeList(language,subject);
+//            List<Challenge> challengeList2 = challengeService.getChallengeList(language,subject);
 
-            List<Integer> countList = getCountList(challengeList2);
-
-            model.addAttribute("challenges", challengeList2);
-            model.addAttribute("countList", countList);
+//            List<Integer> countList = getCountList(challengeList2);
+//
+//            model.addAttribute("challenges", challengeList2);
+//            model.addAttribute("countList", countList);
         }
         return "index";
     }

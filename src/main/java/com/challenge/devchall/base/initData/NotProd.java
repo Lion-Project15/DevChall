@@ -13,15 +13,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
-
-
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Configuration
 @Profile({"dev", "test"})
@@ -45,8 +36,6 @@ public class NotProd {
                 itemService.create("FF9900","font","FF9900", "000000",0);
                 itemService.create("1144FC","font","1144FC", "FFFFFF",0);
                 itemService.create("3CB24F","font","3CB24F", "FFFFFF",0);
-
-
 
                 Member admin = memberService.join("admin", "1234", "admin@admin.com",  "관리자").getData();//admin 계정
                 Member user1 = memberService.join("user1", "1234", "user1@devchall.com",  "user1").getData();

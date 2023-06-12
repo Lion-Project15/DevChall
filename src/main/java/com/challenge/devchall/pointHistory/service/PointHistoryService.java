@@ -20,7 +20,6 @@ public class PointHistoryService {
     private final PointHistoryRepository pointHistoryRepository;
     private final PointRepository pointRepository;
 
-
     public List<PointHistory> getAllPointHistories() {
         return pointHistoryRepository.findAll();
     }

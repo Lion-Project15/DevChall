@@ -9,6 +9,8 @@ import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
 import com.challenge.devchall.photo.service.PhotoService;
+import com.challenge.devchall.tag.entity.Tag;
+import com.challenge.devchall.tag.service.TagService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +32,7 @@ public class ChallengeService {
     private final ChallengeMemberService challengeMemberService;
     private final MemberService memberService;
     private final PhotoService photoService;
+    private final TagService tagService;
 
     @Transactional
     public RsData<Challenge> createChallenge(String title, String contents, boolean status, String frequency, String startDate, String period,
@@ -66,6 +69,8 @@ public class ChallengeService {
         String largePhoto = photoService.getLargePhoto(photoUrl);
         String smallPhoto = photoService.getSmallPhoto(photoUrl);
 
+        Tag tag = tagService.createTag(language, subject, postType);
+
         Challenge challenge = Challenge
                 .builder()
                 .challengeName(title)
@@ -77,16 +82,13 @@ public class ChallengeService {
                 .startDate(formattingResult.formattingStartDate)
                 .endDate(formattingResult.formattingStartDate.plusWeeks(formattingResult.formattingPeriod))
                 .challengePeriod(formattingResult.formattingPeriod)
-                .challengeLanguage(language)
-                .challengeSubject(subject)
-                .challengePostType(postType)
+                .challengeTag(tag)
                 .challengeCreator(member.getLoginID())
                 .gatherPoints(0)
                 .challengeMemberLimit(50)
                 .build();
 
-        //현재 안쓰이고 있음.
-        //int createCost = challenge.getChallengePeriod() * 50;
+        tag.updateLinkedChallenge(challenge);
 
         challengeRepository.save(challenge);
         challengeMemberService.addMember(challenge, member, Role.LEADER);
@@ -112,11 +114,11 @@ public class ChallengeService {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
 
-        // 현재 사용자가 참여 중인 챌린지 ID 목록을 가져옴
-        //List<Long> challengeIds = challengeMemberService.getChallengeIdsByMember(member);
+        //현재 사용자가 참여 중인 챌린지 ID 목록을 가져옴
+        List<Long> challengeIds = challengeMemberService.getChallengeIdsByMember(member);
 
-        // 현재 사용자가 참여 중인 챌린지를 제외한 모집 중인 챌린지 목록을 가져옴
-        //List<Challenge> challenges = challengeRepository.findByChallengeStatusAndIdNotIn(true, challengeIds, pageable);
+        //현재 사용자가 참여 중인 챌린지를 제외한 모집 중인 챌린지 목록을 가져옴
+        List<Challenge> challenges = challengeRepository.findByChallengeStatusAndIdNotIn(true, challengeIds, pageable);
 
         return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);
     }
@@ -234,6 +236,8 @@ public class ChallengeService {
         String smallPhoto = "http://iztyfajjvmsf17707682.cdn.ntruss.com/devchall_img/example1.png?type=m&w=200&h=115&quality=90&bgcolor=FFFFFF&extopt=0&anilimit=1";
         FormattingResult formattingResult = formatting(frequency, startDate, period);
 
+        Tag tag = tagService.createTag(language, subject, postType);
+
         Challenge challenge = Challenge
                 .builder()
                 .challengeName(title)
@@ -245,13 +249,13 @@ public class ChallengeService {
                 .startDate(formattingResult.formattingStartDate)
                 .endDate(formattingResult.formattingStartDate.plusWeeks(formattingResult.formattingPeriod))
                 .challengePeriod(formattingResult.formattingPeriod)
-                .challengeLanguage(language)
-                .challengeSubject(subject)
-                .challengePostType(postType)
+                .challengeTag(tag)
                 .challengeCreator(member.getLoginID())
                 .gatherPoints(0)
                 .challengeMemberLimit(50)
                 .build();
+
+        tag.updateLinkedChallenge(challenge);
 
         challengeRepository.save(challenge);
         challengeMemberService.addMember(challenge, member, Role.LEADER);
