@@ -41,8 +41,7 @@ public class ChallengeController {
     private final PhotoService photoService;
     private final Rq rq;
     private final ChallengeRepository challengeRepository;
-    private final ChallengePostService challengePostService;
-    private final CommentService commentService;
+
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
