@@ -115,6 +115,7 @@ public class ChallengeService {
     }
 
 
+    //FIXME (안 쓰이는 중)
     public List<Challenge> getChallengeList() {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
@@ -134,7 +135,7 @@ public class ChallengeService {
         //현재 사용자가 참여 중인 챌린지 ID 목록을 가져옴
         List<Long> challengeIds = challengeMemberService.getChallengeIdsByMember(member);
 
-        //현재 사용자가 참여 중인 챌린지를 제외한 모집 중인 챌린지 목록을 가져옴
+        //FIXME (안쓰이는 중) 현재 사용자가 참여 중인 챌린지를 제외한 모집 중인 챌린지 목록을 가져옴
         List<Challenge> challenges = challengeRepository.findByChallengeStatusAndIdNotIn(true, challengeIds, pageable);
 
         return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);

@@ -52,10 +52,9 @@ public class ChallengePostService {
         RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
 
 
-
         if (postLimitRsData.isFail()) {
             System.out.println(postLimitRsData.getMsg());
-            return null;
+            return RsData.of(postLimitRsData.getResultCode(), postLimitRsData.getMsg());
         }
 
         Photo photo = photoService.createPhoto(photoUrl);

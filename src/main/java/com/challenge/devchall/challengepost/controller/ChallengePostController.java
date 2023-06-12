@@ -1,6 +1,7 @@
 package com.challenge.devchall.challengepost.controller;
 
 
+import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
@@ -32,6 +33,7 @@ public class ChallengePostController {
     private final ChallengeMemberService challengeMemberService;
     private final MemberService memberService;
     private final PhotoService photoService;
+    private final Rq rq;
 
 
     @GetMapping("/write_form/{id}")

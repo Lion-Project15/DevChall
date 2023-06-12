@@ -31,13 +31,13 @@
             <div class="flex justify-between">
                 <p class="text-[30px] bolder-double font-bold mx-3" th:text="${challenge.challengeName}"></p>
 
-                <th:block th:unless="${isJoin}">
+                <th:block th:unless="${byChallengeAndMember.isPresent()}">
                     <button th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'"
                             class="btn btn-accent">참여하기
                     </button>
                 </th:block>
 
-                <th:block th:if="${isJoin}">
+                <th:block th:if="${byChallengeAndMember.isPresent()}">
                     <a th:href="@{|/usr/challenge/write_form/${challenge.id}|}"
                        class="btn btn-accent mx-2">
                         <button>인증하기</button>
@@ -72,10 +72,10 @@
                             <p class="badge badge-notice text-[20px] bolder-double badge-lg"
                                th:text="${challenge.challengeTag.challengePostType}"></p>
                         </div>
-                        <th:block th:unless="${hasPost}">
+                        <th:block th:if="${#lists.isEmpty(challengePostList)}">
                             <p class="text-[20px] bolder-double mt-5"> 0 개</p>
                         </th:block>
-                        <th:block th:if="${hasPost}">
+                        <th:block th:unless="${#lists.isEmpty(challengePostList)}">
                             <p class="text-[20px] bolder-double mt-5" th:text="${#lists.size(challengePostList)} + '개'"></p>
                         </th:block>
 
@@ -103,12 +103,12 @@
             <div class="w-1/8 h-full"></div>
             <div class="card bg-gray-200 w-3/4 h-full ml-20">
                 <div class="flex flex-col h-1/2">
-                    <th:block th:unless="${hasPost}">
+                    <th:block th:if="${#lists.isEmpty(challengePostList)}">
                         <h2 class="text-[20px] font-black mt-5 mx-8">아직 아무도 인증하지 않았어요!</h2>
                     </th:block>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-[50px] bg-white-500 my-10">
-                        <th:block th:if="${hasPost}">
+                        <th:block th:unless="${#lists.isEmpty(challengePostList)}">
                             <!-- 인증글 내용 -->
                             <div th:each="post : ${challengePostList}">
                                 <div class="card w-[200px] shadow-xl mx-8">
