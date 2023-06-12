@@ -91,7 +91,7 @@ public class ChallengeController {
 
         Challenge challenge = this.challengeService.getChallengeById(id);
         Member loginMember = memberService.getByLoginId(principal.getName());
-        List<Comment> commentList = commentService.findByChallenge(challenge);
+
         Optional<ChallengeMember> byChallengeAndMember = challengeMemberService.getByChallengeAndMember(challenge, loginMember);
 
         boolean isJoin;
@@ -113,7 +113,6 @@ public class ChallengeController {
         model.addAttribute("challenge", challenge);
         model.addAttribute("hasPost", hasPost);
         model.addAttribute("isJoin", isJoin);
-        model.addAttribute("commentList",commentList);
 
 
         return "/usr/challenge/detail";
