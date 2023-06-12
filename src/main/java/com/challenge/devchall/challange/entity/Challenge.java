@@ -49,7 +49,7 @@ public class Challenge extends BaseEntity {
 
     //덧글
     @JsonIgnoreProperties({"challenge"})
-    @OneToMany(mappedBy = "challenge",cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "challenge",cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Comment> commentList;
 
     public void addPoint(long points){
