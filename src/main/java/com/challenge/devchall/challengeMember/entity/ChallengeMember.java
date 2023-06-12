@@ -36,15 +36,8 @@ public class ChallengeMember extends BaseEntity {
     private Role challengerRole;
 
     private int totalPostCount;
-    //스케줄러 -> 매일 초기화
-    //private int postLimit;
 
-    //private Long challengeTotalPoint;
-//    private List<Role> challengerRole2;
-
-//    @JsonIgnoreProperties({"challengeMember"})
-//    @OneToMany(mappedBy = "challengeMemeber", fetch = FetchType.EAGER)
-//    private List<Comment> commentList;
+    private Long challengeTotalPoint;
 
     public void turnValid(){
         this.isValid = !isValid;
