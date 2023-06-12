@@ -8,6 +8,7 @@ import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
+import com.challenge.devchall.comment.service.CommentService;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
 import com.challenge.devchall.photo.service.PhotoService;
@@ -32,6 +33,7 @@ public class ChallengePostController {
     private final ChallengeMemberService challengeMemberService;
     private final MemberService memberService;
     private final PhotoService photoService;
+    private final CommentService commentService;
 
 
     @GetMapping("/write_form/{id}")
@@ -100,6 +102,7 @@ public class ChallengePostController {
 
         model.addAttribute("post", post);
         model.addAttribute("linkedChallenge", linkedChallenge);
+        model.addAttribute("commentList", commentService.findByChallengePost(post));
 
         return "/usr/challenge/postdetail";
     }

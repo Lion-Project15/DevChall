@@ -3,6 +3,7 @@ package com.challenge.devchall.comment.entity;
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
+import com.challenge.devchall.challengepost.entity.ChallengePost;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -20,12 +21,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class Comment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "challenge_id")
-    private Challenge challenge;
+    private ChallengePost challengePost;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "challenge_member_id")
     private ChallengeMember challengeMember;
 
     @Column(nullable = false)
@@ -36,8 +35,8 @@ public class Comment extends BaseEntity {
     }
 
     @Builder
-    public Comment(Challenge challenge, String commentContent, ChallengeMember challengeMember) {
-        this.challenge = challenge;
+    public Comment(ChallengePost challengePost, String commentContent, ChallengeMember challengeMember) {
+        this.challengePost = challengePost;
         this.commentContent = commentContent;
         this.challengeMember = challengeMember;
     }
