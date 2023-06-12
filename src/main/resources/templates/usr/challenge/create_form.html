@@ -35,15 +35,15 @@
                 return;
             }
 
-            var fileInput = document.getElementById('img');
-            var fileName = fileInput.value;
-            var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
-
-            if (!allowedExtensions.exec(fileName)) {
-                toastWarning('첨부 파일의 확장자는 JPG, JPEG, PNG, GIF만 가능합니다.');
-                fileInput.value = '';
-                return;
-            }
+            // var fileInput = document.getElementById('img');
+            // var fileName = fileInput.value;
+            // var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            //
+            // if (!allowedExtensions.exec(fileName)) {
+            //     toastWarning('첨부 파일의 확장자는 JPG, JPEG, PNG, GIF만 가능합니다.');
+            //     fileInput.value = '';
+            //     return;
+            // }
 
             form.submit(); // 폼 발송
         }

@@ -75,7 +75,7 @@
                         class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
                     <a th:href="|/usr/challenge/detail/${challengeMember.linkedChallenge.id}|">
                         <figure class="pt-5">
-                            <img th:src="${challengeMember.getLinkedChallenge().smallPhoto}" alt="Shoes" class="rounded-xl w-[90%]" />
+                            <img th:src="${challengeMember.getLinkedChallenge().challengePhoto.getSmallPhoto()}" alt="Shoes" class="rounded-xl w-[90%]" />
                         </figure>
                     </a>
 
@@ -134,7 +134,7 @@
                             <div class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
                                 <a th:href="|/usr/challenge/detail/${challenge.id}|">
                                     <figure class="pt-5">
-                                        <img th:src="${challenge.smallPhoto}" alt="Challenge_img" class="rounded-xl w-[90%]" />
+                                        <img th:src="${challenge.challengePhoto.getSmallPhoto()}" alt="Challenge_img" class="rounded-xl w-[90%]" />
                                     </figure>
                                 </a>
 
@@ -153,8 +153,8 @@
                                         <div style="font-size: x-small">
                                             <a href="#">
                                                 <span>현재 참여자 수 : </span>
-                                                <span th:text="${countList.get(challenge)} + ' / '">?? / </span>
-                                                <span th:text="${challenge.challengeMemberLimit}"></span>
+<!--                                                <span th:text="${countList.get(challenge)} + ' / '">?? / </span>-->
+<!--                                                <span th:text="${challenge.challengeMemberLimit}"></span>-->
                                             </a>
                                         </div>
                                     </div>

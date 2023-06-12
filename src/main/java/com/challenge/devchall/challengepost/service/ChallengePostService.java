@@ -10,6 +10,7 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.repository.ChallengePostRepository;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.photo.entity.Photo;
 import com.challenge.devchall.photo.service.PhotoService;
 import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.point.schedule.Schedule;
@@ -44,8 +45,7 @@ public class ChallengePostService {
             return null;
         }
 
-        String largePhoto = photoService.getLargePhoto(photoUrl);
-        String smallPhoto = photoService.getSmallPhoto(photoUrl);
+        Photo photo = photoService.createPhoto(photoUrl);
 
         ChallengePost challengePost = ChallengePost.builder()
                 .postTitle(title)
@@ -54,8 +54,7 @@ public class ChallengePostService {
                 .postScore(postScore)
                 .linkedChallenge(linkedChallenge)
                 .challenger(member)
-                .largePhoto(largePhoto)
-                .smallPhoto(smallPhoto)
+                .postPhoto(photo)
                 .build();
 
         challengePostRepository.save(challengePost);

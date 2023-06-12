@@ -25,7 +25,7 @@
 
     <div class="flex w-full mt-10 mx-100 justify-center">
         <div class="mx-20">
-            <img th:src="${challenge.largePhoto}" alt="challenge_image"/>
+            <img th:src="${challenge.challengePhoto.getLargePhoto()}" alt="challenge_image"/>
         </div>
         <div class="w-1/3">
             <div class="flex justify-between">
@@ -113,7 +113,7 @@
                             <div th:each="post : ${challengePostList}">
                                 <div class="card w-[200px] shadow-xl mx-8">
                                     <figure>
-                                        <img th:src="${post.smallPhoto}" alt="post_image"
+                                        <img th:src="${post.postPhoto.getSmallPhoto()}" alt="post_image"
                                              class="rounded-xl w-[90%] mt-3"/>
                                     </figure>
                                     <div class="card-body">

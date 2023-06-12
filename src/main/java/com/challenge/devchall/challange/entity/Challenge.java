@@ -2,6 +2,7 @@ package com.challenge.devchall.challange.entity;
 
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.photo.entity.Photo;
 import com.challenge.devchall.pointHistory.entity.PointHistory;
 import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import com.challenge.devchall.tag.entity.Tag;
@@ -29,8 +30,8 @@ public class Challenge extends BaseEntity {
     private boolean challengeStatus;
 
     //둘 다 저장하지 않고, baseUrl만 저장 -> 필요할때마다 호출?
-    private String largePhoto;
-    private String smallPhoto;
+    @OneToOne
+    private Photo challengePhoto;
 
     private int challengeFrequency;
     private LocalDate startDate;
