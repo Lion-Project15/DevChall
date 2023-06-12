@@ -14,6 +14,7 @@ import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.member.service.MemberService;
 import com.challenge.devchall.photo.service.PhotoService;
+import com.challenge.devchall.standard.util.Ut;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -66,6 +67,8 @@ public class ChallengeController {
                 language, subject, posttype, file, loginMember);
 
         if (createRsData.isFail()) {
+
+            //실패시 메세지가 뜨지 않음.
             return rq.historyBack(createRsData);
         }
 

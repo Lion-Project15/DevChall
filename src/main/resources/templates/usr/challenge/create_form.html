@@ -13,12 +13,12 @@
 
         function CreateForm__submit(form) {
 
-            if (form.title.value.length > 25) {
-                toastWarning('챌린지 제목은 25자 까지 가능합니다.');
-                form.title.focus();
-                console.log('제대로 됩니까?');
-                return;
-            }
+            // if (form.title.value.length > 25) {
+            //     toastWarning('챌린지 제목은 25자 까지 가능합니다.');
+            //     form.title.focus();
+            //     console.log('제대로 됩니까?');
+            //     return;
+            // }
 
             if (form.contents.value.length > 500) {
                 toastWarning('챌린지 내용은 500자 까지 작성 가능합니다.');
