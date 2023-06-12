@@ -117,10 +117,17 @@
                                              class="rounded-xl w-[90%] mt-3"/>
                                     </figure>
                                     <div class="card-body">
+
+                                        <p>
+                                            <i class="fa-sharp fa-solid fa-star fa-beat fa-sm" style="color: #40dd84;"></i>
+                                            <small th:text="${post.postScore}"></small>
+                                        </p>
+
                                         <h2 class="card-title"
                                             th:text="${#strings.length(post.postTitle) &gt; 10 ? #strings.substring(post.postTitle, 0, 10) + '...' : post.postTitle}"></h2>
 
                                         <p th:text="${#strings.length(post.postContents) &gt; 15 ? #strings.substring(post.postContents, 0, 15) + '...' : post.postContents}"></p>
+
                                         <div class="card-actions justify-end">
                                             <a class="btn btn-accent"
                                                th:href="@{|/usr/challenge/postdetail/${post.id}|}">보러가기</a>
@@ -136,7 +143,6 @@
         </div>
 
     </div>
-</div>
 
 </main>
 </body>
