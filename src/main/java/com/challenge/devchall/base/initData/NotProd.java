@@ -5,6 +5,7 @@ import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
+import com.challenge.devchall.item.service.ItemService;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
 import org.springframework.boot.CommandLineRunner;
@@ -30,12 +31,23 @@ public class NotProd {
             MemberService memberService,
             ChallengeService challengeService,
             ChallengeMemberService challengeMemberService,
-            ChallengePostService challengePostService
+            ChallengePostService challengePostService,
+            ItemService itemService
     ) {
         return new CommandLineRunner() {
             @Override
             @Transactional
             public void run (String... args) throws Exception {
+
+                itemService.create("L-F-FCE411","font","FCE411", "000000",300);
+                itemService.create("basic","font","3D4451", "FFFFFF",0);
+                itemService.create("ED3096","font","ED3096", "FFFFFF",0);
+                itemService.create("FF9900","font","FF9900", "000000",0);
+                itemService.create("1144FC","font","1144FC", "FFFFFF",0);
+                itemService.create("3CB24F","font","3CB24F", "FFFFFF",0);
+
+
+
                 Member admin = memberService.join("admin", "1234", "admin@admin.com",  "관리자").getData();//admin 계정
                 Member user1 = memberService.join("user1", "1234", "user1@devchall.com",  "user1").getData();
                 Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2").getData();
@@ -73,6 +85,8 @@ public class NotProd {
                 challengePostService.write("3-2인증", "3-2인증 내용입니다.", true, 4, c3.getId(), photoUrl, user5);
                 challengePostService.write("re2-1인증", "re2-1인증 내용입니다.", true, 4, c4.getId(), photoUrl, user1);
                 challengePostService.write("re2-2인증", "re2-2인증 내용입니다.", true, 4, c4.getId(), photoUrl, user5);
+
+
             }
         };
     }
