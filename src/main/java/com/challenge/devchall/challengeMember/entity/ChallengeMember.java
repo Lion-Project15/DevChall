@@ -40,7 +40,7 @@ public class ChallengeMember extends BaseEntity {
     private Long challengeTotalPoint;
 
     public void turnValid(){
-        this.isValid = !isValid;
+        this.isValid = false;
     }
 
     public void challengerRole(Role challengerRole){
