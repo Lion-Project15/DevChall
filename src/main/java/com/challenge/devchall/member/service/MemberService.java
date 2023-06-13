@@ -19,13 +19,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import com.challenge.devchall.item.entity.Item;
-import java.util.Arrays;
+
+import java.util.*;
 
 import java.awt.datatransfer.Clipboard;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -188,6 +185,10 @@ public class MemberService {
             }
         }
         return 0; // 멤버가 존재하지 않거나 포인트 정보가 없는 경우, 0을 반환
+    }
+
+    public List<Member> getAllMembers(){
+        return memberRepository.findAll();
     }
 
 }
