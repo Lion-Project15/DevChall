@@ -109,8 +109,8 @@
 
         <!--    챌린지 리스트 시작   -->
         <article class="p-5 mx-5">
-            <div class="p-2">
-                <h1 class="text-black text-2xl font-bold">>모집 중인 챌린지
+            <div th:classappend="${challenges.isEmpty()} ? 'w-[80vw]'" class="p-2">
+                <h1 class="text-black text-2xl font-bold">>모집 중인 챌린지</h1>
                     <span th:if="${param.subject != null && !param.subject.isEmpty()}">
                         <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'test')}">시험 대비</span>
                         <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'project')}">프로젝트</span>
@@ -121,9 +121,9 @@
                     </span>
                     <span class="badge badge-accent mx-1" th:if="${param.language != null && !param.language.isEmpty()}"
                           th:text="${param.language}"></span>
-                </h1>
+
             </div>
-            <div class="text-center mt-10 text-black" th:if="${challenges == null or #lists.isEmpty(challenges)}" >
+            <div class="text-center mt-10 text-black" th:if="${challenges == null or challenges.isEmpty()}" >
                 <i class="fa-regular fa-face-laugh"></i> 모집중인 챌린지가 없어요. 새로운 챌린지를 생성해보세요!
             </div>
             <div th:unless="${challenges == null or #lists.isEmpty(challenges)}">

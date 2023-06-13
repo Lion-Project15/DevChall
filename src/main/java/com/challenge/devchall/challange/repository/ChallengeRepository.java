@@ -23,6 +23,7 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     @Query("SELECT c FROM Challenge c " +
             "LEFT JOIN c.challengeTag ct " +
             "WHERE (:challengeLanguage IS NULL OR ct.challengeLanguage = :challengeLanguage) " +
+            "AND c.startDate >  CURRENT_DATE " +
             "AND (:challengeSubject IS NULL OR ct.challengeSubject = :challengeSubject) " +
             "AND c.challengeStatus = true")
     Page<Challenge> findByConditions(@Param("challengeLanguage") String challengeLanguage,
@@ -35,6 +36,7 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
             "LEFT JOIN Tag ct ON ct.linkedChallenge = c " +
             "LEFT JOIN ChallengeMember cm ON cm.linkedChallenge = c AND cm.challenger = :me " +
             "WHERE cm.challenger = null " +
+            "AND c.startDate >  CURRENT_DATE " +
             "AND (:challengeLanguage IS NULL OR ct.challengeLanguage = :challengeLanguage) " +
             "AND (:challengeSubject IS NULL OR ct.challengeSubject = :challengeSubject) " +
             "AND c.challengeStatus = true")
