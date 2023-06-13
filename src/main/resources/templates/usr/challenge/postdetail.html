@@ -117,7 +117,7 @@
                         <div class="chat-bubble" style="color: #000000; background-color: #03FA6E7C;" th:text="${comment.commentContent}">I hate you!</div>
                     </div>
                 </div>
-                <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${linkedChallenge.id}">
+                <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${post.id}">
                     <input type="text" name ="contents" placeholder="댓글을 달아보세요!" class="my-3 mx-4 input input-bordered input-accent w-full max-w-xs" />
                     <button type="submit" class="mx-1 btn btn-accent btn-outline disabled">
                         <i class="fas fa-paper-plane" style="color: #000000"></i>
