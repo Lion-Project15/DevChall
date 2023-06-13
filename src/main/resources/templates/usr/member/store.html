@@ -45,12 +45,7 @@
                 <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-20"
                      style="width: 200px;">
                     <a class="mt-4 text-[#313131] font-bold text-xl"  th:text="${@rq.member.nickname}"></a>
-<!--                    <a href="usr/member/me"-->
-<!--                       th:style="'color: #' + ${rq.member.equippedFont.item.subPattern} + '; background: #'+${rq.member.equippedFont.item.pattern}+' !important'"-->
-<!--                       th:if="${rq.login}"-->
-<!--                       class="mt-4 text-xl font-bold"-->
-<!--                       th:text="${rq.member.nickname}">-->
-<!--                    </a>-->
+
                 </div>
             </div>
 
@@ -71,7 +66,7 @@
                        th:onclick="'changeEquip('+${inventory.item.id}+')'">
                         <div class="w-[85px] h-[85px] flex justify-center items-center"
                              th:style="'background-color: #'+${inventory.item.pattern}+';'">
-                            <div th:if="${inventory.equipped}" class="badge badge-accent">착용중</div>
+                            <div th:if="${inventory.equipped}" class="badge badge-accent border-none" style="background-color: #03FA6E;">착용중</div>
                         </div>
                     </div>
                 </div>

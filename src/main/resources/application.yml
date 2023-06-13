@@ -8,6 +8,10 @@ spring:
   profiles:
     active: dev
     include: secret
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.session.SessionAutoConfiguration
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://127.0.0.1:3306/devchall__dev?useUnicode=true&allowPublicKeyRetrieval=true&useSSL=false&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
@@ -77,3 +81,4 @@ custom:
     contentLength: 500
     memberLimit: 50
     pageable: 10
+

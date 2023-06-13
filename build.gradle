@@ -51,8 +51,24 @@ dependencies {
 	//네이버 클라우드 이미지 배포(S3)
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
+	//테스트용 DB
+	runtimeOnly 'com.h2database:h2'
+
+	//redis 추가
+	implementation 'org.springframework.boot:spring-boot-starter-cache'
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation 'org.springframework.session:spring-session-core'
+	implementation 'org.springframework.session:spring-session-data-redis'
+
+	//쿠버네티스 무중단 배포를 위한!
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jar {
+	enabled = false
 }

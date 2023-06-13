@@ -1,9 +1,28 @@
+server:
+  shutdown: graceful
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
 spring:
+  data:
+    redis:
+      host: 172.17.0.1
+  lifecycle:
+    timeout-per-shutdown-phase: 1m
+  autoconfigure:
+    exclude:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://172.17.0.1:3306/devchall__prod?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
-    username: 'PROD 사용자 명'
-    password: 'PROD 비밀번호'
+    username: root
+    password: 1234
   jpa:
     hibernate:
       ddl-auto: update
@@ -18,3 +37,6 @@ logging:
     com.challenge.devchall: INFO
     org.hibernate.orm.jdbc.bind: INFO
     org.hibernate.orm.jdbc.extract: INFO
+custom:
+  site:
+    baseUrl: https://www.devchall.site

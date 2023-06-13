@@ -6,23 +6,23 @@
 
 <body>
 
-<main layout:fragment="main" class="bg-[#121212] text-white flex flex-col w-full h-full">
-    <div>
-        <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/logo.png" class="w-[250px] h-[250px]">
-    </div>
+<main layout:fragment="main" class="bg-[#121212] text-white flex flex-col justify-center items-center w-full h-full">
+    <!--    <div>-->
+    <!--        <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/logo.png" class="w-[250px] h-[250px]">-->
+    <!--    </div>-->
     <div class="flex flex-1">
-        <form th:action method="POST" class="flex flex-col justify-center items-center w-full" onsubmit="JoinForm__submit(this); return false;">
-            <div class="w-full p-10 lg:w-[65rem]">
+        <form th:action method="POST" class="flex flex-col justify-center items-center w-full mt-15" onsubmit="JoinForm__submit(this); return false;">
+            <div class="w-full p-5 lg:w-[30rem]">
                 <p class="text-[25px]">회원가입</p>
                 <div class="flex flex-col gap-4 justify-center lg:flex-row" th:object="${memberDto}">
-                    <div class="flex flex-col space-y-4  flex-1">
+                    <div class="flex flex-col space-y-0.1 flex-1">
                         <div>
                             <div class="w-full">
                                 <label class="label">
-                                    <span class="text-gray-400">아이디를 입력해주세요</span>
+                                    <span class="text-gray-400 mt-3">아이디를 입력해주세요</span>
                                 </label>
-                                <input type="text" th:field="*{loginID}"  maxlength="16" placeholder="아이디" class="input input-bordered w-full text-black" id="loginID" autofocus />
-                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_loginID}"></span>
+                                <input type="text" th:field="*{loginID}" maxlength="16" placeholder="아이디" class="input input-bordered w-full text-black" id="loginID" autofocus />
+                                <span th:style="${'color: red; font-size:12px;'}" th:text="${valid_loginID}"></span>
                             </div>
                         </div>
                         <div>
@@ -33,7 +33,7 @@
                                     <span class="text-gray-400">닉네임을 입력해주세요(2~8자)</span>
                                 </label>
                                 <input type="text" th:field="*{nickname}" maxlength="8" placeholder="별명 (2~8자)" class="input input-bordered w-full text-black" id="nickname" />
-                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_nickname}"></span>
+                                <span th:style="${'color: red; font-size:12px;'}" th:text="${valid_nickname}"></span>
                             </div>
                         </div>
                         <div>
@@ -42,18 +42,16 @@
                                     <span class="text-gray-400">이메일 주소를 입력해주세요</span>
                                 </label>
                                 <input type="text" th:field="*{email}" placeholder="이메일" class="input input-bordered w-full text-black" id="email" /><br>
-                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_email}"></span>
+                                <span th:style="${'color: red; font-size:12px;'}" th:text="${valid_email}"></span>
                             </div>
                         </div>
-                    </div>
-                    <div class="flex flex-col space-y-4 flex-1">
                         <div>
                             <div class="w-full">
                                 <label class="label">
                                     <span class="text-gray-400">비밀번호를 입력해주세요</span>
                                 </label>
                                 <input type="password" th:field="*{password}" maxlength="16" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
-                                <span th:style="${'color: red; font-size:14px;'}" th:text="${valid_password}"></span>
+                                <span th:style="${'color: red; font-size:12px;'}" th:text="${valid_password}"></span>
                             </div>
                         </div>
                         <div>
@@ -67,17 +65,27 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col justify-center mt-[20px]">
-                    <button id="btn-join-1" class="btn btn-md btn-accent gap-3">
-                        <span class="text-white" style="font-size: 17px;">회원가입</span>
+                <div class="flex flex-col justify-center mt-[40px]">
+                    <button id="btn-join-1" class="btn btn-md btn-accent gap-3 border-none" style="background-color: #03fa6e;">
+                        <span class="text-black" style="font-size: 17px;">회원가입</span>
                     </button>
                 </div>
-                <div class="flex justify-center mt-[20px]">
-                    <label class="label">
+                <div class="flex justify-center items-center mt-10">
+                    <div class="border-t flex-grow border-gray-300 border-opacity-50"></div>
+                    <label class="label mx-4">
                         <span class="text-gray-400">SNS로 회원가입 하기</span>
                     </label>
+                    <div class="border-t flex-grow border-gray-300 border-opacity-50"></div>
                 </div>
-                <div class="mt-[20px] flex justify-center space-x-6">
+
+                <!--                <div class="flex justify-center mt-[40px]">-->
+<!--                    <label class="label">-->
+<!--                        <span class="text-gray-400">SNS로 회원가입 하기</span>-->
+<!--                    </label>-->
+<!--                </div>-->
+
+
+                <div class="mt-[10px] flex justify-center space-x-6">
                     <a href="/oauth2/authorization/naver"><img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/naver-icon.png" class="w-[50px] h-[50px]"></a>
                     <a href="/oauth2/authorization/kakao"><img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/kakao-icon.png" class="w-[50px] h-[50px]"></a>
                 </div>
