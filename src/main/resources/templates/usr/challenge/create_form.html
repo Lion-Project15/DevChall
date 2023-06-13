@@ -65,11 +65,28 @@
                         <label for="title" class="label">
                             <span class="text-gray-400">챌린지 제목</span>
                         </label>
-                        <input type="text" name="title" maxlength="30" placeholder="챌린지명"
-                               class="input input-bordered w-full form-control text-black input-accent" id="title"
-                               style="border-color: #03FA6E;" autofocus/>
+<!--                        <input type="text" name="title" maxlength="30" placeholder="챌린지명"-->
+<!--                               class="input input-bordered w-full form-control text-black input-accent" id="title"-->
+<!--                               style="border-color: #03FA6E;" autofocus/>-->
 
-                        <label for="contents" class="label mt-3">
+
+                            <style>
+                                .custom-input {
+                                    background-color: #ffffff;
+                                    border: 1px solid #03fa6e;
+                                    transition: border-color 0.3s;
+                                }
+                                .custom-input:focus {
+                                    outline: none;
+                                    border-width: 2px;
+                                    border-color: #03fa6e;
+                                }
+                            </style>
+                            <input type="text" name="title" maxlength="30" placeholder="챌린지명" class="my-3 mx-4 w-full input input-bordered input-accent w-full max-w-xs custom-input" />
+
+
+
+                            <label for="contents" class="label mt-3">
                             <span class="text-gray-400">챌린지 내용</span>
                         </label>
                         <textarea rows="6" name="contents" placeholder="챌린지내용"

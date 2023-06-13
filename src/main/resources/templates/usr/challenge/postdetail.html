@@ -1,7 +1,7 @@
 <html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
 
 <html>
-<head>
+<head>ㅎg
     <meta charset="UTF-8">
     <title>포스트 자세히 보기</title>
 </head>
@@ -120,9 +120,51 @@
                 <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${post.id}">
                     <input type="text" name ="contents" placeholder="댓글을 달아보세요!" class="my-3 mx-4 input input-bordered input-accent w-full max-w-xs" />
                     <button type="submit" class="mx-1 btn btn-accent btn-outline disabled">
+
+<!--                <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${linkedChallenge.id}">-->
+<!--                    <input type="text" name ="contents" placeholder="댓글을 달아보세요!" class="my-3 mx-4 input input-bordered input-accent w-full max-w-xs" />-->
+<!--                    <button type="submit" class="mx-1 btn btn-accent btn-outline disabled">-->
+<!--                        <i class="fas fa-paper-plane" style="color: #000000"></i>-->
+<!--                    </button>-->
+<!--                </form>-->
+
+                <!--데이지ui 사용한 댓글창과 버튼 수정-->
+                <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${linkedChallenge.id}">
+                    <style>
+                        .custom-input {
+                            background-color: #ffffff;
+                            border: 1px solid #03fa6e;
+                            transition: border-color 0.3s;
+                        }
+                        .custom-input:focus {
+                            outline: none;
+                            border-width: 2px;
+                            border-color: #03fa6e;
+                        }
+                    </style>
+                    <input type="text" name="contents" placeholder="댓글을 달아보세요!" class="my-3 mx-4 input input-bordered input-success w-full max-w-xs custom-input" />
+
+                    <style>
+                        .custom-button {
+                            background-color: #ffffff;
+                            border-color: #03fa6e;
+                            transition: background-color 0.3s, border-color 0.3s;
+                        }
+                        .custom-button:hover,
+                        .custom-button:focus,
+                        .custom-button:active {
+                            background-color: #03fa6e;
+                            border-color: #03fa6e;
+                            outline: none;
+                        }
+                    </style>
+                    <button type="submit" class="mx-1 mt-3 custom-button btn btn-outline disabled">
+
+
                         <i class="fas fa-paper-plane" style="color: #000000"></i>
                     </button>
                 </form>
+
             </div>
         </div>
     </div>
