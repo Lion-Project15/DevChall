@@ -4,12 +4,17 @@ import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.base.roles.ChallengeMember.Role;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
+import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
+import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -33,7 +38,6 @@ public class ChallengeMember extends BaseEntity {
     private int postLimit;
     private int totalPostCount;
     private Long challengeTotalPoint;
-//    private List<Role> challengerRole2;
 
     public void turnValid(){
         this.isValid = !isValid;

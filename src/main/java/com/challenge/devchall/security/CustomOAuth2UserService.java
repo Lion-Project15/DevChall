@@ -31,27 +31,25 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         String providerTypeCode = userRequest.getClientRegistration().getRegistrationId().toUpperCase();
 
-        String oauthId = switch (providerTypeCode) {
-            case "NAVER" -> ((Map<String, String>) oAuth2User.getAttributes().get("response")).get("id");
-            default -> oAuth2User.getName();
-        };
-        String email = switch (providerTypeCode) {
-            case "NAVER" -> ((Map<String,String>) oAuth2User.getAttributes().get("response")).get("email");
-            default -> oAuth2User.getName();
-        };
-        String nickname = switch (providerTypeCode) {
-            case "NAVER" -> ((Map<String,String>) oAuth2User.getAttributes().get("response")).get("nickname");
-            default -> oAuth2User.getName();
-        };
+        String oauthId;
+        String email;
+        String nickname;
 
-//        String loginId = providerTypeCode + "__%s".formatted(oauthId);
+        if (providerTypeCode.equals("NAVER")) {
+            oauthId = ((Map<String, String>) oAuth2User.getAttributes().get("response")).get("id");
+            email = ((Map<String, String>) oAuth2User.getAttributes().get("response")).get("email");
+            nickname = ((Map<String, String>) oAuth2User.getAttributes().get("response")).get("nickname");
+        } else {
+            oauthId = oAuth2User.getName();
+            email = oAuth2User.getName();
+            nickname = oAuth2User.getName();
+        }
+
         if (oauthId.length() > 8) {
             oauthId = providerTypeCode + "__%s".formatted(oauthId.substring(0,8));
         }
 
         Map<String, Object> attributes = oAuth2User.getAttributes();
-
-//        System.out.println("attributes = " + attributes);
 
         Member member = memberService.whenSocialLogin(providerTypeCode, oauthId, email, nickname).getData();
 

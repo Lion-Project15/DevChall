@@ -8,6 +8,9 @@ import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.challengepost.service.ChallengePostService;
+import com.challenge.devchall.comment.entity.Comment;
+import com.challenge.devchall.comment.service.CommentService;
 import com.challenge.devchall.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -85,6 +88,7 @@ public class ChallengeController {
 
         model.addAttribute("challenge", challenge);
         model.addAttribute("byChallengeAndMember", byChallengeAndMember);
+
 
         return "/usr/challenge/detail";
     }

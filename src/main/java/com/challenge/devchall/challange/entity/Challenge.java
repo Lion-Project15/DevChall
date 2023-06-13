@@ -6,6 +6,10 @@ import com.challenge.devchall.photo.entity.Photo;
 import com.challenge.devchall.pointHistory.entity.PointHistory;
 import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import com.challenge.devchall.tag.entity.Tag;
+import com.challenge.devchall.comment.entity.Comment;
+import com.challenge.devchall.pointHistory.entity.PointHistory;
+import com.challenge.devchall.pointHistory.service.PointHistoryService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -45,6 +49,7 @@ public class Challenge extends BaseEntity {
     private long gatherPoints;
     private int challengeMemberLimit;
     private String challengeCreator;
+    private String photoFile;
 
     @LazyCollection(LazyCollectionOption.EXTRA)
     @Builder.Default
