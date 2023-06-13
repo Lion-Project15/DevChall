@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -170,9 +171,9 @@ public class ChallengeService {
         }
 
         //이미 존재하는 챌린지 명일 경우
-        List<Challenge> byChallengeName = challengeRepository.findByChallengeName(title);
+        Optional<Challenge> byChallengeName = challengeRepository.findByChallengeName(title);
 
-        if (!byChallengeName.isEmpty()) {
+        if (byChallengeName.isPresent()) {
             return RsData.of("F-2", "이미 존재하는 챌린지 명입니다.");
         }
 
