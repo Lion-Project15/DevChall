@@ -160,7 +160,6 @@ class PointServiceTest {
         setTotalPost(c1, mem1);
         setTotalPost(c2, mem2);
 
-
         pointService.settle();
 
         int memberNum1 = howManyEarn(mem1, c1);
@@ -168,7 +167,9 @@ class PointServiceTest {
 
         List<Member> allMem = allMemberList();
         for(int i = 0; i<allMem.size(); i++){
-            assertThat(allMem.get(i).getPoint().getCurrentPoint()).isEqualTo(points.get(i)
+            System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+allMem.get(i).getLoginID());
+            assertThat(allMem.get(i).getPoint().getCurrentPoint()).isEqualTo(
+                    points.get(i)
                     + calcReward(c1, allMem.get(i), memberNum1)
                     + calcReward(c2, allMem.get(i), memberNum2));
         }
@@ -232,10 +233,12 @@ class PointServiceTest {
             return 0L;
         }
         long reward = c.getGatherPoints()/memberNum;
+        long totalReward = 0;
+        if(pointService.checkAchievementRate(cm, c)){
+            totalReward = cm.getChallengerRole() == Role.LEADER ?
+                    Math.round(reward * 1.07): Math.round(reward*1.05);
+        }
 
-
-        long totalReward =  cm.getChallengerRole() == Role.LEADER ?
-                Math.round(reward * 1.07): Math.round(reward*1.05);
 
         return totalReward+postPoint;
     }
@@ -257,11 +260,4 @@ class PointServiceTest {
         }
     }
 
-    @Test
-    void calcPointFromPosts () {
-    }
-
-    @Test
-    void checkAchievementRate () {
-    }
 }
