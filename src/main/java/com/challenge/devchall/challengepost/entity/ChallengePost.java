@@ -4,11 +4,14 @@ import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.member.entity.Member;
-import com.challenge.devchall.photo.entity.Photo;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import com.challenge.devchall.photo.entity.Photo;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -16,8 +19,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +33,8 @@ import java.util.List;
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 public class ChallengePost extends BaseEntity {
-
+    @CreatedDate
+    private LocalDateTime createDate;
     private String postTitle;
     private String postContents;
     private boolean postIsPublic;
@@ -43,11 +49,10 @@ public class ChallengePost extends BaseEntity {
 //    private boolean postModify;
 //    private int postStarPoint;
 
-    ////@ManyToOne(cascade = CascadeType.ALL)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Challenge linkedChallenge;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member challenger;
 
 

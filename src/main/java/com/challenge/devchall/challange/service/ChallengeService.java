@@ -1,7 +1,8 @@
 package com.challenge.devchall.challange.service;
 
+
+import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.base.config.AppConfig;
-import com.challenge.devchall.base.roles.ChallengeMember.Role;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;

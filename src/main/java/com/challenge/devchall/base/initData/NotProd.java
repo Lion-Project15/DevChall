@@ -1,6 +1,6 @@
 package com.challenge.devchall.base.initData;
 
-import com.challenge.devchall.base.roles.ChallengeMember.Role;
+import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDate;
+
 
 @Configuration
 @Profile({"dev", "test"})
@@ -60,6 +60,7 @@ public class NotProd {
 
                 challengeMemberService.addMember(challengeService.getChallengeById(c1.getId()), user1, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c1.getId()), user2, Role.CREW);
+                challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), user2, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), user3, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), admin, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c3.getId()), user4, Role.CREW);
