@@ -59,7 +59,7 @@
                            th:text="${challenge.startDate} + ' ~ ' + ${challenge.endDate}"></p>
                         <div class="badge badge-lg badge-outline gap-3 mt-5">
                             <i class="fa-solid fa-person fa-lg" style="color: #000000;"></i>
-                            <p class="text-black"> -no- 명</p>
+                            <p class="text-black" th:text="${@challengeMemberService.getChallengeUserCount(challenge)} + ' 명'"></p>
                         </div>
                         <p class="text-[20px] bolder-double mt-5"
                            th:text="'주 ' + ${challenge.challengeFrequency} + '회'"></p>

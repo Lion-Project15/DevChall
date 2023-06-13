@@ -28,6 +28,4 @@ public interface ChallengeMemberRepository extends JpaRepository<ChallengeMember
             "GROUP BY cm.id") // 챌린지 아이디 + 멤버 아이디
     List<SettleChallengeDTO> findChallengeMemberCountByEndDate(@Param("today") LocalDate today);
 
-    int countByLinkedChallenge_Id(Long linkedChallengeId);
-
 }

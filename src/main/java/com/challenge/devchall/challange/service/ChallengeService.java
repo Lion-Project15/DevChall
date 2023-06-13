@@ -6,7 +6,6 @@ import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
-import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
 import com.challenge.devchall.photo.entity.Photo;

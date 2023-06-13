@@ -4,13 +4,11 @@ package com.challenge.devchall.challange.controller;
 import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
-import com.challenge.devchall.challange.repository.ChallengeRepository;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
-import com.challenge.devchall.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -28,10 +26,8 @@ import java.util.Optional;
 public class ChallengeController {
 
     private final ChallengeMemberService challengeMemberService;
-    private final MemberService memberService;
     private final ChallengeService challengeService;
     private final Rq rq;
-
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/create")
