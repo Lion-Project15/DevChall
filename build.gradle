@@ -51,6 +51,9 @@ dependencies {
 	//네이버 클라우드 이미지 배포(S3)
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
+	//테스트용 DB
+	runtimeOnly 'com.h2database:h2'
+
 }
 
 tasks.named('test') {
