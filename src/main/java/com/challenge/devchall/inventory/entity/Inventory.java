@@ -14,7 +14,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @SuperBuilder
 @NoArgsConstructor
-@ToString(callSuper = true)
+@ToString(callSuper = true , exclude = {"member", "item"})
 @Entity
 @Getter
 @EntityListeners(AuditingEntityListener.class)
