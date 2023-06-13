@@ -46,7 +46,7 @@ public class ChallengeMember extends BaseEntity {
     }
     public void increaseOutCount() {
         this.outCount += 1;
-        if (outCount > 3)
+        if (outCount > 1)
             turnValid();
     }
 

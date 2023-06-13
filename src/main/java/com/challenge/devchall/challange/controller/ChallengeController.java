@@ -82,6 +82,10 @@ public class ChallengeController {
 
         List<ChallengePost> challengePostList = challenge.getChallengePostList();
 
+        if (byChallengeAndMember.isPresent() && !byChallengeAndMember.get().isValid()) {
+            return rq.redirectWithMsg("/", "추방 당한 챌린지입니다.");
+        }
+
         if(!challengePostList.isEmpty()){
             model.addAttribute("challengePostList", challengePostList);
         }
@@ -92,5 +96,7 @@ public class ChallengeController {
 
         return "/usr/challenge/detail";
     }
+
+
 
 }
