@@ -130,7 +130,7 @@ public class ChallengePostService {
 
     }
     public RsData<ChallengePost> canWrite(List<ChallengePost> posts){
-        if(posts.size() > 0
+        if((posts != null && posts.size() > 0)
                 && !posts.get(0).getCreateDate().toLocalDate().isBefore(LocalDate.now())){
 
             return RsData.of("F-1", "오늘은 이미 포스트를 작성했습니다.");
