@@ -57,7 +57,7 @@
     <!--  헤더 끝  -->
 
 
-    <section class="bg-[#F2F4F4] h-full" style="border-top-left-radius: 4rem;">
+    <section class="bg-[#F2F4F4] h-full flex flex-col items-center" style="border-top-left-radius: 4rem;">
 
         <!--    나의 챌린지  -->
         <article th:if="${@rq.login}" class="p-5 mx-5">
@@ -128,7 +128,7 @@
             </div>
             <div th:unless="${challenges == null or #lists.isEmpty(challenges)}">
 
-                <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[20px]">
+                <div class="grid grid-cols-1 md:grid-cols-5 xl:grid-cols-5 gap-[20px]">
                     <div th:each="challenge:${challenges}">
                         <div class="text-black">
                             <div class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
@@ -166,6 +166,25 @@
             </div>
         </article>
         <!--    챌린지 리스트 끝-->
+        <!-- 페이징 시작-->
+        <div class="join pb-10"
+             th:if="${!challenges.isEmpty()}">
+            <a th:if="${challenges.hasPrevious}"
+               class="join-item btn btn-accent btn-sm btn-outline"
+               th:href="@{|?page=${challenges.number-1}|}">
+                <span><<</span>
+            </a>
+            <a th:each="page:${#numbers.sequence(0, challenges.totalPages-1)}"
+               th:text="${page+1}"
+               th:href="@{|?page=${page}|}"
+               th:classappend="${page == challenges.number} ? 'btn-active'"
+               class="join-item btn btn-accent btn-sm mx-1">1</a>
+            <a th:if="${challenges.hasNext}"
+               th:href="@{|?page=${challenges.number+1}|}"
+               class="join-item btn btn-accent btn-sm btn-outline">
+                <span>>></span>
+            </a>
+        </div>
     </section>
 
 </main>
