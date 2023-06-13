@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <img class="mt-8 mb-2" th:src="${post.largePhoto}" alt="post_image" style="width: 500px; height: auto;" />
+                        <img class="mt-8 mb-2" th:src="${post.postPhoto.getLargePhoto()}" alt="post_image" style="width: 500px; height: auto;" />
 
                         <div class="flex items-center justify-center mt-2" th:if="${@rq.member.loginID == post.creatorId}">
                             <a class="btn btn-accent mx-1" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
