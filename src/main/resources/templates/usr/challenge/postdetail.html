@@ -1,7 +1,7 @@
 <html layout:decorate="~{usr/member/layout.html}" xmlns="http://www.w3.org/1999/html">
 
 <html>
-<head>ㅎg
+<head>
     <meta charset="UTF-8">
     <title>포스트 자세히 보기</title>
 </head>
@@ -34,60 +34,97 @@
         }
     </script>
 
-    <div class="flex flex-1">
-        <div class="flex flex-col justify-center items-center w-full">
-            <div class="card bg-white">
-                <div class="w-full p-10 lg:w-[65rem]">
-                    <span class="badge badge-md">인증글 제목</span>
-                    <h3 class="text-lg font-bold mx-3" th:text="${post.postTitle}"></h3>
-                </div>
 
-                <div class="w-full p-10 lg:w-[65rem]">
-                    <span class="badge badge-md">인증글 내용</span>
-                    <h3 class="text-lg font-md" th:text="${post.postContents}"></h3>
-                </div>
+    <div class="container mx-auto px-12" style="padding-top: 80px;">
+        <div class="container mx-auto">
+            <div class="flex gap-20">
 
-                <div class="w-full p-10 lg:w-[65rem]">
-                    <span class="badge badge-md">인증 이미지</span>
-                    <img class="mt-10" th:src="${post.largePhoto}" alt="post_image"/>
-                </div>
 
-<!--                <div class="w-full p-10 lg:w-[65rem]">-->
-<!--                    <span class="badge badge-md">자기 평가</span>-->
-<!--                    <h3 class="text-lg font-bold mx-3" th:text="${post.postScore}"></h3>-->
-<!--                </div>-->
-
-                <div class="w-full p-10 lg:w-[65rem]">
-                    <div class="flex">
-                        <div th:each="i : ${#numbers.sequence(1, post.postScore)}" class="mx-1">
-                            <i class="fa-sharp fa-solid fa-star fa-xl" style="color: #40dd84;"></i>
-                        </div>
-                        <div th:each="i : ${#numbers.sequence(5 - post.postScore, 1, -1)}" class="mx-1">
-                            <i class="fa-regular fa-star fa-xl" style="color: #40dd84;"></i>
+                <div class="flex flex-col">
+                    <div class="w-[550px]">
+                        <div class="flex flex-col">
+                            <div class="flex">
+                                <div class="w-full p-0.1 mb-0.1 lg:w-[65rem]">
+                                    <a class="btn btn-sm font-bold mx-1">인증글 제목</a>
+<!--                                    <span class="badge badge-md rounded-md">인증글 제목</span>-->
+                                </div>
+                            </div>
+                            <div class="flex mt-5">
+                                <div class="flex-1 bg-white rounded-md flex items-center" style="height: 50px;">
+                                    <h3 class="text-lg font-medium mx-3 p-0.1" th:text="${post.postTitle}"></h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="w-[550px]">
+                        <div class="flex flex-col">
+                            <div class="flex">
+<!--                                <div class="w-full mt-5 p-0.1 lg:w-[65rem]">-->
+<!--                                    <span class="badge badge-md">인증글 내용</span>-->
+<!--                                </div>-->
+                                <div class="w-full mt-5 mb-0.1 p-0.1 lg:w-[65rem]">
+                                    <a class="btn btn-sm font-bold mx-1">인증글 내용</a>
+                                </div>
+                            </div>
+                            <div class="flex mt-5">
+                                <div class="flex-1 bg-white rounded-md flex items-center" style="height: 250px;">
+                                    <h3 class="text-lg font-medium mx-3 p-3" th:text="${post.postContents}"></h3>
+                                </div>
+                            </div>
+
+<!--                            <div class="w-full mt-10 mb-0.1 p-0.1 lg:w-[65rem]">-->
+<!--                                <a class="btn btn-sm font-bold mx-1">실시간 채팅</a>-->
+<!--                            </div>-->
+
+
+                        </div>
+                    </div>
                 </div>
 
-                <th:block th:if="${@rq.member.loginID}==${post.creatorId}">
-                    <div class="flex flex-row justify-center">
-                        <a class="btn btn-accent" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
-                        <button class="btn btn-accent mx-5" th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
+                <div class="flex items-center">
+                    <div class="h-full p-0.01 overflow-x-auto">
+                        <div class="relative">
+                            <a class="btn btn-sm font-bold mx-1 mt-0.01 mb-0.01">인증 이미지</a>
+                            <div class="absolute top-5 right-2">
+                                <div class="flex">
+                                    <div th:each="i : ${#numbers.sequence(1, post.postScore)}" class="mx-1">
+                                        <i class="fa-sharp fa-solid fa-star fa-xl" style="color: #40dd84;"></i>
+                                    </div>
+                                    <div th:each="i : ${#numbers.sequence(5 - post.postScore, 1, -1)}" class="mx-1">
+                                        <i class="fa-regular fa-star fa-xl" style="color: #40dd84;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <img class="mt-8 mb-2" th:src="${post.largePhoto}" alt="post_image" style="width: 500px; height: auto;" />
 
-                        <h2 class="mx-5">OR</h2>
+                        <div class="flex items-center justify-center mt-2" th:if="${@rq.member.loginID == post.creatorId}">
+                            <a class="btn btn-accent mx-1" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
+                            <button class="btn btn-accent mx-1" th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
+                            <h2 class="mx-1">OR</h2>
+                            <button class="btn btn-warning btn-outline">
+                                <i class="fa-solid fa-heart" style="color: #da1010;"></i>
+                            </button>
+                        </div>
 
-                        <button class="btn btn-warning btn-outline">
-                            <i class="fa-solid fa-heart" style="color: #da1010;"></i>
-                        </button>
+                        <div class="flex items-center justify-end mt-2" th:unless="${@rq.member.loginID == post.creatorId}">
+                            <button th:attr="onclick='wantReport(\'' + ${post.id} + '\', \'' + ${@rq.member.loginID} + '\', \'' + ${post.creatorId} + '\')'">
+                                <i class="fa-solid fa-bell" style="color: #fb1818;"></i>
+                            </button>
+                        </div>
                     </div>
-                </th:block>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <th:if th:unless="${@rq.member.loginID}==${post.creatorId}">
-                    <div class="pr-4 flex flex-row justify-end">
-                        <button th:attr="onclick='wantReport(\'' + ${post.id} + '\', \'' + ${@rq.member.loginID} + '\', \'' + ${post.creatorId} + '\')'">
-                            <i class="fa-solid fa-bell" style="color: #fb1818;"></i>
-                        </button>
-                    </div>
-                </th:if>
+
+
+    <div class="flex flex-wrap justify-center mt-14">
+        <div class="w-1/8 h-full"></div>
+        <div class="card bg-white border-md w-5/6 h-full">
+            <div class="flex flex-col h-1/2">
 
                 <div class="divider"></div>
                 <div class="my-2" th:each="comment:${commentList}" th:unless="${#lists.isEmpty(commentList) or commentList == null}">
@@ -117,17 +154,6 @@
                         <div class="chat-bubble" style="color: #000000; background-color: #03FA6E7C;" th:text="${comment.commentContent}">I hate you!</div>
                     </div>
                 </div>
-                <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${post.id}">
-                    <input type="text" name ="contents" placeholder="댓글을 달아보세요!" class="my-3 mx-4 input input-bordered input-accent w-full max-w-xs" />
-                    <button type="submit" class="mx-1 btn btn-accent btn-outline disabled">
-
-<!--                <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${linkedChallenge.id}">-->
-<!--                    <input type="text" name ="contents" placeholder="댓글을 달아보세요!" class="my-3 mx-4 input input-bordered input-accent w-full max-w-xs" />-->
-<!--                    <button type="submit" class="mx-1 btn btn-accent btn-outline disabled">-->
-<!--                        <i class="fas fa-paper-plane" style="color: #000000"></i>-->
-<!--                    </button>-->
-<!--                </form>-->
-
                 <!--데이지ui 사용한 댓글창과 버튼 수정-->
                 <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${linkedChallenge.id}">
                     <style>
@@ -159,15 +185,14 @@
                         }
                     </style>
                     <button type="submit" class="mx-1 mt-3 custom-button btn btn-outline disabled">
-
-
                         <i class="fas fa-paper-plane" style="color: #000000"></i>
                     </button>
                 </form>
-
             </div>
+            <div class="w-1/8 h-full"></div>
         </div>
     </div>
+
 </main>
 </body>
 </html>
