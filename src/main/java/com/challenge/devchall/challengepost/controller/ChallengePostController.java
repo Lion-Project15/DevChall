@@ -6,11 +6,13 @@ import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
+import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
 import com.challenge.devchall.comment.service.CommentService;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.member.service.MemberService;
 import com.challenge.devchall.photo.service.PhotoService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -36,6 +39,7 @@ public class ChallengePostController {
     private final PhotoService photoService;
     private final Rq rq;
     private final CommentService commentService;
+    private final ChallengeMemberRepository challengeMemberRepository;
 
 
     @GetMapping("/write_form/{id}")
@@ -156,13 +160,17 @@ public class ChallengePostController {
         challengePostService.incrementCount(id);
         //FIXME 테스트를 위해 1로 해놓음
         if (challengePostById.getReportCount() >= 1) {
-            challengePostService.deletePost(id);
+//            challengePostService.deletePost(id);
+            ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(challengePostById.getLinkedChallenge(), challengePostById.getChallenger()).orElse(null);
+            if (challengeMember != null) {
+                challengeMember.turnValid();
+                challengeMemberRepository.save(challengeMember);
+            }
             return "redirect:/usr/challenge/detail/{id}".replace("{id}", String.valueOf(linkedChallengeId));
         }
 
 
         return "redirect:/usr/challenge/postdetail/{id}";
     }
-
 
 }

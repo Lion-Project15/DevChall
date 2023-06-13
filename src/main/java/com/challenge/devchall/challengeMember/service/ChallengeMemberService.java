@@ -26,6 +26,7 @@ public class ChallengeMemberService {
     private final PointHistoryService pointHistoryService;
 
 
+
     public RsData<ChallengeMember> addMember(Challenge challenge, Member member, Role role){
 
         long joinCost = (long) challenge.getChallengePeriod() * AppConfig.getWeeklyPoint();
@@ -116,4 +117,5 @@ public class ChallengeMemberService {
     public Optional<ChallengeMember> getById(long id){
         return challengeMemberRepository.findById(id);
     }
+
 }

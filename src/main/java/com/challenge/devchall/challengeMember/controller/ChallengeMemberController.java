@@ -46,7 +46,6 @@ public class ChallengeMemberController {
         }
 
 
-
         return "redirect:/usr/challenge/detail/{id}";
     }
 }
