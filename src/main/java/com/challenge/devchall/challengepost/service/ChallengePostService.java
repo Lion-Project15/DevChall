@@ -10,6 +10,7 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.repository.ChallengePostRepository;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.photo.entity.Photo;
 import com.challenge.devchall.photo.service.PhotoService;
 import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.point.schedule.Schedule;
@@ -31,10 +32,10 @@ public class ChallengePostService {
     private final ChallengeMemberService challengeMemberService;
     private final ChallengeMemberRepository challengeMemberRepository;
     private final PhotoService photoService;
-    @Value("${custom.maxLength.title}")
+    @Value("${custom.challenge.titleLength}")
     private int titleMaxLength;
 
-    @Value("${custom.maxLength.contents}")
+    @Value("${custom.challenge.contentLength}")
     private int contentsMaxLength;
 
     public RsData<ChallengePost> write(String title, String contents, boolean status, long postScore, long id,
@@ -51,12 +52,12 @@ public class ChallengePostService {
         RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
 
 
-
         if (postLimitRsData.isFail()) {
             System.out.println(postLimitRsData.getMsg());
-            return null;
+            return RsData.of(postLimitRsData.getResultCode(), postLimitRsData.getMsg());
         }
 
+        Photo photo = photoService.createPhoto(photoUrl);
         // 제목 길이 제한
 
         if (title.length() > titleMaxLength) {
@@ -69,8 +70,6 @@ public class ChallengePostService {
             return RsData.of("F-1", "내용은 최대 " + contentsMaxLength + "자까지 입력할 수 있습니다.");
         }
 
-        String largePhoto = photoService.getLargePhoto(photoUrl);
-        String smallPhoto = photoService.getSmallPhoto(photoUrl);
         String creatorId = member.getLoginID();
 
         ChallengePost challengePost = ChallengePost.builder()
@@ -80,8 +79,7 @@ public class ChallengePostService {
                 .postScore(postScore)
                 .linkedChallenge(linkedChallenge)
                 .challenger(member)
-                .largePhoto(largePhoto)
-                .smallPhoto(smallPhoto)
+                .postPhoto(photo)
                 .reportCount(reportCount)
                 .creatorId(creatorId)
                 .build();
