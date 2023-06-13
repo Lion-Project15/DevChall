@@ -25,6 +25,8 @@ public class ChallengeMember extends BaseEntity {
 
     private boolean isValid;
 
+    private int outCount;
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Challenge linkedChallenge;
 
@@ -41,6 +43,11 @@ public class ChallengeMember extends BaseEntity {
 
     public void turnValid(){
         this.isValid = false;
+    }
+    public void increaseOutCount() {
+        this.outCount += 1;
+        if (outCount > 3)
+            turnValid();
     }
 
     public void challengerRole(Role challengerRole){

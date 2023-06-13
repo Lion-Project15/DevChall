@@ -159,11 +159,11 @@ public class ChallengePostController {
 
         challengePostService.incrementCount(id);
         //FIXME 테스트를 위해 1로 해놓음
-        if (challengePostById.getReportCount() >= 1) {
+        if (challengePostById.getReportCount() >= 3) {
 //            challengePostService.deletePost(id);
             ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(challengePostById.getLinkedChallenge(), challengePostById.getChallenger()).orElse(null);
             if (challengeMember != null) {
-                challengeMember.turnValid();
+                challengeMember.increaseOutCount();
                 challengeMemberRepository.save(challengeMember);
             }
             return "redirect:/usr/challenge/detail/{id}".replace("{id}", String.valueOf(linkedChallengeId));
