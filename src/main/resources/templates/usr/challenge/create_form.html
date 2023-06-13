@@ -74,20 +74,39 @@
                     <h1 class="text-[25px] font-black">챌린지 생성</h1>
                     <p class="ml-8 mt-2">원하는 챌린지를 생성해 보세요!</p>
                 </div>
+
                 <div class="w-1/2 p-5 lg:w-[65rem] flex flex-row justify-around content-around">
                     <div class="flex flex-col">
                         <label for="title" class="label">
                             <span class="text-gray-400">챌린지 제목</span>
                         </label>
-                        <input type="text" name="title" maxlength="30" placeholder="챌린지명"
-                               class="input input-bordered w-full form-control text-black input-accent" id="title"
-                               autofocus/>
+<!--                        <input type="text" name="title" maxlength="30" placeholder="챌린지명"-->
+<!--                               class="input input-bordered w-full form-control text-black input-accent" id="title"-->
+<!--                               style="border-color: #03FA6E;" autofocus/>-->
 
-                        <label for="contents" class="label mt-3">
+
+                            <style>
+                                .custom-input {
+                                    background-color: #ffffff;
+                                    border: 1px solid #03fa6e;
+                                    transition: border-color 0.3s;
+                                }
+                                .custom-input:focus {
+                                    outline: none;
+                                    border-width: 2px;
+                                    border-color: #03fa6e;
+                                }
+                            </style>
+                            <input type="text" name="title" maxlength="30" placeholder="챌린지명" class="my-3 mx-4 w-full input input-bordered input-accent w-full max-w-xs custom-input" />
+
+
+
+                            <label for="contents" class="label mt-3">
                             <span class="text-gray-400">챌린지 내용</span>
                         </label>
                         <textarea rows="6" name="contents" placeholder="챌린지내용"
                                   class="textarea textarea-accent w-full form-control text-black"
+                                  style="border-color: #03FA6E;"
                                   id="contents"></textarea>
 
                         <div class="flex flex-col mt-3">

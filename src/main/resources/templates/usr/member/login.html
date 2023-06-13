@@ -7,17 +7,17 @@
 <body>
 
 <main layout:fragment="main" body class="bg-[#121212] text-white flex flex-col w-full h-full">
-    <div>
-        <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/logo.png" class="w-[250px] h-[250px]">
-    </div>
+<!--    <div>-->
+<!--        <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/logo.png" class="w-[250px] h-[250px]">-->
+<!--    </div>-->
     <div class="flex flex-1 h-full">
-        <form th:action method="POST" class="flex flex-col justify-1/2 items-center w-full" onsubmit="LoginForm__submit(this); return false;">
-            <div class="w-full p-10 md:w-[35rem]">
+        <form th:action method="POST" class="flex flex-col justify-1/2 items-center w-full mt-20" onsubmit="LoginForm__submit(this); return false;">
+            <div class="w-full p-5 md:w-[30rem]">
                 <p class="text-[25px]">로그인</p>
                         <div>
                             <div class="w-full">
                                 <label class="label">
-                                    <span class="text-gray-400">아이디를 입력해주세요</span>
+                                    <span class="text-gray-400 mt-3">아이디를 입력해주세요</span>
                                 </label>
                                 <input type="text" name="loginID" maxlength="15" placeholder="아이디" class="input input-bordered w-full text-black" id="loginID" autofocus />
                             </div>
@@ -29,18 +29,37 @@
                             <input type="password" name="password" maxlength="30" placeholder="비밀번호" class="input input-bordered w-full text-black" id="password" />
                         </div>
                 <c:if test="${error}">
-                    <p th:style="${'color: red; font-size:14px;'}" class="exception" th:text="${exception}"></p>
+                    <p th:style="${'color: red; font-size:12px;'}" class="exception" th:text="${exception}"></p>
                 </c:if>
-                <div class="flex flex-col justify-center mt-[20px]">
-                    <button id="btn-join-1" class="btn btn-md btn-accent gap-3">
-                        <span class="text-white" style="font-size: 17px;">로그인</span>
+                <div class="flex flex-col justify-center mt-[40px]">
+
+                    <button id="btn-join-1" class="btn btn-md btn-accent gap-3 border-none" style="background-color: #03fa6e;">
+                        <span class="text-black" style="font-size: 17px;">로그인</span>
                     </button>
-                    <div class="flex justify-center mt-[20px]">
-                        <label class="label">
+
+<!--                    <div class="flex justify-center mt-[40px]">-->
+<!--                        <label class="label">-->
+<!--                            <span class="text-gray-400">SNS로 로그인 하기</span>-->
+<!--                        </label>-->
+<!--                    </div>-->
+
+<!--                    <div class="flex justify-center items-center mt-10">-->
+<!--                        <div class="border-t flex-grow border-gray-300 border-opacity-50"></div>-->
+<!--                        <label class="label mx-4">-->
+<!--                            <span class="text-gray-400">SNS로 로그인 하기</span>-->
+<!--                        </label>-->
+<!--                        <div class="border-t flex-grow border-gray-300 border-opacity-50"></div>-->
+<!--                    </div>-->
+
+                    <div class="flex justify-center items-center mt-10">
+                        <div class="border-t flex-grow border-gray-300 border-opacity-50"></div>
+                        <label class="label mx-4">
                             <span class="text-gray-400">SNS로 로그인 하기</span>
                         </label>
+                        <div class="border-t flex-grow border-gray-300 border-opacity-50"></div>
                     </div>
-                    <div class="mt-[20px] flex justify-center space-x-6">
+
+                    <div class="mt-[10px] flex justify-center space-x-6">
                         <a href="/oauth2/authorization/naver"><img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/naver-icon.png" class="w-[50px] h-[50px]"></a>
                         <a href="/oauth2/authorization/kakao"><img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/kakao-icon.png" class="w-[50px] h-[50px]"></a>
                     </div>
