@@ -156,6 +156,13 @@ public class ChallengePostController {
             return "redirect:/usr/challenge/postdetail/{id}";
         }
 
+        if (challengePostService.hasReportedPost(id, loginId)) {
+            System.out.println("이미 신고한 게시물입니다.");
+            return "redirect:/usr/challenge/postdetail/{id}";
+        }
+
+        challengePostService.addReportedBy(id, loginId);
+
         challengePostService.incrementCount(id);
         //FIXME 테스트를 위해 1로 해놓음
         if (challengePostById.getReportCount() >= 1) {
@@ -167,7 +174,6 @@ public class ChallengePostController {
             }
             return "redirect:/usr/challenge/detail/{id}".replace("{id}", String.valueOf(linkedChallengeId));
         }
-
 
         return "redirect:/usr/challenge/postdetail/{id}";
     }
