@@ -18,7 +18,7 @@ import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"linkedChallenge", "challenger"})
 @Entity
 @Getter
 public class ChallengeMember extends BaseEntity {

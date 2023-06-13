@@ -65,39 +65,39 @@
             <div class="p-2">
                 <h1 class="text-black text-2xl font-bold">>나의 챌린지</h1>
             </div>
-            <div class="text-black p-2" th:if="${challengeMembers==null or #lists.isEmpty(challengeMembers)}">
+            <div class="text-black p-2" th:if="${#lists.isEmpty(joinChallengeList)}">
                 <i class="fa-regular fa-face-laugh"></i> 참가 중인 챌린지가 없어요. 다양한 챌린지를 경험해보세요!
             </div>
 
-            <div th:unless="${challengeMembers==null or #lists.isEmpty(challengeMembers)}"
+            <div th:unless="${#lists.isEmpty(joinChallengeList)}"
                     class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[20px]">
-                <div th:each="challengeMember:${challengeMembers}"
+                <div th:each="joinChallenge:${joinChallengeList}"
                         class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
-                    <a th:href="|/usr/challenge/detail/${challengeMember.linkedChallenge.id}|">
+                    <a th:href="|/usr/challenge/detail/${joinChallenge.id}|">
                         <figure class="pt-5">
-                            <img th:src="${challengeMember.getLinkedChallenge().smallPhoto}" alt="Shoes" class="rounded-xl w-[90%]" />
+                            <img th:src="${joinChallenge.challengePhoto.getSmallPhoto()}" alt="Shoes" class="rounded-xl w-[90%]" />
                         </figure>
                     </a>
 
                     <div class="card-body items-center text-center" style="padding: 20px">
-                        <a th:href="|/usr/challenge/detail/${challengeMember.linkedChallenge.id}|">
+                        <a th:href="|/usr/challenge/detail/${joinChallenge.id}|">
                             <h4 class="text-black font-bold text-sm"
-                                th:text="${#strings.length(challengeMember.linkedChallenge.challengeName) &gt; 10
-                                ? #strings.substring(challengeMember.linkedChallenge.challengeName, 0, 10) + '...' : challengeMember.linkedChallenge.challengeName}">
+                                th:text="${#strings.length(joinChallenge.challengeName) &gt; 10
+                                ? #strings.substring(joinChallenge.challengeName, 0, 10) + '...' : joinChallenge.challengeName}">
                             </h4>
                         </a>
                         <div class="flex flex-wrap justify-center items-center">
-                            <span class="badge badge-primary mx-2" style="font-size: x-small" th:text="'주 ' + ${challengeMember.linkedChallenge.challengeFrequency} + '회'"></span>
-                            <span class="badge badge-secondary mx-2" style="font-size: x-small" th:text="${challengeMember.linkedChallenge.challengeLanguage}"></span>
-                            <span class="badge badge-warning mx-2 my-1" style="font-size: x-small" th:text="${challengeMember.linkedChallenge.challengeSubject}"></span>
+                            <span class="badge badge-primary mx-2" style="font-size: x-small" th:text="'주 ' + ${joinChallenge.challengeFrequency} + '회'"></span>
+                            <span class="badge badge-secondary mx-2" style="font-size: x-small" th:text="${joinChallenge.challengeTag.challengeLanguage}"></span>
+                            <span class="badge badge-warning mx-2 my-1" style="font-size: x-small" th:text="${joinChallenge.challengeTag.challengeSubject}"></span>
                         </div>
-                        <progress class="progress progress-accent w-56" th:value="${challengeMember.totalPostCount}" th:max="${challengeMember.linkedChallenge.challengeFrequency * challengeMember.linkedChallenge.challengePeriod}"></progress>
+                        <progress class="progress progress-accent w-56" th:value="${@challengeMemberService.getCountByChallengeAndMember(joinChallenge, @rq.getMember())}" th:max="${joinChallenge.challengeFrequency * joinChallenge.challengePeriod}"></progress>
                         <div class="card-actions flex justify-around">
                             <div style="font-size: x-small">
                                 <a href="#">
                                     <span>진행 상황 : </span>
-                                    <span th:text="${challengeMember.totalPostCount} + ' / '"></span>
-                                    <span th:text="${challengeMember.linkedChallenge.challengeFrequency * challengeMember.linkedChallenge.challengePeriod}"></span>
+                                    <span th:text="${@challengeMemberService.getCountByChallengeAndMember(joinChallenge, @rq.getMember())} + ' / '"></span>
+                                    <span th:text="${joinChallenge.challengeFrequency * joinChallenge.challengePeriod}"></span>
                                 </a>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                             <div class="card w-[200px] h-auto bg-base-100 shadow-xl text-gray-400 my-2 mx-5">
                                 <a th:href="|/usr/challenge/detail/${challenge.id}|">
                                     <figure class="pt-5">
-                                        <img th:src="${challenge.smallPhoto}" alt="Challenge_img" class="rounded-xl w-[90%]" />
+                                        <img th:src="${challenge.challengePhoto.getSmallPhoto()}" alt="Challenge_img" class="rounded-xl w-[90%]" />
                                     </figure>
                                 </a>
 
@@ -145,15 +145,15 @@
                                     </a>
                                     <div class="flex flex-wrap justify-center items-center">
                                         <span class="badge badge-primary mx-2" style="font-size: x-small" th:text="'주 '+${challenge.challengeFrequency}+'회'"></span>
-                                        <span class="badge badge-secondary mx-2" style="font-size: x-small" th:text="${challenge.challengeLanguage}"></span>
-                                        <span class="badge badge-warning mx-2 my-1" style="font-size: x-small" th:text="${challenge.challengeSubject}"></span>
+                                        <span class="badge badge-secondary mx-2" style="font-size: x-small" th:text="${challenge.challengeTag.challengeLanguage}"></span>
+                                        <span class="badge badge-warning mx-2 my-1" style="font-size: x-small" th:text="${challenge.challengeTag.challengeSubject}"></span>
                                     </div>
-                                    <progress class="progress progress-warning w-56" th:value="${countList.get(challenge.getId())}" th:max="${challenge.challengeMemberLimit}"></progress>
+                                    <progress class="progress progress-w/arning w-56" th:value="${@challengeMemberService.getChallengeUserCount(challenge)}" th:max="${challenge.challengeMemberLimit}"></progress>
                                     <div class="card-actions flex justify-around">
                                         <div style="font-size: x-small">
                                             <a href="#">
                                                 <span>현재 참여자 수 : </span>
-                                                <span th:text="${countList.get(challenge)} + ' / '">?? / </span>
+                                                <span th:text="${@challengeMemberService.getChallengeUserCount(challenge)} + ' / '">?? / </span>
                                                 <span th:text="${challenge.challengeMemberLimit}"></span>
                                             </a>
                                         </div>

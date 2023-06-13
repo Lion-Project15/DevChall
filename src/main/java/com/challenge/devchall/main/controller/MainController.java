@@ -30,23 +30,19 @@ public class MainController {
         language = language.isBlank()? null: language.trim();
         subject = subject.isBlank()? null : subject.trim();
 
-
         if(rq.isLogin()){
-            List<Challenge> challengeList = challengeService.getChallengeList(language, subject, rq.getMember());
 
-            List<Integer> countList = getCountList(challengeList);
+            //내가 참여하지 않은 챌린지 중 공개(true)인 것만 가져오기
+            List<Challenge> notJoinChallengeList = challengeService.getNotJoinChallengeList(language, subject, rq.getMember());
+            List<Challenge > joinChallengeList = challengeService.getJoinChallenge(rq.getMember());
 
-            model.addAttribute("challengeMembers"
-                    , challengeMemberService.getByMember(rq.getMember()));
-            model.addAttribute("challenges", challengeList);
-            model.addAttribute("countList", countList);
+            //나의 챌린지(공개, 비공개 상관 없음) => 내가 챌린지 멤버인 것 들 ... 
+            model.addAttribute("joinChallengeList", joinChallengeList);
+            model.addAttribute("challenges", notJoinChallengeList);
         } else {
-            List<Challenge> challengeList2 = challengeService.getChallengeList(language,subject);
+            List<Challenge> allChallengeList = challengeService.getChallengeList(language,subject);
 
-            List<Integer> countList = getCountList(challengeList2);
-
-            model.addAttribute("challenges", challengeList2);
-            model.addAttribute("countList", countList);
+            model.addAttribute("challenges", allChallengeList);
         }
         return "index";
     }
@@ -62,23 +58,6 @@ public class MainController {
     public List<SettleChallengeDTO> test2() {
 
         return challengeMemberService.getSettleChallengeDto();
-    }
-
-    //FIXME HOW?
-    public List<Integer> getCountList(List<Challenge> challengeList){
-
-        List<Integer> countList = new ArrayList<>();
-
-        for (Challenge challenge : challengeList) {
-            int countByChallengeId = challengeMemberService.getCountByChallengeId(challenge.getId());
-
-            while (countList.size() <= challenge.getId()) {
-                countList.add(0);
-            }
-            countList.set(Math.toIntExact(challenge.getId()), countByChallengeId);
-        }
-
-        return countList;
     }
 
 }
