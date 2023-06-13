@@ -33,12 +33,14 @@
 
                     <th:block th:unless="${byChallengeAndMember.isPresent()}">
                         <button th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'"
-                                class="btn btn-accent">참여하기
+                                th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}"
+                                class="btn btn-accent mx-1 border-none mt-9" style="background-color: #03FA6E;">참여하기
                         </button>
                     </th:block>
 
                     <th:block th:if="${byChallengeAndMember.isPresent()}">
                         <a th:href="@{|/usr/challenge/write_form/${challenge.id}|}"
+                           th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}"
                            class="btn btn-accent mx-1 border-none mt-9" style="background-color: #03FA6E;">
                             <button>인증하기</button>
                         </a>
@@ -92,7 +94,6 @@
         </div>
 
 
-
         <div>
             <div class="flex flex-wrap justify-center h-3/4 mt-14">
                 <div class="w-1/8 h-full"></div>
@@ -137,17 +138,14 @@
                                             <p th:text="${#strings.length(post.postContents) &gt; 15 ? #strings.substring(post.postContents, 0, 15) + '...' : post.postContents}"></p>
 
                                             <div class="card-actions justify-end">
-
-                                                <!--                                            <a class="btn btn-accent mx-1 border-none text-s py-0.5 px-2" style="background-color: #03FA6E;-->
-                                                <!--                                                font-size: 13px; padding: 2px 6px;">보러가기</a>-->
-
-
                                                 <div style="margin-left: auto;">
                                                     <a class="btn btn-xs rounded-lg font-bold mx-1 border-none text-sm py-0.5 px-2"
                                                        style="background-color: #03FA6E;
-                                                   color: #121212;
-                                                   font-size: 13px; padding: 2px 6px;"
-                                                       th:href="@{|/usr/challenge/postdetail/${post.id}|}">보러가기</a>
+                                                       color: #121212;
+                                                       font-size: 13px; padding: 2px 6px;"
+                                                       th:href="@{|/usr/challenge/postdetail/${post.id}|}"
+                                                       th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}"
+                                                    >보러가기</a>
                                                 </div>
 
                                             </div>
@@ -157,75 +155,6 @@
                             </th:block>
                         </div>
                     </div>
-
-<!--                    <div class="divider"></div>-->
-<!--                    <div class="my-2" th:each="comment:${commentList}" th:unless="${#lists.isEmpty(commentList) or commentList == null}">-->
-<!--                        <div th:unless ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-start">-->
-<!--                            <div class="chat-image avatar">-->
-<!--                                <div class="w-10 rounded-full">-->
-<!--                                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                            <div th:text ="${comment.challengeMember.challenger.nickname}" class="chat-header">-->
-<!--                                Obi-Wan Kenobi-->
-<!--                                <time class="text-xs opacity-50" th:text="${#temporals.format(comment.createDate, 'yy.MM.dd HH:mm')}">12:45</time>-->
-<!--                            </div>-->
-<!--                            <div class="chat-bubble" th:text="${comment.commentContent}">You were the Chosen One!</div>-->
-
-<!--                        </div>-->
-<!--                        <div th:if ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-end">-->
-<!--                            <div class="chat-image avatar">-->
-<!--                                <div class="w-10 rounded-full">-->
-<!--                                    <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-<!--                            <div th:text ="${comment.challengeMember.challenger.nickname}" class="chat-header">-->
-<!--                                Anakin-->
-<!--                                <time class="text-xs opacity-50" th:text="${#temporals.format(comment.createDate, 'yy.MM.dd HH:mm')}" >12:46</time>-->
-<!--                            </div>-->
-<!--                            <div class="chat-bubble" th:text="${comment.commentContent}">I hate you!</div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    &lt;!&ndash;데이지ui 사용한 댓글창과 버튼 수정&ndash;&gt;-->
-<!--                    <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${challenge.id}">-->
-<!--                        <style>-->
-<!--                            .custom-input {-->
-<!--                                background-color: #ffffff;-->
-<!--                                border: 1px solid #03fa6e;-->
-<!--                                transition: border-color 0.3s;-->
-<!--                            }-->
-<!--                            .custom-input:focus {-->
-<!--                                outline: none;-->
-<!--                                border-width: 2px;-->
-<!--                                border-color: #03fa6e;-->
-<!--                            }-->
-<!--                        </style>-->
-<!--                        <input type="text" name="contents" placeholder="댓글을 달아보세요!" class="my-3 mx-4 input input-bordered input-success w-full max-w-xs custom-input" />-->
-
-<!--                        <style>-->
-<!--                            .custom-button {-->
-<!--                                background-color: #ffffff;-->
-<!--                                border-color: #03fa6e;-->
-<!--                                transition: background-color 0.3s, border-color 0.3s;-->
-<!--                            }-->
-<!--                            .custom-button:hover,-->
-<!--                            .custom-button:focus,-->
-<!--                            .custom-button:active {-->
-<!--                                background-color: #03fa6e;-->
-<!--                                border-color: #03fa6e;-->
-<!--                                outline: none;-->
-<!--                            }-->
-<!--                        </style>-->
-<!--                        <button type="submit" class="mx-1 mt-3 custom-button btn btn-outline disabled">-->
-<!--                            <i class="fas fa-paper-plane" style="color: #000000"></i>-->
-<!--                        </button>-->
-<!--                    </form>-->
-
-<!--                </div>-->
-<!--                <div class="w-1/8 h-full"></div>-->
             </div>
         </div>
     </div>

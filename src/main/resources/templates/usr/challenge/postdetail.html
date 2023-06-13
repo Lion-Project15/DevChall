@@ -45,7 +45,6 @@
                             <div class="flex">
                                 <div class="w-full p-0.1 mb-0.1 lg:w-[65rem]">
                                     <a class="btn btn-sm font-bold mx-1">인증글 제목</a>
-<!--                                    <span class="badge badge-md rounded-md">인증글 제목</span>-->
                                 </div>
                             </div>
                             <div class="flex mt-5">
@@ -59,9 +58,6 @@
                     <div class="w-[550px]">
                         <div class="flex flex-col">
                             <div class="flex">
-<!--                                <div class="w-full mt-5 p-0.1 lg:w-[65rem]">-->
-<!--                                    <span class="badge badge-md">인증글 내용</span>-->
-<!--                                </div>-->
                                 <div class="w-full mt-5 mb-0.1 p-0.1 lg:w-[65rem]">
                                     <a class="btn btn-sm font-bold mx-1">인증글 내용</a>
                                 </div>
@@ -88,29 +84,60 @@
                             <div class="absolute top-5 right-2">
                                 <div class="flex">
                                     <div th:each="i : ${#numbers.sequence(1, post.postScore)}" class="mx-1">
-                                        <i class="fa-sharp fa-solid fa-star fa-xl" style="color: #40dd84;"></i>
+                                        <i class="fa-sharp fa-solid fa-star fa-xl" style="color: #03FA6E7C;"></i>
                                     </div>
                                     <div th:each="i : ${#numbers.sequence(5 - post.postScore, 1, -1)}" class="mx-1">
-                                        <i class="fa-regular fa-star fa-xl" style="color: #40dd84;"></i>
+                                        <i class="fa-regular fa-star fa-xl" style="color: #03FA6E7C;"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <img class="mt-8 mb-2" th:src="${post.postPhoto.getLargePhoto()}" alt="post_image" style="width: 500px; height: auto;" />
 
+                        <style>
+                            .custom-btn {
+                                background-color: #3E4450 !important;
+                                color: #ffffff !important;
+                                padding: 0.1rem 1rem;
+                                margin-top: 1rem;
+                            }
+
+                            .custom-btn:hover,
+                            .custom-btn:active {
+                                background-color: #3E4450 !important;
+                            }
+
+                            .custom-btn:hover i.fa-solid.fa-heart {
+                                color: #3E4450 !important;
+                            }
+
+                            .custom-btn i.fa-solid.fa-heart {
+                                color: #03FA6E !important;
+                                background-color: transparent !important;
+                            }
+
+                            .btn-heart {
+                                border: none;
+                            }
+                        </style>
+
                         <div class="flex items-center justify-center mt-2" th:if="${@rq.member.loginID == post.creatorId}">
-                            <a class="btn btn-accent mx-1" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
-                            <button class="btn btn-accent mx-1" th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
-                            <h2 class="mx-1">OR</h2>
-                            <button class="btn btn-warning btn-outline">
-                                <i class="fa-solid fa-heart" style="color: #da1010;"></i>
+                            <a class="btn btn-accent mx-2 custom-btn border-none" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
+                            <button class="btn btn-accent mx-2 custom-btn border-none" th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
+                            <h2 class="mx-2 mt-3">OR</h2>
+                            <button class="mx-2 btn btn-warning btn-outline custom-btn btn-heart">
+                                <i class="fa-solid fa-heart" style="color: #40dd84;"></i>
                             </button>
                         </div>
 
-                        <div class="flex items-center justify-end mt-2" th:unless="${@rq.member.loginID == post.creatorId}">
-                            <button th:attr="onclick='wantReport(\'' + ${post.id} + '\', \'' + ${@rq.member.loginID} + '\', \'' + ${post.creatorId} + '\')'">
-                                <i class="fa-solid fa-bell" style="color: #fb1818;"></i>
-                            </button>
+
+                        <div class="flex items-center justify-center mt-2" th:unless="${@rq.member.loginID == post.creatorId}">
+                            <div class="flex justify-center" style="width: 160px; position: relative;">
+                                <button class="btn btn-accent custom-btn border-none" th:attr="onclick='wantReport(\'' + ${post.id} + '\', \'' + ${@rq.member.loginID} + '\', \'' + ${post.creatorId} + '\')'" style="display: flex; align-items: center;">
+                                    <i class="fa-solid fa-bell" style="color: #03FA6E; font-size: 24px; margin-right: 8px;"></i>
+                                    <span>신고하기</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

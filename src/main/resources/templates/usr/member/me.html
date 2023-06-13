@@ -127,7 +127,9 @@
                              th:onclick="'changeEquip('+${inventory.item.id}+')'">
                             <div class="h-12 w-20 flex justify-center items-center"
                                  th:style="'background-color: #'+${inventory.item.pattern}+';'">
-                                <div th:if="${inventory.equipped}" class="badge badge-accent">착용중</div>
+<!--                                <div th:if="${inventory.equipped}" class="badge badge-accent">착용중</div>-->
+                                <div th:if="${inventory.equipped}" class="badge badge-accent border-none" style="background-color: #03FA6E;">착용중</div>
+
                             </div>
                         </div>
                     </div>
