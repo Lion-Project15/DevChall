@@ -1,4 +1,11 @@
 spring:
+  data:
+    redis:
+      host: 172.17.0.1
+  lifecycle:
+    timeout-per-shutdown-phase: 1m
+  autoconfigure:
+    exclude:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://172.17.0.1:3306/devchall__prod?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
@@ -18,3 +25,6 @@ logging:
     com.challenge.devchall: INFO
     org.hibernate.orm.jdbc.bind: INFO
     org.hibernate.orm.jdbc.extract: INFO
+custom:
+  site:
+    baseUrl: https://www.devchall.site
