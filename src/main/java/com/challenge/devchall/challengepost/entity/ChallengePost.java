@@ -4,10 +4,14 @@ import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.member.entity.Member;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+import com.challenge.devchall.photo.entity.Photo;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -35,9 +39,10 @@ public class ChallengePost extends BaseEntity {
     private String postContents;
     private boolean postIsPublic;
     private long postScore;
+
+    @OneToOne
+    private Photo postPhoto;
     private int reportCount;
-    private String smallPhoto;
-    private String largePhoto;
     private String creatorId;
 
     //FIXME 일단 보류

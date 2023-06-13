@@ -1,6 +1,8 @@
 package com.challenge.devchall.challengeMember.service;
 
+
 import com.challenge.devchall.challengeMember.role.Role;
+import com.challenge.devchall.base.config.AppConfig;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
@@ -26,7 +28,7 @@ public class ChallengeMemberService {
 
     public RsData<ChallengeMember> addMember(Challenge challenge, Member member, Role role){
 
-        long joinCost = challenge.getChallengePeriod() * 50;
+        long joinCost = (long) challenge.getChallengePeriod() * AppConfig.getWeeklyPoint();
         RsData<ChallengeMember> joinRsData = canJoin(member, joinCost);
 
         if(joinRsData.isFail()){
@@ -91,11 +93,23 @@ public class ChallengeMemberService {
         return challengeIds;
     }
 
-    public int getCountByChallengeId(Long challengeId){
+    public int getCountByChallengeAndMember(Challenge challenge, Member member){
 
-        int count = challengeMemberRepository.countByLinkedChallenge_Id(challengeId);
+        Optional<ChallengeMember> challengeMember = challengeMemberRepository.findByLinkedChallengeAndChallenger(challenge, member);
 
-        return count;
+        if(challengeMember.isPresent()){
+            ChallengeMember myChallengeMember = challengeMember.get();
+            return myChallengeMember.getTotalPostCount();
+        }else{
+            return 0;
+        }
+    }
+
+    public int getChallengeUserCount(Challenge challenge){
+
+        List<ChallengeMember> byLinkedChallenge = challengeMemberRepository.findByLinkedChallenge(challenge);
+
+        return byLinkedChallenge.size();
     }
 
     public Optional<ChallengeMember> getById(long id){
