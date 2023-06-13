@@ -111,7 +111,7 @@ public class PointService {
     }
 
     public boolean checkAchievementRate(ChallengeMember cm, Challenge challenge) {
-        if(cm != null){
+        if(cm != null && cm.isValid()){
 
             double achievementRate
                     = ((double) cm.getTotalPostCount())
