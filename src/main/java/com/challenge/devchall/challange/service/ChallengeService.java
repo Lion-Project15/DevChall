@@ -114,34 +114,38 @@ public class ChallengeService {
         return challenge;
     }
 
+    //FIXME (안 쓰이는 중) => true 인 것을 모두 가져오는 메서드 (카테고리 X)
+//    public List<Challenge> getChallengeList() {
+//        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+//        Pageable pageable = PageRequest.of(0, 30, sort);
+//        return challengeRepository.findByChallengeStatus(true, pageable);
+//    }
 
-    //FIXME (안 쓰이는 중) => true 인 것을 모두 가져오는 메서드?
-    public List<Challenge> getChallengeList() {
-        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
-        Pageable pageable = PageRequest.of(0, 30, sort);
-        return challengeRepository.findByChallengeStatus(true, pageable);
-    }
-
-    //카테고리에 따라 모두 가져오는 것? (비공개 처리는?)
+    //공개가 true인 모든 챌린지를 가져옴 (+카테고리 필터링 )
     public List<Challenge> getChallengeList(String language, String subject) {
+
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
+
         return challengeRepository.findByConditions(language, subject, pageable);
     }
 
-    public List<Challenge> getChallengeList(String language, String subject, Member member) {
+    //참여하지 않고 있는 챌린지(모집중인 챌린지) 중에서, 공개가 true 인 것들을 가져옴(+카테고리 필터링 )
+    public List<Challenge> getNotJoinChallengeList(String language, String subject, Member member) {
+
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
 
-        //현재 사용자가 참여 중인 챌린지 ID 목록을 가져옴
-        List<Long> challengeIds = challengeMemberService.getChallengeIdsByMember(member);
-
-        //FIXME (안쓰이는 중) 현재 사용자가 참여 중인 챌린지를 제외한 모집 중인 챌린지 목록을 가져옴
-        //내 예상이라면 오히려 이게 와야하는게 맞을 것 같은데?
-        List<Challenge> challenges = challengeRepository.findByChallengeStatusAndIdNotIn(true, challengeIds, pageable);
-
-        //근데 조인하지 않은 챌린지를 리턴하고 있는 것 같음.
         return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);
+    }
+
+    public List<Challenge> getJoinChallenge(Member member){
+
+        //FIXME 나의 챌린지는 페이징 몇개?
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(0, 30, sort);
+
+        return challengeRepository.findJoinChallenge(member);
     }
 
     public LocalDate formattingDate(String date) {

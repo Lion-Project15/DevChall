@@ -94,11 +94,23 @@ public class ChallengeMemberService {
         return challengeIds;
     }
 
-    public int getCountByChallengeId(Long challengeId){
+    public int getCountByChallengeAndMember(Challenge challenge, Member member){
 
-        int count = challengeMemberRepository.countByLinkedChallenge_Id(challengeId);
+        Optional<ChallengeMember> challengeMember = challengeMemberRepository.findByLinkedChallengeAndChallenger(challenge, member);
 
-        return count;
+        if(challengeMember.isPresent()){
+            ChallengeMember myChallengeMember = challengeMember.get();
+            return myChallengeMember.getTotalPostCount();
+        }else{
+            return 0;
+        }
+    }
+
+    public int getChallengeUserCount(Challenge challenge){
+
+        List<ChallengeMember> byLinkedChallenge = challengeMemberRepository.findByLinkedChallenge(challenge);
+
+        return byLinkedChallenge.size();
     }
 
     public Optional<ChallengeMember> getById(long id){
