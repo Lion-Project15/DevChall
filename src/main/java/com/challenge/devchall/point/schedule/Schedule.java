@@ -36,6 +36,7 @@ public class Schedule {
         }
 
         @Scheduled(cron = "0 0 0 * * *")//초 분 시간 일 월 요일
+        //@Scheduled(cron = "0 * * * * *") //매분 마다
         public void startAccount(){
             pointService.settle();
             // 7일 후의 날짜 계산

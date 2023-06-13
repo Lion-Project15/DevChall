@@ -63,7 +63,6 @@ public class ChallengePostController {
         Challenge linkedChallenge = challengeService.getChallengeById(id);
         Member member = memberService.findByLoginID(principal.getName()).orElse(null);
 
-
         String photoUrl = null;
 
         if (!file.isEmpty()) {

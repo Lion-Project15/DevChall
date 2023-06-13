@@ -1,4 +1,4 @@
-package com.challenge.devchall.base.roles.ChallengeMember;
+package com.challenge.devchall.challengeMember.role;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
