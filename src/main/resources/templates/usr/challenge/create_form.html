@@ -124,7 +124,7 @@
                                         th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}">챌린지 태그 설정</h3>
                                 </label>
                                 <div class="flex flex-row gap-6">
-                                    <select name="language" class="select select-accent max-w-xs">
+                                    <select name="language" class="select select max-w-xs">
                                         <option disabled selected>공부하고 싶은 언어</option>
                                         <option>Java</option>
                                         <option>Ruby</option>
@@ -137,7 +137,7 @@
                                         <option>Python</option>
                                     </select>
 
-                                    <select name="subject" class="select select-accent max-w-xs">
+                                    <select name="subject" class="select select max-w-xs">
                                         <option disabled selected>공부 주제</option>
                                         <option value="project">프로젝트</option>
                                         <option value="coding">코딩테스트</option>
@@ -147,7 +147,7 @@
                                         <option value="solving">예제 풀기</option>
                                     </select>
 
-                                    <select name="postType" class="select select-accent max-w-xs">
+                                    <select name="postType" class="select select max-w-xs">
                                         <option disabled selected>인증 방식</option>
                                         <option>Github</option>
                                         <option>블로그</option>
@@ -167,10 +167,10 @@
                                     <h3 class="text-gray-400 font-bold bolder-none my-2 mt-0.2 mb-0.5"
                                         th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}">챌린지 시작일 및 기간 설정</h3>
                                 </label>
-                                <input type="date" name="startDate" class="text-black select select-accent w-full mb-4"/>
+                                <input type="date" name="startDate" class="text-black select select w-full mb-4"/>
                             </div>
                             <div class="flex-col">
-                                <select name="period" class="select select-accent w-full mt-12 mb-5 ml-2 max-w-xs">
+                                <select name="period" class="select select w-full mt-12 mb-5 ml-2 max-w-xs">
                                     <option value="2">2주</option>
                                     <option value="3">3주</option>
                                     <option value="4">4주</option>
@@ -188,10 +188,10 @@
                                     th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}">인증 주기 선택</h3>
                             </label>
                             <div class="flex flex-row justify-around">
-                                <input type="radio" name="frequency" value="1" class="radio radio-accent" checked>주 1회
-                                <input type="radio" name="frequency" value="3" class="radio radio-accent">주 3회
-                                <input type="radio" name="frequency" value="5" class="radio radio-accent">주 5회
-                                <input type="radio" name="frequency" value="7" class="radio radio-accent">매일
+                                <input type="radio" name="frequency" value="1" class="radio radio" checked>주 1회
+                                <input type="radio" name="frequency" value="3" class="radio radio">주 3회
+                                <input type="radio" name="frequency" value="5" class="radio radio">주 5회
+                                <input type="radio" name="frequency" value="7" class="radio radio">매일
                             </div>
                         </div>
 
@@ -204,10 +204,10 @@
                             <span class="text-black text-xs font-thin">인증글을 공개하고, 다른 챌린저들의 응원을 받아보세요!</span>
                         </div>
                         <div class="input-box w-80 flex items-center mt-3" style="background-color: #ffffff; height: 60px; border-radius: 10px;">
-                            <input type="radio" name="status" id="public" value=true class="radio radio-accent ml-14" checked/>
+                            <input type="radio" name="status" id="public" value=true class="radio radio ml-14" checked/>
                             <label for="public" class="text-black ml-2">공개</label>
                             <div class="flex items-center ml-10">
-                                <input type="radio" name="status" id="private" value=false class="radio radio-accent ml-10"/>
+                                <input type="radio" name="status" id="private" value=false class="radio radio ml-10"/>
                                 <label for="private" class="text-black ml-2">비공개</label>
                             </div>
                         </div>
@@ -218,7 +218,7 @@
                                 <h3 class="text-gray-400 font-bold bolder-none my-2 mb-0.5"
                                     th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}">챌린지 대표 이미지</h3>
                             </label>
-                            <input id="img" name="file" type="file" class="file-input file-input-bordered file-input-accent border-green-500 w-full max-w-xs" />
+                            <input id="img" name="file" type="file" class="file-input file-input-bordered file-input border-green-500 w-full max-w-xs" />
                         </div>
 
 
