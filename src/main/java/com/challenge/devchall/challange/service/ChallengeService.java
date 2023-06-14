@@ -151,6 +151,24 @@ public class ChallengeService {
         return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);
     }
 
+    public List<Challenge> getChallengeList(String language, String subject) {
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(0, 30, sort);
+
+        return challengeRepository.findByConditions(language, subject);
+    }
+
+
+    //참여하지 않고 있는 챌린지(모집중인 챌린지) 중에서, 공개가 true 인 것들을 가져옴(+카테고리 필터링 )
+    public List<Challenge> getNotJoinChallengeList(String language, String subject, Member member) {
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(0, 30, sort);
+
+        return challengeRepository.findChallengeByNotJoin(language, subject, member);
+    }
+
     public List<Challenge> getJoinChallenge(Member member){
 
         //FIXME 나의 챌린지는 페이징 몇개?
