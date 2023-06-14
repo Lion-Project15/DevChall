@@ -16,6 +16,7 @@ import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.member.service.MemberService;
 import com.challenge.devchall.photo.service.PhotoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,6 +41,8 @@ public class ChallengePostController {
     private final Rq rq;
     private final CommentService commentService;
     private final ChallengeMemberRepository challengeMemberRepository;
+    @Value("${custom.challenge.reportCount}")
+    private int reportCount;
 
 
     @GetMapping("/write_form/{id}")
@@ -164,9 +167,7 @@ public class ChallengePostController {
         challengePostService.addReportedBy(id, loginId);
 
         challengePostService.incrementCount(id);
-        //FIXME 테스트를 위해 1로 해놓음
-        if (challengePostById.getReportCount() >= 1) {
-//            challengePostService.deletePost(id);
+        if (challengePostById.getReportCount() >= reportCount) {
             ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(challengePostById.getLinkedChallenge(), challengePostById.getChallenger()).orElse(null);
             if (challengeMember != null) {
                 challengeMember.increaseOutCount();
