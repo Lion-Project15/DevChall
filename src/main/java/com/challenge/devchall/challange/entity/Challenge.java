@@ -73,4 +73,7 @@ public class Challenge extends BaseEntity {
     public void complete(){
         this.settleComplete = true;
     }
+    public boolean isPassed(){
+        return startDate.isAfter(LocalDate.now());
+    }
 }

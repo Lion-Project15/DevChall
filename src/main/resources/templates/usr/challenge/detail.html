@@ -12,7 +12,6 @@
 
         function wantJoin(challengeId) {
             if (confirm('해당 챌린지에 참여하시겠습니까?')) {
-                alert("환영합니다! 챌린지에 열심히 참여해보세요!");
                 location.href = "/usr/challenge/join/" + challengeId;
             } else {
                 alert("참여가 취소되었습니다.");
@@ -32,7 +31,8 @@
                     <!--                <p class="text-[30px] bolder-double font-bold mx-3" th:text="${challenge.challengeName}"></p>-->
 
                     <th:block th:unless="${byChallengeAndMember.isPresent()}">
-                        <button th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'"
+                        <button th:if="${challenge.passed}"
+                                th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'"
                                 th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}"
                                 class="btn btn-accent mx-1 border-none mt-9" style="background-color: #03FA6E;">참여하기
                         </button>
@@ -80,11 +80,11 @@
                                    th:text="${challenge.challengeTag.challengePostType}"></p>
                             </div>
 
-                            <th:block th:if="${#lists.isEmpty(challengePostList)}">
+                            <th:block th:if="${#lists.isEmpty(challengePosts)}">
                                 <p class="text-[17px] bolder-double mt-3"> 0 개</p>
                             </th:block>
-                            <th:block th:unless="${#lists.isEmpty(challengePostList)}">
-                                <p class="text-[17px] bolder-double mt-3 mb-5" th:text="${#lists.size(challengePostList)} + '개'"></p>
+                            <th:block th:unless="${#lists.isEmpty(challengePosts)}">
+                                <p class="text-[17px] bolder-double mt-3 mb-5" th:text="${#lists.size(challengePosts)} + '개'"></p>
                             </th:block>
 
                         </div>
@@ -111,49 +111,89 @@
             <div class="flex flex-wrap justify-center mt-14">
                 <div class="w-1/8 h-full"></div>
                 <div class="card bg-white w-5/6 h-full">
-                    <div class="flex flex-col h-1/2">
-                        <th:block th:if="${#lists.isEmpty(challengePostList)}">
+                    <div class="flex flex-col items-center h-1/2">
+                        <th:block th:if="${#lists.isEmpty(challengePosts)}">
                             <h2 class="text-[20px] font-black mt-5 mx-8">아직 아무도 인증하지 않았어요!</h2>
                         </th:block>
 
-                        <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-[50px] bg-white-500 my-10">
-                            <th:block th:unless="${#lists.isEmpty(challengePostList)}">
+                        <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[5px] bg-white-500 my-10">
+                            <th:block th:unless="${#lists.isEmpty(challengePosts)}">
                                 <!-- 인증글 내용 -->
-                                <div th:each="post : ${challengePostList}">
-                                    <div class="card w-[200px] shadow-xl mx-8">
-                                        <figure>
-                                            <img th:src="${@photoService.getSmallPhoto(post.postPhoto)}" alt="post_image"
-                                                 class="rounded-xl w-[80%] mt-8"/>
-                                        </figure>
+
+                                <div th:each="post : ${challengePosts}">
+                                    <div class="card w-[190px] shadow-xl mx-8">
+                                        <a th:href="@{|/usr/challenge/postdetail/${post.id}|}">
+                                            <figure>
+                                                <img th:src="${@photoService.getSmallPhoto(post.postPhoto)}" alt="post_image"
+                                                     class="rounded-xl w-[80%] mt-8"/>
+                                            </figure>
+                                        </a>
+
                                         <div class="card-body">
 
-                                            <p>
-                                                <i class="fa-sharp fa-solid fa-star fa-beat fa-sm" style="color: #40dd84;"></i>
-                                                <small th:text="${post.postScore}"></small>
-                                            </p>
+                                            <a class="card-title"
+                                               th:href="@{|/usr/challenge/postdetail/${post.id}|}"
+                                               th:text="${#strings.length(post.postTitle) &gt; 6 ? #strings.substring(post.postTitle, 0, 6) + '...' : post.postTitle}"></a>
 
-                                            <h2 class="card-title"
-                                                th:text="${#strings.length(post.postTitle) &gt; 10 ? #strings.substring(post.postTitle, 0, 10) + '...' : post.postTitle}"></h2>
-
-                                            <p th:text="${#strings.length(post.postContents) &gt; 15 ? #strings.substring(post.postContents, 0, 15) + '...' : post.postContents}"></p>
-
-                                            <div class="card-actions justify-end">
-                                                <div style="margin-left: auto;">
-                                                    <a class="btn btn-xs rounded-lg font-bold mx-1 border-none text-sm py-0.5 px-2"
-                                                       style="background-color: #03FA6E;
-                                                       color: #121212;
-                                                       font-size: 13px; padding: 2px 6px;"
-                                                       th:href="@{|/usr/challenge/postdetail/${post.id}|}"
-                                                       th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}"
-                                                    >보러가기</a>
+<!--                                            <p th:text="${#strings.length(post.postContents) &gt; 15 ? #strings.substring(post.postContents, 0, 15) + '...' : post.postContents}"></p>-->
+<!--                                                <img th:if="post.challenger.equippedCharacter != null" th:src="${post.challenger.equippedCharacter.item.pattern}"/>-->
+<!--                                                <img th:if="post.challenger.equippedCharacter == null" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" alt="">-->
+                                            <div class="flex justify-between items-center flex h-[30px]">
+                                                <img class="w-10 rounded-full"
+                                                     th:if="${post.challenger?.equippedCharacter?.item?.pattern}"
+                                                     th:src="${post.challenger?.equippedCharacter?.item?.pattern}"/>
+<!--                                                <img -->
+<!--                                                     src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png"/>-->
+                                                <div>
+                                                    <i class="fa-solid fa-user fa-2xl"
+                                                       th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}"
+                                                       th:unless="${post.challenger?.equippedCharacter?.item?.pattern} "></i>
                                                 </div>
-
+                                                <span class="rounded-xl text-xs p-1 mx-1 h-auto"
+                                                      th:style="'color: #' + ${@rq.member.equippedFont.item.subPattern} +
+                                                                '; background: #'+${@rq.member.equippedFont.item.pattern}+' !important'"
+                                                      th:text="${post.challenger.nickname}"></span>
                                             </div>
+                                            <p class="flex justify-between">
+                                                <span>
+                                                    <i class="fa-sharp fa-solid fa-star fa-beat fa-sm" style="color: #40dd84;"></i>
+                                                    <small th:text="${post.postScore}"></small>
+                                                </span>
+<!--                                                <span>-->
+<!--                                                    <i class="fa-regular fa-message-dots" style="color: #3E4450"></i>-->
+<!--                                                    <small>2</small>-->
+<!--                                                </span>-->
+                                                <span>
+                                                    <i class="fa-solid fa-heart fa-bounce" style="color:firebrick"></i>
+                                                    <small>3</small>
+                                                </span>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
+                                <!--인증글 끝-->
                             </th:block>
                         </div>
+                        <!--  페이징 시작-->
+                        <div class="join pb-10"
+                             th:if="${challengePosts!=null &&!challengePosts.isEmpty()}">
+                            <a th:if="${challengePosts.hasPrevious}"
+                               class="join-item btn btn-accent btn-sm btn-outline"
+                               th:href="@{|?page=${challengePosts.number-1}|}">
+                                <span><<</span>
+                            </a>
+                            <a th:each="page:${#numbers.sequence(0, challengePosts.totalPages-1)}"
+                               th:text="${page+1}"
+                               th:href="@{|?page=${page}|}"
+                               th:classappend="${page == challengePosts.number} ? 'btn-active'"
+                               class="join-item btn btn-accent btn-sm mx-1">1</a>
+                            <a th:if="${challengePosts.hasNext}"
+                               th:href="@{|?page=${challengePosts.number+1}|}"
+                               class="join-item btn btn-accent btn-sm btn-outline">
+                                <span>>></span>
+                            </a>
+                        </div>
+                        <!--  페이징 끝-->
                     </div>
             </div>
         </div>
