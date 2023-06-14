@@ -95,7 +95,7 @@
                                 </div>
                             </div>
                         </div>
-                        <img class="mt-8 mb-2" th:src="${post.postPhoto.getLargePhoto()}" alt="post_image" style="width: 500px; height: auto;" />
+                        <img class="mt-8 mb-2" th:src="${@photoService.getLargePhoto(post.postPhoto)}" alt="post_image" style="width: 500px; height: auto;" />
 
                         <style>
                             .custom-btn {
