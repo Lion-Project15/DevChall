@@ -91,6 +91,10 @@ public class Member extends BaseEntity {
         this.challengeLimit++;
     }
 
+    public void resetChallengeLimit(){
+        this.challengeLimit = 0;
+    }
+
     public Inventory getEquippedFont(){
         for(Inventory iv: inventoryList){
             if(iv.isEquipped() && //장착중

@@ -19,13 +19,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import com.challenge.devchall.item.entity.Item;
-import java.util.Arrays;
+
+import java.util.*;
 
 import java.awt.datatransfer.Clipboard;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -124,10 +121,10 @@ public class MemberService {
 
         int challengeLimit = member.getChallengeLimit();
 
-        if(challengeLimit < 2){
+        if(challengeLimit < 1){
             return RsData.of("S-1", "챌린지 개설이 가능합니다.");
         }else{
-            return RsData.of("F-1", "이미 이번달에 2개의 챌린지를 생성하셨습니다.");
+            return RsData.of("F-1", "이미 이번달에 챌린지를 생성하셨습니다.");
         }
     }
 
@@ -193,6 +190,10 @@ public class MemberService {
             }
         }
         return 0; // 멤버가 존재하지 않거나 포인트 정보가 없는 경우, 0을 반환
+    }
+
+    public List<Member> getAllMembers(){
+        return memberRepository.findAll();
     }
 
 }
