@@ -67,7 +67,7 @@ public class MemberController {
         }
         RsData<Member> rsData = memberService.join(memberDto.getLoginID(), memberDto.getPassword(),memberDto.getEmail(), memberDto.getNickname());
 
-        return "redirect:/usr/member/login";
+        return "redirect:usr/member/login";
     }
 
     @GetMapping("/login")

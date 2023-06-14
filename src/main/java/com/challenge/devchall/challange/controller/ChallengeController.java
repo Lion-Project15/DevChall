@@ -79,6 +79,10 @@ public class ChallengeController {
                              @PathVariable("id") long id,
                              @RequestParam(defaultValue = "0") int page) {
 
+        if (rq.getMember() == null) {
+            return "redirect:/usr/member/login";
+        }
+
         Challenge challenge = this.challengeService.getChallengeById(id);
 
         Member loginMember = rq.getMember();

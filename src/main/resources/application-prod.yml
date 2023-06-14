@@ -31,12 +31,12 @@ spring:
             scope:
             client-name: Naver
             authorization-grant-type: authorization_code
-            redirect-uri: '${custom.site.baseUrl}/{action}/oauth2/code/{registrationId}'
+            redirect-uri: 'https://www.devchall.site/{action}/oauth2/code/{registrationId}'
           kakao:
             scope:
             client-name: Kakao
             authorization-grant-type: authorization_code
-            redirect-uri: '${custom.site.baseUrl}/{action}/oauth2/code/{registrationId}'
+            redirect-uri: 'https://www.devchall.site/{action}/oauth2/code/{registrationId}'
             client-authentication-method: POST
   jpa:
     hibernate:

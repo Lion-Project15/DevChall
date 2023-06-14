@@ -35,7 +35,7 @@
                    +'; font-size: 40px'">My Inventory</h1>
             </div>
 
-            <div class="user-image-jKB bg-[#313131] rounded-[4.3444rem] flex-shrink-0 h-[11.5rem] mx-auto flex justify-center items-center mt-20"
+            <div class="user-image-jKB bg-[#EBEBEB] rounded-[4.3444rem] flex-shrink-0 h-[11.5rem] mx-auto flex justify-center items-center mt-20"
                  style="width: 200px;">
                 <!--캐릭터 아이템 추가-->
                 <a href="#" class="flex flex-col items-center group px-1">
@@ -79,7 +79,7 @@
         </div>
 
         <!--아이템 목록-->
-        <div id="items" class="flex flex-grow flex-wrap gap-10 mt-5 mx-20">
+        <div id="items" class="flex flex-grow flex-wrap gap-20 mt-5 mx-20">
             <!--아이템1_Font Color-->
             <div id="item1" class="flex card w-1/4 bg-[#03fa6e] bg-opacity-10">
                 <div class="flex flex-col justify-center items-center h-full">
@@ -89,36 +89,22 @@
                         <span class="mt-4 text-[#000000] font-bold text-xl">Font Color</span>
                     </div>
 <!--                    -->
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7"
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7"
                          th:each="font:${items['fonts']}"
                          th:if="${!#strings.equals(font.name, 'basic')}">
                         <div >
                             <!--색상 아이템 추가-->
-                            <div class="flex justify-center items-center relative ml-4 mx-2.5 mt-2 mb-10 w-[110px] h-[130px]"
+                            <div class="flex justify-center items-center relative ml-4 mx-2.5 mt-2 mb-5 w-[110px] h-[130px]"
                                  th:style="'background-color: #'+${font.pattern}+';'"></div>
 
-                            <!--버튼-->
-                            <div class="flex flex-col justify-end items-center flex items-center justify-center mx-2.5 mb-5 ml-4 mt-7 space-y-6">
-                                <div class="flex items-center">
-                                    <span th:text="${font.price + 'P'}" class="badge badge-custom p-3.5 mx-1 mr-2"
-                                        style="font-size: small; background-color: #03fa6e; color: #121212; border-color: #03fa6e border: 2px solid #03fa6e; border-radius: 8px;"></span>
-
+                            <div class="flex flex-row justify-center items-center mt-5 space-x-3">
+                                <div class="flex flex-col ml-auto p-2">
+                                    <h3 class="text-center text-medium font-bold" th:text="${font.price + 'P'}"></h3>
                                     <button class="btn btn-sm btn-black" style="background-color: black; color: #03fa6e;"
                                             th:onclick="'showBuy('+${font.id}+')'">BUY
                                     </button>
                                 </div>
                             </div>
-
-<!--                            버튼 및 포인트-->
-<!--                            <div  class="flex flex-col justify-end items-start mt-7 space-y-6">-->
-<!--                                <span th:text="${font.price + 'P'}"-->
-<!--                                      class="badge badge-custom mx-1" style="font-size: x-small; background-color: #03fa6e; color: #121212; border: 1px solid #03fa6e; border-radius: 4px;"></span>-->
-
-<!--                                <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" th:onclick="'showBuy('+${font.id}+')'">-->
-<!--                                    <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
                         </div>
                     </div>
                 </div>
@@ -134,7 +120,7 @@
                     </div>
 
 
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7">
                         <!--캐릭터 아이템 추가-->
                         <a href="#" class="flex flex-col items-center group px-1">
                             <img th:src="@{${@photoService.getStoreCharacterPhoto('lion.png')}}" alt="lion" class="transition-all duration-300 transform group-hover:scale-110">
@@ -147,7 +133,7 @@
                         </div>
                     </div>
 
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7">
                         <!--캐릭터 아이템 추가-->
                         <a href="#" class="flex flex-col items-center group px-1">
                             <img th:src="@{${@photoService.getStoreCharacterPhoto('giraffe.png')}}" alt="giraffe" class="transition-all duration-300 transform group-hover:scale-110">
@@ -160,7 +146,7 @@
                         </div>
                     </div>
 
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7">
                         <!--캐릭터 아이템 추가-->
                         <a href="#" class="flex flex-col items-center group px-1">
                             <img th:src="@{${@photoService.getStoreCharacterPhoto('robot.png')}}" alt="robot" class="transition-all duration-300 transform group-hover:scale-110">
@@ -173,7 +159,7 @@
                         </div>
                     </div>
 
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7">
                         <!--캐릭터 아이템 추가-->
                         <a href="#" class="flex flex-col items-center group px-1">
                             <img th:src="@{${@photoService.getStoreCharacterPhoto('ghost.png')}}" alt="ghost" class="transition-all duration-300 transform group-hover:scale-110">
@@ -186,7 +172,7 @@
                         </div>
                     </div>
 
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7">
                         <!--캐릭터 아이템 추가-->
                         <a href="#" class="flex flex-col items-center group px-1">
                             <img th:src="@{${@photoService.getStoreCharacterPhoto('octopus.png')}}" alt="octopus" class="transition-all duration-300 transform group-hover:scale-110">
@@ -202,51 +188,24 @@
             </div>
 
             <div id="item3" class="flex card w-1/4 bg-[#03fa6e] bg-opacity-10">
-                <div class="flex flex-col justify-center items-center h-full">
+                <div class="flex flex-col items-center h-full">
+
                     <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-5"
                          style="width: 200px;">
                         <span class="mt-4 text-[#000000] font-bold text-xl">Coming Soon</span>
                     </div>
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
+
+                    <div class="card justify-center p-2 w-3/4 bg-[#EBEBEB] mt-7">
+                        <div class="flex flex-col justify-center items-center mt-7 space-y-6">
+                            <a href="#" class="flex flex-col items-center group px-1">
+                                <img th:src="@{${@photoService.getStoreCharacterPhoto('octopus.png')}}" alt="octopus" class="transition-all duration-300 transform group-hover:scale-110">
+                            </a>
+
+                            <h3 class="flex justify-center text-center text-xl font-bold">Open D-3 !!</h3>
                         </div>
                     </div>
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-white bg-opacity-80 mt-7">
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
+
+
                 </div>
             </div>
         </div>
