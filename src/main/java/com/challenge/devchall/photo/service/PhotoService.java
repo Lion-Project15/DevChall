@@ -114,6 +114,7 @@ public class PhotoService {
         }else if(protocol.equals("https")){
             sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/category/");
         }
+
         sb.append(categoryName);
         sb.append("?type=m&w=80&h=80&quality=90&bgcolor=121212&ttype=png&extopt=0&anilimit=1");
 
