@@ -170,7 +170,7 @@
         <div class="join pb-10"
              th:if="${!challenges.isEmpty()}">
             <a th:if="${challenges.hasPrevious}"
-               class="join-item btn btn-accent btn-sm btn-outline"
+               class="join-item btn btn btn-sm btn-outline"
                th:href="@{|?page=${challenges.number-1}|}">
                 <span><<</span>
             </a>
@@ -178,10 +178,10 @@
                th:text="${page+1}"
                th:href="@{|?page=${page}|}"
                th:classappend="${page == challenges.number} ? 'btn-active'"
-               class="join-item btn btn-accent btn-sm mx-1">1</a>
+               class="join-item btn btn btn-sm mx-1">1</a>
             <a th:if="${challenges.hasNext}"
                th:href="@{|?page=${challenges.number+1}|}"
-               class="join-item btn btn-accent btn-sm btn-outline">
+               class="join-item btn btn btn-sm btn-outline">
                 <span>>></span>
             </a>
         </div>
