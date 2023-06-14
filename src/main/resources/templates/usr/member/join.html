@@ -60,6 +60,7 @@
                                     <span class="text-gray-400">비밀번호를 한 번 더 입력해주세요</span>
                                 </label>
                                 <input type="password" th:field="*{repeatPassword}" maxlength="15" placeholder="비밀번호 확인" class="input input-bordered w-full text-black" id="repeatPassword" />
+                                <span th:style="${'color: red; font-size:12px;'}" th:text="${valid_repeatPassword}"></span>
                             </div>
                         </div>
                     </div>
