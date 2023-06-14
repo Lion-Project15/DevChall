@@ -9,29 +9,38 @@
 <body>
 
 <main layout:fragment="main" class="flex flex-col w-full">
-    <script>
-        function wantDelete(postId) {
+
+    <script th:inline="javascript">
+
+        function wantDelete(postId, postTitle) {
             if (confirm('정말로 삭제하시겠습니까?')) {
 
-                alert(postId + "번 인증글을 삭제합니다.");
+                alert(postTitle + " 게시글을 삭제합니다.");
                 location.href = "/usr/challenge/delete/" + postId;
             } else {
                 alert("삭제가 취소되었습니다.");
             }
         }
 
-        function wantReport(postId, loginId, creatorId) {
+        function wantReport(postId, loginId, creatorId, postTitle) {
+
             if (confirm('정말로 신고 하시겠습니까?')) {
+
                 if (creatorId === loginId) {
-                    alert("자신의 글은 신고할 수 없습니다.");
+                    alert(`자신의 글은 신고할 수 없습니다.`);
                 } else {
-                    alert(postId + "번 인증글을 신고합니다.");
+                    alert(postTitle + " 게시글을 신고합니다.");
                     location.href = "/usr/challenge/report/" + postId;
                 }
             } else {
                 alert("신고를 취소합니다.");
             }
         }
+
+        function showDuplicateReportAlert() {
+            alert("이미 신고한 게시물입니다.");
+        }
+
     </script>
 
 
@@ -125,19 +134,18 @@
                         </style>
 
                         <div class="flex items-center justify-center mt-2" th:if="${@rq.member.loginID == post.creatorId}">
-                            <a class="btn btn-accent mx-2 mr-5 custom-btn border-none" th:href="@{|/usr/challenge/modifypost/${post.id}|}" style="width: 90px; line-height: 20px;">수정하기</a>
-                            <h2 class="mr-2 mt-5">OR</h2>
-                            <button class="btn btn-accent mx-2 custom-btn border-none" th:onclick="'wantDelete(\'' + ${post.id} + '\')'" style="width: 90px; line-height: 20px;">삭제하기</button>
-<!--                            <h2 class="mx-2 mt-3">OR</h2>-->
-<!--                            <button class="mx-2 btn btn-warning btn-outline custom-btn btn-heart">-->
-<!--                                <i class="fa-solid fa-heart" style="color: #40dd84;"></i>-->
-<!--                            </button>-->
+                            <a class="btn btn-accent mx-2 custom-btn border-none" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
+                            <button class="btn btn-accent mx-2 custom-btn border-none" th:attr="onclick='wantDelete(\'' + ${post.id} + '\', \'' + ${post.postTitle} + '\')'">삭제하기</button>
+                            <h2 class="mx-2 mt-3">OR</h2>
+                            <button class="mx-2 btn btn-warning btn-outline custom-btn btn-heart">
+                                <i class="fa-solid fa-heart" style="color: #40dd84;"></i>
+                            </button>
                         </div>
 
 
                         <div class="flex items-center justify-center mt-2" th:unless="${@rq.member.loginID == post.creatorId}">
                             <div class="flex justify-center" style="width: 160px; position: relative;">
-                                <button class="btn btn-accent custom-btn border-none" th:attr="onclick='wantReport(\'' + ${post.id} + '\', \'' + ${@rq.member.loginID} + '\', \'' + ${post.creatorId} + '\')'" style="display: flex; align-items: center;">
+                                <button class="btn btn-accent custom-btn border-none" th:attr="onclick='wantReport(\'' + ${post.id} + '\', \'' + ${@rq.member.loginID} + '\', \'' + ${post.creatorId} + '\', \'' + ${post.postTitle} + '\')'" style="display: flex; align-items: center;">
                                     <i class="fa-solid fa-bell" style="color: #03FA6E; font-size: 24px; margin-right: 8px;"></i>
                                     <span>신고하기</span>
                                 </button>

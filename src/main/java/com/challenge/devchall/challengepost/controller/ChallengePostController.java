@@ -111,6 +111,7 @@ public class ChallengePostController {
         model.addAttribute("post", post);
         model.addAttribute("linkedChallenge", linkedChallenge);
         model.addAttribute("commentList", commentService.findByChallengePost(post));
+        model.addAttribute("challengePostService", challengePostService);
 
         return "usr/challenge/postdetail";
     }
@@ -142,14 +143,16 @@ public class ChallengePostController {
     }
 
     @GetMapping("/report/{id}")
-    public String reportPost(@PathVariable("id") long id, Principal principal) {
+    public String reportPost(@PathVariable("id") long id) {
 
+        //챌린지 포스트의 아이디
         ChallengePost challengePostById = challengePostService.getChallengePostById(id);
 
+        //챌린지의 아이디
         Long linkedChallengeId = challengePostById.getLinkedChallenge().getId();
 
         // 현재 사용자의 로그인 ID를 가져옴
-        String loginId = principal.getName();
+        String loginId = rq.getMember().getLoginID();
 
         // 게시물 작성자의 로그인 ID를 가져옴
         String postCreatorId = challengePostById.getCreatorId();
@@ -159,9 +162,12 @@ public class ChallengePostController {
             return "redirect:/usr/challenge/postdetail/{id}";
         }
 
+
+        //(너무 극단적)포스트에 신고자 리스트를 저장한다 -> 저장된 신고자들에게는 버튼을 노출시키지 않는다.
+        //또 누르면 알림이 뜨게
         if (challengePostService.hasReportedPost(id, loginId)) {
             System.out.println("이미 신고한 게시물입니다.");
-            return "redirect:/usr/challenge/postdetail/{id}";
+            return rq.historyBack("이미 신고한 게시물 입니다.");
         }
 
         challengePostService.addReportedBy(id, loginId);
@@ -178,5 +184,6 @@ public class ChallengePostController {
 
         return "redirect:/usr/challenge/postdetail/{id}";
     }
+
 
 }
