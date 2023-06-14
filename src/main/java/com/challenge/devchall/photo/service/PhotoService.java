@@ -10,7 +10,9 @@ import com.challenge.devchall.base.config.S3Config;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.photo.entity.Photo;
 import com.challenge.devchall.photo.repository.PhotoRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
@@ -33,11 +35,14 @@ import java.util.UUID;
 public class PhotoService {
 
     private final PhotoRepository photoRepository;
+    @Autowired
+    private HttpServletRequest request;
 
     final String endPoint = S3Config.getEndPoint();
     final String regionName = S3Config.getRegion();
     final String accessKey = S3Config.getAccessKey();
     final String secretKey = S3Config.getSecretKey();
+
 
     // S3 client
     final AmazonS3 s3 = AmazonS3ClientBuilder.standard()
@@ -102,8 +107,14 @@ public class PhotoService {
     public String getCategoryPhoto(String categoryName){
 
         StringBuilder sb = new StringBuilder();
+        String protocol = request.getScheme();
 
-        sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/category/");
+        if(protocol.equals("http")){
+            sb.append("http://iztyfajjvmsf17707682.cdn.ntruss.com/category/");
+        }else if(protocol.equals("https")){
+            sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/category/");
+        }
+
         sb.append(categoryName);
         sb.append("?type=m&w=80&h=80&quality=90&bgcolor=121212&ttype=png&extopt=0&anilimit=1");
 
@@ -113,10 +124,57 @@ public class PhotoService {
     public String getStoreCharacterPhoto(String characterName){
 
         StringBuilder sb = new StringBuilder();
+        String protocol = request.getScheme();
 
-        sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/");
+        if(protocol.equals("http")){
+            sb.append("http://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/");
+        }else if(protocol.equals("https")){
+            sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/");
+        }
+
         sb.append(characterName);
         sb.append("?type=m&w=120&h=120&bgcolor=EBEBEB");
+
+        return sb.toString();
+    }
+
+    public String getLargePhoto(Photo photo){
+
+        String photoUrl = photo.getPhotoUrl();
+
+        String[] split = photoUrl.split("devchall/");
+
+        StringBuilder sb = new StringBuilder();
+        String protocol = request.getScheme();
+
+        if(protocol.equals("http")){
+            sb.append("http://iztyfajjvmsf17707682.cdn.ntruss.com/");
+        }else if(protocol.equals("https")){
+            sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/");
+        }
+
+        sb.append(split[1]);
+        sb.append("?type=m&w=700&h=400&quality=90&bgcolor=FFFFFF&extopt=3");
+
+        return sb.toString();
+    }
+
+    public String getSmallPhoto(Photo photo){
+
+        String photoUrl = photo.getPhotoUrl();
+        String[] split = photoUrl.split("devchall/");
+
+        StringBuilder sb = new StringBuilder();
+        String protocol = request.getScheme();
+
+        if(protocol.equals("http")){
+            sb.append("http://iztyfajjvmsf17707682.cdn.ntruss.com/");
+        }else if(protocol.equals("https")){
+            sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/");
+        }
+
+        sb.append(split[1]);
+        sb.append("?type=m&w=200&h=115&quality=90&bgcolor=FFFFFF&extopt=0&anilimit=1");
 
         return sb.toString();
     }
