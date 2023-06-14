@@ -9,6 +9,7 @@ import com.challenge.devchall.item.service.ItemService;
 import com.challenge.devchall.member.dto.MemberRequestDto;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
+import com.challenge.devchall.photo.service.PhotoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.bridge.MessageUtil;
@@ -33,6 +34,7 @@ public class MemberController {
     private final ChallengeMemberService challengeMemberService;
     private final ItemService itemService;
     private final Rq rq;
+    private final PhotoService photoService;
 
     //회원가입
     @GetMapping("/join")
@@ -92,6 +94,7 @@ public class MemberController {
         items.put("characters",itemService.getByType("character"));
 
         model.addAttribute("items", items);
+        model.addAttribute("photoService", photoService);
 
         return "usr/member/store";
     }
