@@ -45,6 +45,29 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
                                            @Param("me") Member me,
                                            Pageable pageable);
 
+    @Query("SELECT c FROM Challenge c " +
+            "LEFT JOIN c.challengeTag ct " +
+            "WHERE (:challengeLanguage IS NULL OR ct.challengeLanguage = :challengeLanguage) " +
+            "AND c.startDate >  CURRENT_DATE " +
+            "AND (:challengeSubject IS NULL OR ct.challengeSubject = :challengeSubject) " +
+            "AND c.challengeStatus = true")
+    List<Challenge> findByConditions(@Param("challengeLanguage") String challengeLanguage,
+                                     @Param("challengeSubject") String challengeSubject);
+
+
+    @Query("SELECT c " +
+            "FROM Challenge c " +
+            "LEFT JOIN Tag ct ON ct.linkedChallenge = c " +
+            "LEFT JOIN ChallengeMember cm ON cm.linkedChallenge = c AND cm.challenger = :me " +
+            "WHERE cm.challenger = null " +
+            "AND c.startDate >  CURRENT_DATE " +
+            "AND (:challengeLanguage IS NULL OR ct.challengeLanguage = :challengeLanguage) " +
+            "AND (:challengeSubject IS NULL OR ct.challengeSubject = :challengeSubject) " +
+            "AND c.challengeStatus = true")
+    List<Challenge> findChallengeByNotJoin(@Param("challengeLanguage") String challengeLanguage,
+                                           @Param("challengeSubject") String challengeSubject,
+                                           @Param("me") Member me);
+
     @Query("SELECT c " +
             "FROM Challenge c " +
             "LEFT JOIN ChallengeMember cm ON cm.linkedChallenge = c AND cm.challenger = :me " +

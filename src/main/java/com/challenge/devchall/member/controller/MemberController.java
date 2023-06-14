@@ -38,7 +38,7 @@ public class MemberController {
     @GetMapping("/join")
     public String showJoin (MemberRequestDto memberDto, Model model) {
         model.addAttribute("memberDto", memberDto);
-        return "/usr/member/join";
+        return "usr/member/join";
     }
 
     @PostMapping("/join")
@@ -72,7 +72,7 @@ public class MemberController {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
 
-        return "/usr/member/login";
+        return "usr/member/login";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -82,7 +82,7 @@ public class MemberController {
             model.addAttribute("challengeMembers"
                     , challengeMemberService.getByMember(rq.getMember()));
         }
-        return "/usr/member/me";
+        return "usr/member/me";
     }
 
     @GetMapping("/store")
@@ -93,7 +93,7 @@ public class MemberController {
 
         model.addAttribute("items", items);
 
-        return "/usr/member/store";
+        return "usr/member/store";
     }
 
     @PreAuthorize("isAuthenticated()")

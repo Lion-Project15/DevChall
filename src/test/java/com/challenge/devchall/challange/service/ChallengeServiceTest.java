@@ -13,6 +13,7 @@ import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
@@ -103,6 +104,9 @@ class ChallengeServiceTest {
 
         //FIXME 스케줄로 Limit 초기화
 
+        System.out.println("createRsData_2.getMsg() = " + createRsData_2.getMsg());
+        System.out.println("createRsData_2.getResultCode() = " + createRsData_2.getResultCode());
+
         assertThat("S-1".equals(createRsData_1.getResultCode())).isTrue(); //첫 생성은 성공
         assertThat("F-1".equals(createRsData_2.getResultCode())).isTrue(); //두번째 생성은 Limit으로 인해 실패
     }
@@ -116,7 +120,6 @@ class ChallengeServiceTest {
         RsData<Challenge> createRsData_1 = challengeService.createChallenge(challengeTitle, challengeContents,
                 challengeStatus, challengeFrequency, challengeStartDate, challengePeriod, challengeLanguage,
                 challengeSubject, challengePostType, file, user3);
-
 
         RsData<Challenge> createRsData_2 = challengeService.createChallenge(challengeTitle, challengeContents,
                 challengeStatus, challengeFrequency, challengeStartDate, challengePeriod, challengeLanguage,

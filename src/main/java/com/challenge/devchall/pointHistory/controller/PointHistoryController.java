@@ -35,6 +35,6 @@ public class PointHistoryController {
 
         List<PointHistory> pointHistoryList = pointHistoryService.getPointHistoriesByMember(rq.getMember());
         model.addAttribute("pointHistoryList", pointHistoryList);
-        return "/usr/point/pointHistory";
+        return "usr/point/pointHistory";
     }
 }
