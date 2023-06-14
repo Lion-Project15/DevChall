@@ -80,6 +80,7 @@ custom:
     titleLength: 24
     contentLength: 500
     memberLimit: 50
+    pageable: 10
     reportCount: 10
     memberOutCount: 3
 

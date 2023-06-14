@@ -39,4 +39,11 @@ public class AppConfig {
         AppConfig.weeklyPoint = weeklyPoint;
     }
 
+    @Getter
+    private static int pageable;
+    @Value("${custom.challenge.pageable}")
+    public void setPageable(int pageable){
+        AppConfig.pageable = pageable;
+    }
+
 }

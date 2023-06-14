@@ -5,6 +5,7 @@ import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengepost.dto.SettleChallengeDTO;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.member.entity.Member;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,9 +23,10 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     @Query("SELECT c FROM Challenge c " +
             "LEFT JOIN c.challengeTag ct " +
             "WHERE (:challengeLanguage IS NULL OR ct.challengeLanguage = :challengeLanguage) " +
+            "AND c.startDate >  CURRENT_DATE " +
             "AND (:challengeSubject IS NULL OR ct.challengeSubject = :challengeSubject) " +
             "AND c.challengeStatus = true")
-    List<Challenge> findByConditions(@Param("challengeLanguage") String challengeLanguage,
+    Page<Challenge> findByConditions(@Param("challengeLanguage") String challengeLanguage,
                                      @Param("challengeSubject") String challengeSubject,
                                      Pageable pageable);
 
@@ -34,10 +36,11 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
             "LEFT JOIN Tag ct ON ct.linkedChallenge = c " +
             "LEFT JOIN ChallengeMember cm ON cm.linkedChallenge = c AND cm.challenger = :me " +
             "WHERE cm.challenger = null " +
+            "AND c.startDate >  CURRENT_DATE " +
             "AND (:challengeLanguage IS NULL OR ct.challengeLanguage = :challengeLanguage) " +
             "AND (:challengeSubject IS NULL OR ct.challengeSubject = :challengeSubject) " +
             "AND c.challengeStatus = true")
-    List<Challenge> findChallengeByNotJoin(@Param("challengeLanguage") String challengeLanguage,
+    Page<Challenge> findChallengeByNotJoin(@Param("challengeLanguage") String challengeLanguage,
                                            @Param("challengeSubject") String challengeSubject,
                                            @Param("me") Member me,
                                            Pageable pageable);
