@@ -44,7 +44,8 @@
                         <div class="flex flex-col">
                             <div class="flex">
                                 <div class="w-full p-0.1 mb-0.1 lg:w-[65rem]">
-                                    <a class="btn btn-sm font-bold mx-1">인증글 제목</a>
+                                    <a class="btn btn-sm font-bold mx-1 border-none"
+                                       th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">인증글 제목</a>
                                 </div>
                             </div>
                             <div class="flex mt-5">
@@ -59,7 +60,8 @@
                         <div class="flex flex-col">
                             <div class="flex">
                                 <div class="w-full mt-5 mb-0.1 p-0.1 lg:w-[65rem]">
-                                    <a class="btn btn-sm font-bold mx-1">인증글 내용</a>
+                                    <a class="btn btn-sm font-bold mx-1 border-none"
+                                       th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">인증글 내용</a>
                                 </div>
                             </div>
                             <div class="flex mt-5">
@@ -80,7 +82,8 @@
                 <div class="flex items-center">
                     <div class="h-full p-0.01 overflow-x-auto">
                         <div class="relative">
-                            <a class="btn btn-sm font-bold mx-1 mt-0.01 mb-0.01">인증 이미지</a>
+                            <a class="btn btn-sm font-bold mx-1 mt-0.01 mb-0.01 border-none"
+                               th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">인증 이미지</a>
                             <div class="absolute top-5 right-2">
                                 <div class="flex">
                                     <div th:each="i : ${#numbers.sequence(1, post.postScore)}" class="mx-1">
