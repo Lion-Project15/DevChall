@@ -1,5 +1,4 @@
 server:
-  port: 8080
   shutdown: graceful
   port: 8080
 management:
