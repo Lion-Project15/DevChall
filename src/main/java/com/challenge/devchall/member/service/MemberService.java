@@ -19,13 +19,10 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import com.challenge.devchall.item.entity.Item;
-import java.util.Arrays;
+
+import java.util.*;
 
 import java.awt.datatransfer.Clipboard;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -47,14 +44,16 @@ public class MemberService {
     }
 
     @Transactional
-    public RsData<Member> join(String loginID, String password, String email, String nickname) {
+    public RsData<Member> join(String loginID, String password, String email, String nickname, String repeatPassword) {
 
-        RsData<Member> rsData = validateMember(loginID, email);
+        RsData<Member> rsData = validateMember(loginID, email,password,repeatPassword);
         if (rsData.isFail()) return rsData;
 
-        return join("DevChall",loginID,password,email,nickname);
+
+
+        return join("DevChall",loginID,password,email,nickname,repeatPassword);
     }
-    private RsData<Member> join (String providerTypeCode, String loginID, String password, String email, String nickname){
+    private RsData<Member> join (String providerTypeCode, String loginID, String password, String email, String nickname, String repeatPassword){
         if (findByLoginID(loginID).isPresent()) {
             return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginID));
         }
@@ -79,12 +78,15 @@ public class MemberService {
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
     }
 
-    public RsData<Member> validateMember (String loginID, String email) {
+    public RsData<Member> validateMember (String loginID, String email, String password, String repeatPassword) {
         if (findByLoginID(loginID).isPresent()) {
             return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginID));
         }
         if (memberRepository.existsByEmail(email)){
             return RsData.of("F-2", "해당 이메일은 이미 사용중입니다.");
+        }
+        if (!password.equals(repeatPassword)){
+            return RsData.of("F-3","비빌번호가 같지 않습니다. 다시 입력해주세요.");
         }
         return RsData.of("S-1", "유효성 검사 완료");
     }
@@ -119,10 +121,10 @@ public class MemberService {
 
         int challengeLimit = member.getChallengeLimit();
 
-        if(challengeLimit < 2){
+        if(challengeLimit < 1){
             return RsData.of("S-1", "챌린지 개설이 가능합니다.");
         }else{
-            return RsData.of("F-1", "이미 이번달에 2개의 챌린지를 생성하셨습니다.");
+            return RsData.of("F-1", "이미 이번달에 챌린지를 생성하셨습니다.");
         }
     }
 
@@ -188,6 +190,10 @@ public class MemberService {
             }
         }
         return 0; // 멤버가 존재하지 않거나 포인트 정보가 없는 경우, 0을 반환
+    }
+
+    public List<Member> getAllMembers(){
+        return memberRepository.findAll();
     }
 
 }

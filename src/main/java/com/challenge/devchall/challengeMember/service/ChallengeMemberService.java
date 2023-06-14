@@ -26,12 +26,16 @@ public class ChallengeMemberService {
     private final PointHistoryService pointHistoryService;
 
 
-    public RsData<ChallengeMember> addMember(Challenge challenge, Member member, Role role){
 
+    public RsData<ChallengeMember> addMember(Challenge challenge, Member member, Role role){
+        if(challenge == null){
+            return RsData.of("F-1","챌린지가 존재하지 않습니다.");
+        }
         long joinCost = (long) challenge.getChallengePeriod() * AppConfig.getWeeklyPoint();
         RsData<ChallengeMember> joinRsData = canJoin(member, joinCost);
 
         if(joinRsData.isFail()){
+            System.out.println(joinRsData.getMsg());
             return joinRsData;
         }
 
@@ -115,4 +119,5 @@ public class ChallengeMemberService {
     public Optional<ChallengeMember> getById(long id){
         return challengeMemberRepository.findById(id);
     }
+
 }

@@ -55,6 +55,7 @@ public class ChallengePost extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member challenger;
 
+
     public void modifyPost(String postTitle, String postContents, boolean postIsPublic){
 
         this.postTitle = postTitle;
