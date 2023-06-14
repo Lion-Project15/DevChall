@@ -9,7 +9,9 @@
 <body>
 
 <main layout:fragment="main" class="flex flex-col w-full">
-    <script>
+
+    <script th:inline="javascript">
+
         function wantDelete(postId, postTitle) {
             if (confirm('정말로 삭제하시겠습니까?')) {
 
@@ -21,9 +23,11 @@
         }
 
         function wantReport(postId, loginId, creatorId, postTitle) {
+
             if (confirm('정말로 신고 하시겠습니까?')) {
+
                 if (creatorId === loginId) {
-                    alert("자신의 글은 신고할 수 없습니다.");
+                    alert(`자신의 글은 신고할 수 없습니다.`);
                 } else {
                     alert(postTitle + " 게시글을 신고합니다.");
                     location.href = "/usr/challenge/report/" + postId;
