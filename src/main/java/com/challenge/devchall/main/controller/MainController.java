@@ -5,6 +5,7 @@ import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.dto.SettleChallengeDTO;
+import com.challenge.devchall.photo.service.PhotoService;
 import com.challenge.devchall.point.service.PointService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +24,8 @@ public class MainController {
     final private ChallengeService challengeService;
     final private ChallengeMemberService challengeMemberService;
     final private PointService pointService;
+    final private PhotoService photoService;
+
     private final Rq rq;
     @GetMapping("/")
     public String showMain(Model model,
@@ -43,6 +46,7 @@ public class MainController {
             //나의 챌린지(공개, 비공개 상관 없음) => 내가 챌린지 멤버인 것 들 ... 
             model.addAttribute("joinChallengeList", joinChallengeList);
             model.addAttribute("challenges", notJoinChallengeList);
+            model.addAttribute("photoService", photoService);
         } else {
             Page<Challenge> allChallengeList = challengeService.getChallengeList(page, language,subject);
 

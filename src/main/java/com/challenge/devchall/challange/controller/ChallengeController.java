@@ -41,7 +41,7 @@ public class ChallengeController {
             return rq.historyBack(RsData.of("F-1", "챌린지를 생성하려면 로그인이 필요합니다."));
         }
 
-        return "/usr/challenge/create_form";
+        return "usr/challenge/create_form";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -99,7 +99,7 @@ public class ChallengeController {
         model.addAttribute("byChallengeAndMember", byChallengeAndMember);
 
 
-        return "/usr/challenge/detail";
+        return "usr/challenge/detail";
     }
 
 

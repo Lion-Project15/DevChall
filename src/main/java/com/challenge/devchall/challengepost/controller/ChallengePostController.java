@@ -52,7 +52,7 @@ public class ChallengePostController {
 
         model.addAttribute("challenge", challenge);
 
-        return "/usr/challenge/write_form";
+        return "usr/challenge/write_form";
     }
 
     @PostMapping("/write_form/{id}")
@@ -112,7 +112,7 @@ public class ChallengePostController {
         model.addAttribute("linkedChallenge", linkedChallenge);
         model.addAttribute("commentList", commentService.findByChallengePost(post));
 
-        return "/usr/challenge/postdetail";
+        return "usr/challenge/postdetail";
     }
 
     @GetMapping("/modifypost/{id}")
@@ -125,7 +125,7 @@ public class ChallengePostController {
         model.addAttribute("post", post);
         model.addAttribute("linkedChallenge", linkedChallenge);
 
-        return "/usr/challenge/modifypost";
+        return "usr/challenge/modifypost";
     }
 
     @PostMapping("/modifypost/{id}")

@@ -9,6 +9,7 @@ import com.challenge.devchall.item.service.ItemService;
 import com.challenge.devchall.member.dto.MemberRequestDto;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
+import com.challenge.devchall.photo.service.PhotoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.aspectj.bridge.MessageUtil;
@@ -33,12 +34,13 @@ public class MemberController {
     private final ChallengeMemberService challengeMemberService;
     private final ItemService itemService;
     private final Rq rq;
+    private final PhotoService photoService;
 
     //회원가입
     @GetMapping("/join")
     public String showJoin (MemberRequestDto memberDto, Model model) {
         model.addAttribute("memberDto", memberDto);
-        return "/usr/member/join";
+        return "usr/member/join";
     }
 
     @PostMapping("/join")
@@ -72,7 +74,7 @@ public class MemberController {
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
 
-        return "/usr/member/login";
+        return "usr/member/login";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -82,7 +84,7 @@ public class MemberController {
             model.addAttribute("challengeMembers"
                     , challengeMemberService.getByMember(rq.getMember()));
         }
-        return "/usr/member/me";
+        return "usr/member/me";
     }
 
     @GetMapping("/store")
@@ -92,8 +94,9 @@ public class MemberController {
         items.put("characters",itemService.getByType("character"));
 
         model.addAttribute("items", items);
+        model.addAttribute("photoService", photoService);
 
-        return "/usr/member/store";
+        return "usr/member/store";
     }
 
     @PreAuthorize("isAuthenticated()")
