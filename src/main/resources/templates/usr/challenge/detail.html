@@ -145,18 +145,18 @@
 <!--                                                <img -->
 <!--                                                     src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png"/>-->
                                                 <div>
-                                                    <i class="fa-solid fa-user fa-2xl"
+                                                    <i class="fa-solid fa-user fa-2xl mt-3"
                                                        th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}"
                                                        th:unless="${post.challenger?.equippedCharacter?.item?.pattern} "></i>
                                                 </div>
-                                                <span class="rounded-xl text-xs p-1 mx-1 h-auto"
+                                                <span class="rounded-lg text-xs p-1.5 mt-3 ml-2 h-auto"
                                                       th:style="'color: #' + ${@rq.member.equippedFont.item.subPattern} +
                                                                 '; background: #'+${@rq.member.equippedFont.item.pattern}+' !important'"
                                                       th:text="${post.challenger.nickname}"></span>
                                             </div>
-                                            <p class="flex justify-between">
+                                            <p class="flex justify-between mt-2">
                                                 <span>
-                                                    <i class="fa-sharp fa-solid fa-star fa-beat fa-sm" style="color: #40dd84;"></i>
+                                                    <i class="fa-sharp fa-solid fa-star fa-beat fa-sm mt-2" style="color: #40dd84;"></i>
                                                     <small th:text="${post.postScore}"></small>
                                                 </span>
 <!--                                                <span>-->
@@ -178,7 +178,7 @@
                         <div class="join pb-10"
                              th:if="${challengePosts!=null &&!challengePosts.isEmpty()}">
                             <a th:if="${challengePosts.hasPrevious}"
-                               class="join-item btn btn-accent btn-sm btn-outline"
+                               class="join-item btn btn btn-sm btn-outline"
                                th:href="@{|?page=${challengePosts.number-1}|}">
                                 <span><<</span>
                             </a>
@@ -186,10 +186,10 @@
                                th:text="${page+1}"
                                th:href="@{|?page=${page}|}"
                                th:classappend="${page == challengePosts.number} ? 'btn-active'"
-                               class="join-item btn btn-accent btn-sm mx-1">1</a>
+                               class="join-item btn btn- btn-sm mx-1">1</a>
                             <a th:if="${challengePosts.hasNext}"
                                th:href="@{|?page=${challengePosts.number+1}|}"
-                               class="join-item btn btn-accent btn-sm btn-outline">
+                               class="join-item btn btn- btn-sm btn-outline">
                                 <span>>></span>
                             </a>
                         </div>
