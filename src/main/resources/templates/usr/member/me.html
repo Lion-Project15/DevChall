@@ -22,7 +22,7 @@
     <div class="container mx-auto px-10" style="padding-top: 80px;">
         <div class="container mx-auto">
             <div class="flex gap-10">
-                <div class="w-[250px] shrink-0">
+                <div class="w-[300px] shrink-0">
 
                     <div class="flex">
                         <h3 class="text-2xl font-bold">My Page</h3>
@@ -40,7 +40,7 @@
 
                     <div class="flex mt-5">
                         <div class="flex-1 bg-white rounded-tl-md flex justify-center items-center">
-                            <div class="avatar indicator" style="width: 100px; height: 100px">
+                            <div class="avatar indicator" style="width: 100px; height: 150px">
                                 <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />
                             </div>
                         </div>
@@ -72,23 +72,24 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="flex-1">
-                    <div class="bg-white rounded-md h-full p-5 overflow-x-auto">
-                        <h3 class="text-xl font-bold">마이 챌린지 &gt;</h3>
+                    <div class="bg-white rounded-md h-full p-8 overflow-y-auto">
+                        <h3 class="text-xl font-bold">마이 챌린지</h3>
                         <div class="text-black p-2" th:if="${challengeMembers==null or #lists.isEmpty(challengeMembers)}">
                             <i class="fa-regular fa-face-laugh"></i> 참가 중인 챌린지가 없어요. 다양한 챌린지를 경험해보세요!
                         </div>
 
-                        <div class="flex gap-5 overflow-x-auto">
+                        <div class="flex gap-2 overflow-x-auto">
                             <div th:unless="${challengeMembers==null or #lists.isEmpty(challengeMembers)}"
-                                 class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[10px]">
+                                 class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[20px]">
                                 <div th:each="challengeMember:${challengeMembers}"
-                                     class="card w-auto h-[150px] bg-base-100 shadow-xl text-gray-400 my-2">
+                                     class="card w-auto bg-base-100 shadow-xl text-gray-400 my-2">
                                     <a th:href="|/usr/challenge/detail/${challengeMember.linkedChallenge.id}|">
                                         <figure class="pt-5">
-                                            <img th:src="${challengeMember.getLinkedChallenge().challengePhoto.getSmallPhoto()}" alt="Shoes" class="rounded-xl w-[90%]" />
+                                            <img th:src="${@photoService.getSmallPhoto(challengeMember.getLinkedChallenge().challengePhoto)}" alt="Shoes" class="rounded-xl w-[90%]" />
                                         </figure>
                                     </a>
                                     <div class="card-body items-center text-center" style="padding: 10px">
@@ -118,8 +119,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="mt-10 bg-white h-full rounded-md p-8">
+            <div class="mt-10 bg-white rounded-md p-8">
                 <h3 class="text-xl font-bold">나의 인벤토리</h3>
                 <div class="flex gap-5 overflow-auto">
                     <div class="grid grid-col-1 xl:grid-cols-4 p-5 gap-[30px]">
@@ -127,17 +127,17 @@
                              th:onclick="'changeEquip('+${inventory.item.id}+')'">
                             <div class="h-12 w-20 flex justify-center items-center"
                                  th:style="'background-color: #'+${inventory.item.pattern}+';'">
-<!--                                <div th:if="${inventory.equipped}" class="badge badge-accent">착용중</div>-->
                                 <div th:if="${inventory.equipped}" class="badge badge-accent border-none" style="background-color: #03FA6E;">착용중</div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
+        </div>
+    </div>
 </main>
 
 </body>
-
 </html>

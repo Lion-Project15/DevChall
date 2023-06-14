@@ -24,7 +24,7 @@
 
     <div class="flex w-full mt-10 mx-100 justify-center">
         <div class="mx-2 mt-9">
-            <img th:src="${challenge.challengePhoto.getLargePhoto()}" alt="challenge_image" class="w-[85%] h-auto"/>
+            <img th:src="${@photoService.getLargePhoto(challenge.challengePhoto)}" alt="challenge_image" class="w-[85%] h-auto"/>
         </div>
             <div class="w-1/3">
                 <div class="flex justify-between">
@@ -119,14 +119,16 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[5px] bg-white-500 my-10">
                             <th:block th:unless="${#lists.isEmpty(challengePosts)}">
                                 <!-- 인증글 내용 -->
+
                                 <div th:each="post : ${challengePosts}">
                                     <div class="card w-[190px] shadow-xl mx-8">
                                         <a th:href="@{|/usr/challenge/postdetail/${post.id}|}">
                                             <figure>
-                                                <img th:src="${post.postPhoto.getSmallPhoto()}" alt="post_image"
+                                                <img th:src="${@photoService.getSmallPhoto(post.postPhoto)}" alt="post_image"
                                                      class="rounded-xl w-[80%] mt-8"/>
                                             </figure>
                                         </a>
+
                                         <div class="card-body">
 
                                             <a class="card-title"
@@ -166,18 +168,6 @@
                                                     <small>3</small>
                                                 </span>
                                             </p>
-<!--                                            <div class="card-actions justify-end">-->
-<!--                                                <div style="margin-left: auto;">-->
-<!--                                                    <a class="btn btn-xs rounded-lg font-bold mx-1 border-none text-sm py-0.5 px-2"-->
-<!--                                                       style="background-color: #03FA6E;-->
-<!--                                                       color: #121212;-->
-<!--                                                       font-size: 13px; padding: 2px 6px;"-->
-<!--                                                       th:href="@{|/usr/challenge/postdetail/${post.id}|}"-->
-<!--                                                       th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}"-->
-<!--                                                    >보러가기</a>-->
-<!--                                                </div>-->
-
-<!--                                            </div>-->
                                         </div>
                                     </div>
                                 </div>

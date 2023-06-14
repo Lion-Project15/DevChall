@@ -49,8 +49,6 @@ public class MemberService {
         RsData<Member> rsData = validateMember(loginID, email,password,repeatPassword);
         if (rsData.isFail()) return rsData;
 
-
-
         return join("DevChall",loginID,password,email,nickname,repeatPassword);
     }
     private RsData<Member> join (String providerTypeCode, String loginID, String password, String email, String nickname, String repeatPassword){
@@ -109,7 +107,7 @@ public class MemberService {
         if (opMember.isPresent()) return RsData.of("S-2", "로그인 되었습니다.", opMember.get());
 
         // 소셜 로그인를 통한 가입시 비번은 없음 "" 처리
-        return join(providerTypeCode, loginID, "", email, nickname); // 최초 로그인 시 딱 한번 실행
+        return join(providerTypeCode, loginID, "", email, nickname, ""); // 최초 로그인 시 딱 한번 실행
     }
 
     public Member getByLoginId(String loginID){
