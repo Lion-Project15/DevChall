@@ -12,7 +12,6 @@
 
         function wantJoin(challengeId) {
             if (confirm('해당 챌린지에 참여하시겠습니까?')) {
-                alert("환영합니다! 챌린지에 열심히 참여해보세요!");
                 location.href = "/usr/challenge/join/" + challengeId;
             } else {
                 alert("참여가 취소되었습니다.");
@@ -32,7 +31,8 @@
                     <!--                <p class="text-[30px] bolder-double font-bold mx-3" th:text="${challenge.challengeName}"></p>-->
 
                     <th:block th:unless="${byChallengeAndMember.isPresent()}">
-                        <button th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'"
+                        <button th:if="${challenge.passed}"
+                                th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'"
                                 th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}"
                                 class="btn btn-accent mx-1 border-none mt-9" style="background-color: #03FA6E;">참여하기
                         </button>
@@ -159,10 +159,10 @@
                                                     <i class="fa-sharp fa-solid fa-star fa-beat fa-sm" style="color: #40dd84;"></i>
                                                     <small th:text="${post.postScore}"></small>
                                                 </span>
-                                                <span>
-                                                    <i class="fa-solid fa-message-dots"></i>
-                                                    <small>2</small>
-                                                </span>
+<!--                                                <span>-->
+<!--                                                    <i class="fa-regular fa-message-dots" style="color: #3E4450"></i>-->
+<!--                                                    <small>2</small>-->
+<!--                                                </span>-->
                                                 <span>
                                                     <i class="fa-solid fa-heart fa-bounce" style="color:firebrick"></i>
                                                     <small>3</small>

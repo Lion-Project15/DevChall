@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -86,16 +87,20 @@ public class ChallengeController {
 
         Page<ChallengePost> challengePosts = challengePostService.getPostPageByChallenge(challenge,page);
 
+
         if (byChallengeAndMember.isPresent() && !byChallengeAndMember.get().isValid()) {
             return rq.redirectWithMsg("/", "추방 당한 챌린지입니다.");
         }
 
         if(!challengePosts.isEmpty()){
             model.addAttribute("challengePosts", challengePosts);
+            boolean passed = challenge.getStartDate().isAfter(LocalDate.now());
+            model.addAttribute("passed", passed);
         }
 
         model.addAttribute("challenge", challenge);
         model.addAttribute("byChallengeAndMember", byChallengeAndMember);
+
 
 
         return "usr/challenge/detail";

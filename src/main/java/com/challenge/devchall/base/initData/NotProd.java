@@ -70,6 +70,8 @@ public class NotProd {
                 for(int i=0; i<40; i++){
                     challengeService.createChallengeForNoPhoto(i+"th 테스트 챌린지", i+"번 테스트 챌린지 내용입니다", true, 1, LocalDate.now().plusDays(5), 2, "C", "개념 공부", "인증샷", admin);
                 }
+                //test 0 챌린지의 최대 인원을 1로 변경
+                TestUtil.setFieldValue(challengeService.getChallengeById(5), "challengeMemberLimit", 1);
 
                 challengeMemberService.addMember(c1, user1, Role.CREW);
                 challengeMemberService.addMember(c1, user2, Role.CREW);

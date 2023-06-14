@@ -55,17 +55,17 @@ public class MainController {
         return "index";
     }
 
-    @GetMapping("/test")
-    public String test() {
-        pointService.settle();
-        return "redirect:/usr/member/me" ;
-    }
-
-    @ResponseBody
-    @GetMapping("/test2")
-    public List<SettleChallengeDTO> test2() {
-
-        return challengeMemberService.getSettleChallengeDto();
-    }
+//    @GetMapping("/test")
+//    public String test() {
+//        pointService.settle();
+//        return "redirect:/usr/member/me" ;
+//    }
+//
+//    @ResponseBody
+//    @GetMapping("/test2")
+//    public List<SettleChallengeDTO> test2() {
+//
+//        return challengeMemberService.getSettleChallengeDto();
+//    }
 
 }

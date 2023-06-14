@@ -1,6 +1,8 @@
 package com.challenge.devchall.member.controller;
 
 import com.challenge.devchall.base.rq.Rq;
+import com.challenge.devchall.challange.entity.Challenge;
+import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.inventory.entity.Inventory;
@@ -32,6 +34,7 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
     private final ChallengeMemberService challengeMemberService;
+    private final ChallengeService challengeService;
     private final ItemService itemService;
     private final Rq rq;
     private final PhotoService photoService;
@@ -83,6 +86,8 @@ public class MemberController {
         if(rq.isLogin()){
             model.addAttribute("challengeMembers"
                     , challengeMemberService.getByMember(rq.getMember()));
+//            List<Challenge> joinChallengeList = challengeService.getJoinChallenge(rq.getMember());
+//            model.addAttribute("joinChallengeList", joinChallengeList);
         }
         return "usr/member/me";
     }
