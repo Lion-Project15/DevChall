@@ -25,12 +25,12 @@ spring:
             scope:
             client-name: Naver
             authorization-grant-type: authorization_code
-            redirect-uri: '${custom.site.baseUrl}/{action}/oauth2/code/{registrationId}'
+            redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}'
           kakao:
             scope:
             client-name: Kakao
             authorization-grant-type: authorization_code
-            redirect-uri: '${custom.site.baseUrl}/{action}/oauth2/code/{registrationId}'
+            redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}'
             client-authentication-method: POST
         provider:
           kakao:
@@ -72,7 +72,6 @@ cloud:
       bucket: devchall
   cdn:
     url: http://iztyfajjvmsf17707682.cdn.ntruss.com/
-
 custom:
   challenge:
     weeklyPoint: 50
@@ -82,5 +81,3 @@ custom:
     pageable: 10
     reportCount: 10
     memberOutCount: 3
-  site:
-    baseUrl: http://localhost

@@ -24,6 +24,21 @@ spring:
     url: jdbc:mariadb://172.17.0.1:3306/devchall__prod?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
     username: root
     password: 1234
+  security:
+    oauth2:
+      client:
+        registration:
+          naver:
+            scope:
+            client-name: Naver
+            authorization-grant-type: authorization_code
+            redirect-uri: '${custom.site.baseUrl}/{action}/oauth2/code/{registrationId}'
+          kakao:
+            scope:
+            client-name: Kakao
+            authorization-grant-type: authorization_code
+            redirect-uri: '${custom.site.baseUrl}/{action}/oauth2/code/{registrationId}'
+            client-authentication-method: POST
   jpa:
     hibernate:
       ddl-auto: update
