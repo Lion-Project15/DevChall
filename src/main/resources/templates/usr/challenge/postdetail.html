@@ -168,7 +168,7 @@
                 <div class="my-2" th:each="comment:${commentList}" th:unless="${#lists.isEmpty(commentList) or commentList == null}">
                     <div th:unless ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-start">
                         <div class="chat-image avatar">
-                            <div class="w-10 rounded-full">
+                            <div class="w-10 rounded-full ml-7">
                                 <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />
                             </div>
                         </div>
