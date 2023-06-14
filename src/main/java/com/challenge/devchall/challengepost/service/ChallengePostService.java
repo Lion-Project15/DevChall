@@ -22,8 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -39,6 +38,8 @@ public class ChallengePostService {
 
     @Value("${custom.challenge.contentLength}")
     private int contentsMaxLength;
+
+    private final Map<Long, List<String>> reportedByMap = new HashMap<>();
 
     public RsData<ChallengePost> write(String title, String contents, boolean status, long postScore, long id,
                                        String photoUrl, Member member) {
@@ -154,4 +155,14 @@ public class ChallengePostService {
 
     }
 
+    public boolean hasReportedPost(long postId, String userId) {
+        List<String> reportedByList = reportedByMap.getOrDefault(postId, new ArrayList<>());
+        return reportedByList.contains(userId);
+    }
+
+    public void addReportedBy(long postId, String userId) {
+        List<String> reportedByList = reportedByMap.getOrDefault(postId, new ArrayList<>());
+        reportedByList.add(userId);
+        reportedByMap.put(postId, reportedByList);
+    }
 }

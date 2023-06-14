@@ -81,7 +81,6 @@ public class PhotoService {
             return RsData.of("S-7", "없어도 생성이 가능합니다.");
         } else if (fileExtension.equals("jpg") || fileExtension.equals("jpeg")
                 || fileExtension.equals("png") || fileExtension.equals("gif")){
-
             return RsData.of("S-6", "이미지 파일이 맞습니다.");
         } else{
             return RsData.of("F-6", "이미지만 업로드가 가능합니다.");

@@ -52,6 +52,6 @@ public interface ChallengeRepository extends JpaRepository<Challenge, Long> {
     List<Challenge> findJoinChallenge(@Param("me") Member me);
 
 
-    List<Challenge> findByChallengeName(String challengeName);
+    Optional<Challenge> findByChallengeName(String challengeName);
 
 }

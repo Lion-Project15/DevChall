@@ -26,6 +26,7 @@ public class ChallengeMemberService {
     private final PointHistoryService pointHistoryService;
 
 
+
     public RsData<ChallengeMember> addMember(Challenge challenge, Member member, Role role){
         if(challenge == null){
             return RsData.of("F-1","챌린지가 존재하지 않습니다.");
@@ -118,4 +119,5 @@ public class ChallengeMemberService {
     public Optional<ChallengeMember> getById(long id){
         return challengeMemberRepository.findById(id);
     }
+
 }
