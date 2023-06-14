@@ -21,18 +21,17 @@ spring:
     oauth2:
       client:
         registration:
+          naver:
+            scope:
+            client-name: Naver
+            authorization-grant-type: authorization_code
+            redirect-uri: '${custom.site.baseUrl}/{action}/oauth2/code/{registrationId}'
           kakao:
-            clientId: 카카오 Rest Api 키 -> secret.yml에 추가하기
             scope:
             client-name: Kakao
             authorization-grant-type: authorization_code
-            redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}'
+            redirect-uri: '${custom.site.baseUrl}/{action}/oauth2/code/{registrationId}'
             client-authentication-method: POST
-          naver:
-            clientId: 네이버 클라이언트 ID
-            client-secret: 네이버 클라이언트 시크릿
-            authorization-grant-type: authorization_code
-            redirect-uri: '{baseUrl}/{action}/oauth2/code/{registrationId}'
         provider:
           kakao:
             authorization-uri: https://kauth.kakao.com/oauth/authorize
@@ -83,4 +82,5 @@ custom:
     pageable: 10
     reportCount: 10
     memberOutCount: 3
-
+  site:
+    baseUrl: http://localhost
