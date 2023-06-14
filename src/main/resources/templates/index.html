@@ -62,11 +62,11 @@
         <!--    나의 챌린지  -->
         <article th:if="${@rq.login}" class="p-5 mx-5">
 
-            <div class="p-2">
+            <div class="p-2" th:classappend="${joinChallengeList.isEmpty()} ? 'w-[93vw]'">
                 <h1 class="text-black text-2xl font-bold">>나의 챌린지</h1>
             </div>
-            <div class="text-black p-2" th:if="${#lists.isEmpty(joinChallengeList)}">
-                <i class="fa-regular fa-face-laugh"></i> 참가 중인 챌린지가 없어요. 다양한 챌린지를 경험해보세요!
+            <div class="text-black p-2 flex justify-center" th:if="${#lists.isEmpty(joinChallengeList)}">
+                <i class="fa-regular fa-face-laugh"></i> 참가중인 챌린지가 없어요. 다양한 챌린지를 경험해보세요!
             </div>
 
             <div th:unless="${#lists.isEmpty(joinChallengeList)}"
@@ -110,7 +110,7 @@
         <!--    챌린지 리스트 시작   -->
         <article class="p-5 mx-5">
             <div th:classappend="${challenges.isEmpty()} ? 'w-[90vw]'" class="p-2">
-                <h1 class="text-black text-2xl font-bold flex">>모집중인 챌린지</h1>
+                <h1 class="text-black text-2xl font-bold">>모집중인 챌린지
                     <span th:if="${param.subject != null && !param.subject.isEmpty()}">
                         <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'test')}">시험 대비</span>
                         <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'project')}">프로젝트</span>
@@ -119,8 +119,9 @@
                         <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'algorithm')}">알고리즘</span>
                         <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'solving')}">예제 풀기</span>
                     </span>
-                    <span class="badge badge-accent mx-1" th:if="${param.language != null && !param.language.isEmpty()}"
+                    <span class="badge badge-accent mx-1 language" th:if="${param.language != null && !#strings.trim(param.language).isEmpty()}"
                           th:text="${param.language}"></span>
+                </h1>
 
             </div>
             <div class="text-center mt-10 text-black" th:if="${challenges == null or challenges.isEmpty()}" >
