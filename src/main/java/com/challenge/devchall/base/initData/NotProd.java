@@ -1,6 +1,6 @@
 package com.challenge.devchall.base.initData;
 
-import com.challenge.devchall.base.roles.ChallengeMember.Role;
+import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
@@ -13,15 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
+import java.time.LocalDate;
 
-
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 @Configuration
 @Profile({"dev", "test"})
@@ -46,8 +39,6 @@ public class NotProd {
                 itemService.create("1144FC","font","1144FC", "FFFFFF",0);
                 itemService.create("3CB24F","font","3CB24F", "FFFFFF",0);
 
-
-
                 Member admin = memberService.join("admin", "1234", "admin@admin.com",  "관리자").getData();//admin 계정
                 Member user1 = memberService.join("user1", "1234", "user1@devchall.com",  "user1").getData();
                 Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2").getData();
@@ -62,13 +53,14 @@ public class NotProd {
                 String photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
 
                 //FIXME createChallengeForNotProd 를 작성하면 안될 것 같음 (중복코드) => Multipartfile을 어떻게 처리할 것인가...
-                Challenge c1 = challengeService.createChallengeForNotProd("1번 챌린지", "1번 챌린지 내용입니다", true, "day1","2023-06-01", "2주", "C", "개념 공부", "인증샷", admin);
-                Challenge c2 = challengeService.createChallengeForNotProd("2번 챌린지", "2번 챌린지 내용입니다", false, "day3","2023-06-01", "4주", "Java", "프로젝트", "IDE 캡처", user1);
-                Challenge c3 = challengeService.createChallengeForNotProd("3번 챌린지", "3번 챌린지 내용입니다", true, "day7","2023-06-01", "8주", "Python", "시험 대비", "Github", user2);
-                Challenge c4 = challengeService.createChallengeForNotProd("re 2번 챌린지", "re 2번 챌린지 내용입니다", false, "day3","2023-06-01", "4주", "Java", "프로젝트", "IDE 캡처", user5);
+                Challenge c1 = challengeService.createChallengeForNoPhoto("1번 챌린지", "1번 챌린지 내용입니다", true, 1, LocalDate.parse("2023-06-01"), 2, "C", "개념 공부", "인증샷", admin);
+                Challenge c2 = challengeService.createChallengeForNoPhoto("2번 챌린지", "2번 챌린지 내용입니다", false, 3,LocalDate.parse("2023-06-01"), 4, "Java", "프로젝트", "IDE 캡처", user1);
+                Challenge c3 = challengeService.createChallengeForNoPhoto("3번 챌린지", "3번 챌린지 내용입니다", true, 7,LocalDate.parse("2023-06-01"), 8, "Python", "시험 대비", "Github", user2);
+                Challenge c4 = challengeService.createChallengeForNoPhoto("re 2번 챌린지", "re 2번 챌린지 내용입니다", false, 3,LocalDate.parse("2023-06-01"), 4, "Java", "프로젝트", "IDE 캡처", user5);
 
                 challengeMemberService.addMember(challengeService.getChallengeById(c1.getId()), user1, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c1.getId()), user2, Role.CREW);
+                challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), user2, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), user3, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), admin, Role.CREW);
                 challengeMemberService.addMember(challengeService.getChallengeById(c3.getId()), user4, Role.CREW);

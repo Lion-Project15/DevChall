@@ -10,6 +10,7 @@ import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.repository.ChallengePostRepository;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.photo.entity.Photo;
 import com.challenge.devchall.photo.service.PhotoService;
 import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.point.schedule.Schedule;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +34,10 @@ public class ChallengePostService {
     private final ChallengeMemberService challengeMemberService;
     private final ChallengeMemberRepository challengeMemberRepository;
     private final PhotoService photoService;
-    @Value("${custom.maxLength.title}")
+    @Value("${custom.challenge.titleLength}")
     private int titleMaxLength;
 
-    @Value("${custom.maxLength.contents}")
+    @Value("${custom.challenge.contentLength}")
     private int contentsMaxLength;
 
     public RsData<ChallengePost> write(String title, String contents, boolean status, long postScore, long id,
@@ -48,15 +51,16 @@ public class ChallengePostService {
         ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(linkedChallenge, member)
                 .orElseThrow(() -> new IllegalArgumentException("ChallengeMember에 속하지 않은 사용자는 글을 작성할 수 없습니다."));
 
-        RsData<ChallengeMember> postLimitRsData = challengeMember.updatePostLimit();
+        List<ChallengePost> posts = getRecentPosts(linkedChallenge, member);
 
+        RsData<ChallengePost> postRsData = canWrite(posts);
 
-
-        if (postLimitRsData.isFail()) {
-            System.out.println(postLimitRsData.getMsg());
-            return null;
+        if(postRsData.isFail() || challengeMember == null){
+            System.out.println(postRsData.getMsg());
+            return postRsData;
         }
 
+        Photo photo = photoService.createPhoto(photoUrl);
         // 제목 길이 제한
 
         if (title.length() > titleMaxLength) {
@@ -69,9 +73,11 @@ public class ChallengePostService {
             return RsData.of("F-1", "내용은 최대 " + contentsMaxLength + "자까지 입력할 수 있습니다.");
         }
 
-        String largePhoto = photoService.getLargePhoto(photoUrl);
-        String smallPhoto = photoService.getSmallPhoto(photoUrl);
         String creatorId = member.getLoginID();
+
+        if(canUpdateTotal(linkedChallenge, member)){
+            challengeMember.increaseTotal();
+        }
 
         ChallengePost challengePost = ChallengePost.builder()
                 .postTitle(title)
@@ -80,15 +86,19 @@ public class ChallengePostService {
                 .postScore(postScore)
                 .linkedChallenge(linkedChallenge)
                 .challenger(member)
-                .largePhoto(largePhoto)
-                .smallPhoto(smallPhoto)
+                .postPhoto(photo)
                 .reportCount(reportCount)
                 .creatorId(creatorId)
                 .build();
 
-        challengePostRepository.save(challengePost);
+        postRsData.setData(challengePostRepository.save(challengePost));
 
-        return RsData.successOf(challengePost);
+        return postRsData;
+    }
+
+    public List<ChallengePost> getRecentPosts(Challenge challenge, Member member){
+        return challengePostRepository
+                .findByLinkedChallengeAndChallengerOrderByCreateDateDesc(challenge, member);
     }
 
     public ChallengePost getChallengePostById(long id){
@@ -117,6 +127,22 @@ public class ChallengePostService {
 
         challengePostById.modifyPost(title, contents, status);
 
+    }
+    public RsData<ChallengePost> canWrite(List<ChallengePost> posts){
+        if((posts != null && posts.size() > 0)
+                && !posts.get(0).getCreateDate().toLocalDate().isBefore(LocalDate.now())){
+
+            return RsData.of("F-1", "오늘은 이미 포스트를 작성했습니다.");
+        }
+
+        return RsData.of("S-1", "포스트 작성이 가능합니다.");
+    }
+
+    private boolean canUpdateTotal(Challenge challenge, Member member){
+        List<ChallengePost> posts = getRecentPosts(challenge, member);
+
+        long weeks = (ChronoUnit.DAYS.between(challenge.getStartDate(), LocalDate.now())/7) + 1;
+        return posts.size() < challenge.getChallengeFrequency() * weeks;
     }
 
     @Transactional

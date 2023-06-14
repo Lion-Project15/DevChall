@@ -2,89 +2,130 @@
 <head>
     <meta charset="UTF-8">
     <title>챌린지 인증 페이지</title>
+    <style>
+        .input-box {
+            background-color: #fff;
+            border-radius: 0.375rem;
+            padding: 1rem;
+        }
+
+        .parent-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .custom-button {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
 </head>
 
 <body>
 <main layout:fragment="main" class="flex flex-col w-full">
-
-    <div class="flex flex-1">
+    <div class="container mx-auto px-12" style="padding-top: 80px;">
         <form method="post" th:action="@{|/usr/challenge/write_form/${challenge.id}|}"
               enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full">
-            <div class="card bg-white">
-                <div class="w-full p-10 lg:w-[65rem]">
-                    <h3 class="text-lg">
-                        인증하기
-                        <span class="badge badge-md" th:text="${challenge.challengeName}"></span>
-                    </h3>
 
-                    <div class="flex flex-col gap-4 justify-center lg:flex-row">
-                        <div class="flex flex-col space-y-4  flex-1">
-                            <div>
-                                <div class="w-full">
-                                    <label for="title" class="label">
-                                        <span class="text-gray-400">인증 제목</span>
-                                    </label>
-                                    <input type="text" name="title" maxlength="30" placeholder="인증 제목" id="title"
-                                           class="w-300% input input-bordered form-control text-black" autofocus/>
-                                </div>
+            <div class="container mx-auto">
+                <div class="flex gap-20">
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex">
+                            <div class="w-full p-0.1 mb-0.1 lg:w-[47rem]">
+                                <h3 class="text-2xl font-bold bolder-none my-2 mb-5"
+                                    th:text="${challenge.challengeName + ' 인증하기'}"
+                                    th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}"></h3>
+                               <a class="btn btn-sm font-bold border-none mx-1"
+                                   th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">인증글 제목</a>
                             </div>
+                        </div>
 
-                            <div>
-                                <div class="w-full">
-                                    <label for="contents" class="label">
-                                        <span class="text-gray-400">인증 내용</span>
-                                    </label>
-                                    <textarea rows="7" name="contents" placeholder="인증 내용"
-                                              class="textarea textarea-accent w-96 form-control text-black"
-                                              id="contents"></textarea>
-                                </div>
+                        <div class="flex mt-5">
+                            <div class="flex-1 bg-white rounded-md flex items-center input-box">
+                                <input type="text" name="title" maxlength="30" placeholder="인증 제목" id="title"
+                                       class="w-full p-1 text-black" autofocus/>
                             </div>
+                        </div>
+                        <div class="flex">
+                            <div class="w-full p-0.1 mb-0.1 lg:w-[40rem]">
+                                <a class="btn btn-sm font-bold border-none mx-1"
+                                   th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">인증글 내용</a>
+                            </div>
+                        </div>
+                        <div class="flex mt-5">
+                            <div class="flex-1 bg-white rounded-md flex items-center input-box">
+                                <textarea rows="7" name="contents" placeholder="인증 내용"
+                                          class="w-full p-1 text-black"
+                                          id="contents"></textarea>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex flex-col justify-center items-center">
                             <div>
-                                <div class="w-full">
-                                    <label for="contents" class="label">
-                                        <span class="text-gray-400">자기 평가</span>
-                                    </label>
-                                    <div class="rating rating-lg">
-                                        <input type="radio" name="postScore" value=1 class="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="postScore" value=2 class="mask mask-star-2 bg-orange-400" checked />
-                                        <input type="radio" name="postScore" value=3 class="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="postScore" value=4 class="mask mask-star-2 bg-orange-400" />
-                                        <input type="radio" name="postScore" value=5 class="mask mask-star-2 bg-orange-400" />
+                                <div class="mt-2 text-center">
+                                    <span class="text-black font-bold">오늘 챌린지는 어떠셨나요?</span>
+                                </div>
+                                <div class="flex justify-center">
+                                    <span class="text-black text-xs font-thin">별점으로 오늘 하루, 스스로를 평가해보세요!</span>
+                                </div>
+                                <div class="flex justify-center items-center mt-4">
+                                    <div class="rating rating-lg flex-row">
+                                        <input type="radio" name="postScore" value=1 class="mask mask-star-2 bg-orange-400"/>
+                                        <input type="radio" name="postScore" value=2 class="mask mask-star-2 bg-orange-400" checked/>
+                                        <input type="radio" name="postScore" value=3 class="mask mask-star-2 bg-orange-400"/>
+                                        <input type="radio" name="postScore" value=4 class="mask mask-star-2 bg-orange-400"/>
+                                        <input type="radio" name="postScore" value=5 class="mask mask-star-2 bg-orange-400"/>
                                     </div>
                                 </div>
                             </div>
-
                             <div>
-                                <div class="w-full justify-center items-center">
-                                    <label class="label">
-                                        <span class="text-gray-400">공개 여부</span>
-                                    </label>
-                                    <input type="radio" name="status" id="public" value=true class="radio radio-accent"
-                                           checked/>공개
-                                    <input type="radio" name="status" id="private" value=false
-                                           class="radio radio-accent"/>비공개
+
+
+                                <div class="mt-10">
+                                    <span class="text-black font-bold">공개 여부</span>
+                                </div>
+                                <div>
+                                    <span class="text-black text-xs font-thin">인증글을 공개하고, 다른 챌린저들의 응원을 받아보세요!</span>
+                                </div>
+                                <div class="input-box w-80 flex items-center mt-3">
+                                    <input type="radio" name="status" id="public" value=true class="radio radio ml-10" checked/>
+                                    <label for="public" class="text-black ml-2">공개</label>
+                                    <div class="flex items-center ml-10">
+                                        <input type="radio" name="status" id="private" value=false class="radio radio ml-10"/>
+                                        <label for="private" class="text-black ml-2">비공개</label>
+                                    </div>
                                 </div>
                             </div>
-
                             <div>
-                                <div class="w-full">
+                                <div class="w-full mt-5">
                                     <label for="img" class="label">
-                                        <span class="text-gray-400">인증 이미지</span>
+                                        <span class="text-black font-bold">인증 이미지</span>
                                     </label>
-                                    <input id="img" name="file" type="file"
-                                           class="file-input file-input-bordered file-input-accent w-full max-w-xs"/>
+                                    <input id="img" name="file" type="file" class="file-input file-input-bordered file-input border-green-500 w-full max-w-xs" />
                                 </div>
-                            </div>
 
-                            <input type="submit" value="작성완료" class="mx-20 btn btn-md btn-accent btn-success gap-3">
+                                <div class="parent-container mt-5 flex justify-center"> <!-- 수정: 가운데 정렬 -->
+                                    <button type="submit" class="mt-5 custom-button mx-10 btn btn-sm font-bold border-none"
+                                            th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">작성완료</button>
+                                </div>
+
+    <!--                            <input type="submit" value="작성완료" class="mx-20 btn btn-md btn-accent btn-success gap-3">-->
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </form>
     </div>
 </main>
-
 </body>
 </html>

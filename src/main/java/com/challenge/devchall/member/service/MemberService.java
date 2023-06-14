@@ -120,8 +120,6 @@ public class MemberService {
         int challengeLimit = member.getChallengeLimit();
 
         if(challengeLimit < 2){
-            member.setChallengeLimit(challengeLimit + 1);
-
             return RsData.of("S-1", "챌린지 개설이 가능합니다.");
         }else{
             return RsData.of("F-1", "이미 이번달에 2개의 챌린지를 생성하셨습니다.");

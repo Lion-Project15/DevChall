@@ -6,74 +6,122 @@
 
 <body>
 <main layout:fragment="main" class="flex flex-col w-full">
+    <div class="container mx-auto px-12" style="padding-top: 80px;">
+        <div class="flex flex-1">
+            <form method="post" th:action="@{|/usr/challenge/modifypost/${post.id}|}"
+                  class="flex flex-col justify-center items-center w-full">
+                <div class="container mx-auto">
+                    <div class="flex items-center space-x-4">
 
-    <div class="flex flex-1">
-        <form method="post" th:action="@{|/usr/challenge/modifypost/${post.id}|}"
-              class="flex flex-col justify-center items-center w-full">
-            <div class="card bg-white">
-                <div class="w-full p-10 lg:w-[65rem]">
-                    <h3 class="text-lg">
-                        수정하기
-                        <span class="badge badge-md" th:text="${linkedChallenge.challengeName}"></span>
-                    </h3>
-                    <div class="flex flex-col gap-4 justify-center lg:flex-row">
-                        <div class="flex flex-col space-y-4  flex-1">
-                            <div>
-                                <div class="w-full">
-                                    <label for="title" class="label">
-                                        <span class="text-gray-400">인증 제목</span>
-                                    </label>
-                                    <input type="text" name="title" id="title" maxlength="30"
-                                           class="w-300% input input-bordered form-control text-black"
-                                           th:value="${post.postTitle}">
-                                </div>
-                            </div>
+                        <!-- 수정하기 -->
+                        <div class="w-full p-0.1 mb-0.1 lg:w-[47rem]">
+                            <h3 class="text-2xl font-bold bolder-none my-2 mb-5"
+                                th:text="${linkedChallenge.challengeName + ' 수정하기'}"
+                                th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}">
+                                수정하기
+                            </h3>
+                        </div>
 
-                            <div>
-                                <div class="w-full">
-                                    <label for="contents" class="label">
-                                        <span class="text-gray-400">인증 내용</span>
-                                    </label>
-                                    <textarea rows="7" name="contents" placeholder="인증 내용"
-                                              class="textarea textarea-accent w-96 form-control text-black"
-                                              id="contents" th:text="${post.postContents}"></textarea>
-                                </div>
-                            </div>
+<!--                        &lt;!&ndash; 챌린지 버튼 &ndash;&gt;-->
+<!--                        <a class="btn btn-sm font-bold border-none mx-1"-->
+<!--                           th:text="${linkedChallenge.challengeName}"-->
+<!--                           th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern}-->
+<!--                                           +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">-->
+<!--                        </a>-->
+                    </div>
 
-                            <!-- FIXME 중복 코드 처리 방안 모색 필요-->
-                            <th:block th:if="${post.isPublic()}">
-                                <div>
-                                    <div class="w-full justify-center items-center">
-                                        <label class="label">
-                                            <span class="text-gray-400">공개 여부</span>
-                                        </label>
-                                        <input type="radio" name="status" value=true class="radio radio-accent"
-                                               checked/>공개
-                                        <input type="radio" name="status" value=false
-                                               class="radio radio-accent"/>비공개
-                                    </div>
-                                </div>
-                            </th:block>
-
-                            <th:block th:unless="${post.isPublic()}">
-                                <div>
-                                    <div class="w-full justify-center items-center">
-                                        <label class="label">
-                                            <span class="text-gray-400">공개 여부</span>
-                                        </label>
-                                        <input type="radio" name="status" value=true class="radio radio-accent"/>공개
-                                        <input type="radio" name="status" value=false class="radio radio-accent"
-                                               checked/>비공개
-                                    </div>
-                                </div>
-                            </th:block>
-
-                            <input type="submit" value="수정완료" class="mx-20 btn btn-md btn-accent btn-success gap-3">
+                    <!-- 수정 제목 -->
+                    <div class="w-full mt-3">
+                        <div class="flex items-center">
+                            <a class="btn btn-sm font-bold border-none mx-1"
+                               th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern}
+                                           +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">
+                                수정 제목
+                            </a>
+                        </div>
+                        <div class="mt-3 mb-4">
+                            <input type="text" name="title" id="title" maxlength="30"
+                                   class="w-full p-3 text-black"
+                                   th:value="${post.postTitle}" autofocus/>
                         </div>
                     </div>
+
+                    <!-- 수정 내용 -->
+                    <div class="w-full mt-5">
+                        <div class="flex items-center">
+                            <a class="btn btn-sm font-bold border-none mx-1"
+                               th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern}
+                                           +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">
+                                수정 내용
+                            </a>
+                        </div>
+                        <div class="flex mt-5">
+                            <div class="flex-1 bg-white rounded-lg flex items-center input-box">
+                                <textarea rows="7" name="contents" placeholder="수정 내용"
+                                          class="w-full p-3 text-black"
+                                          id="contents" th:text="${post.postContents}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--공개 여부 버튼-->
+                    <!-- 수정 제목 -->
+                    <div class="w-full mt-3">
+                        <div class="flex items-center">
+                            <a class="btn btn-sm font-bold border-none mx-1 my-2 mb-2"
+                               th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern}
+                                           +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">
+                                공개 여부
+                            </a>
+                        </div>
+                        <div>
+                            <span class="text-black text-xs mx-1 mt-2 font-thin">인증글을 공개하고, 다른 챌린저들의 응원을 받아보세요!</span>
+                        </div>
+
+                        <div class="input-box w-80 flex items-center mt-3" style="background-color: #ffffff; height: 60px; border-radius: 10px;">
+                            <input type="radio" name="status" id="public" value=true class="radio radio ml-10" checked/>
+                            <label for="public" class="text-black ml-2">공개</label>
+                            <div class="flex items-center ml-10">
+                                <input type="radio" name="status" id="private" value=false class="radio radio ml-10"/>
+                                <label for="private" class="text-black ml-2">비공개</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 수정완료 버튼 -->
+                    <div class="parent-container mt-5 flex justify-center">
+                        <button type="submit" class="mt-5 custom-button mx-10 btn btn-sm font-bold border-none w-full"
+                                th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">수정완료</button>
+                    </div>
+                    <!--                    <div class="mt-5">-->
+                    <!--                        <div class="flex justify-center items-center">-->
+                    <!--                            <input type="submit" value="수정완료"-->
+                    <!--                                   class="btn btn-md btn-accent btn-success gap-3">-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
                 </div>
-            </div>
-        </form>
+
+<!--                <div>-->
+<!--                    <div class="w-full mt-5">-->
+<!--                        <label for="img" class="label">-->
+<!--                            <span class="text-black font-bold">인증 이미지</span>-->
+<!--                        </label>-->
+<!--                        <input id="img" name="file" type="file" class="file-input file-input-bordered file-input-accent border-green-500 w-full max-w-xs" />-->
+<!--                    </div>-->
+
+<!--                    <div class="parent-container mt-5 flex justify-center"> &lt;!&ndash; 수정: 가운데 정렬 &ndash;&gt;-->
+<!--                        <button type="submit" class="mt-5 custom-button mx-10 btn btn-sm font-bold border-none"-->
+<!--                                th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">작성완료</button>-->
+<!--                    </div>-->
+
+
+
+                     </div>
+                </div>
+            </form>
+        </div>
     </div>
 </main>
 </body>

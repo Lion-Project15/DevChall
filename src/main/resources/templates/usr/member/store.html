@@ -30,7 +30,9 @@
              style="border-top-left-radius: 8rem; height: 92.3rem; left: 0; top: 7rem; width: calc(100% / 3);">
 
             <div class="p-2 w-200" style="color: #03fa6e; text-align: center; margin-top: 60px;">
-                <h1 class="text-[#03fa6e] text-2xl font-bold" style="font-size: 40px;">My Inventory</h1>
+                <h1 class="text-[#03fa6e] text-2xl font-bold"
+                    th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}
+                   +'; font-size: 40px'">My Inventory</h1>
             </div>
 
             <div class="user-image-jKB bg-[#313131] rounded-[4.3444rem] flex-shrink-0 h-[11.5rem] mx-auto flex justify-center items-center mt-20"
@@ -43,25 +45,21 @@
 
             <div class="flex justify-center items-center" th:if="${@rq.login}">
                 <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-20"
-                     style="width: 200px;">
-                    <a class="mt-4 text-[#313131] font-bold text-xl"  th:text="${@rq.member.nickname}"></a>
-<!--                    <a href="usr/member/me"-->
-<!--                       th:style="'color: #' + ${rq.member.equippedFont.item.subPattern} + '; background: #'+${rq.member.equippedFont.item.pattern}+' !important'"-->
-<!--                       th:if="${rq.login}"-->
-<!--                       class="mt-4 text-xl font-bold"-->
-<!--                       th:text="${rq.member.nickname}">-->
-<!--                    </a>-->
+                     th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern}
+                   +'; width: 200px;'">
+                    <a class="mt-4 text-[#313131] font-bold text-xl"
+                       th:text="${@rq.member.nickname}"></a>
                 </div>
             </div>
 
 
-
-
-
             <div class="flex justify-center items-center" th:if="${@rq.login}">
                 <div class="flex justify-center bg-[#000000] rounded-[4.3444rem] flex-shrink-0 h-[4rem] mx-[18rem] w-[calc(100% - 30rem)] mt-20 border border-[#03fa6e]"
-                     style="width: 200px;">
-                    <a class="mt-4 text-[#03fa6e] font-bold text-xl" th:text="${@rq.member.point.currentPoint + 'point'}">point</a>
+                     th:style="'border-color: #' + ${@rq.member.equippedFont.item.pattern}
+                   +'; width: 200px;'">
+                    <a class="mt-4 text-[#03fa6e] font-bold text-xl"
+                       th:text="${@rq.member.point.currentPoint + 'point'}"
+                       th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}">point</a>
                 </div>
             </div>
 
@@ -71,7 +69,7 @@
                        th:onclick="'changeEquip('+${inventory.item.id}+')'">
                         <div class="w-[85px] h-[85px] flex justify-center items-center"
                              th:style="'background-color: #'+${inventory.item.pattern}+';'">
-                            <div th:if="${inventory.equipped}" class="badge badge-accent">착용중</div>
+                            <div th:if="${inventory.equipped}" class="badge badge-accent border-none" style="background-color: #03FA6E;">착용중</div>
                         </div>
                     </div>
                 </div>
@@ -97,13 +95,17 @@
                             <!--색상 아이템 추가-->
                             <div class="mx-3 mt-5 w-[100px] h-[100px] flex justify-center items-center"
                                  th:style="'background-color: #'+${font.pattern}+';'"></div>
+
+                            <!--버튼 및 포인트-->
                             <div  class="flex flex-col justify-end items-start mt-7 space-y-6">
                                 <span th:text="${font.price}"
-                                      class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                                      class="badge badge-custom mx-1" style="font-size: x-small; background-color: white; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
                                 <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" th:onclick="'showBuy('+${font.id}+')'">
                                     <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
                                 </div>
                             </div>
+
+
                         </div>
                     </div>
                 </div>

@@ -23,7 +23,7 @@ import java.util.*;
 
 @SuperBuilder
 @NoArgsConstructor
-@ToString(callSuper = true, exclude = {"challengeMemberList", "myPostList"})
+@ToString(callSuper = false, exclude = {"challengeMemberList", "myPostList", "pointHistories", "inventoryList"})
 @Entity
 @Getter
 @EntityListeners(AuditingEntityListener.class)
@@ -72,8 +72,6 @@ public class Member extends BaseEntity {
     @Builder.Default
     private List<Inventory> inventoryList = new ArrayList<>();
 
-
-
     //FIXME 최대 참여 갯수도 추가해야함
 
     //role은 spring security 이후에 작성
@@ -89,10 +87,8 @@ public class Member extends BaseEntity {
         return grantedAuthorities;
     }
 
-    //FIXME 세터 말고 다른 방법?
-    public void setChallengeLimit(int challengeLimit){
-
-        this.challengeLimit = challengeLimit;
+    public void setChallengeLimit(){
+        this.challengeLimit++;
     }
 
     public Inventory getEquippedFont(){

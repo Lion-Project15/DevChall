@@ -1,6 +1,7 @@
 package com.challenge.devchall.challengepost.controller;
 
 
+import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
@@ -33,6 +34,7 @@ public class ChallengePostController {
     private final ChallengeMemberService challengeMemberService;
     private final MemberService memberService;
     private final PhotoService photoService;
+    private final Rq rq;
     private final CommentService commentService;
 
 
@@ -60,7 +62,6 @@ public class ChallengePostController {
         //포스트를 쓰기 전에, 쓸 수 있는지부터 검사 해야한다.
         Challenge linkedChallenge = challengeService.getChallengeById(id);
         Member member = memberService.findByLoginID(principal.getName()).orElse(null);
-
 
         String photoUrl = null;
 

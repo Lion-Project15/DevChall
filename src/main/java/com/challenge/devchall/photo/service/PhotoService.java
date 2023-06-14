@@ -8,6 +8,8 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.*;
 import com.challenge.devchall.base.config.S3Config;
 import com.challenge.devchall.base.rsData.RsData;
+import com.challenge.devchall.photo.entity.Photo;
+import com.challenge.devchall.photo.repository.PhotoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +31,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 public class PhotoService {
+
+    private final PhotoRepository photoRepository;
 
     final String endPoint = S3Config.getEndPoint();
     final String regionName = S3Config.getRegion();
@@ -66,45 +70,34 @@ public class PhotoService {
         return String.format("https://kr.object.ncloudstorage.com/%s/%s", bucketName, key);
     }
 
-    public String getLargePhoto(String photoUrl){
 
-        String[] split = photoUrl.split("devchall/");
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("http://iztyfajjvmsf17707682.cdn.ntruss.com/");
-        sb.append(split[1]);
-        sb.append("?type=m&w=700&h=400&quality=90&bgcolor=FFFFFF&extopt=3");
-
-        return sb.toString();
-    }
-
-    public String getSmallPhoto(String photoUrl){
-
-        String[] split = photoUrl.split("devchall/");
-
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("http://iztyfajjvmsf17707682.cdn.ntruss.com/");
-        sb.append(split[1]);
-        sb.append("?type=m&w=200&h=115&quality=90&bgcolor=FFFFFF&extopt=0&anilimit=1");
-
-        return sb.toString();
-    }
 
     public RsData<String> isImgFile(String fileName) {
 
         //확장자 추출
         String fileExtension = StringUtils.getFilenameExtension(fileName);
 
-        if (fileExtension != null && (fileExtension.equals("jpg") || fileExtension.equals("jpeg")
-                || fileExtension.equals("png") || fileExtension.equals("gif"))){
+        if(fileExtension == null){
+            return RsData.of("S-7", "없어도 생성이 가능합니다.");
+        } else if (fileExtension.equals("jpg") || fileExtension.equals("jpeg")
+                || fileExtension.equals("png") || fileExtension.equals("gif")){
 
-            return RsData.of("S-6", "이미지가 맞습니다.");
-        }
-        else
+            return RsData.of("S-6", "이미지 파일이 맞습니다.");
+        } else{
             return RsData.of("F-6", "이미지만 업로드가 가능합니다.");
+        }
 
+    }
+
+    public Photo createPhoto(String photoUrl){
+
+        Photo photo = Photo.builder()
+                .photoUrl(photoUrl)
+                .build();
+
+        photoRepository.save(photo);
+
+        return photo;
     }
 
 }

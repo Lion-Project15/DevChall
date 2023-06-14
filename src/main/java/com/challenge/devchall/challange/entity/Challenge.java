@@ -2,6 +2,10 @@ package com.challenge.devchall.challange.entity;
 
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
+import com.challenge.devchall.photo.entity.Photo;
+import com.challenge.devchall.pointHistory.entity.PointHistory;
+import com.challenge.devchall.pointHistory.service.PointHistoryService;
+import com.challenge.devchall.tag.entity.Tag;
 import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.pointHistory.entity.PointHistory;
 import com.challenge.devchall.pointHistory.service.PointHistoryService;
@@ -28,17 +32,23 @@ public class Challenge extends BaseEntity {
     private String challengeName;
     private String challengeContents;
     private boolean challengeStatus;
-    private String largePhoto;
-    private String smallPhoto;
+
+    //둘 다 저장하지 않고, baseUrl만 저장 -> 필요할때마다 호출?
+    @OneToOne
+    private Photo challengePhoto;
+
     private int challengeFrequency;
     private LocalDate startDate;
     private LocalDate endDate;
     private int challengePeriod;
-    private String challengeLanguage;
-    private String challengeSubject;
-    private String challengePostType;
+
+    //Language, Subject, PostType을 하나로 묶어서 저장
+    @OneToOne
+    private Tag challengeTag;
+
     private long gatherPoints;
     private int challengeMemberLimit;
+    private boolean settleComplete;
 
     private String challengeCreator;
     private String photoFile;
@@ -51,11 +61,16 @@ public class Challenge extends BaseEntity {
     public void addPoint(long points){
         this.gatherPoints+=points;
     }
+
     public void subtractPoint(long points){
         this.gatherPoints-=points;
     }
+
     public void resetPoint(){
         this.gatherPoints = 0;
     }
 
+    public void complete(){
+        this.settleComplete = true;
+    }
 }
