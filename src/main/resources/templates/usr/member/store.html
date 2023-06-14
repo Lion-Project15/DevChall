@@ -45,8 +45,9 @@
 
             <div class="flex justify-center items-center" th:if="${@rq.login}">
                 <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-20"
-                     th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern}
+                     th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}
                    +'; width: 200px;'">
+
                     <a class="mt-4 text-[#313131] font-bold text-xl"
                        th:text="${@rq.member.nickname}"></a>
                 </div>
@@ -93,18 +94,30 @@
                          th:if="${!#strings.equals(font.name, 'basic')}">
                         <div >
                             <!--색상 아이템 추가-->
-                            <div class="mx-3 mt-5 w-[100px] h-[100px] flex justify-center items-center"
+                            <div class="flex justify-center items-center relative ml-4 mx-2.5 mt-2 mb-10 w-[110px] h-[130px]"
                                  th:style="'background-color: #'+${font.pattern}+';'"></div>
 
-                            <!--버튼 및 포인트-->
-                            <div  class="flex flex-col justify-end items-start mt-7 space-y-6">
-                                <span th:text="${font.price}"
-                                      class="badge badge-custom mx-1" style="font-size: x-small; background-color: white; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                                <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" th:onclick="'showBuy('+${font.id}+')'">
-                                    <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
+                            <!--버튼-->
+                            <div class="flex flex-col justify-end items-center flex items-center justify-center mx-2.5 mb-5 ml-4 mt-7 space-y-6">
+                                <div class="flex items-center">
+                                    <span th:text="${font.price + 'P'}" class="badge badge-custom p-3.5 mx-1 mr-2"
+                                        style="font-size: small; background-color: #03fa6e; color: #121212; border-color: #03fa6e border: 2px solid #03fa6e; border-radius: 8px;"></span>
+
+                                    <button class="btn btn-sm btn-black" style="background-color: black; color: #03fa6e;"
+                                            th:onclick="'showBuy('+${font.id}+')'">BUY
+                                    </button>
                                 </div>
                             </div>
 
+<!--                            버튼 및 포인트-->
+<!--                            <div  class="flex flex-col justify-end items-start mt-7 space-y-6">-->
+<!--                                <span th:text="${font.price + 'P'}"-->
+<!--                                      class="badge badge-custom mx-1" style="font-size: x-small; background-color: #03fa6e; color: #121212; border: 1px solid #03fa6e; border-radius: 4px;"></span>-->
+
+<!--                                <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" th:onclick="'showBuy('+${font.id}+')'">-->
+<!--                                    <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                         </div>
                     </div>
