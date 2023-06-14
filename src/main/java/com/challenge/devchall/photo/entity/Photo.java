@@ -28,7 +28,7 @@ public class Photo {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("http://iztyfajjvmsf17707682.cdn.ntruss.com/");
+        sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/");
         sb.append(split[1]);
         sb.append("?type=m&w=700&h=400&quality=90&bgcolor=FFFFFF&extopt=3");
 
@@ -43,7 +43,7 @@ public class Photo {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("http://iztyfajjvmsf17707682.cdn.ntruss.com/");
+        sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/");
         sb.append(split[1]);
         sb.append("?type=m&w=200&h=115&quality=90&bgcolor=FFFFFF&extopt=0&anilimit=1");
 

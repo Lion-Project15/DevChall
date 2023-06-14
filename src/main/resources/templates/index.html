@@ -19,35 +19,35 @@
             <article class="flex justify-center w-full">
                 <div class="flex items-center flex-wrap justify-around w-[90%]">
                     <a href="/?language=java" class="flex flex-col items-center group px-1">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('java-logo.png')}}" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">Java</div>
                     </a>
                     <a href="/?language=python" class="flex flex-col items-center group px-1">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('python-logo.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">Python</div>
                     </a>
                     <a href="/?language=javascript" class="flex flex-col items-center group">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('javascript-logo.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">JavaScript</div>
                     </a>
                     <a href="?language=c" class="flex flex-col items-center group">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('C-logo.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">C</div>
                     </a>
                     <a href="/?subject=project" class="flex flex-col items-center group">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('project-logo.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">프로젝트</div>
                     </a>
                     <a href="/?subject=coding" class="flex flex-col items-center group">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('codingtest-logo.png')}}" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">코딩테스트</div>
                     </a>
                     <a href="/?subject=study" class="flex flex-col items-center group">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('개념공부-logo.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">개념 공부</div>
                     </a>
                     <a href="/?subject=test" class="flex flex-col items-center group">
-                        <img src="/images/Challenge-img.png" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('시험대비-logo.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">시험 대비</div>
                     </a>
                 </div>
