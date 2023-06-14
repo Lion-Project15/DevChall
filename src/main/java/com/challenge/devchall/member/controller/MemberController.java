@@ -61,7 +61,7 @@ public class MemberController {
                 model.addAttribute(key, validatorResult.get(key));
             }
             model.addAttribute("memberDto",memberDto);
-            return "usr/member/join";
+            return "/usr/member/join";
         }
         RsData<Member> rsData = memberService.join(memberDto.getLoginID(), memberDto.getPassword(),memberDto.getEmail(), memberDto.getNickname(), memberDto.getRepeatPassword());
 

@@ -125,12 +125,13 @@
                         </style>
 
                         <div class="flex items-center justify-center mt-2" th:if="${@rq.member.loginID == post.creatorId}">
-                            <a class="btn btn-accent mx-2 custom-btn border-none" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
-                            <button class="btn btn-accent mx-2 custom-btn border-none" th:onclick="'wantDelete(\'' + ${post.id} + '\')'">삭제하기</button>
-                            <h2 class="mx-2 mt-3">OR</h2>
-                            <button class="mx-2 btn btn-warning btn-outline custom-btn btn-heart">
-                                <i class="fa-solid fa-heart" style="color: #40dd84;"></i>
-                            </button>
+                            <a class="btn btn-accent mx-2 mr-5 custom-btn border-none" th:href="@{|/usr/challenge/modifypost/${post.id}|}" style="width: 90px; line-height: 20px;">수정하기</a>
+                            <h2 class="mr-2 mt-5">OR</h2>
+                            <button class="btn btn-accent mx-2 custom-btn border-none" th:onclick="'wantDelete(\'' + ${post.id} + '\')'" style="width: 90px; line-height: 20px;">삭제하기</button>
+<!--                            <h2 class="mx-2 mt-3">OR</h2>-->
+<!--                            <button class="mx-2 btn btn-warning btn-outline custom-btn btn-heart">-->
+<!--                                <i class="fa-solid fa-heart" style="color: #40dd84;"></i>-->
+<!--                            </button>-->
                         </div>
 
 
@@ -159,7 +160,7 @@
                 <div class="my-2" th:each="comment:${commentList}" th:unless="${#lists.isEmpty(commentList) or commentList == null}">
                     <div th:unless ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-start">
                         <div class="chat-image avatar">
-                            <div class="w-10 rounded-full">
+                            <div class="w-10 rounded-full ml-7">
                                 <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />
                             </div>
                         </div>
