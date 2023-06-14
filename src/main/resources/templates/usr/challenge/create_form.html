@@ -25,13 +25,6 @@
                 return false;
             }
 
-            if (form.title.value.length > 24) {
-                toastWarning('챌린지 제목은 25자 까지 가능합니다.');
-                form.title.focus();
-                console.log('제대로 됩니까?');
-                return;
-            }
-
             if (form.contents.value.length > 500) {
                 toastWarning('챌린지 내용은 500자 까지 작성 가능합니다.');
                 form.contents.focus();
@@ -85,7 +78,6 @@
                                 <p class="ml-5 mt-1 text-m p-1">원하는 챌린지를 생성해 보세요!</p>
                             </div>
                         </div>
-
                         <div class="flex mt-5">
                             <div class="flex-1">
                                 <div class="flex items-center">
