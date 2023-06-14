@@ -86,8 +86,6 @@ public class MemberController {
         if(rq.isLogin()){
             model.addAttribute("challengeMembers"
                     , challengeMemberService.getByMember(rq.getMember()));
-//            List<Challenge> joinChallengeList = challengeService.getJoinChallenge(rq.getMember());
-//            model.addAttribute("joinChallengeList", joinChallengeList);
         }
         return "usr/member/me";
     }
