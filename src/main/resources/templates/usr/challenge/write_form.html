@@ -32,6 +32,7 @@
     <div class="container mx-auto px-12" style="padding-top: 80px;">
         <form method="post" th:action="@{|/usr/challenge/write_form/${challenge.id}|}"
               enctype="multipart/form-data" class="flex flex-col justify-center items-center w-full">
+
             <div class="container mx-auto">
                 <div class="flex gap-20">
                     <div class="flex flex-col space-y-4">
@@ -40,11 +41,11 @@
                                 <h3 class="text-2xl font-bold bolder-none my-2 mb-5"
                                     th:text="${challenge.challengeName + ' 인증하기'}"
                                     th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}"></h3>
-                                <a class="btn btn-sm font-bold border-none mx-1"
+                               <a class="btn btn-sm font-bold border-none mx-1"
                                    th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">인증글 제목</a>
                             </div>
-
                         </div>
+
                         <div class="flex mt-5">
                             <div class="flex-1 bg-white rounded-md flex items-center input-box">
                                 <input type="text" name="title" maxlength="30" placeholder="인증 제목" id="title"
@@ -86,6 +87,8 @@
                                 </div>
                             </div>
                             <div>
+
+
                                 <div class="mt-10">
                                     <span class="text-black font-bold">공개 여부</span>
                                 </div>
@@ -106,7 +109,7 @@
                                     <label for="img" class="label">
                                         <span class="text-black font-bold">인증 이미지</span>
                                     </label>
-                                    <input id="img" name="file" type="file" class="file-input file-input-bordered file-input-accent bg-[#3E4450] text-white border-green-500 w-full max-w-xs" />
+                                    <input id="img" name="file" type="file" class="file-input file-input-bordered file-input-accent border-green-500 w-full max-w-xs" />
                                 </div>
 
                                 <div class="parent-container mt-5 flex justify-center"> <!-- 수정: 가운데 정렬 -->
