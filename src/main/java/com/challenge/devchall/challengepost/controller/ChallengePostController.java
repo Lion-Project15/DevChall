@@ -161,6 +161,7 @@ public class ChallengePostController {
 
         if (challengePostService.hasReportedPost(id, loginId)) {
             System.out.println("이미 신고한 게시물입니다.");
+
             return "redirect:/usr/challenge/postdetail/{id}";
         }
 
@@ -178,5 +179,6 @@ public class ChallengePostController {
 
         return "redirect:/usr/challenge/postdetail/{id}";
     }
+
 
 }
