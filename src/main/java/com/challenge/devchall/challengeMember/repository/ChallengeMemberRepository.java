@@ -22,6 +22,8 @@ public interface ChallengeMemberRepository extends JpaRepository<ChallengeMember
 
     Long findByChallengerId (Long id);
 
+
+
     @Query("SELECT cm.id as challengemember_id, COUNT(p.id) as count " +
             "FROM ChallengeMember cm " +
             "JOIN cm.linkedChallenge c " +
@@ -29,5 +31,4 @@ public interface ChallengeMemberRepository extends JpaRepository<ChallengeMember
             "WHERE c.endDate = :today AND c.settleComplete = false " +
             "GROUP BY cm.id") // 챌린지 아이디 + 멤버 아이디
     List<SettleChallengeDTO> findChallengeMemberCountByEndDate(@Param("today") LocalDate today);
-
 }

@@ -39,12 +39,16 @@ public class NotProd {
                 itemService.create("1144FC","font","1144FC", "FFFFFF",0);
                 itemService.create("3CB24F","font","3CB24F", "FFFFFF",0);
 
-                Member admin = memberService.join("admin", "1234", "admin@admin.com",  "관리자","1234").getData();//admin 계정
-                Member user1 = memberService.join("user1", "1234", "user1@devchall.com",  "user1","1234").getData();
-                Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2","1234").getData();
-                Member user3 = memberService.join("user3", "1234", "user3@devchall.com",  "user3","1234").getData();
-                Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4","1234").getData();
-                Member user5 = memberService.join("user5", "1234", "user5@devchall.com",  "user5","1234").getData();
+                Member admin = memberService.join("admin", "1234", "admin@admin.com",  "관리자", "1234").getData();//admin 계정
+                Member user1 = memberService.join("user1", "1234", "user1@devchall.com",  "user1", "1234").getData();
+                Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2", "1234").getData();
+                Member user3 = memberService.join("user3", "1234", "user3@devchall.com",  "user3", "1234").getData();
+                Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4", "1234").getData();
+                Member user5 = memberService.join("user5", "1234", "user5@devchall.com",  "user5", "1234").getData();
+                Member user6 = memberService.join("user6", "1234", "user6@devchall.com",  "user6", "1234").getData();
+                Member user7 = memberService.join("user6", "1234", "user6@devchall.com",  "user7", "1234").getData();
+                Member user8 = memberService.join("user6", "1234", "user6@devchall.com",  "user8", "1234").getData();
+                admin.getPoint().add(100000000);
 
                 //미정 소셜 로그인정보
 //                Member memberUserMJByKakao = memberService.whenSocialLogin("KAKAO", "KAKAO__2824935881","mijeong1015@naver.com","미정").getData();
@@ -58,14 +62,19 @@ public class NotProd {
                 Challenge c3 = challengeService.createChallengeForNoPhoto("3번 챌린지", "3번 챌린지 내용입니다", true, 7,LocalDate.parse("2023-06-01"), 8, "Python", "시험 대비", "Github", user2);
                 Challenge c4 = challengeService.createChallengeForNoPhoto("re 2번 챌린지", "re 2번 챌린지 내용입니다", false, 3,LocalDate.parse("2023-06-01"), 4, "Java", "프로젝트", "IDE 캡처", user5);
 
-                challengeMemberService.addMember(challengeService.getChallengeById(c1.getId()), user1, Role.CREW);
-                challengeMemberService.addMember(challengeService.getChallengeById(c1.getId()), user2, Role.CREW);
-                challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), user2, Role.CREW);
-                challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), user3, Role.CREW);
-                challengeMemberService.addMember(challengeService.getChallengeById(c2.getId()), admin, Role.CREW);
-                challengeMemberService.addMember(challengeService.getChallengeById(c3.getId()), user4, Role.CREW);
-                challengeMemberService.addMember(challengeService.getChallengeById(c3.getId()), user5, Role.CREW);
-                challengeMemberService.addMember(challengeService.getChallengeById(c4.getId()), user1, Role.CREW);
+                //
+                for(int i=0; i<40; i++){
+                    challengeService.createChallengeForNoPhoto(i+"th 테스트 챌린지", i+"번 테스트 챌린지 내용입니다", true, 1, LocalDate.now().plusDays(5), 2, "C", "개념 공부", "인증샷", admin);
+                }
+
+                challengeMemberService.addMember(c1, user1, Role.CREW);
+                challengeMemberService.addMember(c1, user2, Role.CREW);
+                challengeMemberService.addMember(c2, user2, Role.CREW);
+                challengeMemberService.addMember(c2, user3, Role.CREW);
+                challengeMemberService.addMember(c2, admin, Role.CREW);
+                challengeMemberService.addMember(c3, user4, Role.CREW);
+                challengeMemberService.addMember(c3, user5, Role.CREW);
+                challengeMemberService.addMember(c4, user1, Role.CREW);
 
                 challengePostService.write("1-1인증", "1-1인증 내용입니다.", true, 3, c1.getId(), photoUrl, admin);
                 challengePostService.write("1-2인증", "1-2인증 내용입니다.", false, 4, c1.getId(), photoUrl, user2);
@@ -77,7 +86,6 @@ public class NotProd {
                 challengePostService.write("3-2인증", "3-2인증 내용입니다.", true, 4, c3.getId(), photoUrl, user5);
                 challengePostService.write("re2-1인증", "re2-1인증 내용입니다.", true, 4, c4.getId(), photoUrl, user1);
                 challengePostService.write("re2-2인증", "re2-2인증 내용입니다.", true, 4, c4.getId(), photoUrl, user5);
-
 
             }
         };

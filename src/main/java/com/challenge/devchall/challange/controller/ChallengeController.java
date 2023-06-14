@@ -40,7 +40,7 @@ public class ChallengeController {
             return rq.historyBack(RsData.of("F-1", "챌린지를 생성하려면 로그인이 필요합니다."));
         }
 
-        return "/usr/challenge/create_form";
+        return "usr/challenge/create_form";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -82,6 +82,10 @@ public class ChallengeController {
 
         List<ChallengePost> challengePostList = challenge.getChallengePostList();
 
+        if (byChallengeAndMember.isPresent() && !byChallengeAndMember.get().isValid()) {
+            return rq.redirectWithMsg("/", "추방 당한 챌린지입니다.");
+        }
+
         if(!challengePostList.isEmpty()){
             model.addAttribute("challengePostList", challengePostList);
         }
@@ -90,7 +94,9 @@ public class ChallengeController {
         model.addAttribute("byChallengeAndMember", byChallengeAndMember);
 
 
-        return "/usr/challenge/detail";
+        return "usr/challenge/detail";
     }
+
+
 
 }

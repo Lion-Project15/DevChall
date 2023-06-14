@@ -14,6 +14,7 @@ import com.challenge.devchall.photo.service.PhotoService;
 import com.challenge.devchall.tag.entity.Tag;
 import com.challenge.devchall.tag.service.TagService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -45,7 +47,13 @@ public class ChallengeService {
         String photoUrl = "";
 
         //챌린지 생성 룰이 지켜졌는지 검사
-        RsData<Challenge> checkRsData = checkCreateRule(title, formattingStartDate, contents, member);
+        RsData<Challenge> checkRsData = checkCreateRule(
+                        title,
+                        formattingStartDate,
+                        contents,
+                        member,
+                (long)period
+        );
 
         //생성 불가 - 제약조건 걸림
         if (checkRsData.isFail()) {
@@ -75,15 +83,19 @@ public class ChallengeService {
         return RsData.of("S-1", "챌린지 생성에 성공하였습니다!");
     }
 
-    public Challenge createChallengeForNoPhoto(String title, String contents, boolean status, int frequency, LocalDate startDate, int period,
+     public Challenge createChallengeForNoPhoto(String title, String contents, boolean status, int frequency, LocalDate startDate, int period,
                                                String language, String subject, String postType, Member member) throws IOException {
-
+        if((long) period * AppConfig.getWeeklyPoint()
+                > member.getPoint().getCurrentPoint()){
+            System.out.println("포인트 부족으로 챌린지 생성에 실패했습니다.");
+            return null;
+        }
         String photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
 
-        return challengeBuilder(title, contents, status, frequency, startDate, period, language, subject, postType, photoUrl, member);
+        return challengeBuilder(title, contents, status, frequency, startDate, period, language, subject, postType, photoUrl, member).getData();
     }
 
-    public Challenge challengeBuilder(String title, String contents, boolean status, int frequency, LocalDate startDate, int period,
+    public RsData<Challenge> challengeBuilder(String title, String contents, boolean status, int frequency, LocalDate startDate, int period,
                                       String language, String subject, String postType, String photoUrl, Member member) {
 
         Tag tag = tagService.createTag(language, subject, postType);
@@ -111,7 +123,7 @@ public class ChallengeService {
         challengeMemberService.addMember(challenge, member, Role.LEADER);
         member.setChallengeLimit();
 
-        return challenge;
+        return RsData.of("S-1","챌린지를 성공적으로 생성했습니다.", challenge);
     }
 
     //FIXME (안 쓰이는 중) => true 인 것을 모두 가져오는 메서드 (카테고리 X)
@@ -122,13 +134,31 @@ public class ChallengeService {
 //    }
 
     //공개가 true인 모든 챌린지를 가져옴 (+카테고리 필터링 )
+    public Page<Challenge> getChallengeList(int page, String language, String subject) {
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(page, AppConfig.getPageable(), sort);
+
+        return challengeRepository.findByConditions(language, subject, pageable);
+    }
+
+    //참여하지 않고 있는 챌린지(모집중인 챌린지) 중에서, 공개가 true 인 것들을 가져옴(+카테고리 필터링 )
+    public Page<Challenge> getNotJoinChallengeList(int page, String language, String subject, Member member) {
+
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(page, AppConfig.getPageable(), sort);
+
+        return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);
+    }
+
     public List<Challenge> getChallengeList(String language, String subject) {
 
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
 
-        return challengeRepository.findByConditions(language, subject, pageable);
+        return challengeRepository.findByConditions(language, subject);
     }
+
 
     //참여하지 않고 있는 챌린지(모집중인 챌린지) 중에서, 공개가 true 인 것들을 가져옴(+카테고리 필터링 )
     public List<Challenge> getNotJoinChallengeList(String language, String subject, Member member) {
@@ -136,14 +166,14 @@ public class ChallengeService {
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
         Pageable pageable = PageRequest.of(0, 30, sort);
 
-        return challengeRepository.findChallengeByNotJoin(language, subject, member, pageable);
+        return challengeRepository.findChallengeByNotJoin(language, subject, member);
     }
 
     public List<Challenge> getJoinChallenge(Member member){
 
         //FIXME 나의 챌린지는 페이징 몇개?
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
-        Pageable pageable = PageRequest.of(0, 30, sort);
+        Pageable pageable = PageRequest.of(0, AppConfig.getPageable(), sort);
 
         return challengeRepository.findJoinChallenge(member);
     }
@@ -160,19 +190,27 @@ public class ChallengeService {
         return this.challengeRepository.findById(id).orElse(null);
     }
 
-    public RsData<Challenge> checkCreateRule(String title, LocalDate startDate, String contents, Member member) {
+    public RsData<Challenge> checkCreateRule(String title, LocalDate startDate, String contents, Member member, long challengeFee) {
+        if(challengeFee * AppConfig.getWeeklyPoint()
+                > member.getPoint().getCurrentPoint()){
+            return RsData.of("F-1", "포인트 부족으로 챌린지를 생성할 수 없습니다");
+        }
 
         //멤버가 한달에 한개 생성 제한에 걸리지 않는가? (S-1 or F-1)
+        if(member.getLoginID().equals("admin")){
+            return RsData.of("S-1", "챌린지 생성이 가능합니다!");
+        }
         RsData<Member> memberRsData = memberService.checkChallengeLimit(member);
 
         if (memberRsData.isFail()) {
+            System.out.println(memberRsData.getMsg());
             return RsData.of(memberRsData.getResultCode(), memberRsData.getMsg());
         }
 
         //이미 존재하는 챌린지 명일 경우
-        List<Challenge> byChallengeName = challengeRepository.findByChallengeName(title);
+        Optional<Challenge> byChallengeName = challengeRepository.findByChallengeName(title);
 
-        if (!byChallengeName.isEmpty()) {
+        if (byChallengeName.isPresent()) {
             return RsData.of("F-2", "이미 존재하는 챌린지 명입니다.");
         }
 

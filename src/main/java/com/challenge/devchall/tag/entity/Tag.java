@@ -11,7 +11,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @SuperBuilder
 @NoArgsConstructor
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = {"linkedChallenge"})
 @Getter
 @EntityListeners(AuditingEntityListener.class)
 public class Tag {
