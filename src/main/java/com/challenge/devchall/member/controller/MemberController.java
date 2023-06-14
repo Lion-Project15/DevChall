@@ -43,13 +43,14 @@ public class MemberController {
 
     @PostMapping("/join")
     public String join (@Valid MemberRequestDto memberDto, BindingResult bindingResult, Model model) {
-        RsData<Member> validateRsData = memberService.validateMember(memberDto.getLoginID(), memberDto.getEmail());
+        RsData<Member> validateRsData = memberService.validateMember(memberDto.getLoginID(), memberDto.getEmail(),memberDto.getPassword(),memberDto.getRepeatPassword());
 
         if (bindingResult.hasErrors() || validateRsData.isFail() ) {
             if (validateRsData.isFail()){
                 switch (validateRsData.getResultCode()){
                     case "F-1" -> model.addAttribute("valid_loginID",validateRsData.getMsg());
                     case "F-2" -> model.addAttribute("valid_email",validateRsData.getMsg());
+                    case "F-3" -> model.addAttribute("valid_repeatPassword",validateRsData.getMsg());
                 }
 
             }
@@ -60,7 +61,7 @@ public class MemberController {
             model.addAttribute("memberDto",memberDto);
             return "usr/member/join";
         }
-        RsData<Member> rsData = memberService.join(memberDto.getLoginID(), memberDto.getPassword(),memberDto.getEmail(), memberDto.getNickname());
+        RsData<Member> rsData = memberService.join(memberDto.getLoginID(), memberDto.getPassword(),memberDto.getEmail(), memberDto.getNickname(), memberDto.getRepeatPassword());
 
         return "redirect:/usr/member/login";
     }

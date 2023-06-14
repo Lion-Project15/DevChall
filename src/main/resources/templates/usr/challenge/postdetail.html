@@ -44,7 +44,8 @@
                         <div class="flex flex-col">
                             <div class="flex">
                                 <div class="w-full p-0.1 mb-0.1 lg:w-[65rem]">
-                                    <a class="btn btn-sm font-bold mx-1">인증글 제목</a>
+                                    <a class="btn btn-sm font-bold mx-1 border-none"
+                                       th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">인증글 제목</a>
                                 </div>
                             </div>
                             <div class="flex mt-5">
@@ -59,7 +60,8 @@
                         <div class="flex flex-col">
                             <div class="flex">
                                 <div class="w-full mt-5 mb-0.1 p-0.1 lg:w-[65rem]">
-                                    <a class="btn btn-sm font-bold mx-1">인증글 내용</a>
+                                    <a class="btn btn-sm font-bold mx-1 border-none"
+                                       th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">인증글 내용</a>
                                 </div>
                             </div>
                             <div class="flex mt-5">
@@ -80,7 +82,8 @@
                 <div class="flex items-center">
                     <div class="h-full p-0.01 overflow-x-auto">
                         <div class="relative">
-                            <a class="btn btn-sm font-bold mx-1 mt-0.01 mb-0.01">인증 이미지</a>
+                            <a class="btn btn-sm font-bold mx-1 mt-0.01 mb-0.01 border-none"
+                               th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">인증 이미지</a>
                             <div class="absolute top-5 right-2">
                                 <div class="flex">
                                     <div th:each="i : ${#numbers.sequence(1, post.postScore)}" class="mx-1">
@@ -152,7 +155,7 @@
         <div class="card bg-white border-md w-5/6 h-full">
             <div class="flex flex-col h-1/2">
 
-                <div class="divider"></div>
+<!--                <div class="divider"></div>-->
                 <div class="my-2" th:each="comment:${commentList}" th:unless="${#lists.isEmpty(commentList) or commentList == null}">
                     <div th:unless ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-start">
                         <div class="chat-image avatar">
@@ -169,15 +172,19 @@
                     </div>
                     <div th:if ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-end">
                         <div class="chat-image avatar">
-                            <div class="w-10 rounded-full">
+                            <div class="w-10 rounded-full mr-7">
                                 <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />
                             </div>
                         </div>
-                        <div th:text ="${comment.challengeMember.challenger.nickname}" class="chat-header">
+                        <div th:text ="${comment.challengeMember.challenger.nickname}"
+                             class="chat-header"
+                             th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}">
                             Anakin
                             <time class="text-xs opacity-50" th:text="${#temporals.format(comment.createDate, 'yy.MM.dd HH:mm')}" >12:46</time>
                         </div>
-                        <div class="chat-bubble" style="color: #000000; background-color: #03FA6E7C;" th:text="${comment.commentContent}">I hate you!</div>
+                        <div class="chat-bubble" style="color: #000000; background-color: #03FA6E7C;"
+                             th:text="${comment.commentContent}"
+                             th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">I hate you!</div>
                     </div>
                 </div>
                 <!--데이지ui 사용한 댓글창과 버튼 수정-->
