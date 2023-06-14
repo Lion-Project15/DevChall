@@ -63,9 +63,6 @@ public class Member extends BaseEntity {
     //스케줄러 -> 매달 1일에 0으로 초기화 되어야함.
     private int challengeLimit;
 
-    //현재 적용중인 폰트
-    private String currentFont;
-
 
     @OneToMany(mappedBy = "member")
     @LazyCollection(LazyCollectionOption.EXTRA)
@@ -107,7 +104,7 @@ public class Member extends BaseEntity {
     public Inventory getEquippedCharacter(){
         for(Inventory iv: inventoryList){
             if(iv.isEquipped() && //장착중
-                    iv.getItem().getType().equals("character")){ //타입=폰트
+                    iv.getItem().getType().equals("character")){ //타입=캐릭터
                 return iv;
             }
         }

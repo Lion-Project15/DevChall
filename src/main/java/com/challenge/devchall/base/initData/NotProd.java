@@ -1,9 +1,11 @@
 package com.challenge.devchall.base.initData;
 
+import com.challenge.devchall.base.Util.TestUtil;
 import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
+import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
 import com.challenge.devchall.item.service.ItemService;
 import com.challenge.devchall.member.entity.Member;
@@ -14,6 +16,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Configuration
@@ -58,7 +62,7 @@ public class NotProd {
 
                 //FIXME createChallengeForNotProd 를 작성하면 안될 것 같음 (중복코드) => Multipartfile을 어떻게 처리할 것인가...
                 Challenge c1 = challengeService.createChallengeForNoPhoto("1번 챌린지", "1번 챌린지 내용입니다", true, 1, LocalDate.parse("2023-06-01"), 2, "C", "개념 공부", "인증샷", admin);
-                Challenge c2 = challengeService.createChallengeForNoPhoto("멤버들이 모여있는 2번 챌린지", "2번 챌린지 내용입니다", false, 3,LocalDate.now().plusDays(5), 4, "Java", "프로젝트", "IDE 캡처", user1);
+                Challenge c2 = challengeService.createChallengeForNoPhoto("멤버들이 모여있는 2번 챌린지", "2번 챌린지 내용입니다", true, 3,LocalDate.now().plusDays(5), 4, "Java", "프로젝트", "IDE 캡처", user1);
                 Challenge c3 = challengeService.createChallengeForNoPhoto("3번 챌린지", "3번 챌린지 내용입니다", true, 7,LocalDate.parse("2023-06-01"), 8, "Python", "시험 대비", "Github", user2);
                 Challenge c4 = challengeService.createChallengeForNoPhoto("re 2번 챌린지", "re 2번 챌린지 내용입니다", false, 3,LocalDate.parse("2023-06-01"), 4, "Java", "프로젝트", "IDE 캡처", user5);
 
@@ -86,7 +90,11 @@ public class NotProd {
                 challengePostService.write("3-2인증", "3-2인증 내용입니다.", true, 4, c3.getId(), photoUrl, user5);
                 challengePostService.write("re2-1인증", "re2-1인증 내용입니다.", true, 4, c4.getId(), photoUrl, user1);
                 challengePostService.write("re2-2인증", "re2-2인증 내용입니다.", true, 4, c4.getId(), photoUrl, user5);
-
+                for(int i=0 ; i<40; i++){
+                    List<ChallengePost> cps = challengePostService.getRecentPosts(c2, admin);
+                    TestUtil.setFieldValue(cps.get(0), "createDate", LocalDateTime.now().minusDays(10));
+                    challengePostService.write("인증 테스트"+i, i+"인증 내용입니다.", true, 3, c2.getId(), photoUrl, admin);
+                }
             }
         };
     }

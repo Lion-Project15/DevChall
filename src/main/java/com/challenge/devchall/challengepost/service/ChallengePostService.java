@@ -1,5 +1,6 @@
 package com.challenge.devchall.challengepost.service;
 
+import com.challenge.devchall.base.config.AppConfig;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
@@ -16,6 +17,10 @@ import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.point.schedule.Schedule;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,8 +59,14 @@ public class ChallengePostService {
 
         List<ChallengePost> posts = getRecentPosts(linkedChallenge, member);
 
-        RsData<ChallengePost> postRsData = canWrite(posts);
+        RsData<ChallengePost> postRsData;
 
+        if(member.getLoginID().equals("admin")){
+            postRsData = RsData.of("S-0", "관리자 권한입니다");
+        }
+        else{
+            postRsData = canWrite(posts);
+        }
         if(postRsData.isFail() || challengeMember == null){
             System.out.println(postRsData.getMsg());
             return postRsData;
@@ -111,6 +122,12 @@ public class ChallengePostService {
 
     public List<ChallengePost> getChallengePostByChallenge(Challenge challenge) {
         return challengePostRepository.findByLinkedChallenge(challenge);
+    }
+
+    public Page<ChallengePost> getPostPageByChallenge(Challenge challenge, int page) {
+        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
+        Pageable pageable = PageRequest.of(page, AppConfig.getPageable(), sort);
+        return challengePostRepository.findByLinkedChallenge(challenge, pageable);
     }
 
     @Transactional
