@@ -188,7 +188,7 @@
                     </div>
                 </div>
                 <!--데이지ui 사용한 댓글창과 버튼 수정-->
-                <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${linkedChallenge.id}">
+                <form class="flex flex-row justify-center" method="post" th:action="'/usr/challenge/comment/write/'+${post.id}">
                     <style>
                         .custom-input {
                             background-color: #ffffff;
@@ -222,7 +222,6 @@
                     </button>
                 </form>
             </div>
-            <div class="w-1/8 h-full"></div>
         </div>
     </div>
 
