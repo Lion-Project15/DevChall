@@ -103,7 +103,7 @@ public class PhotoService {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("http://iztyfajjvmsf17707682.cdn.ntruss.com/category/");
+        sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/category/");
         sb.append(categoryName);
         sb.append("?type=m&w=80&h=80&quality=90&bgcolor=121212&ttype=png&extopt=0&anilimit=1");
 
@@ -114,7 +114,7 @@ public class PhotoService {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("http://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/");
+        sb.append("https://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/");
         sb.append(characterName);
         sb.append("?type=m&w=120&h=120&bgcolor=EBEBEB");
 
