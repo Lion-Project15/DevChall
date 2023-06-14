@@ -63,8 +63,8 @@ public class NotProd {
                 //FIXME createChallengeForNotProd 를 작성하면 안될 것 같음 (중복코드) => Multipartfile을 어떻게 처리할 것인가...
                 Challenge c1 = challengeService.createChallengeForNoPhoto("1번 챌린지", "1번 챌린지 내용입니다", true, 1, LocalDate.now().plusDays(5), 2, "C", "개념 공부", "인증샷", admin);
                 Challenge c2 = challengeService.createChallengeForNoPhoto("멤버들이 모여있는 2번 챌린지", "2번 챌린지 내용입니다", true, 3,LocalDate.now().plusDays(5), 4, "Java", "프로젝트", "IDE 캡처", user1);
-                Challenge c3 = challengeService.createChallengeForNoPhoto("3번 챌린지", "3번 챌린지 내용입니다", true, 7,LocalDate.parse("2023-06-01"), 8, "Python", "시험 대비", "Github", user2);
-                Challenge c4 = challengeService.createChallengeForNoPhoto("re 2번 챌린지", "re 2번 챌린지 내용입니다", false, 3,LocalDate.parse("2023-06-01"), 4, "Java", "프로젝트", "IDE 캡처", user5);
+                Challenge c3 = challengeService.createChallengeForNoPhoto("3번 챌린지", "3번 챌린지 내용입니다", true, 7, LocalDate.now().plusDays(5), 8, "Python", "시험 대비", "Github", user2);
+                Challenge c4 = challengeService.createChallengeForNoPhoto("re 2번 챌린지", "re 2번 챌린지 내용입니다", false, 3,LocalDate.now().plusDays(5), 4, "Java", "프로젝트", "IDE 캡처", user5);
 
                 //
                 for(int i=0; i<20; i++){
