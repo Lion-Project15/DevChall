@@ -32,7 +32,7 @@ public class ChallengeMemberService {
             return RsData.of("F-1","챌린지가 존재하지 않습니다.");
         }
         long joinCost = (long) challenge.getChallengePeriod() * AppConfig.getWeeklyPoint();
-        RsData<ChallengeMember> joinRsData = canJoin(member, joinCost);
+        RsData<ChallengeMember> joinRsData = canJoin(member, challenge);
 
         if(joinRsData.isFail()){
             System.out.println(joinRsData.getMsg());
@@ -69,12 +69,24 @@ public class ChallengeMemberService {
         return challengeMemberRepository.findByChallenger(member);
     }
 
-    private RsData<ChallengeMember> canJoin(Member member, long joinCost){
+    private RsData<ChallengeMember> canJoin(Member member, Challenge challenge){
+        long joinCost = (long) challenge.getChallengePeriod() * AppConfig.getWeeklyPoint();
 
         Long currentPoint = member.getPoint().getCurrentPoint();
 
+        if(!challenge.getStartDate().isAfter(LocalDate.now())){ //챌린지 시작 전인가?
+            return RsData.of("F-4", "챌린지가 이미 시작했습니다.");
+        }
+
+        int joinMember = challenge.getChallengeMemberLimit()
+                - getChallengeUserCount(challenge);
+
+        if(joinMember<=0){
+            return RsData.of("F-5", "챌린지의 인원이 모두 찼습니다.");
+        }
+
         if(currentPoint >= joinCost){
-            return RsData.of("S-1", "참가 비용을 지불할 수 있습니다");
+            return RsData.of("S-1", "챌린지 가입을 할 수 있습니다");
         }else{
             return RsData.of("F-3", "참가 비용이 부족합니다.");
         }

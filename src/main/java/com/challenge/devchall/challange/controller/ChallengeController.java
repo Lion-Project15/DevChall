@@ -13,6 +13,7 @@ import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.comment.service.CommentService;
 import com.challenge.devchall.member.entity.Member;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.security.Principal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +32,7 @@ public class ChallengeController {
 
     private final ChallengeMemberService challengeMemberService;
     private final ChallengeService challengeService;
+    private final ChallengePostService challengePostService;
     private final Rq rq;
 
     @PreAuthorize("isAuthenticated()")
@@ -73,7 +75,9 @@ public class ChallengeController {
     }
 
     @GetMapping("/detail/{id}")
-    public String showDetail(Model model, @PathVariable("id") long id) {
+    public String showDetail(Model model,
+                             @PathVariable("id") long id,
+                             @RequestParam(defaultValue = "0") int page) {
 
         if (rq.getMember() == null) {
             return "redirect:/usr/member/login";
@@ -85,18 +89,22 @@ public class ChallengeController {
 
         Optional<ChallengeMember> byChallengeAndMember = challengeMemberService.getByChallengeAndMember(challenge, loginMember);
 
-        List<ChallengePost> challengePostList = challenge.getChallengePostList();
+        Page<ChallengePost> challengePosts = challengePostService.getPostPageByChallenge(challenge,page);
+
 
         if (byChallengeAndMember.isPresent() && !byChallengeAndMember.get().isValid()) {
             return rq.redirectWithMsg("/", "추방 당한 챌린지입니다.");
         }
 
-        if(!challengePostList.isEmpty()){
-            model.addAttribute("challengePostList", challengePostList);
+        if(!challengePosts.isEmpty()){
+            model.addAttribute("challengePosts", challengePosts);
+            boolean passed = challenge.getStartDate().isAfter(LocalDate.now());
+            model.addAttribute("passed", passed);
         }
 
         model.addAttribute("challenge", challenge);
         model.addAttribute("byChallengeAndMember", byChallengeAndMember);
+
 
 
         return "usr/challenge/detail";

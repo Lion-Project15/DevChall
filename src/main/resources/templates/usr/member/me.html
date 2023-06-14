@@ -99,18 +99,25 @@
                                                 프로그래머스 코테 준비
                                             </h4>
                                         </a>
-                                        <progress class="progress progress-accent w-56" value="40" max="100"></progress>
+                                        <progress class="progress progress-accent w-56"
+                                                  th:value="${@challengeMemberService.getCountByChallengeAndMember(challengeMember.linkedChallenge, @rq.getMember())}"
+                                                  th:max="${challengeMember.linkedChallenge.challengeFrequency * challengeMember.linkedChallenge.challengePeriod}"></progress>
+                                        <a href="#">
+                                            <span class="text-xs">진행 상황 : </span>
+                                            <span class="text-xs" th:text="${@challengeMemberService.getCountByChallengeAndMember(challengeMember.linkedChallenge, @rq.getMember())} + ' / '"></span>
+                                            <span class="text-xs" th:text="${challengeMember.linkedChallenge.challengeFrequency * challengeMember.linkedChallenge.challengePeriod}"></span>
+                                        </a>
                                         <div class="card-actions flex justify-around">
-                                            <div style="font-size: x-small">
-                                                <a href="">
-                                                    <span>댓글</span> <span>5</span>
-                                                </a>
-                                            </div>
-                                            <div style="font-size: x-small">
-                                                <a href="">
-                                                    <span>클립</span><span>3</span>
-                                                </a>
-                                            </div>
+<!--                                            <div style="font-size: x-small">-->
+<!--                                                <a href="">-->
+<!--                                                    <span>댓글</span> <span>5</span>-->
+<!--                                                </a>-->
+<!--                                            </div>-->
+<!--                                            <div style="font-size: x-small">-->
+<!--                                                <a href="">-->
+<!--                                                    <span>클립</span><span>3</span>-->
+<!--                                                </a>-->
+<!--                                            </div>-->
                                         </div>
                                     </div>
                                 </div>
