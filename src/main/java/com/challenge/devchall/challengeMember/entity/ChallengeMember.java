@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
@@ -25,6 +26,9 @@ import java.util.List;
 public class ChallengeMember extends BaseEntity {
 
     private boolean isValid;
+
+
+    private int outCount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Challenge linkedChallenge;
@@ -39,8 +43,19 @@ public class ChallengeMember extends BaseEntity {
 
     private Long challengeTotalPoint;
 
+    @Value("${custom.challenge.memberOutCount}")
+    private int memberOutCount;
+
+
+
+
     public void turnValid(){
-        this.isValid = !isValid;
+        this.isValid = false;
+    }
+    public void increaseOutCount() {
+        this.outCount += 1;
+        if (outCount > memberOutCount)
+            turnValid();
     }
 
     public void challengerRole(Role challengerRole){
