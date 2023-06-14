@@ -109,8 +109,8 @@
 
         <!--    챌린지 리스트 시작   -->
         <article class="p-5 mx-5">
-            <div th:classappend="${challenges.isEmpty()} ? 'w-[80vw]'" class="p-2">
-                <h1 class="text-black text-2xl font-bold">>모집 중인 챌린지</h1>
+            <div th:classappend="${challenges.isEmpty()} ? 'w-[90vw]'" class="p-2">
+                <h1 class="text-black text-2xl font-bold flex">>모집중인 챌린지</h1>
                     <span th:if="${param.subject != null && !param.subject.isEmpty()}">
                         <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'test')}">시험 대비</span>
                         <span class="badge badge-primary mx-1" th:if="${#strings.equals(param.subject, 'project')}">프로젝트</span>
@@ -176,7 +176,8 @@
             </a>
             <a th:each="page:${#numbers.sequence(0, challenges.totalPages-1)}"
                th:text="${page+1}"
-               th:href="@{|?page=${page}|}"
+               th:with="language=${param.language ?: ''}, subject=${param.subject ?: ''}"
+               th:href="@{|?page=${page}&amp;language=${language}&amp;subject=${subject}|}"
                th:classappend="${page == challenges.number} ? 'btn-active'"
                class="join-item btn btn-accent btn-sm mx-1">1</a>
             <a th:if="${challenges.hasNext}"
