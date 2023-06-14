@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,6 +74,10 @@ public class ChallengeController {
 
     @GetMapping("/detail/{id}")
     public String showDetail(Model model, @PathVariable("id") long id) {
+
+        if (rq.getMember() == null) {
+            return "redirect:/usr/member/login";
+        }
 
         Challenge challenge = this.challengeService.getChallengeById(id);
 

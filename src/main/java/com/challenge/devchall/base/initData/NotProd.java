@@ -39,15 +39,15 @@ public class NotProd {
                 itemService.create("1144FC","font","1144FC", "FFFFFF",0);
                 itemService.create("3CB24F","font","3CB24F", "FFFFFF",0);
 
-                Member admin = memberService.join("admin", "1234", "admin@admin.com",  "관리자", "1234").getData();//admin 계정
-                Member user1 = memberService.join("user1", "1234", "user1@devchall.com",  "user1", "1234").getData();
-                Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2", "1234").getData();
-                Member user3 = memberService.join("user3", "1234", "user3@devchall.com",  "user3", "1234").getData();
-                Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4", "1234").getData();
-                Member user5 = memberService.join("user5", "1234", "user5@devchall.com",  "user5", "1234").getData();
-                Member user6 = memberService.join("user6", "1234", "user6@devchall.com",  "user6", "1234").getData();
-                Member user7 = memberService.join("user6", "1234", "user6@devchall.com",  "user7", "1234").getData();
-                Member user8 = memberService.join("user6", "1234", "user6@devchall.com",  "user8", "1234").getData();
+                Member admin = memberService.join("admin", "1234", "admin@admin.com",  "관리자").getData();//admin 계정
+                Member user1 = memberService.join("user1", "1234", "user1@devchall.com",  "user1" ).getData();
+                Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2" ).getData();
+                Member user3 = memberService.join("user3", "1234", "user3@devchall.com",  "user3").getData();
+                Member user4 = memberService.join("user4", "1234", "user4@devchall.com", "user4").getData();
+                Member user5 = memberService.join("user5", "1234", "user5@devchall.com",  "user5").getData();
+                Member user6 = memberService.join("user6", "1234", "user6@devchall.com",  "user6").getData();
+                Member user7 = memberService.join("user6", "1234", "user6@devchall.com",  "user7").getData();
+                Member user8 = memberService.join("user6", "1234", "user6@devchall.com",  "user8").getData();
                 admin.getPoint().add(100000000);
 
                 //미정 소셜 로그인정보
