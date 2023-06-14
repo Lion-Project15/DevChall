@@ -44,14 +44,14 @@ public class MemberService {
     }
 
     @Transactional
-    public RsData<Member> join(String loginID, String password, String email, String nickname, String repeatPassword) {
+    public RsData<Member> join(String loginID, String password, String email, String nickname) {
 
-        RsData<Member> rsData = validateMember(loginID, email,password,repeatPassword);
+        RsData<Member> rsData = validateMember(loginID, email);
         if (rsData.isFail()) return rsData;
 
-        return join("DevChall",loginID,password,email,nickname,repeatPassword);
+        return join("DevChall",loginID,password,email,nickname);
     }
-    private RsData<Member> join (String providerTypeCode, String loginID, String password, String email, String nickname, String repeatPassword){
+    private RsData<Member> join (String providerTypeCode, String loginID, String password, String email, String nickname){
         if (findByLoginID(loginID).isPresent()) {
             return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginID));
         }
@@ -76,15 +76,12 @@ public class MemberService {
         return RsData.of("S-1", "회원가입이 완료되었습니다.", member);
     }
 
-    public RsData<Member> validateMember (String loginID, String email, String password, String repeatPassword) {
+    public RsData<Member> validateMember (String loginID, String email) {
         if (findByLoginID(loginID).isPresent()) {
             return RsData.of("F-1", "해당 아이디(%s)는 이미 사용중입니다.".formatted(loginID));
         }
         if (memberRepository.existsByEmail(email)){
             return RsData.of("F-2", "해당 이메일은 이미 사용중입니다.");
-        }
-        if (!password.equals(repeatPassword)){
-            return RsData.of("F-3","비빌번호가 같지 않습니다. 다시 입력해주세요.");
         }
         return RsData.of("S-1", "유효성 검사 완료");
     }
@@ -107,7 +104,7 @@ public class MemberService {
         if (opMember.isPresent()) return RsData.of("S-2", "로그인 되었습니다.", opMember.get());
 
         // 소셜 로그인를 통한 가입시 비번은 없음 "" 처리
-        return join(providerTypeCode, loginID, "", email, nickname, ""); // 최초 로그인 시 딱 한번 실행
+        return join(providerTypeCode, loginID, "", email, nickname); // 최초 로그인 시 딱 한번 실행
     }
 
     public Member getByLoginId(String loginID){
