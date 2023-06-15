@@ -22,7 +22,6 @@ public class SecurityConfig {
 
     private final AuthenticationFailureHandler customFailureHandler;
 
-    private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -48,12 +47,8 @@ public class SecurityConfig {
                                 .logoutSuccessUrl("/")
                                 .invalidateHttpSession(true)
                                 .deleteCookies("JSESSIONID")
-                )
-                .exceptionHandling(
-                        exceptionHandling -> exceptionHandling
-                                .accessDeniedHandler(customAccessDeniedHandler) // Custom access denied page URL
-                                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // Custom authentication entry point
-        );
+                );
+
 
         return http.build();
     }
