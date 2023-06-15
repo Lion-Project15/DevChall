@@ -69,6 +69,7 @@ public class MemberService {
         memberRepository.save(member);
 
         inventoryService.create(member, itemService.getByName("basic").orElse(null), true);
+        inventoryService.create(member, itemService.getByName("cow.png").orElse(null), true);
 
         pointHistoryService.addPointHistory(member, +1000,"가입축하금");
 
@@ -157,6 +158,7 @@ public class MemberService {
 
         RsData<Inventory> rs = inventoryService.create(member, buyItem, false);
 
+
         if(rs.isFail()) {//이미 구매한 아이템
             return rs;
         }
@@ -171,6 +173,13 @@ public class MemberService {
             }
         }
 
+
+        if(buyItem.getType().equals("font")) {
+            pointHistoryService.addPointHistory(member, -itemCost, "폰트 구입");
+        }
+        if(buyItem.getType().equals("character")) {
+            pointHistoryService.addPointHistory(member, -itemCost, "캐릭터 구입");
+        }
         return RsData.of("S-6", "구매에 성공하였습니다.");
     }
 

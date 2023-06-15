@@ -41,6 +41,7 @@
                  style="width: 200px;">
                 <!--캐릭터 아이템 추가-->
                 <a href="#" class="flex flex-col items-center group px-1">
+
                     <img th:if="${@rq.getMember().equippedCharacter != null}"
                          th:src="@{${@photoService.getStoreCharacterPhoto(@rq.getMember().equippedCharacter.getItem().getName())}}"
                          th:alt="${@rq.getMember().equippedCharacter}"
@@ -139,20 +140,6 @@
                     </div>
                 </div>
             </div>
-
-
-<!--            &lt;!&ndash;아이템2_New Character&ndash;&gt;-->
-<!--            <div id="item2" class="flex card w-1/4 bg-[#03fa6e] bg-opacity-10">-->
-<!--                <div class="flex flex-col justify-center items-center h-full">-->
-
-<!--                    <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-5"-->
-<!--                         style="width: 200px;">-->
-<!--                        <span class="mt-4 text-[#000000] font-bold text-xl">New Character</span>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-
             <!--아이템2_New Character-->
             <div id="item2" class="flex card w-1/4 bg-[#03fa6e] bg-opacity-10">
                 <div class="flex flex-col justify-center items-center h-full">
@@ -168,9 +155,7 @@
                                  class="transition-all duration-300 transform group-hover:scale-110">
                         </a>
                         <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1"
-                                  th:text="${character.price}"
-                                  style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
+                            <h3 class="text-center text-medium font-bold" th:text="${character.price + 'P'}"></h3>
                             <div class="btn btn-sm btn-black"
                                  style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;"
                                  th:onclick="'showBuy('+${character.id}+')'">

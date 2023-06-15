@@ -36,7 +36,14 @@ public class InventoryController {
 
     @GetMapping("/me/change/{item}")
     public String changeEquipMypage(@PathVariable("item") long itemId){
-        inventoryService.changeFontEquip(itemId, rq.getMember());
+        Item item = itemService.getById(itemId).orElse(null);
+        if(item != null){
+            if(item.getType().equals("font")){
+                inventoryService.changeFontEquip(itemId, rq.getMember());
+            } else if (item.getType().equals("character")) {
+                inventoryService.changeCharacterEquip(itemId, rq.getMember());
+            }
+        }
         return "redirect:/usr/member/me";
     }
 }
