@@ -1,6 +1,7 @@
 package com.challenge.devchall.challengepost.controller;
 
 
+import com.challenge.devchall.base.config.AppConfig;
 import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
@@ -14,6 +15,7 @@ import com.challenge.devchall.comment.service.CommentService;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.member.service.MemberService;
+import com.challenge.devchall.photo.entity.Photo;
 import com.challenge.devchall.photo.service.PhotoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,9 +43,6 @@ public class ChallengePostController {
     private final Rq rq;
     private final CommentService commentService;
     private final ChallengeMemberRepository challengeMemberRepository;
-    @Value("${custom.challenge.reportCount}")
-    private int reportCount;
-
 
     @GetMapping("/write_form/{id}")
     public String writeChallengePost(Model model, @PathVariable("id") long id) {
@@ -62,21 +61,17 @@ public class ChallengePostController {
                                   @RequestParam boolean status,
                                   @RequestParam long postScore,
                                   @RequestParam MultipartFile file,
-                                  Principal principal,
                                   Model model
     ) throws IOException {
 
         //포스트를 쓰기 전에, 쓸 수 있는지부터 검사 해야한다.
         Challenge linkedChallenge = challengeService.getChallengeById(id);
-        Member member = memberService.findByLoginID(principal.getName()).orElse(null);
+        Member member = rq.getMember();
 
-        String photoUrl = null;
+        String photoUrl = photoService.getPhotoUrl(file);
 
-        if (!file.isEmpty()) {
-            photoUrl = photoService.photoUpload(file);
-        } else {
-            // 이미지 파일이 없는 경우 기본 이미지 URL 설정
-            photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
+        if(photoUrl.startsWith("F-")){
+            return rq.redirectWithMsg("/", RsData.of(photoUrl, "이미지 업로드에 실패하였습니다."));
         }
 
         ChallengePost post = challengePostService.write(title, contents, status, postScore, id, photoUrl, member).getData();
@@ -173,7 +168,7 @@ public class ChallengePostController {
         challengePostService.addReportedBy(id, loginId);
 
         challengePostService.incrementCount(id);
-        if (challengePostById.getReportCount() >= reportCount) {
+        if (challengePostById.getReportCount() >= AppConfig.getReportCount()) {
             ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(challengePostById.getLinkedChallenge(), challengePostById.getChallenger()).orElse(null);
             if (challengeMember != null) {
                 challengeMember.increaseOutCount();

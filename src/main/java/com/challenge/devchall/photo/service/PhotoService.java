@@ -179,6 +179,25 @@ public class PhotoService {
         return sb.toString();
     }
 
+    public String getPhotoUrl(MultipartFile file) throws IOException {
+
+        RsData<String> fileRsData = isImgFile(file.getOriginalFilename());
+
+        if (fileRsData.isFail()) {
+            return fileRsData.getResultCode();
+        } else if (fileRsData.getResultCode().equals("S-7")) {
+
+            return "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
+
+        } else if (fileRsData.getResultCode().equals("S-6")) {
+
+            //이미지가 있는 경우 이미지 리사이징, 경로 할당
+            return photoUpload(file);
+        }
+
+        return fileRsData.getResultCode();
+    }
+
 }
 
 
