@@ -34,6 +34,7 @@ public class ItemData {
                 itemService.create("giraffe.png","character","http://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/giraffe.png?type=m&w=120&h=120&bgcolor=EBEBEB", " ", 700);
 
 
+
             }
         };
     }
