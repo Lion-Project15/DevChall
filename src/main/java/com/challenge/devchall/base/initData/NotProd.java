@@ -1,20 +1,23 @@
 package com.challenge.devchall.base.initData;
 
 import com.challenge.devchall.base.Util.TestUtil;
-import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
+import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
 import com.challenge.devchall.item.service.ItemService;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
+import com.challenge.devchall.photo.entity.Photo;
+import com.challenge.devchall.photo.service.PhotoService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,14 +32,15 @@ public class NotProd {
             ChallengeService challengeService,
             ChallengeMemberService challengeMemberService,
             ChallengePostService challengePostService,
-            ItemService itemService
+            ItemService itemService,
+            PhotoService photoService
     ) {
         return new CommandLineRunner() {
             @Override
             @Transactional
             public void run (String... args) throws Exception {
 
-                itemService.create("L-F-FCE411","font","FCE411", "000000",300);
+                itemService.create("FCE411","font","FCE411", "000000",300);
                 itemService.create("basic","font","3D4451", "FFFFFF",0);
                 itemService.create("ED3096","font","ED3096", "FFFFFF",0);
                 itemService.create("FF9900","font","FF9900", "000000",0);
@@ -59,6 +63,7 @@ public class NotProd {
 //                Member memberUserMJByNaver = memberService.whenSocialLogin("NAVER", "NAVER__nydxlR1MJUEOU2XKgEWh4nhLSWUAE9eIXR5ae8oOAbQ").getData();
 
                 String photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
+                Photo photo = photoService.createPhoto(photoUrl);
 
                 //FIXME createChallengeForNotProd 를 작성하면 안될 것 같음 (중복코드) => Multipartfile을 어떻게 처리할 것인가...
                 Challenge c1 = challengeService.createChallengeForNoPhoto("1번 챌린지", "1번 챌린지 내용입니다", true, 1, LocalDate.now().plusDays(5), 2, "C", "개념 공부", "인증샷", admin);

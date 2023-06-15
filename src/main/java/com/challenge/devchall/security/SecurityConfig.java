@@ -3,14 +3,13 @@ package com.challenge.devchall.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
@@ -23,8 +22,12 @@ public class SecurityConfig {
 
     private final AuthenticationFailureHandler customFailureHandler;
 
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+
         http
                 .formLogin(
                         formLogin -> formLogin
@@ -45,7 +48,12 @@ public class SecurityConfig {
                                 .logoutSuccessUrl("/")
                                 .invalidateHttpSession(true)
                                 .deleteCookies("JSESSIONID")
-                );
+                )
+                .exceptionHandling(
+                        exceptionHandling -> exceptionHandling
+                                .accessDeniedHandler(customAccessDeniedHandler) // Custom access denied page URL
+                                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // Custom authentication entry point
+        );
 
         return http.build();
     }
