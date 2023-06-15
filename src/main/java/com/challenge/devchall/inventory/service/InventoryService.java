@@ -34,7 +34,9 @@ public class InventoryService {
     public void changeFontEquip(long itemId, Member member) {
 
         if(member!=null){
-            member.getEquippedFont().unequip();
+            Inventory  equippedFont=  member.getEquippedFont();
+            if(equippedFont != null)
+                equippedFont.unequip();
 
             for(Inventory inventory: member.getInventoryList()){
 
@@ -50,8 +52,9 @@ public class InventoryService {
 
     public void changeCharacterEquip(long itemId, Member member) {
         if(member!=null){
-
-            member.getEquippedCharacter().unequip();
+            Inventory equippedCharacter=  member.getEquippedCharacter();
+            if(equippedCharacter != null)
+                equippedCharacter.unequip();
 
             for(Inventory inventory: member.getInventoryList()){
 
