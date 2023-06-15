@@ -19,16 +19,6 @@
             }
         }
 
-        // function BuyCharacter(characterUrl) {
-        //     if (!confirm('정말로 구매하시겠습니까?')) {
-        //         alert("구매가 취소되었습니다");
-        //
-        //     } else {
-        //         <!-- 구매 관련 메서드 들어갈 자리-->
-        //         location.href = "/usr/member/store/buy/character" + characterUrl + "?equipped=" + confirm('바로 착용하시겠습니까?');
-        //     }
-        // }
-
         function changeEquip(itemId) {
             if (confirm('착용 하시겠습니까?')) {
                 location.href = "/usr/inventory/change/" + itemId;
@@ -50,10 +40,12 @@
             <div class="user-image-jKB bg-[#EBEBEB] rounded-[4.3444rem] flex-shrink-0 h-[11.5rem] mx-auto flex justify-center items-center mt-20"
                  style="width: 200px;">
                 <!--캐릭터 아이템 추가-->
-<!--                <a href="#" class="flex flex-col items-center group px-1">-->
-<!--                    <img th:src="@{${@photoService.getStoreCharacterPhoto(inventory.item.name)}}" th:alt="${inventory.item.name}"-->
-<!--                         class="transition-all duration-300 transform group-hover:scale-110">-->
-<!--                </a>-->
+                <a href="#" class="flex flex-col items-center group px-1">
+                    <img th:if="${@rq.getMember().equippedCharacter != null}"
+                         th:src="@{${@photoService.getStoreCharacterPhoto(@rq.getMember().equippedCharacter.getItem().getName())}}"
+                         th:alt="${@rq.getMember().equippedCharacter}"
+                         class="transition-all duration-300 transform group-hover:scale-110">
+                </a>
             </div>
 
 
