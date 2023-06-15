@@ -190,4 +190,8 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+    @Transactional
+    public void changeNickname(String nickname, Member member) {
+        member.changeNickname(nickname);
+    }
 }

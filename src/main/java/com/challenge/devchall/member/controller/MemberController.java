@@ -111,5 +111,16 @@ public class MemberController {
         return "redirect:/usr/member/store";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/change/{nickname}")
+    public String changeNickname(@PathVariable("nickname") String nickname){
+
+        Member member = rq.getMember();
+
+        memberService.changeNickname(nickname,member);
+
+        return "redirect:/usr/member/me";
+    }
+
 }
 
