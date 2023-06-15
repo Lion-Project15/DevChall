@@ -4,7 +4,6 @@ import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
-import com.challenge.devchall.challengepost.dto.SettleChallengeDTO;
 import com.challenge.devchall.photo.service.PhotoService;
 import com.challenge.devchall.point.service.PointService;
 import lombok.RequiredArgsConstructor;
@@ -13,9 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

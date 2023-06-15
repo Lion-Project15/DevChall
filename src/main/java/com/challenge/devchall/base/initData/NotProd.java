@@ -1,9 +1,9 @@
 package com.challenge.devchall.base.initData;
 
 import com.challenge.devchall.base.Util.TestUtil;
-import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.service.ChallengeService;
+import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;

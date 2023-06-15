@@ -13,21 +13,15 @@ import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
 import com.challenge.devchall.comment.service.CommentService;
 import com.challenge.devchall.member.entity.Member;
-import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.member.service.MemberService;
-import com.challenge.devchall.photo.entity.Photo;
 import com.challenge.devchall.photo.service.PhotoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -38,7 +32,6 @@ public class ChallengePostController {
     private final ChallengePostService challengePostService;
     private final ChallengeService challengeService;
     private final ChallengeMemberService challengeMemberService;
-    private final MemberService memberService;
     private final PhotoService photoService;
     private final Rq rq;
     private final CommentService commentService;
@@ -132,24 +125,18 @@ public class ChallengePostController {
 
         challengePostService.modifyPost(id, title, contents, status);
 
-        ChallengePost challengePost = challengePostService.getChallengePostById(id);
-
         return "redirect:/usr/challenge/postdetail/{id}";
     }
 
     @GetMapping("/report/{id}")
     public String reportPost(@PathVariable("id") long id) {
 
-        //챌린지 포스트의 아이디
         ChallengePost challengePostById = challengePostService.getChallengePostById(id);
 
-        //챌린지의 아이디
         Long linkedChallengeId = challengePostById.getLinkedChallenge().getId();
 
-        // 현재 사용자의 로그인 ID를 가져옴
         String loginId = rq.getMember().getLoginID();
 
-        // 게시물 작성자의 로그인 ID를 가져옴
         String postCreatorId = challengePostById.getCreatorId();
 
         if (loginId.equals(postCreatorId)) {
@@ -157,9 +144,6 @@ public class ChallengePostController {
             return "redirect:/usr/challenge/postdetail/{id}";
         }
 
-
-        //(너무 극단적)포스트에 신고자 리스트를 저장한다 -> 저장된 신고자들에게는 버튼을 노출시키지 않는다.
-        //또 누르면 알림이 뜨게
         if (challengePostService.hasReportedPost(id, loginId)) {
             System.out.println("이미 신고한 게시물입니다.");
             return rq.historyBack("이미 신고한 게시물 입니다.");
@@ -179,6 +163,4 @@ public class ChallengePostController {
 
         return "redirect:/usr/challenge/postdetail/{id}";
     }
-
-
 }

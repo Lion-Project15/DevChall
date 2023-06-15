@@ -1,10 +1,9 @@
 package com.challenge.devchall.member.controller;
 
 import com.challenge.devchall.base.rq.Rq;
-import com.challenge.devchall.challange.entity.Challenge;
+import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
-import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.inventory.entity.Inventory;
 import com.challenge.devchall.item.entity.Item;
 import com.challenge.devchall.item.service.ItemService;
@@ -14,13 +13,10 @@ import com.challenge.devchall.member.service.MemberService;
 import com.challenge.devchall.photo.service.PhotoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.bridge.MessageUtil;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -34,7 +30,6 @@ import java.util.Map;
 public class MemberController {
     private final MemberService memberService;
     private final ChallengeMemberService challengeMemberService;
-    private final ChallengeService challengeService;
     private final ItemService itemService;
     private final Rq rq;
     private final PhotoService photoService;

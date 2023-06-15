@@ -3,7 +3,6 @@ package com.challenge.devchall.challengepost.service;
 import com.challenge.devchall.base.config.AppConfig;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
-import com.challenge.devchall.challange.repository.ChallengeRepository;
 import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
@@ -13,18 +12,13 @@ import com.challenge.devchall.challengepost.repository.ChallengePostRepository;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.photo.entity.Photo;
 import com.challenge.devchall.photo.service.PhotoService;
-import com.challenge.devchall.point.entity.Point;
-import com.challenge.devchall.point.schedule.Schedule;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
-
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -38,7 +32,6 @@ public class ChallengePostService {
     private final ChallengePostRepository challengePostRepository;
     private final ChallengeService challengeService;
     private final ChallengeMemberService challengeMemberService;
-    private final ChallengeMemberRepository challengeMemberRepository;
     private final PhotoService photoService;
     private final Map<Long, List<String>> reportedByMap = new HashMap<>();
 

@@ -4,19 +4,11 @@ import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.member.entity.Member;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import com.challenge.devchall.photo.entity.Photo;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;

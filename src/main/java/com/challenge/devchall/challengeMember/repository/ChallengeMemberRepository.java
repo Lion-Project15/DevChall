@@ -22,8 +22,6 @@ public interface ChallengeMemberRepository extends JpaRepository<ChallengeMember
 
     Long findByChallengerId (Long id);
 
-
-
     @Query("SELECT cm.id as challengemember_id, COUNT(p.id) as count " +
             "FROM ChallengeMember cm " +
             "JOIN cm.linkedChallenge c " +

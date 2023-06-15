@@ -1,8 +1,5 @@
 package com.challenge.devchall.comment.service;
 
-import com.challenge.devchall.base.rsData.RsData;
-import com.challenge.devchall.challange.entity.Challenge;
-import com.challenge.devchall.challange.service.ChallengeService;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
@@ -11,10 +8,8 @@ import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.comment.repository.CommentRepository;
 import com.challenge.devchall.member.entity.Member;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -46,7 +41,6 @@ public class CommentService {
 
     public List<Comment> findByChallengePost(ChallengePost challengePost){
         return commentRepository.findByChallengePost(challengePost);
-
     }
 
 }
