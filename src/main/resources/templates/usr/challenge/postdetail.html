@@ -79,11 +79,6 @@
                                 </div>
                             </div>
 
-<!--                            <div class="w-full mt-10 mb-0.1 p-0.1 lg:w-[65rem]">-->
-<!--                                <a class="btn btn-sm font-bold mx-1">실시간 채팅</a>-->
-<!--                            </div>-->
-
-
                         </div>
                     </div>
                 </div>
@@ -137,12 +132,7 @@
                             <a class="btn btn-accent mx-2 custom-btn border-none" th:href="@{|/usr/challenge/modifypost/${post.id}|}">수정하기</a>
                             <h2 class="mx-2 mt-3">OR</h2>
                             <button class="btn btn-accent mx-2 custom-btn border-none" th:attr="onclick='wantDelete(\'' + ${post.id} + '\', \'' + ${post.postTitle} + '\')'">삭제하기</button>
-<!--                            <h2 class="mx-2 mt-3">OR</h2>-->
-<!--                            <button class="mx-2 btn btn-warning btn-outline custom-btn btn-heart">-->
-<!--                                <i class="fa-solid fa-heart" style="color: #40dd84;"></i>-->
-<!--                            </button>-->
                         </div>
-
 
                         <div class="flex items-center justify-center mt-2" th:unless="${@rq.member.loginID == post.creatorId}">
                             <div class="flex justify-center" style="width: 160px; position: relative;">
@@ -159,19 +149,15 @@
     </div>
 
 
-
     <div class="flex flex-wrap justify-center mt-14">
         <div class="w-1/8 h-full"></div>
         <div class="card bg-white border-md w-5/6 h-full">
             <div class="flex flex-col h-1/2">
 
-<!--                <div class="divider"></div>-->
                 <div class="my-2" th:each="comment:${commentList}" th:unless="${#lists.isEmpty(commentList) or commentList == null}">
                     <div th:unless ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-start">
                         <div class="chat-image avatar">
-<!--                            <div class="w-10 rounded-full ml-7">-->
-<!--                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />-->
-<!--                            </div>-->
+
                             <div>
                                 <i class="fa-solid fa-user fa-2xl ml-7 mt-9"
                                    th:style="'color: #' + ${comment.challengeMember.challenger.equippedFont.item.pattern}"
@@ -195,9 +181,6 @@
                     </div>
                     <div th:if ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-end">
                         <div class="chat-image avatar">
-<!--                            <div class="w-10 rounded-full mr-7">-->
-<!--                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />-->
-<!--                            </div>-->
 
                             <div>
                                 <i class="fa-solid fa-user fa-2xl mr-7 mt-9"

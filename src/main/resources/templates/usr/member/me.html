@@ -48,7 +48,6 @@
                     <div class="flex mt-5">
                         <div class="flex-1 bg-white rounded-tl-md flex justify-center items-center">
                             <div class="flex justify-center items-center" style="width: 150px; height: 150px">
-<!--                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />-->
                                 <i class="fa-solid fa-user mt-3"
                                    th:style="'font-size: 80px; color: #' + ${@rq.member.equippedFont.item.pattern}"
                                    th:unless="${@rq.getMember()?.equippedCharacter?.item?.name} "></i>
@@ -152,15 +151,31 @@
                 </div>
             </div>
 
-            <div class="mt-10 bg-white rounded-md p-8">
+            <div class="mt-10 bg-white rounded-md p-7">
                 <h3 class="text-xl font-bold">나의 인벤토리</h3>
-                <div class="flex gap-5 overflow-auto">
-                    <div class="grid grid-col-1 xl:grid-cols-4 p-5 gap-[30px]">
-                        <div style="cursor: pointer" th:each="inventory:${@rq.member.inventoryList}"
-                             th:onclick="'changeEquip('+${inventory.item.id}+')'">
-                            <div class="h-12 w-20 flex justify-center items-center"
-                                 th:style="'background-color: #'+${inventory.item.pattern}+';'">
-                                <div th:if="${inventory.equipped}" class="badge badge-accent border-none" style="background-color: #03FA6E;">착용중</div>
+                <div class="flex gap-5 overflow-auto p-3">
+                    <div class="grid grid-cols-1 gap-y-[10px]" th:if="${@rq.login}">
+                        <div>
+                            <div class="flex justify-start">
+                                <div th:each="inventory:${@rq.member.inventoryList}" th:if="${#strings.equals(inventory.item.type, 'font')}"
+                                     th:onclick="'changeEquip('+${inventory.item.id}+')'">
+                                    <div class="w-[60px] h-[60px] flex justify-center items-center bg-[#313131]"
+                                         th:style="'background-color: #'+${inventory.item.pattern}+';'">
+                                        <div th:if="${inventory.equipped}" class="badge badge-accent border-none text-[5px] m-[-2px]" style="background-color: #03FA6E;">착용중</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-start">
+                                <div th:each="inventory:${@rq.member.inventoryList}" th:if="${#strings.equals(inventory.item.type, 'character')}"
+                                     th:onclick="'changeEquip('+${inventory.item.id}+')'">
+                                    <div class="w-[60px] h-[60px] flex flex-col justify-center items-center">
+                                        <img th:src="@{${@photoService.getStoreCharacterPhoto(inventory.item.name)}}" th:alt="${inventory.item.name}"
+                                             class="transition-all duration-300 transform group-hover:scale-110">
+                                        <div th:if="${inventory.equipped}" class="badge badge-accent border-none text-[5px] m-[-2px]" style="background-color: #03FA6E;">착용중</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
