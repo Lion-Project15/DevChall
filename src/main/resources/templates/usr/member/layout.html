@@ -99,9 +99,11 @@
                th:style="'color: #' + ${@rq.member.equippedFont.item.subPattern} +
                        '; background: #'+${@rq.member.equippedFont.item.pattern}+' !important'"
                th:if="${@rq.login}"
-               class="btn btn-sm rounded-lg font-bold mx-2"
-               th:text="${@rq.member.nickname}">
+               class="btn btn-sm rounded-lg font-bold mx-2">MY PAGE
             </a>
+            <a th:style="'color: #' + ${@rq.member.equippedFont.item.pattern == '3D4451' ? 'FFFFFF' : @rq.member.equippedFont.item.pattern }"
+               th:if="${@rq.login}"
+               th:text="${@rq.member.nickname}"></a>
 
             <form th:action="|/usr/member/logout|" method="post" class="m-0">
                 <button th:if="${@rq.login}" type="submit" class="btn btn-sm btn-ghost"
