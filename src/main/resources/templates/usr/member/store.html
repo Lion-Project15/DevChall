@@ -30,12 +30,9 @@
         <div id="inven" class="bg-black col-span-1 md:col-span-3 xl:col-span-3"
              style="border-top-left-radius: 8rem; height: 92.3rem; left: 0; top: 7rem; width: calc(100% / 3);">
 
-
             <div class="p-2 w-200" style="color: #03fa6e; text-align: center; margin-top: 60px;">
                 <h1 class="text-[#03fa6e] text-2xl font-bold" style="font-size: 40px;">My Inventory</h1>
             </div>
-
-
 
             <div class="user-image-jKB bg-[#EBEBEB] rounded-[4.3444rem] flex-shrink-0 h-[11.5rem] mx-auto flex justify-center items-center mt-20"
                  style="width: 200px;">
@@ -48,7 +45,6 @@
                          th:src="@{${@photoService.getStoreCharacterPhoto(@rq.getMember().equippedCharacter.getItem().getName())}}"
                          th:alt="${@rq.getMember().equippedCharacter}"
                          class="transition-all duration-300 transform group-hover:scale-110">
-
                 </a>
             </div>
 
@@ -117,7 +113,7 @@
         </div>
 
         <!--아이템 목록-->
-        <div id="items" class="flex flex-grow flex-wrap gap-20 mt-5 mx-20">
+        <div id="items" class="flex flex-grow flex-wrap justify-center gap-20 mt-5 mx-20">
             <!--아이템1_Font Color-->
             <div id="item1" class="flex card w-1/4 bg-[#03fa6e] bg-opacity-10">
                 <div class="flex flex-col justify-center items-center h-full">
