@@ -1,11 +1,11 @@
 package com.challenge.devchall.challange.service;
 
 
-import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.base.config.AppConfig;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challange.repository.ChallengeRepository;
+import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
@@ -47,13 +47,7 @@ public class ChallengeService {
         String photoUrl = "";
 
         //챌린지 생성 룰이 지켜졌는지 검사
-        RsData<Challenge> checkRsData = checkCreateRule(
-                        title,
-                        formattingStartDate,
-                        contents,
-                        member,
-                (long)period
-        );
+        RsData<Challenge> checkRsData = checkCreateRule(title, formattingStartDate, contents, member, period);
 
         //생성 불가 - 제약조건 걸림
         if (checkRsData.isFail()) {
@@ -83,10 +77,10 @@ public class ChallengeService {
         return RsData.of("S-1", "챌린지 생성에 성공하였습니다!");
     }
 
-     public Challenge createChallengeForNoPhoto(String title, String contents, boolean status, int frequency, LocalDate startDate, int period,
+    public Challenge createChallengeForNoPhoto(String title, String contents, boolean status, int frequency, LocalDate startDate, int period,
                                                String language, String subject, String postType, Member member) throws IOException {
-        if((long) period * AppConfig.getWeeklyPoint()
-                > member.getPoint().getCurrentPoint()){
+        if ((long) period * AppConfig.getWeeklyPoint()
+                > member.getPoint().getCurrentPoint()) {
             System.out.println("포인트 부족으로 챌린지 생성에 실패했습니다.");
             return null;
         }
@@ -96,7 +90,7 @@ public class ChallengeService {
     }
 
     public RsData<Challenge> challengeBuilder(String title, String contents, boolean status, int frequency, LocalDate startDate, int period,
-                                      String language, String subject, String postType, String photoUrl, Member member) {
+                                              String language, String subject, String postType, String photoUrl, Member member) {
 
         Tag tag = tagService.createTag(language, subject, postType);
         Photo photo = photoService.createPhoto(photoUrl);
@@ -123,10 +117,10 @@ public class ChallengeService {
         challengeMemberService.addMember(challenge, member, Role.LEADER);
         member.setChallengeLimit();
 
-        return RsData.of("S-1","챌린지를 성공적으로 생성했습니다.", challenge);
+        return RsData.of("S-1", "챌린지를 성공적으로 생성했습니다.", challenge);
     }
 
-    //FIXME (안 쓰이는 중) => true 인 것을 모두 가져오는 메서드 (카테고리 X)
+    //(안 쓰이는 중) => true 인 것을 모두 가져오는 메서드 (카테고리 X)
 //    public List<Challenge> getChallengeList() {
 //        Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
 //        Pageable pageable = PageRequest.of(0, 30, sort);
@@ -169,7 +163,7 @@ public class ChallengeService {
         return challengeRepository.findChallengeByNotJoin(language, subject, member);
     }
 
-    public List<Challenge> getJoinChallenge(Member member){
+    public List<Challenge> getJoinChallenge(Member member) {
 
         //FIXME 나의 챌린지는 페이징 몇개?
         Sort sort = Sort.by(Sort.Direction.ASC, "createDate");
@@ -191,13 +185,13 @@ public class ChallengeService {
     }
 
     public RsData<Challenge> checkCreateRule(String title, LocalDate startDate, String contents, Member member, long challengeFee) {
-        if(challengeFee * AppConfig.getWeeklyPoint()
-                > member.getPoint().getCurrentPoint()){
+        if (challengeFee * AppConfig.getWeeklyPoint()
+                > member.getPoint().getCurrentPoint()) {
             return RsData.of("F-1", "포인트 부족으로 챌린지를 생성할 수 없습니다");
         }
 
         //멤버가 한달에 한개 생성 제한에 걸리지 않는가? (S-1 or F-1)
-        if(member.getLoginID().equals("admin")){
+        if (member.getLoginID().equals("admin")) {
             return RsData.of("S-1", "챌린지 생성이 가능합니다!");
         }
         RsData<Member> memberRsData = memberService.checkChallengeLimit(member);

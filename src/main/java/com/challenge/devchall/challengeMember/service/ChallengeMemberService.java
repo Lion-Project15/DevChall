@@ -1,12 +1,12 @@
 package com.challenge.devchall.challengeMember.service;
 
 
-import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.base.config.AppConfig;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.repository.ChallengeMemberRepository;
+import com.challenge.devchall.challengeMember.role.Role;
 import com.challenge.devchall.challengepost.dto.SettleChallengeDTO;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.pointHistory.service.PointHistoryService;
@@ -24,8 +24,6 @@ public class ChallengeMemberService {
 
     private final ChallengeMemberRepository challengeMemberRepository;
     private final PointHistoryService pointHistoryService;
-
-
 
     public RsData<ChallengeMember> addMember(Challenge challenge, Member member, Role role){
         if(challenge == null){
@@ -94,19 +92,6 @@ public class ChallengeMemberService {
 
     public List<SettleChallengeDTO> getSettleChallengeDto() {
         return challengeMemberRepository.findChallengeMemberCountByEndDate(LocalDate.now());
-    }
-
-
-    public List<Long> getChallengeIdsByMember(Member member) {
-        List<ChallengeMember> challengeMembers = getByMember(member);
-        List<Long> challengeIds = new ArrayList<>();
-
-        for (ChallengeMember challengeMember : challengeMembers) {
-            Challenge challenge = challengeMember.getLinkedChallenge();
-            challengeIds.add(challenge.getId());
-        }
-
-        return challengeIds;
     }
 
     public int getCountByChallengeAndMember(Challenge challenge, Member member){

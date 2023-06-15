@@ -34,7 +34,6 @@ public class InventoryService {
     public void changeFontEquip(long itemId, Member member) {
 
         if(member!=null){
-
             member.getEquippedFont().unequip();
 
             for(Inventory inventory: member.getInventoryList()){
@@ -46,7 +45,6 @@ public class InventoryService {
                     return;
                 }
             }
-
         }
     }
 
@@ -64,7 +62,6 @@ public class InventoryService {
                     return;
                 }
             }
-
         }
     }
 }

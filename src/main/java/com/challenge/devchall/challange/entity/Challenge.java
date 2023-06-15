@@ -3,15 +3,15 @@ package com.challenge.devchall.challange.entity;
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.photo.entity.Photo;
-import com.challenge.devchall.pointHistory.entity.PointHistory;
-import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import com.challenge.devchall.tag.entity.Tag;
-import com.challenge.devchall.comment.entity.Comment;
-import com.challenge.devchall.pointHistory.entity.PointHistory;
-import com.challenge.devchall.pointHistory.service.PointHistoryService;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -66,13 +66,10 @@ public class Challenge extends BaseEntity {
         this.gatherPoints-=points;
     }
 
-    public void resetPoint(){
-        this.gatherPoints = 0;
-    }
-
     public void complete(){
         this.settleComplete = true;
     }
+
     public boolean isPassed(){
         return startDate.isAfter(LocalDate.now());
     }

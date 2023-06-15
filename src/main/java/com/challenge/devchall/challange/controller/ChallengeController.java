@@ -9,8 +9,6 @@ import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
-import com.challenge.devchall.comment.entity.Comment;
-import com.challenge.devchall.comment.service.CommentService;
 import com.challenge.devchall.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -22,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -91,7 +88,6 @@ public class ChallengeController {
 
         Page<ChallengePost> challengePosts = challengePostService.getPostPageByChallenge(challenge,page);
 
-
         if (byChallengeAndMember.isPresent() && !byChallengeAndMember.get().isValid()) {
             return rq.redirectWithMsg("/", "추방 당한 챌린지입니다.");
         }
@@ -104,8 +100,6 @@ public class ChallengeController {
 
         model.addAttribute("challenge", challenge);
         model.addAttribute("byChallengeAndMember", byChallengeAndMember);
-
-
 
         return "usr/challenge/detail";
     }

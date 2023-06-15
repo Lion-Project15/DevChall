@@ -1,6 +1,7 @@
 package com.challenge.devchall.challengepost.controller;
 
 
+import com.challenge.devchall.base.config.AppConfig;
 import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challange.entity.Challenge;
@@ -12,20 +13,15 @@ import com.challenge.devchall.challengepost.entity.ChallengePost;
 import com.challenge.devchall.challengepost.service.ChallengePostService;
 import com.challenge.devchall.comment.service.CommentService;
 import com.challenge.devchall.member.entity.Member;
-import com.challenge.devchall.member.repository.MemberRepository;
 import com.challenge.devchall.member.service.MemberService;
 import com.challenge.devchall.photo.service.PhotoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
 
 
 @Controller
@@ -36,14 +32,10 @@ public class ChallengePostController {
     private final ChallengePostService challengePostService;
     private final ChallengeService challengeService;
     private final ChallengeMemberService challengeMemberService;
-    private final MemberService memberService;
     private final PhotoService photoService;
     private final Rq rq;
     private final CommentService commentService;
     private final ChallengeMemberRepository challengeMemberRepository;
-    @Value("${custom.challenge.reportCount}")
-    private int reportCount;
-
 
     @GetMapping("/write_form/{id}")
     public String writeChallengePost(Model model, @PathVariable("id") long id) {
@@ -62,21 +54,17 @@ public class ChallengePostController {
                                   @RequestParam boolean status,
                                   @RequestParam long postScore,
                                   @RequestParam MultipartFile file,
-                                  Principal principal,
                                   Model model
     ) throws IOException {
 
         //포스트를 쓰기 전에, 쓸 수 있는지부터 검사 해야한다.
         Challenge linkedChallenge = challengeService.getChallengeById(id);
-        Member member = memberService.findByLoginID(principal.getName()).orElse(null);
+        Member member = rq.getMember();
 
-        String photoUrl = null;
+        String photoUrl = photoService.getPhotoUrl(file);
 
-        if (!file.isEmpty()) {
-            photoUrl = photoService.photoUpload(file);
-        } else {
-            // 이미지 파일이 없는 경우 기본 이미지 URL 설정
-            photoUrl = "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
+        if(photoUrl.startsWith("F-")){
+            return rq.redirectWithMsg("/", RsData.of(photoUrl, "이미지 업로드에 실패하였습니다."));
         }
 
         ChallengePost post = challengePostService.write(title, contents, status, postScore, id, photoUrl, member).getData();
@@ -137,24 +125,18 @@ public class ChallengePostController {
 
         challengePostService.modifyPost(id, title, contents, status);
 
-        ChallengePost challengePost = challengePostService.getChallengePostById(id);
-
         return "redirect:/usr/challenge/postdetail/{id}";
     }
 
     @GetMapping("/report/{id}")
     public String reportPost(@PathVariable("id") long id) {
 
-        //챌린지 포스트의 아이디
         ChallengePost challengePostById = challengePostService.getChallengePostById(id);
 
-        //챌린지의 아이디
         Long linkedChallengeId = challengePostById.getLinkedChallenge().getId();
 
-        // 현재 사용자의 로그인 ID를 가져옴
         String loginId = rq.getMember().getLoginID();
 
-        // 게시물 작성자의 로그인 ID를 가져옴
         String postCreatorId = challengePostById.getCreatorId();
 
         if (loginId.equals(postCreatorId)) {
@@ -162,9 +144,6 @@ public class ChallengePostController {
             return "redirect:/usr/challenge/postdetail/{id}";
         }
 
-
-        //(너무 극단적)포스트에 신고자 리스트를 저장한다 -> 저장된 신고자들에게는 버튼을 노출시키지 않는다.
-        //또 누르면 알림이 뜨게
         if (challengePostService.hasReportedPost(id, loginId)) {
             System.out.println("이미 신고한 게시물입니다.");
             return rq.historyBack("이미 신고한 게시물 입니다.");
@@ -173,7 +152,7 @@ public class ChallengePostController {
         challengePostService.addReportedBy(id, loginId);
 
         challengePostService.incrementCount(id);
-        if (challengePostById.getReportCount() >= reportCount) {
+        if (challengePostById.getReportCount() >= AppConfig.getReportCount()) {
             ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(challengePostById.getLinkedChallenge(), challengePostById.getChallenger()).orElse(null);
             if (challengeMember != null) {
                 challengeMember.increaseOutCount();
@@ -184,6 +163,4 @@ public class ChallengePostController {
 
         return "redirect:/usr/challenge/postdetail/{id}";
     }
-
-
 }
