@@ -50,10 +50,10 @@
             <div class="user-image-jKB bg-[#EBEBEB] rounded-[4.3444rem] flex-shrink-0 h-[11.5rem] mx-auto flex justify-center items-center mt-20"
                  style="width: 200px;">
                 <!--캐릭터 아이템 추가-->
-<!--                <a href="#" class="flex flex-col items-center group px-1">-->
-<!--                    <img th:src="@{${@photoService.getStoreCharacterPhoto(inventory.item.name)}}" th:alt="${inventory.item.name}"-->
-<!--                         class="transition-all duration-300 transform group-hover:scale-110">-->
-<!--                </a>-->
+                <a href="#" class="flex flex-col items-center group px-1">
+                    <img th:src="${@rq.member.equippedCharacter.item.pattern}"
+                         class="transition-all duration-300 transform group-hover:scale-110">
+                </a>
             </div>
 
 

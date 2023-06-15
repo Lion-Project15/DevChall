@@ -69,6 +69,7 @@ public class MemberService {
         memberRepository.save(member);
 
         inventoryService.create(member, itemService.getByName("basic").orElse(null), true);
+        inventoryService.create(member, itemService.getByName("cow.png").orElse(null), true);
 
         pointHistoryService.addPointHistory(member, +1000,"가입축하금");
 
