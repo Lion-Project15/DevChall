@@ -18,8 +18,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
-
     private final AuthenticationFailureHandler customFailureHandler;
 
 
