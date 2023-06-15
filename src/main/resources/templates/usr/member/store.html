@@ -41,11 +41,14 @@
                  style="width: 200px;">
                 <!--캐릭터 아이템 추가-->
                 <a href="#" class="flex flex-col items-center group px-1">
-
+                    <i class="fa-solid fa-user mt-3"
+                       th:style="'font-size: 120px; color: #' + ${@rq.member.equippedFont.item.pattern}"
+                       th:unless="${@rq.getMember()?.equippedCharacter?.item?.name} "></i>
                     <img th:if="${@rq.getMember().equippedCharacter != null}"
                          th:src="@{${@photoService.getStoreCharacterPhoto(@rq.getMember().equippedCharacter.getItem().getName())}}"
                          th:alt="${@rq.getMember().equippedCharacter}"
                          class="transition-all duration-300 transform group-hover:scale-110">
+
                 </a>
             </div>
 

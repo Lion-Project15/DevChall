@@ -167,7 +167,7 @@
                     </th:block>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5 gap-[5px] bg-white-500 my-10">
-                        <th:block th:unless="${#lists.isEmpty(challengePosts)}">
+                        <th:block th:unless="${#lists.isEmpty(challengePosts)|| challengePosts == null}">
                             <!-- 인증글 내용 -->
 
                             <div th:each="post : ${challengePosts}">
@@ -185,23 +185,24 @@
                                            th:href="@{|/usr/challenge/postdetail/${post.id}|}"
                                            th:text="${#strings.length(post.postTitle) &gt; 6 ? #strings.substring(post.postTitle, 0, 6) + '...' : post.postTitle}"></a>
 
-                                        <!--                                            <p th:text="${#strings.length(post.postContents) &gt; 15 ? #strings.substring(post.postContents, 0, 15) + '...' : post.postContents}"></p>-->
-                                        <!--                                                <img th:if="post.challenger.equippedCharacter != null" th:src="${post.challenger.equippedCharacter.item.pattern}"/>-->
-                                        <!--                                                <img th:if="post.challenger.equippedCharacter == null" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" alt="">-->
-                                        <div class="flex justify-between items-center flex h-[30px]">
-                                            <img class="w-10 rounded-full"
-                                                 th:if="${post.challenger?.equippedCharacter?.item?.pattern}"
-                                                 th:src="${post.challenger?.equippedCharacter?.item?.pattern}"/>
-                                            <!--                                                <img -->
-                                            <!--                                                     src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png"/>-->
+                                        <div class="flex justify-between items-center flex h-[40px]">
+<!--                                            <img class="w-10 rounded-full"-->
+<!--                                                 th:if="${post.challenger?.equippedCharacter?.item?.pattern}"-->
+<!--                                                 th:src="${post.challenger?.equippedCharacter?.item?.pattern}"/>-->
+
+
                                             <div>
-                                                <i class="fa-solid fa-user fa-2xl mt-3"
-                                                   th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}"
-                                                   th:unless="${post.challenger?.equippedCharacter?.item?.pattern} "></i>
+                                                <img th:if="${post.challenger?.equippedCharacter?.item?.name}"
+                                                     th:src="@{${@photoService.getStoreCharacterPhoto(post.challenger.equippedCharacter.item.name)}}"
+                                                     th:alt="${post.challenger.equippedCharacter.item.name}"
+                                                     class="transition-all duration-300 transform group-hover:scale-110 w-[45px]">
+                                                <i class="fa-solid fa-user fa-xl"
+                                                   th:style="'color: #' + ${post.challenger.equippedFont.item.pattern}"
+                                                   th:unless="${post.challenger?.equippedCharacter?.item?.name} "></i>
                                             </div>
-                                            <span class="rounded-lg text-xs p-1.5 mt-3 ml-2 h-auto"
-                                                  th:style="'color: #' + ${@rq.member.equippedFont.item.subPattern} +
-                                                                '; background: #'+${@rq.member.equippedFont.item.pattern}+' !important'"
+                                            <span class="rounded-lg text-xs p-1.5 h-auto my-1"
+                                                  th:style="'color: #' + ${post.challenger.equippedFont.item.subPattern} +
+                                                                '; background: #'+${post.challenger.equippedFont.item.pattern}+' !important'"
                                                   th:text="${post.challenger.nickname}"></span>
                                         </div>
                                         <p class="flex justify-between mt-2">
