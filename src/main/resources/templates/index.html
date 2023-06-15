@@ -2,12 +2,29 @@
 <head>
     <meta charset="UTF-8">
     <title>DevChall</title>
+<!--    <script>-->
+<!--        window.addEventListener('DOMContentLoaded', (event) => {-->
+<!--            // 페이지 로드 시 알림창을 띄우는 함수-->
+<!--            function showNotification() {-->
+<!--                alert('환영합니다! 챌린지 시작 전, 가이드라인 버튼을 클릭하여 확인해보세요');-->
+<!--            }-->
+<!--            setTimeout(showNotification);-->
+<!--        });-->
+<!--    </script>-->
+<!--    <style>-->
+<!--        p {-->
+<!--            color: black;-->
+<!--        }-->
+<!--    </style>-->
+
 </head>
 <body>
+</body>
 <main layout:fragment="main" class="flex flex-col w-full min-h-screen bg-[#121212] text-white">
     <!--  네브바 시작  -->
 
     <!--  네브바 끝  -->
+
 
     <!--  헤더 시작  -->
     <header class="flex w-full justify-between">
@@ -35,26 +52,33 @@
                         <div class="text-xs font-bold p-2">C</div>
                     </a>
                     <a href="/?subject=project" class="flex flex-col items-center group">
-                        <img th:src="@{${@photoService.getCategoryPhoto('project-logo.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('project-logo1.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">프로젝트</div>
                     </a>
                     <a href="/?subject=coding" class="flex flex-col items-center group">
-                        <img th:src="@{${@photoService.getCategoryPhoto('codingtest-logo.png')}}" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('codingtest-logo1.png')}}" alt="DevChall" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">코딩테스트</div>
                     </a>
                     <a href="/?subject=study" class="flex flex-col items-center group">
-                        <img th:src="@{${@photoService.getCategoryPhoto('개념공부-logo.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('개념공부-logo1.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">개념 공부</div>
                     </a>
                     <a href="/?subject=test" class="flex flex-col items-center group">
-                        <img th:src="@{${@photoService.getCategoryPhoto('시험대비-logo.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
+                        <img th:src="@{${@photoService.getCategoryPhoto('시험대비-logo1.png')}}" class="rounded-full h-20 w-20 transition-all duration-300 transform group-hover:scale-110 shadow-lg">
                         <div class="text-xs font-bold p-2">시험 대비</div>
                     </a>
                 </div>
             </article>
         </section>
     </header>
-    <!--  헤더 끝  -->
+    <!--헤더 끝-->
+
+    <script>
+        function openModalPopup() {
+            document.getElementById("modalPopup").style.display = "block";
+        }
+    </script>
+
 
 
     <section class="bg-[#F2F4F4] h-full flex flex-col items-center" style="border-top-left-radius: 4rem;">

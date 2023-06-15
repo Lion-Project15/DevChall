@@ -40,11 +40,12 @@
         <div id="inven" class="bg-black col-span-1 md:col-span-3 xl:col-span-3"
              style="border-top-left-radius: 8rem; height: 92.3rem; left: 0; top: 7rem; width: calc(100% / 3);">
 
+
             <div class="p-2 w-200" style="color: #03fa6e; text-align: center; margin-top: 60px;">
-                <h1 class="text-[#03fa6e] text-2xl font-bold"
-                    th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}
-                   +'; font-size: 40px'">My Inventory</h1>
+                <h1 class="text-[#03fa6e] text-2xl font-bold" style="font-size: 40px;">My Inventory</h1>
             </div>
+
+
 
             <div class="user-image-jKB bg-[#EBEBEB] rounded-[4.3444rem] flex-shrink-0 h-[11.5rem] mx-auto flex justify-center items-center mt-20"
                  style="width: 200px;">
@@ -55,24 +56,34 @@
 <!--                </a>-->
             </div>
 
+
             <div class="flex justify-center items-center" th:if="${@rq.login}">
                 <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-20"
-                     th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}
-                   +'; width: 200px;'">
-
-                    <a class="mt-4 text-[#313131] font-bold text-xl"
-                       th:text="${@rq.member.nickname}"></a>
+                     style="width: 200px;">
+                    <a class="mt-4 text-[#313131] font-bold text-xl"  th:text="${@rq.member.nickname}"></a>
+                    <!--                    <a href="usr/member/me"-->
+                    <!--                       th:style="'color: #' + ${rq.member.equippedFont.item.subPattern} + '; background: #'+${rq.member.equippedFont.item.pattern}+' !important'"-->
+                    <!--                       th:if="${rq.login}"-->
+                    <!--                       class="mt-4 text-xl font-bold"-->
+                    <!--                       th:text="${rq.member.nickname}">-->
+                    <!--                    </a>-->
                 </div>
             </div>
+            <!--            <div class="flex justify-center items-center">-->
+            <!--                <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-20"-->
+            <!--                     th:if="${@rq.member.equippedFont}"-->
+            <!--                     th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}-->
+            <!--                   +'; width: 200px;'">-->
 
+            <!--                    <a class="mt-4 text-[#313131] font-bold text-xl"-->
+            <!--                       th:text="${@rq.member.nickname}"></a>-->
+            <!--                </div>-->
+            <!--            </div>-->
 
             <div class="flex justify-center items-center" th:if="${@rq.login}">
                 <div class="flex justify-center bg-[#000000] rounded-[4.3444rem] flex-shrink-0 h-[4rem] mx-[18rem] w-[calc(100% - 30rem)] mt-20 border border-[#03fa6e]"
-                     th:style="'border-color: #' + ${@rq.member.equippedFont.item.pattern}
-                   +'; width: 200px;'">
-                    <a class="mt-4 text-[#03fa6e] font-bold text-xl"
-                       th:text="${@rq.member.point.currentPoint + 'point'}"
-                       th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}">point</a>
+                     style="width: 200px;">
+                    <a class="mt-4 text-[#03fa6e] font-bold text-xl" th:text="${@rq.member.point.currentPoint + 'point'}">point</a>
                 </div>
             </div>
 <!--            폰트 인벤토리-->

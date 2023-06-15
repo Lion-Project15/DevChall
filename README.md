@@ -50,7 +50,11 @@
 - https://app.quickdatabasediagrams.com/#/d/zsLmos
 
 - 주요 엔티티 
+
 - [ ] 
+
+## 사이트
+https://www.devchall.site/
 
 ##  💻  프로젝트 설명 (주요 기능)
 

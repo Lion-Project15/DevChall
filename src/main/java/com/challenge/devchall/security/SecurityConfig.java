@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
@@ -17,12 +18,13 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final CustomUserDetailsService customUserDetailsService;
-
     private final AuthenticationFailureHandler customFailureHandler;
+
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+
         http
                 .formLogin(
                         formLogin -> formLogin
@@ -44,6 +46,7 @@ public class SecurityConfig {
                                 .invalidateHttpSession(true)
                                 .deleteCookies("JSESSIONID")
                 );
+
 
         return http.build();
     }

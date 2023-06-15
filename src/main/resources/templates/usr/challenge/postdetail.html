@@ -168,30 +168,46 @@
                 <div class="my-2" th:each="comment:${commentList}" th:unless="${#lists.isEmpty(commentList) or commentList == null}">
                     <div th:unless ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-start">
                         <div class="chat-image avatar">
-                            <div class="w-10 rounded-full ml-7">
-                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />
+<!--                            <div class="w-10 rounded-full ml-7">-->
+<!--                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />-->
+<!--                            </div>-->
+                            <div>
+                                <i class="fa-solid fa-user fa-2xl ml-7 mt-9"
+                                   th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}"
+                                   th:unless="${post.challenger?.equippedCharacter?.item?.pattern} "></i>
                             </div>
                         </div>
-                        <div th:text ="${comment.challengeMember.challenger.nickname}" class="chat-header">
+
+                        <div th:text ="${comment.challengeMember.challenger.nickname}" class="chat-header ml-3"
+                             th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}">
                             닉네임
                             <time class="text-xs opacity-50" th:text="${#temporals.format(comment.createDate, 'yy.MM.dd HH:mm')}">12:45</time>
                         </div>
-                        <div class="chat-bubble" style="color: #000000; background-color: #03FA6E7C;" th:text="${comment.commentContent}">You were the Chosen One!</div>
+                        <div class="chat-bubble ml-2" style="color: #000000; background-color: #03FA6E7C;"
+                             th:text="${comment.commentContent}"
+                             th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">I hate you!</div>
 
                     </div>
                     <div th:if ="${#strings.equals(comment.challengeMember.challenger.id, @rq.member.id)}" class="chat chat-end">
                         <div class="chat-image avatar">
-                            <div class="w-10 rounded-full mr-7">
-                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />
+<!--                            <div class="w-10 rounded-full mr-7">-->
+<!--                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />-->
+<!--                            </div>-->
+
+                            <div>
+                                <i class="fa-solid fa-user fa-2xl mr-7 mt-9"
+                                   th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}"
+                                   th:unless="${post.challenger?.equippedCharacter?.item?.pattern} "></i>
                             </div>
+
                         </div>
                         <div th:text ="${comment.challengeMember.challenger.nickname}"
-                             class="chat-header"
+                             class="chat-header mr-3"
                              th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}">
                             Anakin
                             <time class="text-xs opacity-50" th:text="${#temporals.format(comment.createDate, 'yy.MM.dd HH:mm')}" >12:46</time>
                         </div>
-                        <div class="chat-bubble" style="color: #000000; background-color: #03FA6E7C;"
+                        <div class="chat-bubble mr-2" style="color: #000000; background-color: #03FA6E7C;"
                              th:text="${comment.commentContent}"
                              th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">I hate you!</div>
                     </div>
