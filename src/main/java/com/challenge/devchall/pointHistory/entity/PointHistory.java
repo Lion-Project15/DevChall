@@ -2,12 +2,11 @@ package com.challenge.devchall.pointHistory.entity;
 
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.member.entity.Member;
-import com.challenge.devchall.point.entity.Point;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.*;
-import org.springframework.cglib.core.Local;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Getter

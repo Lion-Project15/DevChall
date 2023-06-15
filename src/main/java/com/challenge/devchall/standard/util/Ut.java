@@ -19,7 +19,6 @@ public class Ut {
         }
     }
 
-
     public static class url {
         public static String encode(String str) {
             try {

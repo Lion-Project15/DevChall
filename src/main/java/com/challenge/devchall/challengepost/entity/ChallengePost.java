@@ -4,19 +4,11 @@ import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.comment.entity.Comment;
 import com.challenge.devchall.member.entity.Member;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import com.challenge.devchall.photo.entity.Photo;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
@@ -45,40 +37,23 @@ public class ChallengePost extends BaseEntity {
     private int reportCount;
     private String creatorId;
 
-    //FIXME 일단 보류
-//    private boolean postModify;
-//    private int postStarPoint;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Challenge linkedChallenge;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Member challenger;
 
-
     public void modifyPost(String postTitle, String postContents, boolean postIsPublic){
 
         this.postTitle = postTitle;
         this.postContents = postContents;
         this.postIsPublic = postIsPublic;
-
-    }
-
-    public boolean isPublic(){
-
-        if(this.postIsPublic){
-            return true;
-        }
-        else {
-            return false;
-        }
-
     }
 
     public void setReportCount (int reportCount) {
         this.reportCount = reportCount;
-
     }
+
     //덧글
     @JsonIgnoreProperties({"challengePost"})
     @OneToMany(mappedBy = "challengePost",cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)

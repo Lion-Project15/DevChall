@@ -2,9 +2,9 @@ package com.challenge.devchall.item.entity;
 
 import com.challenge.devchall.base.BaseEntity;
 import com.challenge.devchall.inventory.entity.Inventory;
-import com.challenge.devchall.member.entity.Member;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -28,11 +28,7 @@ public class Item extends BaseEntity {
     private String subPattern;
     private long price;
 
-
     @OneToMany(mappedBy = "item")
     private List<Inventory> inventoryList = new ArrayList<>();
-
-    // item(1)<-(N)inventory(n)->(1)member(n)
-
 
 }

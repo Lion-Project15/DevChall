@@ -29,7 +29,6 @@ public class ItemService   {
             return itemRepository.findByName(name);
         }
 
-
     public List<Item> getByType(String type) {
             return itemRepository.findByType(type);
     }

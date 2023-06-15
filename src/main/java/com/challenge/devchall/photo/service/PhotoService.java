@@ -5,7 +5,10 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.*;
+import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.PutObjectResult;
 import com.challenge.devchall.base.config.S3Config;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.photo.entity.Photo;
@@ -15,18 +18,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.UUID;
 
 
@@ -74,8 +70,6 @@ public class PhotoService {
 
         return String.format("https://kr.object.ncloudstorage.com/%s/%s", bucketName, key);
     }
-
-
 
     public RsData<String> isImgFile(String fileName) {
 
@@ -177,6 +171,25 @@ public class PhotoService {
         sb.append("?type=m&w=200&h=115&quality=90&bgcolor=FFFFFF&extopt=0&anilimit=1");
 
         return sb.toString();
+    }
+
+    public String getPhotoUrl(MultipartFile file) throws IOException {
+
+        RsData<String> fileRsData = isImgFile(file.getOriginalFilename());
+
+        if (fileRsData.isFail()) {
+            return fileRsData.getResultCode();
+        } else if (fileRsData.getResultCode().equals("S-7")) {
+
+            return "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png";
+
+        } else if (fileRsData.getResultCode().equals("S-6")) {
+
+            //이미지가 있는 경우 이미지 리사이징, 경로 할당
+            return photoUpload(file);
+        }
+
+        return fileRsData.getResultCode();
     }
 
 }

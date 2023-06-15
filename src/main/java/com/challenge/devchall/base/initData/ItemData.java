@@ -1,10 +1,6 @@
 package com.challenge.devchall.base.initData;
 
-import com.challenge.devchall.challange.service.ChallengeService;
-import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
-import com.challenge.devchall.challengepost.service.ChallengePostService;
 import com.challenge.devchall.item.service.ItemService;
-import com.challenge.devchall.member.service.MemberService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
