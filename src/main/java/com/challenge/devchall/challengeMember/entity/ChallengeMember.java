@@ -77,4 +77,8 @@ public class ChallengeMember extends BaseEntity {
         ++this.totalPostCount;
     }
 
+    public void updateTotal(){
+        this.totalPostCount = this.totalPostCount+1;
+    }
+
 }

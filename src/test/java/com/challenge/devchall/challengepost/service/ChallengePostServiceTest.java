@@ -68,6 +68,7 @@ class ChallengePostServiceTest {
     @Test
     @DisplayName("totalPost 는 challenge 의 Frequency * week 을 넘지 못한다 : week 2")
     void t003() throws IOException {
+
         Member u1 = memberService.getByLoginId("admin");
         Challenge c = challengeService.getChallengeById(5);
         TestUtil.setFieldValue(c, "startDate", LocalDate.now().minusDays(12));
@@ -75,8 +76,6 @@ class ChallengePostServiceTest {
         
         for(int i=0; i<3; i++){
             cps = challengePostService.getRecentPosts(c, u1);
-
-            System.out.println("cps.toString() = " + cps.toString());
 
             if(cps.size()>0)
                 TestUtil.setFieldValue(cps.get(0), "createDate", LocalDateTime.now().minusDays(10-i));
@@ -88,22 +87,11 @@ class ChallengePostServiceTest {
 
         ChallengeMember challengeMember = challengeMemberService.getByChallengeAndMember(c, u1).get();
 
-
-
-        assertThat(challengePostService.getRecentPosts(c, u1).size())
-                .isEqualTo(3);
+        assertThat(challengePostService.getRecentPosts(c, u1).size()).isEqualTo(3);
 
         //FIXME
-//        assertThat(challengeMemberService.getByChallengeAndMember(c, u1).orElse(null).getTotalPostCount())
-//                .isEqualTo(c.getChallengePeriod()*c.getChallengeFrequency());
-
-
-        System.out.println("challengeMember.getTotalPostCount() = " + challengeMember.getTotalPostCount());  //0
-        System.out.println(c.getChallengePeriod() * c.getChallengePeriod());  //4
-
+        assertThat(challengeMemberService.getByChallengeAndMember(c, u1).orElse(null).getTotalPostCount())
+                .isEqualTo(c.getChallengePeriod()*c.getChallengeFrequency());
     }
-
-
-
 
 }

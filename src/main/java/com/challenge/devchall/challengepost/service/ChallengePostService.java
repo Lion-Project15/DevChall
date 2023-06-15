@@ -84,11 +84,6 @@ public class ChallengePostService {
 
         List<ChallengePost> posts = getRecentPosts(linkedChallenge, member);
 
-
-        if (member.getLoginID().equals("admin")) {
-            return RsData.of("S-0", "관리자 권한입니다.");
-        }
-
         RsData<String> checkLimitRsData = checkTodayLimit(posts);
 
         if (checkLimitRsData.isFail()) {
@@ -108,6 +103,10 @@ public class ChallengePostService {
         //이번달 정산에 사용될 수 있는 인증글 작성인지
         if (canUpdateTotal(linkedChallenge, member)) {
             challengeMember.increaseTotal();
+        }
+
+        if (member.getLoginID().equals("admin")) {
+            return RsData.of("S-0", "관리자 권한입니다.");
         }
 
         return RsData.of("S-1", "포스트 작성 조건이 올바릅니다.");
