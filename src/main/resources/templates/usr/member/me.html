@@ -47,7 +47,7 @@
 
                     <div class="flex mt-5">
                         <div class="flex-1 bg-white rounded-tl-md flex justify-center items-center">
-                            <div class="indicator" style="width: 150px; height: 150px">
+                            <div class="flex justify-center items-center" style="width: 150px; height: 150px">
 <!--                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />-->
                                 <i class="fa-solid fa-user mt-3"
                                    th:style="'font-size: 80px; color: #' + ${@rq.member.equippedFont.item.pattern}"
@@ -71,7 +71,7 @@
                     <div class="bg-white rounded-t-none rounded-b-md h-20" th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">
                         <div class="flex justify-between items-center">
                             <div style="padding-left: 25px; padding-top: 10px;">
-                                <h3 class="text-lg font-thin" th:text="${@rq.member.loginID}"></h3>
+                                <h3 class="text-lg font-thin" th:text="'@'+${@rq.member.loginID}"></h3>
                                 <h1 class="text-xl rounded-xl" th:if="${@rq.login}" th:text="${@rq.member.nickname}"></h1>
                             </div>
                             <style>
