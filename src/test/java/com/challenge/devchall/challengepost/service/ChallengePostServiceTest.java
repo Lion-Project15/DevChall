@@ -16,6 +16,7 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +44,13 @@ class ChallengePostServiceTest {
     void t001 () {
         Member u1 = memberService.getByLoginId("user1");
         Challenge c = challengeService.getChallengeById(2);
+        int current = challengePostService.getChallengePostByChallenge(c).size();
         List<ChallengePost> cps = challengePostService.getRecentPosts(c, u1);
         TestUtil.setFieldValue(cps.get(0), "createDate", LocalDateTime.now().minusDays(10));
         ChallengePost post = challengePostService.write("test","test",true, 2,c.getId(),
                 "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png", u1).getData();
         assertThat(challengePostService.getChallengePostByChallenge(c).size())
-                .isEqualTo(4);
+                .isEqualTo(current+1);
     }
     @Test
     @DisplayName("하루에 한개 이상 post 작성 제한")
@@ -64,20 +66,22 @@ class ChallengePostServiceTest {
     @Test
     @DisplayName("totalPost는 challenge의 Frequency*week을 넘지 못한다 : week 2")
     void t003(){
-        Member u1 = memberService.getByLoginId("user1");
-        Challenge c = challengeService.getChallengeById(2);
+        Member u1 = memberService.getByLoginId("admin");
+        Challenge c = challengeService.getChallengeById(5);
+        TestUtil.setFieldValue(c, "startDate", LocalDate.now().minusDays(12));
         List<ChallengePost> cps = new ArrayList<>();
-        for(int i=0; i<6; i++){
+        for(int i=0; i<3; i++){
             cps = challengePostService.getRecentPosts(c, u1);
-            TestUtil.setFieldValue(cps.get(0), "createDate", LocalDateTime.now().minusDays(10-i));
+            if(cps.size()>0)
+                TestUtil.setFieldValue(cps.get(0), "createDate", LocalDateTime.now().minusDays(10-i));
             ChallengePost post = challengePostService.write("test","test",true, 2,
                     c.getId(), "https://kr.object.ncloudstorage.com/devchall/devchall_img/example1.png", u1).getData();
 
         }
         assertThat(challengePostService.getRecentPosts(c, u1).size())
-                .isEqualTo(7);
+                .isEqualTo(3);
         assertThat(challengeMemberService.getByChallengeAndMember(c, u1).orElse(null).getTotalPostCount())
-                .isEqualTo(6);
+                .isEqualTo(c.getChallengePeriod()*c.getChallengeFrequency());
 
     }
 
