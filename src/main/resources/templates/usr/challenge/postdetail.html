@@ -203,6 +203,10 @@
                                 <i class="fa-solid fa-user fa-2xl mr-7 mt-9"
                                    th:style="'color: #' + ${@rq.member.equippedFont.item.pattern}"
                                    th:unless="${post.challenger?.equippedCharacter?.item?.pattern} "></i>
+                                <img th:if="${comment.challengeMember?.challenger?.equippedCharacter?.item?.name}"
+                                     th:src="@{${@photoService.getStoreCharacterPhoto(comment.challengeMember.challenger.equippedCharacter.item.name)}}"
+                                     th:alt="${comment.challengeMember.challenger.equippedCharacter.item.name}"
+                                     class="transition-all duration-300 transform group-hover:scale-110 w-[45px]">
                             </div>
 
                         </div>
