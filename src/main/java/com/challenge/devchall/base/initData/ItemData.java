@@ -1,6 +1,7 @@
 package com.challenge.devchall.base.initData;
 
 import com.challenge.devchall.item.service.ItemService;
+import com.challenge.devchall.photo.service.PhotoService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

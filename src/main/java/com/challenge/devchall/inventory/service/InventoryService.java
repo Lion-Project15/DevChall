@@ -5,6 +5,7 @@ import com.challenge.devchall.inventory.entity.Inventory;
 import com.challenge.devchall.inventory.repository.InventoryRepository;
 import com.challenge.devchall.item.entity.Item;
 import com.challenge.devchall.member.entity.Member;
+import com.challenge.devchall.pointHistory.service.PointHistoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class InventoryService {
     private final InventoryRepository inventoryRepository;
+    private final PointHistoryService pointHistoryService;
 
     public RsData<Inventory> create(Member member, Item item, boolean equipped){
         if(isPurchased(member, item)){
@@ -34,7 +36,9 @@ public class InventoryService {
     public void changeFontEquip(long itemId, Member member) {
 
         if(member!=null){
-            member.getEquippedFont().unequip();
+            Inventory  equippedFont=  member.getEquippedFont();
+            if(equippedFont != null)
+                equippedFont.unequip();
 
             for(Inventory inventory: member.getInventoryList()){
 
@@ -50,8 +54,9 @@ public class InventoryService {
 
     public void changeCharacterEquip(long itemId, Member member) {
         if(member!=null){
-
-            member.getEquippedCharacter().unequip();
+            Inventory equippedCharacter=  member.getEquippedCharacter();
+            if(equippedCharacter != null)
+                equippedCharacter.unequip();
 
             for(Inventory inventory: member.getInventoryList()){
 

@@ -127,7 +127,7 @@ public class PhotoService {
         }
 
         sb.append(characterName);
-        sb.append("?type=m&w=120&h=120&bgcolor=EBEBEB");
+        sb.append("?type=m&w=120&h=120");
 
         return sb.toString();
     }

@@ -47,8 +47,15 @@
 
                     <div class="flex mt-5">
                         <div class="flex-1 bg-white rounded-tl-md flex justify-center items-center">
-                            <div class="avatar indicator" style="width: 100px; height: 150px">
-                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />
+                            <div class="indicator" style="width: 150px; height: 150px">
+<!--                                <img class="rounded-full" src="https://kr.object.ncloudstorage.com/devchall/devchall_img/person.png" />-->
+                                <i class="fa-solid fa-user mt-3"
+                                   th:style="'font-size: 80px; color: #' + ${@rq.member.equippedFont.item.pattern}"
+                                   th:unless="${@rq.getMember()?.equippedCharacter?.item?.name} "></i>
+                                <img th:if="${@rq.getMember().equippedCharacter != null}"
+                                     th:src="@{${@photoService.getStoreCharacterPhoto(@rq.getMember().equippedCharacter.getItem().getName())}}"
+                                     th:alt="${@rq.getMember().equippedCharacter}"
+                                     class="transition-all duration-300 transform group-hover:scale-110 ">
                             </div>
                         </div>
                         <div class="flex-1 bg-white rounded-tr-md flex justify-center items-center">

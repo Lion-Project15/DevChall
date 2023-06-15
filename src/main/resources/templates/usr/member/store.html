@@ -18,6 +18,7 @@
                 location.href = "/usr/member/store/buy/" + itemId + "?equipped=" + confirm('바로 착용하시겠습니까?');
             }
         }
+
         function changeEquip(itemId) {
             if (confirm('착용 하시겠습니까?')) {
                 location.href = "/usr/inventory/change/" + itemId;
@@ -40,7 +41,14 @@
                  style="width: 200px;">
                 <!--캐릭터 아이템 추가-->
                 <a href="#" class="flex flex-col items-center group px-1">
-                    <img th:src="@{${@photoService.getStoreCharacterPhoto('cow.png')}}"  alt="cow" class="transition-all duration-300 transform group-hover:scale-110">
+                    <i class="fa-solid fa-user mt-3"
+                       th:style="'font-size: 120px; color: #' + ${@rq.member.equippedFont.item.pattern}"
+                       th:unless="${@rq.getMember()?.equippedCharacter?.item?.name} "></i>
+                    <img th:if="${@rq.getMember().equippedCharacter != null}"
+                         th:src="@{${@photoService.getStoreCharacterPhoto(@rq.getMember().equippedCharacter.getItem().getName())}}"
+                         th:alt="${@rq.getMember().equippedCharacter}"
+                         class="transition-all duration-300 transform group-hover:scale-110">
+
                 </a>
             </div>
 
@@ -74,13 +82,28 @@
                     <a class="mt-4 text-[#03fa6e] font-bold text-xl" th:text="${@rq.member.point.currentPoint + 'point'}">point</a>
                 </div>
             </div>
-
-            <div id="center" class="px-30 m-20 bg-[#313131] round-[1.7rem] h-[20rem] top-[48.2rem] w-[20rem] flex justify-center items-center">
+<!--            폰트 인벤토리-->
+            <div id="fontsInventory" class="px-30 m-20 bg-[#313131] round-[1.7rem] h-[20rem] top-[48.2rem] w-[20rem] flex justify-center items-center">
                 <div class="grid grid-cols-1 xl:grid-cols-3 gap-[10px]" th:if="${@rq.login}">
                     <div style="cursor: pointer" th:each="inventory:${@rq.member.inventoryList}"
                        th:onclick="'changeEquip('+${inventory.item.id}+')'">
-                        <div class="w-[85px] h-[85px] flex justify-center items-center"
+                        <div th:if="${#strings.equals(inventory.item.type, 'font')}"
+                                class="w-[85px] h-[85px] flex justify-center items-center"
                              th:style="'background-color: #'+${inventory.item.pattern}+';'">
+                            <div th:if="${inventory.equipped}" class="badge badge-accent border-none" style="background-color: #03FA6E;">착용중</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<!--            캐릭터 인벤토리-->
+            <div id="charactersInventory" class="px-30 m-20 bg-[#313131] round-[1.7rem] h-[20rem] top-[48.2rem] w-[20rem] flex justify-center items-center">
+                <div class="grid grid-cols-1 xl:grid-cols-3 gap-[10px]" th:if="${@rq.login}">
+                    <div style="cursor: pointer" th:each="inventory:${@rq.member.inventoryList}"
+                         th:onclick="'changeEquip('+${inventory.item.id}+')'">
+                        <div th:if="${#strings.equals(inventory.item.type, 'character')}"
+                             class="w-[85px] h-[85px] flex justify-center items-center">
+                            <img th:src="@{${@photoService.getStoreCharacterPhoto(inventory.item.name)}}" th:alt="${inventory.item.name}"
+                                 class="transition-all duration-300 transform group-hover:scale-110">
                             <div th:if="${inventory.equipped}" class="badge badge-accent border-none" style="background-color: #03FA6E;">착용중</div>
                         </div>
                     </div>
@@ -120,7 +143,6 @@
                     </div>
                 </div>
             </div>
-
             <!--아이템2_New Character-->
             <div id="item2" class="flex card w-1/4 bg-[#03fa6e] bg-opacity-10">
                 <div class="flex flex-col justify-center items-center h-full">
@@ -129,68 +151,17 @@
                          style="width: 200px;">
                         <span class="mt-4 text-[#000000] font-bold text-xl">New Character</span>
                     </div>
-
-
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7">
-                        <!--캐릭터 아이템 추가-->
+                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7"
+                         th:each="character:${items['characters']}">
                         <a href="#" class="flex flex-col items-center group px-1">
-                            <img th:src="@{${@photoService.getStoreCharacterPhoto('lion.png')}}" alt="lion" class="transition-all duration-300 transform group-hover:scale-110">
+                            <img th:src="@{${@photoService.getStoreCharacterPhoto(character.name)}}" th:alt="${character.name}"
+                                 class="transition-all duration-300 transform group-hover:scale-110">
                         </a>
                         <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7">
-                        <!--캐릭터 아이템 추가-->
-                        <a href="#" class="flex flex-col items-center group px-1">
-                            <img th:src="@{${@photoService.getStoreCharacterPhoto('giraffe.png')}}" alt="giraffe" class="transition-all duration-300 transform group-hover:scale-110">
-                        </a>
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7">
-                        <!--캐릭터 아이템 추가-->
-                        <a href="#" class="flex flex-col items-center group px-1">
-                            <img th:src="@{${@photoService.getStoreCharacterPhoto('robot.png')}}" alt="robot" class="transition-all duration-300 transform group-hover:scale-110">
-                        </a>
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7">
-                        <!--캐릭터 아이템 추가-->
-                        <a href="#" class="flex flex-col items-center group px-1">
-                            <img th:src="@{${@photoService.getStoreCharacterPhoto('ghost.png')}}" alt="ghost" class="transition-all duration-300 transform group-hover:scale-110">
-                        </a>
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
-                                <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7">
-                        <!--캐릭터 아이템 추가-->
-                        <a href="#" class="flex flex-col items-center group px-1">
-                            <img th:src="@{${@photoService.getStoreCharacterPhoto('octopus.png')}}" alt="octopus" class="transition-all duration-300 transform group-hover:scale-110">
-                        </a>
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
-                            <span class="badge badge-custom mx-1" style="font-size: x-small; background-color: black; color: #03fa6e; border: 1px solid #03fa6e; border-radius: 4px;">300P</span>
-                            <div class="btn btn-sm btn-black" style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;" onclick=showBuy()>
+                            <h3 class="text-center text-medium font-bold" th:text="${character.price + 'P'}"></h3>
+                            <div class="btn btn-sm btn-black"
+                                 style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;"
+                                 th:onclick="'showBuy('+${character.id}+')'">
                                 <span style="display: block; line-height: 0px; font-size: 1px;">BUY</span>
                             </div>
                         </div>
