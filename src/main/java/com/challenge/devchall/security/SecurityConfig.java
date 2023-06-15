@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
@@ -23,8 +24,12 @@ public class SecurityConfig {
 
     private final AuthenticationFailureHandler customFailureHandler;
 
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
+
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+
         http
                 .formLogin(
                         formLogin -> formLogin
@@ -45,7 +50,12 @@ public class SecurityConfig {
                                 .logoutSuccessUrl("/")
                                 .invalidateHttpSession(true)
                                 .deleteCookies("JSESSIONID")
-                );
+                )
+                .exceptionHandling(
+                        exceptionHandling -> exceptionHandling
+                                .accessDeniedHandler(customAccessDeniedHandler) // Custom access denied page URL
+                                .authenticationEntryPoint(new CustomAuthenticationEntryPoint()) // Custom authentication entry point
+        );
 
         return http.build();
     }
