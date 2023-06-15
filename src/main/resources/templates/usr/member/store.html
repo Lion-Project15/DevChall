@@ -82,29 +82,33 @@
                     <a class="mt-4 text-[#03fa6e] font-bold text-xl" th:text="${@rq.member.point.currentPoint + 'point'}">point</a>
                 </div>
             </div>
-<!--            폰트 인벤토리-->
-            <div id="fontsInventory" class="px-30 m-20 bg-[#313131] round-[1.7rem] h-[20rem] top-[48.2rem] w-[20rem] flex justify-center items-center">
-                <div class="grid grid-cols-1 xl:grid-cols-3 gap-[10px]" th:if="${@rq.login}">
-                    <div style="cursor: pointer" th:each="inventory:${@rq.member.inventoryList}"
-                       th:onclick="'changeEquip('+${inventory.item.id}+')'">
-                        <div th:if="${#strings.equals(inventory.item.type, 'font')}"
-                                class="w-[85px] h-[85px] flex justify-center items-center"
-                             th:style="'background-color: #'+${inventory.item.pattern}+';'">
-                            <div th:if="${inventory.equipped}" class="badge badge-accent border-none" style="background-color: #03FA6E;">착용중</div>
+
+            <div id="Inventory" class="m-20 w-[26rem] flex justify-center items-center">
+                <div class="grid grid-cols-1 gap-y-[10px]" th:if="${@rq.login}">
+                    <div>
+                        <h2 class="text-white text-center font-bold mb-4">Fonts</h2>
+                        <div class="flex justify-center">
+                            <div th:each="inventory:${@rq.member.inventoryList}" th:if="${#strings.equals(inventory.item.type, 'font')}"
+                                 th:onclick="'changeEquip('+${inventory.item.id}+')'">
+                                <div class="w-[60px] h-[60px] flex justify-center items-center bg-[#313131]"
+                                     th:style="'background-color: #'+${inventory.item.pattern}+';'">
+                                    <div th:if="${inventory.equipped}" class="badge badge-accent border-none text-[5px] m-[-2px]" style="background-color: #03FA6E;">착용중</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-<!--            캐릭터 인벤토리-->
-            <div id="charactersInventory" class="px-30 m-20 bg-[#313131] round-[1.7rem] h-[20rem] top-[48.2rem] w-[20rem] flex justify-center items-center">
-                <div class="grid grid-cols-1 xl:grid-cols-3 gap-[10px]" th:if="${@rq.login}">
-                    <div style="cursor: pointer" th:each="inventory:${@rq.member.inventoryList}"
-                         th:onclick="'changeEquip('+${inventory.item.id}+')'">
-                        <div th:if="${#strings.equals(inventory.item.type, 'character')}"
-                             class="w-[85px] h-[85px] flex justify-center items-center">
-                            <img th:src="@{${@photoService.getStoreCharacterPhoto(inventory.item.name)}}" th:alt="${inventory.item.name}"
-                                 class="transition-all duration-300 transform group-hover:scale-110">
-                            <div th:if="${inventory.equipped}" class="badge badge-accent border-none" style="background-color: #03FA6E;">착용중</div>
+                    <hr class="border border-white">
+                    <div>
+                        <h2 class="text-white text-center font-bold mt-4 mb-4">Characters</h2>
+                        <div class="flex justify-center">
+                            <div th:each="inventory:${@rq.member.inventoryList}" th:if="${#strings.equals(inventory.item.type, 'character')}"
+                                 th:onclick="'changeEquip('+${inventory.item.id}+')'">
+                                <div class="w-[60px] h-[60px] flex flex-col justify-center items-center">
+                                    <img th:src="@{${@photoService.getStoreCharacterPhoto(inventory.item.name)}}" th:alt="${inventory.item.name}"
+                                         class="transition-all duration-300 transform group-hover:scale-110">
+                                    <div th:if="${inventory.equipped}" class="badge badge-accent border-none text-[5px] m-[-2px]" style="background-color: #03FA6E;">착용중</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
