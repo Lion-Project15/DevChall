@@ -47,6 +47,14 @@ public class NotProd {
                 itemService.create("1144FC","font","1144FC", "FFFFFF",0);
                 itemService.create("3CB24F","font","3CB24F", "FFFFFF",0);
 
+
+                itemService.create("cow.png","character","http://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/cow.png?type=m&w=120&h=120&bgcolor=EBEBEB", " ", 0);
+                itemService.create("lion.png","character","http://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/lion.png?type=m&w=120&h=120&bgcolor=EBEBEB", " ", 100);
+                itemService.create("giraffe.png","character","http://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/giraffe.png?type=m&w=120&h=120&bgcolor=EBEBEB", " ", 0);
+                itemService.create("robot.png","character","http://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/robot.png?type=m&w=120&h=120&bgcolor=EBEBEB", " ", 0);
+                itemService.create("ghost.png","character","http://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/ghost.png?type=m&w=120&h=120&bgcolor=EBEBEB", " ", 0);
+                itemService.create("octopus.png","character","http://iztyfajjvmsf17707682.cdn.ntruss.com/store_img/octopus.png?type=m&w=120&h=120&bgcolor=EBEBEB", " ", 0);
+
                 Member admin = memberService.join("admin", "1234", "admin@admin.com",  "관리자").getData();//admin 계정
                 Member user1 = memberService.join("user1", "1234", "user1@devchall.com",  "user1" ).getData();
                 Member user2 = memberService.join("user2", "1234", "user2@devchall.com", "user2" ).getData();

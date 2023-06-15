@@ -111,5 +111,20 @@ public class MemberController {
         return "redirect:/usr/member/store";
     }
 
+//    @PreAuthorize("isAuthenticated()")
+//    @GetMapping("/store/buy/character/{characterUrl}")
+//    public String buyCharacter(@PathVariable("characterUrl") String characterUrl,
+//                          @RequestParam(required = false, defaultValue = "false") boolean equipped,
+//                          Principal principal){
+//
+//        Member loginMember = memberService.getByLoginId(principal.getName());
+//
+//        RsData<Inventory> buyRsData = memberService.buyCharacter(characterUrl, loginMember, equipped);
+//
+//        System.out.println(buyRsData.getMsg());
+//
+//        return "redirect:/usr/member/store";
+//    }
+
 }
 

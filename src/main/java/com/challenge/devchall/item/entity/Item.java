@@ -23,9 +23,9 @@ import java.util.List;
 public class Item extends BaseEntity {
 
     private String name;
-    private String type;
-    private String pattern;
-    private String subPattern;
+    private String type; //font or character
+    private String pattern; //font: 색상 <-> character: url
+    private String subPattern; //font: 글색상(잘 안볼 것을 대비)
     private long price;
 
     @OneToMany(mappedBy = "item")

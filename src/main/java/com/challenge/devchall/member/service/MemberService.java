@@ -190,4 +190,37 @@ public class MemberService {
         return memberRepository.findAll();
     }
 
+//    public RsData<Inventory> buyCharacter(String characterUrl, Member member, boolean equip) {
+//        Item buyItem = itemService.getById(Long.parseLong(itemId)).orElse(null);
+//
+//        if(buyItem == null) {//아이템의 존재 유무
+//            return RsData.of("F-7", "아이템이 존재하지 않습니다.");
+//        }
+//
+//        Point memberPoint = member.getPoint();
+//
+//        long itemCost = buyItem.getPrice();
+//
+//        if(memberPoint.getCurrentPoint() < itemCost){ //포인트 여부
+//            return RsData.of("F-6", "소지금이 부족합니다.");
+//        }
+//
+//        RsData<Inventory> rs = inventoryService.create(member, buyItem, false);
+//
+//        if(rs.isFail()) {//이미 구매한 아이템
+//            return rs;
+//        }
+//
+//        member.getPoint().subtract(buyItem.getPrice());
+//        if(equip){
+//            if(buyItem.getType().equals("font")) {
+//                inventoryService.changeFontEquip(buyItem.getId(), member);
+//            } else if (buyItem.getType().equals("character")) {
+//                inventoryService.changeCharacterEquip(buyItem.getId(), member);
+//
+//            }
+//        }
+//
+//        return RsData.of("S-6", "구매에 성공하였습니다.");
+//    }
 }
