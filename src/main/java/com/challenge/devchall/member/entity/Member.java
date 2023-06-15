@@ -17,6 +17,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -108,6 +109,10 @@ public class Member extends BaseEntity {
             }
         }
         return null;
+    }
+
+    public void changeNickname(String nickname){
+        this.nickname = nickname;
     }
 
 }
