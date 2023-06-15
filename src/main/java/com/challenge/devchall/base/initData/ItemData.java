@@ -18,7 +18,7 @@ public class ItemData {
             @Override
             @Transactional
             public void run (String... args) throws Exception {
-                itemService.create("L-F-FCE411","font","FCE411", "000000",300);
+                itemService.create("FCE411","font","FCE411", "000000",300);
                 itemService.create("basic","font","3D4451", "FFFFFF",0);
                 itemService.create("ED3096","font","ED3096", "FFFFFF",0);
                 itemService.create("FF9900","font","FF9900", "000000",0);
