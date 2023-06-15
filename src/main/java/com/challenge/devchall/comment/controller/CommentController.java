@@ -10,7 +10,6 @@ import com.challenge.devchall.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,10 +29,8 @@ public class CommentController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/write/{id}")
     public String createComment(@PathVariable("id") Long id,
-                                @RequestParam String contents,
-                                Model model
+                                @RequestParam String contents
     )throws IOException {
-        ChallengePost challengePost = challengePostService.getChallengePostById(id);
 
         Member member = rq.getMember();
 

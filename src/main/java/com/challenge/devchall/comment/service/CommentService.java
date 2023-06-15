@@ -1,6 +1,5 @@
 package com.challenge.devchall.comment.service;
 
-import com.challenge.devchall.base.rq.Rq;
 import com.challenge.devchall.base.rsData.RsData;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengeMember.service.ChallengeMemberService;
@@ -21,7 +20,6 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final ChallengeMemberService challengeMemberService;
     private final ChallengePostService challengePostService;
-    private final Rq rq;
 
     public RsData<Comment> write(String contents, long id, Member member) {
 
