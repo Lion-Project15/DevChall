@@ -1,10 +1,8 @@
 package com.challenge.devchall.point.entity;
 
 import com.challenge.devchall.base.BaseEntity;
-import com.challenge.devchall.challengeMember.entity.ChallengeMember;
-import com.challenge.devchall.member.entity.Member;
-import com.challenge.devchall.pointHistory.service.PointHistoryService;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;

@@ -1,7 +1,6 @@
 package com.challenge.devchall.comment.entity;
 
 import com.challenge.devchall.base.BaseEntity;
-import com.challenge.devchall.challange.entity.Challenge;
 import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.challengepost.entity.ChallengePost;
 import jakarta.persistence.*;

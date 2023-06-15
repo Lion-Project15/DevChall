@@ -41,9 +41,18 @@ public class AppConfig {
 
     @Getter
     private static int pageable;
+
     @Value("${custom.challenge.pageable}")
     public void setPageable(int pageable){
         AppConfig.pageable = pageable;
+    }
+
+    @Getter
+    private static int reportCount;
+
+    @Value("${custom.challenge.reportCount}")
+    public void setReportCount(int reportCount){
+        AppConfig.reportCount = reportCount;
     }
 
 }

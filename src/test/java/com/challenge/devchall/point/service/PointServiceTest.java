@@ -13,7 +13,10 @@ import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
 import com.challenge.devchall.point.entity.Point;
 import com.challenge.devchall.point.repository.PointRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,6 +24,7 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -59,7 +63,7 @@ class PointServiceTest {
 
     @Test
     @DisplayName("챌린지1에서 90% 이상의 달성자만 보상")
-    void settle01 () {
+    void settle01 () throws IOException {
         //challenge1 -> (post=2): point=100, freq=1, period=2, start=6/1, end=6/15 __ user1,2
         Challenge c = getChallengeDeadlineToday(1);
 
@@ -84,7 +88,7 @@ class PointServiceTest {
 
     @Test
     @DisplayName("챌린지2에서 90% 이상의 달성자만 보상")
-    void settle02 () {
+    void settle02 () throws IOException {
         //challenge2 -> (post=12): point=800, freq=3, period=4, start=6/1, end=6/29 __a,user1,2,3
         Challenge c = getChallengeDeadlineToday(2);
 
@@ -110,7 +114,7 @@ class PointServiceTest {
 
     @Test
     @DisplayName("챌린지3에서 90% 이상의 달성자만 보상")
-    void settle03 () {
+    void settle03 () throws IOException {
         //challenge3 -> (post=12): point=1200, freq=7, period=8, start=6/1, end=7/20 __a,user2,4,5
         Challenge c = getChallengeDeadlineToday(3);
 
@@ -136,7 +140,7 @@ class PointServiceTest {
 
     @Test
     @DisplayName("챌린지1과 챌린지2 동시 처리")
-    void settle04 () {
+    void settle04 () throws IOException {
         //challenge1 -> (post=2): point=100, freq=1, period=2, start=6/1, end=6/15 __ a, user1,2
         Challenge c1 = getChallengeDeadlineToday(1);
         //challenge2 -> (post=12): point=800, freq=3, period=4, start=6/1, end=6/29 __a,user1,2,3
@@ -200,7 +204,7 @@ class PointServiceTest {
             add(memberService.getByLoginId("user4"));
             add(memberService.getByLoginId("user5"));
         }};
-        mem.removeIf(m -> !challengeMemberService.getByChallengeAndMember(c, m).isPresent());
+        mem.removeIf(m -> challengeMemberService.getByChallengeAndMember(c, m).isEmpty());
         return mem;
     }
 
@@ -213,7 +217,7 @@ class PointServiceTest {
     }
 
 
-    private void writePost(int n, Challenge c, Member m){
+    private void writePost(int n, Challenge c, Member m) throws IOException {
         for(int i=0; i<n; i++){
             List<ChallengePost> posts = challengePostService.getRecentPosts(c, m);
             if(posts.size()>0){

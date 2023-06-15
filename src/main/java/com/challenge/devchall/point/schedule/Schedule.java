@@ -1,7 +1,6 @@
 package com.challenge.devchall.point.schedule;
 
 import com.challenge.devchall.challange.entity.Challenge;
-import com.challenge.devchall.challengeMember.entity.ChallengeMember;
 import com.challenge.devchall.member.entity.Member;
 import com.challenge.devchall.member.service.MemberService;
 import com.challenge.devchall.point.service.PointService;
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
