@@ -14,7 +14,6 @@
                 alert("구매가 취소되었습니다");
 
             } else {
-                <!-- 구매 관련 메서드 들어갈 자리-->
                 location.href = "/usr/member/store/buy/" + itemId + "?equipped=" + confirm('바로 착용하시겠습니까?');
             }
         }
@@ -26,9 +25,9 @@
         }
     </script>
 
-    <div class="gap-75px flex">
+    <div class="gap-75px flex h-full">
         <div id="inven" class="bg-black col-span-1 md:col-span-3 xl:col-span-3"
-             style="border-top-left-radius: 8rem; height: 92.3rem; left: 0; top: 7rem; width: calc(100% / 3);">
+             style="border-top-left-radius: 8rem; left: 0; top: 7rem; width: calc(100% / 3);">
 
             <div class="p-2 w-200" style="color: #03fa6e; text-align: center; margin-top: 60px;">
                 <h1 class="text-[#03fa6e] text-2xl font-bold" style="font-size: 40px;">My Inventory</h1>
@@ -53,24 +52,9 @@
                 <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-20"
                      style="width: 200px;">
                     <a class="mt-4 text-[#313131] font-bold text-xl"  th:text="${@rq.member.nickname}"></a>
-                    <!--                    <a href="usr/member/me"-->
-                    <!--                       th:style="'color: #' + ${rq.member.equippedFont.item.subPattern} + '; background: #'+${rq.member.equippedFont.item.pattern}+' !important'"-->
-                    <!--                       th:if="${rq.login}"-->
-                    <!--                       class="mt-4 text-xl font-bold"-->
-                    <!--                       th:text="${rq.member.nickname}">-->
-                    <!--                    </a>-->
                 </div>
             </div>
-            <!--            <div class="flex justify-center items-center">-->
-            <!--                <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-20"-->
-            <!--                     th:if="${@rq.member.equippedFont}"-->
-            <!--                     th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}-->
-            <!--                   +'; width: 200px;'">-->
 
-            <!--                    <a class="mt-4 text-[#313131] font-bold text-xl"-->
-            <!--                       th:text="${@rq.member.nickname}"></a>-->
-            <!--                </div>-->
-            <!--            </div>-->
 
             <div class="flex justify-center items-center" th:if="${@rq.login}">
                 <div class="flex justify-center bg-[#000000] rounded-[4.3444rem] flex-shrink-0 h-[4rem] mx-[18rem] w-[calc(100% - 30rem)] mt-20 border border-[#03fa6e]"
@@ -79,7 +63,7 @@
                 </div>
             </div>
 
-            <div id="Inventory" class="m-20 w-[26rem] flex justify-center items-center">
+            <div id="Inventory" class="flex-shrink-0 h-[11.5rem] mx-auto flex justify-center items-center mt-20">
                 <div class="grid grid-cols-1 gap-y-[10px]" th:if="${@rq.login}">
                     <div>
                         <h2 class="text-white text-center font-bold mb-4">Fonts</h2>
@@ -113,22 +97,21 @@
         </div>
 
         <!--아이템 목록-->
-        <div id="items" class="flex flex-grow flex-wrap justify-center gap-20 mt-5 mx-20">
+        <div id="items" class="flex flex-grow flex-wrap justify-center mb-10 gap-20 mt-5 mx-20">
             <!--아이템1_Font Color-->
             <div id="item1" class="flex card w-1/4 bg-[#03fa6e] bg-opacity-10">
-                <div class="flex flex-col justify-center items-center h-full">
+                <div class="flex flex-col items-center h-full">
 
                     <div class="flex justify-center bg-[#03fa6e] rounded-[1.5rem] flex-shrink-0 h-[4rem] mx-[18rem] mt-5"
                          style="width: 200px;">
                         <span class="mt-4 text-[#000000] font-bold text-xl">Font Color</span>
                     </div>
-<!--                    -->
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7"
+                    <div class="card flex justify-center p-3 w-3/4 bg-[#EBEBEB] mt-7 "
                          th:each="font:${items['fonts']}"
                          th:if="${!#strings.equals(font.name, 'basic')}">
-                        <div >
+                        <div class="flex flex-col justify-center p-5 items-center">
                             <!--색상 아이템 추가-->
-                            <div class="flex justify-center items-center relative ml-4 mx-2.5 mt-2 mb-5 w-[110px] h-[130px]"
+                            <div class="flex justify-center items-center  relative w-[110px] h-[110px]"
                                  th:style="'background-color: #'+${font.pattern}+';'"></div>
 
                             <div class="flex flex-row justify-center items-center mt-5 space-x-3">
@@ -151,13 +134,13 @@
                          style="width: 200px;">
                         <span class="mt-4 text-[#000000] font-bold text-xl">New Character</span>
                     </div>
-                    <div class="card justify-end items-end p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7"
+                    <div class="card justify-center p-2 w-3/4 h-3/5 bg-[#EBEBEB] mt-7"
                          th:each="character:${items['characters']}">
                         <a href="#" class="flex flex-col items-center group px-1">
                             <img th:src="@{${@photoService.getStoreCharacterPhoto(character.name)}}" th:alt="${character.name}"
                                  class="transition-all duration-300 transform group-hover:scale-110">
                         </a>
-                        <div class="flex flex-col justify-end items-start mt-7 space-y-6">
+                        <div class="flex flex-col justify-center items-center">
                             <h3 class="text-center text-medium font-bold" th:text="${character.price + 'P'}"></h3>
                             <div class="btn btn-sm btn-black"
                                  style="width: 50px; padding: 0px; background-color: black; color: #03fa6e;"

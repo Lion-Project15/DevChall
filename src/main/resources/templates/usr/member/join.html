@@ -7,9 +7,6 @@
 <body>
 
 <main layout:fragment="main" class="bg-[#121212] text-white flex flex-col justify-center items-center w-full h-full">
-    <!--    <div>-->
-    <!--        <img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/logo.png" class="w-[250px] h-[250px]">-->
-    <!--    </div>-->
     <div class="flex flex-1">
         <form th:action method="POST" class="flex flex-col justify-center items-center w-full" onsubmit="JoinForm__submit(this); return false;">
             <div class="w-full lg:w-[30rem]">
@@ -69,14 +66,6 @@
                     </label>
                     <div class="border-t flex-grow border-gray-300 border-opacity-50"></div>
                 </div>
-
-                <!--                <div class="flex justify-center mt-[40px]">-->
-<!--                    <label class="label">-->
-<!--                        <span class="text-gray-400">SNS로 회원가입 하기</span>-->
-<!--                    </label>-->
-<!--                </div>-->
-
-
                 <div class="mt-[10px] flex justify-center space-x-6">
                     <a href="/oauth2/authorization/naver"><img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/naver-icon.png" class="w-[50px] h-[50px]"></a>
                     <a href="/oauth2/authorization/kakao"><img src="https://kr.object.ncloudstorage.com/devchall/devchall_img/kakao-icon.png" class="w-[50px] h-[50px]"></a>

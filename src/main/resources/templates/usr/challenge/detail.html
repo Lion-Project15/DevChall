@@ -28,25 +28,6 @@
         <div class="w-1/3">
             <div class="flex justify-between">
                 <h3 class="text-2xl font-bold my-4 mt-8" th:text="${challenge.challengeName}"></h3>
-                <!--                <p class="text-[30px] bolder-double font-bold mx-3" th:text="${challenge.challengeName}"></p>-->
-
-                <!--                    <th:block th:unless="${byChallengeAndMember.isPresent()}">-->
-                <!--                        <button th:if="${challenge.passed}"-->
-                <!--                                th:onclick="'wantJoin(\'' + ${challenge.id} + '\')'"-->
-                <!--                                th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}"-->
-                <!--                                class="btn btn-accent mx-1 border-none mt-9" style="background-color: #03FA6E;">참여하기-->
-                <!--                        </button>-->
-                <!--                    </th:block>-->
-
-                <!--                    <th:block th:if="${byChallengeAndMember.isPresent()}">-->
-                <!--                        <a th:href="@{|/usr/challenge/write_form/${challenge.id}|}"-->
-                <!--                           th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}"-->
-                <!--                           class="btn btn-accent mx-1 border-none mt-9" style="background-color: #03FA6E;">-->
-                <!--                            <button>인증하기</button>-->
-                <!--                        </a>-->
-                <!--                    </th:block>-->
-
-
             </div>
             <div class="card bg-white h-75 flex place-content-around">
                 <div class="flex justify-around">
@@ -117,12 +98,6 @@
                         </div>
                     </div>
                 </div>
-                <!--                                                <input type="submit" value="생성완료" class="w-1/3 btn btn-md btn-success gap-3">-->
-                <!--                    <button type="submit" class="mt-5 custom-button ml-0 mr-10 mx-5 btn btn-sm font-bold border-none w-1/3"-->
-                <!--                            th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}">-->
-                <!--                        생성완료-->
-                <!--                    </button>-->
-
                 <th:block th:if="${byChallengeAndMember.isPresent()}">
                     <a th:href="@{|/usr/challenge/write_form/${challenge.id}|}"
                        th:style="'background-color: #' + ${@rq.member.equippedFont.item.pattern} +'; color: #' + ${@rq.member.equippedFont.item.subPattern}"
@@ -186,11 +161,6 @@
                                            th:text="${#strings.length(post.postTitle) &gt; 6 ? #strings.substring(post.postTitle, 0, 6) + '...' : post.postTitle}"></a>
 
                                         <div class="flex justify-between items-center flex h-[40px]">
-<!--                                            <img class="w-10 rounded-full"-->
-<!--                                                 th:if="${post.challenger?.equippedCharacter?.item?.pattern}"-->
-<!--                                                 th:src="${post.challenger?.equippedCharacter?.item?.pattern}"/>-->
-
-
                                             <div>
                                                 <img th:if="${post.challenger?.equippedCharacter?.item?.name}"
                                                      th:src="@{${@photoService.getStoreCharacterPhoto(post.challenger.equippedCharacter.item.name)}}"
@@ -210,10 +180,6 @@
                                                     <i class="fa-sharp fa-solid fa-star fa-beat fa-sm mt-2" style="color: #40dd84;"></i>
                                                     <small th:text="${post.postScore}"></small>
                                                 </span>
-                                            <!--                                                <span>-->
-                                            <!--                                                    <i class="fa-regular fa-message-dots" style="color: #3E4450"></i>-->
-                                            <!--                                                    <small>2</small>-->
-                                            <!--                                                </span>-->
                                             <span>
                                                     <i class="fa-solid fa-heart fa-bounce" style="color:firebrick"></i>
                                                     <small>3</small>

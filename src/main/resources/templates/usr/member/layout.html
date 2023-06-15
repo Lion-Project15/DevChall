@@ -76,7 +76,6 @@
             </div>
         </div>
         <div class="navbar-center hidden lg:flex ">
-
         </div>
         <div class="navbar-end" >
                 <div class="flex">
@@ -98,29 +97,24 @@
                 <div class="col">
                     <a th:if="${@rq.login}" href="/usr/member/store" class="btn btn-sm btn-primary ml-4 border-none" style="background-color: #03FA6E; color: #121212">내부상점</a>
                 </div>
-            </div>
-
-            <!--            <a th:if="${@rq.login}" href="/usr/member/store" class="btn btn-sm btn-primary mx-2 border-none" style="background-color: #03FA6E; color: #121212">내부상점</a>-->
             <a th:if="${@rq.login}" href="/usr/challenge/create" class="btn btn-sm btn-primary ml-4 mx-2 border-none" style="background-color: #03FA6E; color: #121212">챌린지 생성</a>
             <a th:if="${@rq.logout}" href="/usr/member/join" class="btn btn-sm btn-outline btn-accent mx-2" style="background-color: #121212; border-color: #03FA6E; color: #03FA6E">회원가입</a>
             <a th:if="${@rq.logout}" href="/usr/member/login" class="btn btn-sm bg-accent mx-2 border-none" style="background-color: #03FA6E; color: #121212">로그인</a>
 
-<!--            <a th:if="${@rq.login}" href="usr/member/me" class="badge badge-accent font-bold" th:text="${@rq.member.nickname}"></a>-->
-        <a href="/usr/member/me"
-           th:style="'color: #' + ${@rq.member.equippedFont.item.subPattern} +
+            <a href="/usr/member/me"
+                th:style="'color: #' + ${@rq.member.equippedFont.item.subPattern} +
                        '; background: #'+${@rq.member.equippedFont.item.pattern}+' !important'"
-           th:if="${@rq.login}"
-           class="btn btn-sm rounded-lg font-bold mx-2">MY PAGE
-        </a>
-        <a th:style="'color: #' + ${@rq.member.equippedFont.item.pattern == '3D4451' ? 'FFFFFF' : @rq.member.equippedFont.item.pattern }"
-           th:if="${@rq.login}"
-           th:text="${@rq.member.nickname}"></a>
+                th:if="${@rq.login}"
+                class="btn btn-sm rounded-lg font-bold mx-2">MY PAGE
+            </a>
+            <a th:style="'color: #' + ${@rq.member.equippedFont.item.pattern == '3D4451' ? 'FFFFFF' : @rq.member.equippedFont.item.pattern }"
+                th:if="${@rq.login}"
+                th:text="${@rq.member.nickname}"></a>
 
-        <form th:action="|/usr/member/logout|" method="post" class="m-0">
-            <button th:if="${@rq.login}" type="submit" class="btn btn-sm btn-ghost"
+            <form th:action="|/usr/member/logout|" method="post" class="m-0">
+                    <button th:if="${@rq.login}" type="submit" class="btn btn-sm btn-ghost"
                     style="background-color: #121212; color: #03FA6E;">로그아웃</button>
-        </form>
-
+            </form>
         </div>
     </div>
 </nav>
