@@ -50,10 +50,6 @@
 - ![devchall__deva](https://github.com/Lion-Project15/DevChall/assets/39723465/885ba606-9166-4bde-9032-63ac5e8b9199)
 
 
-- 주요 엔티티 
-
-- [] 
-
 ## 사이트
 https://www.devchall.site/
 
@@ -100,6 +96,3 @@ https://www.devchall.site/
  2. 폰트 테마와 프로필 캐릭터 구매 가능
  3. 구매한 아이템들은 실제로 외부로 노출 가능, 사이트 내의 곳곳의 색상이 변경됨
     
-
-
-## 이슈 관련
