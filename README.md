@@ -54,6 +54,52 @@
 https://www.devchall.site/
 
 ##  💻  프로젝트 설명 (주요 기능)
+
+<table align="center">
+  <tr>
+    <th><code>메인 페이지</code></th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/f91485b8-ce47-4062-991e-e7064137cd75" width="540" alt="메인 페이지"/></td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <th><code>챌린지 생성, 참여</code></th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/419f632a-bab7-4d31-a0f0-fb94fd549605" width="540" alt="챌린지 생성, 참여"/></td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <th><code>챌린지 인증</code></th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/30dca25c-76bf-4e68-a795-2f749ce02938" width="540" alt="챌린지 인증"/></td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <th><code>마이페이지</code></th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/8b38ef9d-58a5-4940-89af-e66f797f8114" width="540" alt="마이페이지"/></td>
+  </tr>
+</table>
+
+<table align="center">
+  <tr>
+    <th><code>내부 상점</code></th>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/1915340f-cb8a-491f-bc10-74389206c2f9" width="540" alt="내부 상점"/></td>
+  </tr>
+</table>
+
 회원가입/로그인
  1. 기본 회원가입 및 로그인
  2. 소셜 (네이버, 카카오) 회원가입 및 로그인
